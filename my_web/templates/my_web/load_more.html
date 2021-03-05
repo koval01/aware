@@ -1,0 +1,35 @@
+{% load static %}
+
+{# Шаблон для генерації стрічки записів на головній сторінці сайту #}
+
+
+{% for el in posts %}
+    {% if 100|get_randint > 60 %}
+        <div class="col-12 col-lg-12 padding-block-center-box" id="1:{{ 16|get_random_string }}">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+                <div style="width: calc(100% - 90px); float: left; ">
+                    <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                    <label class="username" id="1:{{ 12|get_random_string }}">Пользовательская запись</label><br>
+                    <label class="city"><i title="Текст который написал пользователь">{{ el.user_text }}</i><b title="Текст который написал бот">{{ el.bot_text }}</b><br><br/><i><u>Опубликовано {{ el.time_field }} (UTC)</u></i></label><br>
+                    <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.id }}" id="1:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% for el in news %}
+        {% if 1000|get_randint > 995 %}
+            <div class="col-12 col-lg-12 padding-block-center-box" id="4:{{ 16|get_random_string }}">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+                    <div style="width: calc(100% - 90px); float: left; ">
+                        <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                        <label class="username" id="4:{{ 12|get_random_string }}">Случайная новость</label><br>
+                        <label class="city"><b style="font-size: 14px">{{ el.0 }}</b><br/><i>{{ el.1 }}</i><br><br><b>Источник - <a href="{{ el.4 }}">{{ el.2 }}</a></b><br><i><u>Опубликовано {{ el.3 }} (UTC)</u></i></label><br><br>
+                        <a style="font-size: 12px;" href="{% url 'index_page' %}" id="4:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}

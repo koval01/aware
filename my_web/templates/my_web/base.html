@@ -1,0 +1,70 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="og:description" content="{% block og_desc %}{% endblock %}">
+        <meta name="og:url" content="https://www.q-writer.com{% block url_path %}{% endblock %}">
+        <meta name="og:site_name" content="Q-Writer">
+        <meta name="og:locale" content="ru_RU">
+        <meta name="theme-color" content="#202124">
+        <meta name="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:description" content="{% block twitter_desc %}{% endblock %}">
+        <meta name="twitter:image:src" content="https://www.q-writer.com/logo-dark.png">
+        <meta name="keywords" content="сайт, веб сайт, слово, истроия, текст, свобода, соц сеть, сеть, социальная, социалная сеть, пост, посты, рассказ, фантазия, публикации">
+        <meta name="author" content="Koval Yaroslav">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <script src="{% static 'my_web/js/lazysizes.min.js' %}"></script>
+        <script src="{% static 'my_web/js/jquery.min.js' %}"></script>
+        <script src="{% static 'my_web/js/popper.min.js' %}"></script>
+        <script src="{% static 'my_web/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'my_web/js/aos.js' %}"></script>
+        <script defer src="{% static 'my_web/fontawesome-pro-5.13.0-web/js/all.min.js' %}"></script>
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a43f81414bd94c4082a94d93d4d00e72"}'></script>
+        <link href="{% static 'my_web/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'my_web/fontawesome-pro-5.13.0-web/css/all.min.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'my_web/images/favicon.ico' %}"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'my_web/images/favicon.ico' %}"/>
+        <link href="{% static 'my_web/css/aos.css' %}" rel="stylesheet">
+        <link href="{% static 'my_web/css/main_page.css' %}" rel="stylesheet">
+        <title>{% block title %}{% endblock %}</title>
+        <style>
+            #h_butt {
+                visibility: hidden;
+            }
+            .center-block {
+                display: table;
+                margin: 0 auto;
+            }
+            .padding-block-center-box {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        </style>
+    </head>
+    <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+    <div class="container">
+    <div class="map_search_box">
+        <a href="#topSite" class="scroll-to menu_home" id="h_butt">
+            <i class="fas fa-home"></i>
+        </a>
+        <div class="header_content">
+            <label class="header_title">{% block title_header %}{% endblock %}</label>
+        </div>
+    </div>
+    <div class="float_bg" style="display: none"></div>
+    <br><br>
+    <div class="row" id="row-box-1">
+            {% block content %}
+            {% endblock %}
+<br>
+            </div>
+<br><br><br>
+</div>
+</body>
+{% block js_module %}
+{% endblock %}
+</html>

@@ -1,0 +1,12 @@
+django
+django-heroku
+django_compressor
+gunicorn
+pip
+setuptools
+wheel
+requests
+sentry_sdk
+django-cors-headers
+mysqlclient
+whitenoise

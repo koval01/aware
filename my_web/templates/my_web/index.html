@@ -1,0 +1,40 @@
+{% extends 'my_web/base.html' %}
+
+{% block title %}
+QWriter - Главная страница
+{% endblock %}
+
+{% block title_header %}
+QWriter
+{% endblock %}
+
+{% block og_desc %}
+Сайт, который не ограничивает твою фантазию. Придумывай истории и делись ними со всеми. Здесь нет цензуры и ограничений.
+{% endblock %}
+
+{% block twitter_desc %}
+Сайт, который не ограничивает твою фантазию. Придумывай истории и делись ними со всеми. Здесь нет цензуры и ограничений.
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <img style="image-rendering: pixelated; filter: invert(80%); width: 60px; height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+            <div style="width: calc(100% - 90px); float: left; ">
+                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                <label class="username">Информация</label><br>
+                <label class="city"><b>Привет! Ты попал(-а) на сайт <a href="{% url 'index_page' %}">q-writer.com</a>. Сайт работает в паре с <a href="https://telegram.org">Телеграм</a> ботом <a href="https://t.me/QWriter_bot">QWriter</a>. С помощью этого бота можно сочинять разные истории, все эти истории попадают на этот сайт, в этот список. Любой желающий может просмотреть этот список. Тонким шрифтом обозначен текст который отправил боту пользователь, а жирным который дописал сам бот. Если вы выделите текст, то вам будет предложено опубликовать его в Twitter. (Поддерживается не всеми мобильными браузерами). Если вы увидели оскорбительное или бессмысленное сообщение на сайте, то отправьте ссылку на него администратору сайта. Почитать подробнее о проекте вы можете на странице - <a href="{% url 'info_page' %}">О проекте</a></b><br><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label><br>
+                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
+            </div>
+        </div>
+    </div>
+    <div class="row-posts-end"></div><br><button style="margin:0 auto;display:block;background-color:#121213;" class="btn load-more-end-butt">Загрузить еще&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
+{% endblock %}
+
+{% block js_module %}
+    <script type="text/javascript">
+        if(window.location.search<2){function load_ajax_end_page(){const o=$(".load-more-end-butt"),t=o.find("span");$.ajax({url:"{% url 'load_more' %}",type:"POST",data:{csrfmiddlewaretoken:'{% csrf_token %}'.substr(55, 64)},beforeSend:function(){o.attr("disabled",!0),t.addClass("d-inline-block"),AOS.init()},success:function(e){o.attr("disabled",!1),t.removeClass("d-inline-block"),"Ошибка валидации!"==e?alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу."):$(".row-posts-end").before(e),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()})},error:function(){alert("Ошибка. Не удалось получить ответ от сервера. Попробуйте перезагрузить страницу."),o.attr("disabled",!1),t.removeClass("d-inline-block")}})}function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(window).scroll(function(){$(window).scrollTop()==$(document).height()-$(window).height()&&setTimeout(function(){$(window).scrollTop()==$(document).height()-$(window).height()&&load_ajax_end_page()},100)}),$(document).ready(function(){load_ajax_end_page()}),$(".load-more-end-butt").on("click",function(){load_ajax_end_page()}),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$("a.scroll-to").on("click",function(o){o.preventDefault();var t=$(this).attr("href");$("html, body").stop().animate({scrollTop:$(t).offset().top-60},900)}),$(window).scroll(function(){home_button=document.getElementById("h_butt"),1e3<$(window).scrollTop()?home_button.style.visibility="visible":home_button.style.visibility="hidden"}),$(document).on("click",function(o){$(o.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}else{function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(document).on("click",function(o){$(o.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}
+    </script>
+{% endblock %}
+

@@ -9,4 +9,5 @@ requests
 sentry_sdk
 django-cors-headers
 mysqlclient
+pymysql
 whitenoise

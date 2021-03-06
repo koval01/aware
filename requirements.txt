@@ -11,3 +11,4 @@ django-cors-headers
 mysqlclient
 pymysql
 whitenoise
+python-dotenv

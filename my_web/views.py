@@ -13,72 +13,137 @@ logger = logging.getLogger(__name__)
 
 @register.filter
 def get_range(value):
-    logger.info(f'func get_range: val {value}')
+    """
+    Random range value generator functiontion
+    :param value: Input max value
+    :return: Output random range value
+    """
+    logger.info(f'function get_range: val {value}')
     return randrange(1, value)
 
 
 @register.filter
 def get_randint(value):
-    logger.info(f'func get_randint: val {value}')
+    """
+    Random integer function
+    :param value: Input max random value
+    :return: Random value result
+    """
+    logger.info(f'function get_randint: val {value}')
     return randint(1, value)
 
 
 @register.filter
 def get_range_list(value):
-    logger.info(f'func get_range_list: val {value}')
+    """
+    Set range value function
+    :param value: Some value set
+    :return: Output result
+    """
+    logger.info(f'function get_range_list: val {value}')
     return range(value)
 
 
 @register.filter
 def cut_text(string):
-    logger.info(f'func cut_text: string {string}')
+    """
+    String cut function (256 symbols)
+    :param string: String for cut
+    :return: Cut string result
+    """
+    logger.info(f'function cut_text: string {string}')
     return string[:256]+'...'
 
 
 @register.filter
 def get_item(item):
-    logger.info(f'func get_item: string {item}')
+    """
+    Print data from template function
+    :param item: Input data
+    :return: return print data
+    """
+    logger.info(f'function get_item: string {item}')
     return print(item)
 
 
 @register.filter
 def get_random_string(length = 16):
+    """
+    Random string generator function
+    :param length: length string
+    :return: generated string
+    """
     letters = string.ascii_letters + string.digits
     result_str = ''.join(choice(letters) for i in range(length))
     return result_str
 
 
 def index(request):
-    logger.info(f'func index: request {request}')
+    """
+    Index page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', )
 
 
 def status(request):
-    logger.info(f'func index: request {request}')
+    """
+    Status page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function index: request {request}')
     return render(request, 'my_web/status.html', )
 
 
 def botpage(request):
-    logger.info(f'func index: request {request}')
+    """
+    Bot info page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function index: request {request}')
     return render(request, 'my_web/botpage.html', )
 
 
 def info(request):
-    logger.info(f'func info: request {request}')
+    """
+    Info site page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function info: request {request}')
     info_pages = Info.objects.order_by('-id')[:50]
     return render(request, 'my_web/info.html', {'infoget': info_pages},)
 
 
 def postview_(request):
+    """
+    Post not found page view
+    :param request: request body
+    :return: render template page
+    """
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
 
 
 def quoteview_(request):
+    """
+    Quote not found page view
+    :param request: request body
+    :return: render template page
+    """
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
 
 
 def postview(request, postid):
-    logger.info(f'func postview: request {request}; postid {postid}')
+    """
+    Post page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function postview: request {request}; postid {postid}')
     try:
         postid: request.GET.get('postid', '')
         for p in Post.objects.raw('SELECT * FROM my_web_post WHERE id = {} LIMIT 1'.format(postid)):
@@ -92,7 +157,12 @@ def postview(request, postid):
 
 
 def quoteview(request, quoteid):
-    logger.info(f'func quoteview: request {request}; quoteid {quoteid}')
+    """
+    Quote page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function quoteview: request {request}; quoteid {quoteid}')
     try:
         postid: request.GET.get('postid', '')
         for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE id = {} LIMIT 1'.format(quoteid)):
@@ -106,7 +176,12 @@ def quoteview(request, quoteid):
 
 
 def factview(request, factid):
-    logger.info(f'func factview: request {request}; factid {factid}')
+    """
+    Fact page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function factview: request {request}; factid {factid}')
     try:
         factid: request.GET.get('factid', '')
         for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE id = {} LIMIT 1'.format(factid)):
@@ -120,7 +195,12 @@ def factview(request, factid):
 
 
 def infoview(request, infoid):
-    logger.info(f'func infoview: request {request}; infoid {infoid}')
+    """
+    Info page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function infoview: request {request}; infoid {infoid}')
     try:
         infoid: request.GET.get('infoid', '')
         for i in Info.objects.raw('SELECT * FROM my_web_info WHERE id = {} LIMIT 1'.format(infoid)):
@@ -134,7 +214,12 @@ def infoview(request, infoid):
 
 
 def stats(request):
-    logger.info(f'func stats: request {request}')
+    """
+    Statistics page view
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function stats: request {request}')
     try:
         for s in Statistic.objects.raw('SELECT * FROM my_web_statistic LIMIT 1'):
             stat = s
@@ -145,8 +230,13 @@ def stats(request):
 
 
 def load_more(request):
+    """
+    Technical (load_more) page view
+    :param request: request body
+    :return: render template page
+    """
     if request.POST:
-        logger.info(f'func load_more: request {request}')
+        logger.info(f'function load_more: request {request}')
         posts = Post.objects.order_by('?')[:15]
         quotes = Quote.objects.order_by('?')[:8]
         facts = Facts.objects.order_by('?')[:8]
@@ -157,15 +247,30 @@ def load_more(request):
 
 
 def error_400(request, exception):
+    """
+    400 error handler page view
+    :param request: request body
+    :return: render template page
+    """
     logger.warning(exception)
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
 
 
 def error_403(request, exception):
+    """
+    403 error handler page view
+    :param request: request body
+    :return: render template page
+    """
     logger.warning(exception)
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, )
 
 
 def error_404(request, exception):
+    """
+    404 error handler page view
+    :param request: request body
+    :return: render template page
+    """
     logger.warning(exception)
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )

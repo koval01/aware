@@ -38,6 +38,7 @@ def __main__() -> list:
                         el['source']['name'],
                         time_field,
                         el['url'],
+                        el['urlToImage'],
                     ]
                     data_array.append(data_array_pre)
                 logging.debug(f'Successfully loaded news. (Token: {rand_token})')
@@ -47,7 +48,7 @@ def __main__() -> list:
             logging.error(f'Error http: {error_http}; Error json: {error_json};')
     else:
         logging.debug('The news feed was not released because not enough was dropped.')
-    return [['' for x in range(5)] for y in range(20)]
+    return [['' for x in range(6)] for y in range(20)]
 
 
 def __test__():

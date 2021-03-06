@@ -64,7 +64,12 @@
                     <div style="width: calc(100% - 90px); float: left; ">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                         <label class="username" id="{{ 12|get_random_string }}">Случайная новость</label><br>
-                        <label class="city"><b style="font-size: 14px">{{ el.4.0 }}</b><br/><i>{{ el.4.1 }}</i><br><br><b>Источник - <a href="{{ el.4.4 }}">{{ el.4.2 }}</a></b><br><i><u>Опубликовано {{ el.4.3 }} (UTC)</u></i></label><br><br>
+                        <label class="city">
+                            {% if el.4.5 %}
+                                <img id="{{ 16|get_random_string }}" src="{{ el.4.5 }}" class="rounded mx-auto d-block" style="width:100%;margin: 2%;" alt="Обложка новостного блока">
+                            {% endif %}
+                            <b id="{{ 12|get_random_string }}" style="font-size: 14px">{{ el.4.0 }}</b><br/><i id="{{ 12|get_random_string }}">{{ el.4.1 }}</i><br><br><b id="{{ 12|get_random_string }}">Источник - <a id="{{ 12|get_random_string }}" href="{{ el.4.4 }}">{{ el.4.2 }}</a></b><br><i><u id="{{ 12|get_random_string }}">Опубликовано {{ el.4.3 }} (UTC)</u></i>
+                        </label><br><br>
                         <a style="font-size: 12px;" href="{% url 'index_page' %}" id="{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>

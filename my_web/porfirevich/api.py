@@ -38,6 +38,31 @@ def __main__() -> list:
         logging.error(f'Error http: {error_http}; Error json: {error_json};')
 
 
+def get_story(story_id) -> str:
+    error_http=False;error_json=False
+    headers = {"user-agent": USER_AGENT}
+    url = 'https://porfirevich.ru/api/story/'+story_id
+    try:
+        http_response = get(url, headers=headers)
+    except exceptions.RequestException:
+        error_http = True
+    if not error_http:
+        json_response = loads(http_response.text)
+        if not len(json_response['id']): error_json = True
+        if not error_json:
+            text = decode_story_string(json_response['content'])
+            if error_check_code not in text:
+                time_field = datetime.fromisoformat(str(json_response['createdAt'])[:-5])
+                d_ = time_field.strftime("%d %B %Y г. %H:%M")
+                time_field = month_convert(d_)
+                likes = json_response['likesCount']
+                id = json_response['id']
+            logging.info('Successfully loaded profirevich story.')
+            return text, time_field, likes, id
+    if error_http or error_json:
+        logging.error(f'Error http: {error_http}; Error json: {error_json};')
+
+
 def prepare_data(data) -> list:
     """
     Data preparation

@@ -8,7 +8,7 @@ wheel
 requests
 sentry_sdk
 django-cors-headers
-mysqlclient
+# mysqlclient
 pymysql
 whitenoise
 python-dotenv

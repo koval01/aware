@@ -47,7 +47,7 @@ def __main__() -> list:
             logging.error(f'Error http: {error_http}; Error json: {error_json};')
     else:
         logging.debug('The news feed was not released because not enough was dropped.')
-    return [['', '', '', '', '']]
+    return [['' for x in range(5)] for y in range(20)]
 
 
 def __test__():

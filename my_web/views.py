@@ -239,9 +239,9 @@ def load_more(request):
     if request.POST:
         logger.info(f'function load_more: request {request}')
         stories = porfirevich_strory()
-        posts = Post.objects.order_by('?')[:15]
-        quotes = Quote.objects.order_by('?')[:15]
-        facts = Facts.objects.order_by('?')[:15]
+        posts = Post.objects.order_by('?')[:20]
+        quotes = Quote.objects.order_by('?')[:20]
+        facts = Facts.objects.order_by('?')[:20]
         news = newsfeed()
         data = zip(stories, posts, quotes, facts, news)
         return render(request, 'my_web/load_more.html', {'data': data})

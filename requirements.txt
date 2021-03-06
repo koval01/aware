@@ -12,3 +12,4 @@ django-cors-headers
 pymysql
 whitenoise
 python-dotenv
+cryptography

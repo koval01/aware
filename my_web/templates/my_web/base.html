@@ -21,11 +21,11 @@
         <script src="{% static 'my_web/js/jquery.min.js' %}"></script>
         <script src="{% static 'my_web/js/popper.min.js' %}"></script>
         <script src="{% static 'my_web/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'my_web/js/aos.js' %}"></script>
-        <script defer src="{% static 'my_web/fontawesome/js/all.min.js' %}"></script>
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a43f81414bd94c4082a94d93d4d00e72"}'></script>
+	<script src="{% static 'my_web/js/aos.js' %}"></script>
+	<script defer src="{% static 'my_web/fontawesome-pro-5.13.0-web/js/all.min.js' %}"></script>
+	<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a43f81414bd94c4082a94d93d4d00e72"}'></script>
         <link href="{% static 'my_web/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link href="{% static 'my_web/fontawesome/css/all.min.css' %}" rel="stylesheet">
+        <link href="{% static 'my_web/fontawesome-pro-5.13.0-web/css/all.min.css' %}" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'my_web/images/favicon.ico' %}"/>
         <link rel="icon" type="image/x-icon" href="{% static 'my_web/images/favicon.ico' %}"/>
         <link href="{% static 'my_web/css/aos.css' %}" rel="stylesheet">
@@ -54,6 +54,51 @@
         <div class="header_content">
             <label class="header_title">{% block title_header %}{% endblock %}</label>
         </div>
+        <div class="dropdowncustom1">
+            <i class="fas fa-compass" onclick="onMenuClicked()"></i>
+        </div>
+    </div>
+    <div class="menu_box" style="display: none;">
+        <a href="{% url 'index_page' %}" >
+            <div class="menu_item menu_item_first">
+                <label>Главная</label>
+                <div class="icon_container">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'status_page' %}">
+            <div class="menu_item menu_item_last">
+                <label>Статус</label>
+                <div class="icon_container">
+                    <i class="fa fa-calendar"></i>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'stats_page' %}">
+            <div class="menu_item menu_item_last">
+                <label>Статистика</label>
+                <div class="icon_container">
+                    <i class="fas fa-signal"></i>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'bot_page' %}" >
+            <div class="menu_item menu_item_last">
+                <label>Бот</label>
+                <div class="icon_container">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+            </div>
+        </a>
+        <a href="{% url 'info_page' %}" >
+            <div class="menu_item menu_item_last">
+                <label>Блог</label>
+                <div class="icon_container">
+                    <i class="fas fa-info"></i>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="float_bg" style="display: none"></div>
     <br><br>

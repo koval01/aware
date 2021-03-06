@@ -2,21 +2,52 @@
 
 {# Шаблон для генерації стрічки записів на головній сторінці сайту #}
 
-
-{% for el in posts %}
-    {% if 100|get_randint > 60 %}
-        <div class="col-12 col-lg-12 padding-block-center-box" id="1:{{ 16|get_random_string }}">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-                <div style="width: calc(100% - 90px); float: left; ">
-                    <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username" id="1:{{ 12|get_random_string }}">Пользовательская запись</label><br>
-                    <label class="city"><i title="Текст который написал пользователь">{{ el.user_text }}</i><b title="Текст который написал бот">{{ el.bot_text }}</b><br><br/><i><u>Опубликовано {{ el.time_field }} (UTC)</u></i></label><br>
-                    <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.id }}" id="1:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+{% for i in 12|get_range_list %}
+    {% for el in posts %}
+        {% if 100|get_randint > 90 %}
+            <div class="col-12 col-lg-12 padding-block-center-box" id="1:{{ 16|get_random_string }}">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+                    <div style="width: calc(100% - 90px); float: left; ">
+                        <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                        <label class="username" id="1:{{ 12|get_random_string }}">Пользовательская запись</label><br>
+                        <label class="city"><i title="Текст который написал пользователь">{{ el.user_text }}</i><b title="Текст который написал бот">{{ el.bot_text }}</b><br><br/><i><u>Опубликовано {{ el.time_field }} (UTC)</u></i></label><br>
+                        <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.id }}" id="1:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% for el in quotes %}
+        {% if 100|get_randint > 96 %}
+            <div class="col-12 col-lg-12 padding-block-center-box" id="2:{{ 16|get_random_string }}">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+                    <div style="width: calc(100% - 90px); float: left; ">
+                        <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                        <label class="username" id="2:{{ 12|get_random_string }}">Случайная цитата</label><br>
+                        <label class="city"><i>„{{ el.q_text }}“</i><br><br><b>{{ el.q_author }}</b></label><br>
+                        <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.id }}" id="2:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% for el in facts %}
+        {% if 100|get_randint > 96 %}
+            <div class="col-12 col-lg-12 padding-block-center-box" id="3:{{ 16|get_random_string }}">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+                    <div style="width: calc(100% - 90px); float: left; ">
+                        <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                        <label class="username" id="3:{{ 12|get_random_string }}">Случайный факт</label><br>
+                        <label class="city"><i>{{ el.f_text }}</i><br></label><br><br>
+                        <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.id }}" id="3:{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
     {% for el in news %}
         {% if 1000|get_randint > 995 %}
             <div class="col-12 col-lg-12 padding-block-center-box" id="4:{{ 16|get_random_string }}">

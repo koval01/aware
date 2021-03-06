@@ -1,0 +1,52 @@
+{% extends 'my_web/base.html' %}
+
+{% block title %}
+QWriter - {{ infotitle }}
+{% endblock %}
+
+{% block title_header %}
+QWriter
+{% endblock %}
+
+{% block url_path %}
+{% url 'info_page' %}{{ infoget.id }}
+{% endblock %}
+
+{% block og_desc %}
+{{ infoget.i_text }}
+{% endblock %}
+
+{% block twitter_desc %}
+{{ infoget.i_text }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+            <div style="width: calc(100% - 90px); float: left; ">
+                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                <label class="username">{{ infotitle }}</label><br/>
+                <label class="city"><i>{{ infoget.i_text }}</i><br/><br/><p>Последнее редактирование - {{ infoget.i_time }}</p><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label></label>
+                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
+            <div style="width: calc(100% - 90px); float: left; ">
+                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
+                <label class="username">Подсказка </label><br>
+                <label class="city"><b>Сейчас Вы видите контент, который соответствует адресу по которому Вы перешли.</b></label><br>
+                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_module %}
+{% include 'my_web/standart_js.html' %}
+{% endblock %}
+

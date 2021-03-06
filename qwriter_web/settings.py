@@ -24,17 +24,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
     LOG_HANDLERS = ['console']
+    DB_PASS = 'root'
 
 else:
     ALLOWED_HOSTS = ['www.q-writer.com']
     LOG_HANDLERS = ['console', 'file']
     SECURE_SSL_REDIRECT = True
+    DB_PASS = os.environ['DB_PASS']
 
 
 NEWSAPI_TOKEN = [
@@ -99,23 +101,23 @@ WSGI_APPLICATION = 'qwriter_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'qwriter_database',
-#         'USER': 'root',
-#         'PASSWORD': DB_PASS,
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'qwriter_database',
+        'USER': 'root',
+        'PASSWORD': DB_PASS,
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+}
 
 
 # Password validation
@@ -209,7 +211,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, './my_web/static'),
+    os.path.join(BASE_DIR, '../my_web/static'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

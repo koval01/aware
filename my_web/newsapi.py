@@ -10,7 +10,7 @@ import logging
 
 token = settings.NEWSAPI_TOKEN
 
-def __main__():
+def __main__() -> list:
     if randint(0, 100) > 70:
         error_http=False;error_json=False
         url = 'https://rapid-art.koval.workers.dev/'
@@ -47,6 +47,7 @@ def __main__():
             logging.error(f'Error http: {error_http}; Error json: {error_json};')
     else:
         logging.debug('The news feed was not released because not enough was dropped.')
+    return [['', '', '', '', '']]
 
 
 def __test__():

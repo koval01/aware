@@ -4,6 +4,7 @@ from django.shortcuts import render
 from random import randrange, randint, choice
 from .models import Post, Quote, Facts, Info, Statistic
 from .newsapi import __main__ as newsfeed
+from .porfirevich.api import __main__ as porfirevich_strory
 import logging
 import string
 
@@ -237,11 +238,13 @@ def load_more(request):
     """
     if request.POST:
         logger.info(f'function load_more: request {request}')
+        stories = porfirevich_strory()
         posts = Post.objects.order_by('?')[:15]
-        quotes = Quote.objects.order_by('?')[:8]
-        facts = Facts.objects.order_by('?')[:8]
+        quotes = Quote.objects.order_by('?')[:15]
+        facts = Facts.objects.order_by('?')[:15]
         news = newsfeed()
-        return render(request, 'my_web/load_more.html', {'posts': posts, 'quotes': quotes, 'facts': facts, 'news': news},)
+        data = zip(stories, posts, quotes, facts, news)
+        return render(request, 'my_web/load_more.html', {'data': data})
     else:
         return HttpResponseForbidden()
 

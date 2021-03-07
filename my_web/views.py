@@ -65,24 +65,26 @@ def get_item(item) -> print:
 
 
 @register.filter
-def get_random_string(length) -> str:
+def get_random_string(length=16) -> str:
     """
     Random string generator function
     :param length: length string
     :return: generated string
     """
-    letters = string.ascii_letters + string.digits
-    result_str = ''.join(choice(letters) for i in range(length))
-    return result_str
+    letters = string.ascii_letters + string.digits + '_-'
+    return ''.join(choice(letters) for i in range(length))
 
 
 @register.filter
-def get_id() -> str:
+def get_id(l) -> str:
     """
     Get id block
+    :param len: set len or random if len = 0
     :return: generated id
     """
-    return get_random_string(randint(12, 24))
+    if l: l = len
+    else: l = randint(16, 24)
+    return get_random_string(randint(12, l))
 
 def index(request):
     """

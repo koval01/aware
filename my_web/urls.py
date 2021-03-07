@@ -35,6 +35,7 @@ urlpatterns = [
     path('fact/<int:factid>/', views.factview),
     path('info/<int:infoid>/', views.infoview),
     path('story/<str:storyid>/', views.storyview),
+    path('image/', views.image_proxy_view, name='imageproxy'),
     path('sitemap_posts.xml', sitemap, {'sitemaps': sitemaps_posts},
          name='django.contrib.sitemaps.views.sitemap'),
     path('sitemap_quotes.xml', sitemap, {'sitemaps': sitemaps_quotes},

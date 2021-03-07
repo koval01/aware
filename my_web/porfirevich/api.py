@@ -20,7 +20,7 @@ def __main__() -> list:
         if not error_json:
             for el in json_response['data']:
                 text = decode_story_string(el['content'])
-                if error_check_code not in text:
+                if error_check_code not in text and len(text) < 20000:
                     time_field = datetime.fromisoformat(str(el['createdAt'])[:-5])
                     d_ = time_field.strftime("%d %B %Y г. %H:%M")
                     time_field = month_convert(d_)
@@ -51,13 +51,15 @@ def get_story(story_id) -> str:
         if not len(json_response['id']): error_json = True
         if not error_json:
             text = decode_story_string(json_response['content'])
-            if error_check_code not in text:
-                time_field = datetime.fromisoformat(str(json_response['createdAt'])[:-5])
-                d_ = time_field.strftime("%d %B %Y г. %H:%M")
-                time_field = month_convert(d_)
-                likes = json_response['likesCount']
-                id = json_response['id']
-            logging.info('Successfully loaded profirevich story.')
+            time_field = datetime.fromisoformat(str(json_response['createdAt'])[:-5])
+            d_ = time_field.strftime("%d %B %Y г. %H:%M")
+            time_field = month_convert(d_)
+            likes = json_response['likesCount']
+            id = json_response['id']
+            if error_check_code in text:
+                text = 'Эта запись не смогла пройти фильтрацию, поэтому её нельзя посмотреть.'
+            else:
+                logging.info('Successfully loaded profirevich story.')
             return text, time_field, likes, id
     if error_http or error_json:
         logging.error(f'Error http: {error_http}; Error json: {error_json};')

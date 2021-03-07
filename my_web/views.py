@@ -10,7 +10,7 @@ import logging, string
 
 
 @register.filter
-def get_range(value):
+def get_range(value) -> int:
     """
     Random range value generator functiontion
     :param value: Input max value
@@ -21,7 +21,7 @@ def get_range(value):
 
 
 @register.filter
-def get_randint(value):
+def get_randint(value) -> int:
     """
     Random integer function
     :param value: Input max random value
@@ -32,7 +32,7 @@ def get_randint(value):
 
 
 @register.filter
-def get_range_list(value):
+def get_range_list(value) -> range:
     """
     Set range value function
     :param value: Some value set
@@ -43,7 +43,7 @@ def get_range_list(value):
 
 
 @register.filter
-def cut_text(string):
+def cut_text(string) -> str:
     """
     String cut function (256 symbols)
     :param string: String for cut
@@ -54,7 +54,7 @@ def cut_text(string):
 
 
 @register.filter
-def get_item(item):
+def get_item(item) -> print:
     """
     Print data from template function
     :param item: Input data
@@ -65,7 +65,7 @@ def get_item(item):
 
 
 @register.filter
-def get_random_string(length = 16):
+def get_random_string(length) -> str:
     """
     Random string generator function
     :param length: length string
@@ -75,6 +75,14 @@ def get_random_string(length = 16):
     result_str = ''.join(choice(letters) for i in range(length))
     return result_str
 
+
+@register.filter
+def get_id() -> str:
+    """
+    Get id block
+    :return: generated id
+    """
+    return get_random_string(randint(12, 24))
 
 def index(request):
     """

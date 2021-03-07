@@ -5,67 +5,67 @@
 
 {% for el in data %}
     {% if 100|get_randint > 50 %}
-        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ 16|get_random_string }}">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ get_id }}">
+            <div class="user box aos-init aos-animate" data-aos="fade-up" id="{{ get_id }}">
                 <div style="float: left;">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username" id="{{ 12|get_random_string }}">Пользовательская запись</label><br>
-                    <label class="city">{{ el.0.0|safe }}<br/><b>❤️ {{ el.0.2 }}</b><br/></b><i><u>Опубликовано {{ el.0.1 }} (UTC)</u></i></label><br>
-                    <a style="font-size: 12px;" href="{% url 'storyaddr' %}{{ el.0.3 }}" id="{{ 8|get_random_string }}"><b>История Порфирьевича</b></a><br>
+                    <label class="username" id="{{ get_id }}">Пользовательская запись</label><br>
+                    <label class="city">{{ el.0.0|safe }}<br/><b id="{{ get_id }}">❤️ {{ el.0.2 }}</b><br/></b id="{{ get_id }}"><i><u id="{{ get_id }}">Опубликовано {{ el.0.1 }} (UTC)</u></i></label><br>
+                    <a style="font-size: 12px;" href="{% url 'storyaddr' %}{{ el.0.3 }}" id="{{ get_id }}"><b>История Порфирьевича</b></a><br>
                 </div>
             </div>
         </div>
     {% endif %}
     {% if 100|get_randint > 90 %}
-        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ 16|get_random_string }}">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ get_id }}">
+            <div class="user box aos-init aos-animate" data-aos="fade-up" id="{{ get_id }}">
                 <div style="float: left;">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username" id="{{ 12|get_random_string }}">Пользовательская запись</label><br>
+                    <label class="username" id="{{ get_id }}">Пользовательская запись</label><br>
                     <label class="city"><i title="Текст который написал пользователь">{{ el.1.user_text }}</i><b title="Текст который написал бот">{{ el.1.bot_text }}</b><br><br/><i><u>Опубликовано {{ el.1.time_field }} (UTC)</u></i></label><br>
-                    <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.1.id }}" id="{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.1.id }}" id="{{ get_id }}"><b>q-writer.com</b></a><br>
                 </div>
             </div>
         </div>
     {% endif %}
     {% if 100|get_randint > 70 %}
-        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ 16|get_random_string }}">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ get_id }}">
+            <div class="user box aos-init aos-animate" data-aos="fade-up" id="{{ get_id }}">
                 <div style="float: left;">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username" id="{{ 12|get_random_string }}">Случайная цитата</label><br>
+                    <label class="username" id="{{ get_id }}">Случайная цитата</label><br>
                     <label class="city"><i>„{{ el.2.q_text }}“</i><br><br><b>{{ el.2.q_author }}</b></label><br>
-                    <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.2.id }}" id="{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.2.id }}" id="{{ get_id }}"><b>q-writer.com</b></a><br>
                 </div>
             </div>
         </div>
     {% endif %}
     {% if 100|get_randint > 70 %}
-        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ 16|get_random_string }}">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div class="col-12 col-lg-12 padding-block-center-box" id="{{ get_id }}">
+            <div class="user box aos-init aos-animate" data-aos="fade-up" id="{{ get_id }}">
                 <div style="float: left;">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username" id="{{ 12|get_random_string }}">Случайный факт</label><br>
+                    <label class="username" id="{{ get_id }}">Случайный факт</label><br>
                     <label class="city"><i>{{ el.3.f_text }}</i><br></label><br><br>
-                    <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.3.id }}" id="{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                    <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.3.id }}" id="{{ get_id }}"><b>q-writer.com</b></a><br>
                 </div>
             </div>
         </div>
     {% endif %}
     {% if 100|get_randint > 96 %}
         {% if el.4.0 %}
-            <div class="col-12 col-lg-12 padding-block-center-box" id="{{ 16|get_random_string }}">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <div class="col-12 col-lg-12 padding-block-center-box" id="{{ get_id }}">
+                <div class="user box aos-init aos-animate" data-aos="fade-up" id="{{ get_id }}">
                     <div style="float: left;">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                        <label class="username" id="{{ 12|get_random_string }}">Случайная новость</label><br>
+                        <label class="username" id="{{ get_id }}">Случайная новость</label><br>
                         <label class="city">
                             {% if el.4.5 %}
-                                <img id="{{ 16|get_random_string }}" src="{{ el.4.5 }}" class="photohub_item" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                <img id="{{ get_id }}" src="{{ el.4.5 }}" class="photohub_item" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                             {% endif %}
-                            <b id="{{ 12|get_random_string }}" style="font-size: 14px">{{ el.4.0 }}</b><br/><i id="{{ 12|get_random_string }}">{{ el.4.1 }}</i><br><br><b id="{{ 12|get_random_string }}">Источник - <a id="{{ 12|get_random_string }}" href="{{ el.4.4 }}">{{ el.4.2 }}</a></b><br><i><u id="{{ 12|get_random_string }}">Опубликовано {{ el.4.3 }} (UTC)</u></i>
+                            <b id="{{ get_id }}" style="font-size: 14px">{{ el.4.0 }}</b><br/><i id="{{ get_id }}">{{ el.4.1 }}</i><br><br><b id="{{ get_id }}">Источник - <a id="{{ get_id }}" href="{{ el.4.4 }}">{{ el.4.2 }}</a></b><br><i><u id="{{ get_id }}">Опубликовано {{ el.4.3 }} (UTC)</u></i>
                         </label><br><br>
-                        <a style="font-size: 12px;" href="{% url 'index_page' %}" id="{{ 8|get_random_string }}"><b>q-writer.com</b></a><br>
+                        <a style="font-size: 12px;" href="{% url 'index_page' %}" id="{{ get_id }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>
             </div>

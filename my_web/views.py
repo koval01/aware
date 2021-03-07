@@ -6,6 +6,7 @@ from .models import Post, Quote, Facts, Info, Statistic
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
 from .porfirevich.api import get_story as get_story_porfirevich
+from .porfirevich.api import cleanhtml
 from .link_analyze import link_image as img_link_check
 from cryptography.fernet import Fernet
 from time import time
@@ -236,12 +237,15 @@ def storyview(request, storyid):
             return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
 
         text, time, likes, id_s = get_story_porfirevich(storyid)
-        title = text
+        t = cleanhtml(text)
+        title = t;short_text = t
         if len(text) > 64:
             title = title[:64] + '...'
+        if len(text) > 1000:
+            short_text = short_text[:1000] + '...'
         return render(request, 'my_web/storyview.html', {
             'text': text, 'title': title, 'time': time,
-            'likes': likes, 'id_s': id_s
+            'likes': likes, 'id_s': id_s, 'short_text': short_text
         })
     except Exception as e:
         logger.error(e)

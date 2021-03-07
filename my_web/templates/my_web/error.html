@@ -20,8 +20,7 @@ QWriter
 {% load static %}
     <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-                <div style="width: calc(100% - 90px); float: left; ">
+                <div style="float: left; ">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                     <label class="username">Очень креативная запись</label><br>
                     <label class="city"><i title="Текст который написал не пользователь и не бот">Извини, запись не удалось получить, наверное это ошибка сервера, ну или твоя. Проверь пожалуйста адрес страницы. Информация о ошибке: </i><b>{{ exception }}</b><br><i><u>Опубликовано Сейчас (UTC)</u></i></label><br>

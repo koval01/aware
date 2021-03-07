@@ -24,8 +24,7 @@ QWriter
 {% load static %}
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <img style="image-rendering: pixelated; filter: invert(80%); width: 60px; height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-            <div style="width: calc(100% - 90px); float: left; ">
+            <div style="float: left; ">
                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                 <label class="username">Информация</label><br>
                 <label class="city"><b>На данной странице отображаются только те записи, которые ещё актуальны. Перейти к старым записям можно по ссылке или найдя её через поисковую систему Google.</b></label><br>
@@ -39,8 +38,7 @@ QWriter
                 {% with info_text=info_text|cut_text %}
                     <div class="col-12 col-lg-12 padding-block-center-box">
                         <div class="user box aos-init aos-animate" data-aos="fade-up">
-                            <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-                            <div style="width: calc(100% - 90px); float: left; ">
+                            <div style="float: left; ">
                                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                                 <label class="username">{{ el.i_title }}</label><br/>
                                 <label class="city"><i>{{ info_text }}</i><a style="font-size: 12px;" href="{% url 'info_page' %}{{ el.id }}"><b>Читать полностью</b></a><br/><br/><p>Последнее редактирование - {{ el.i_time }}</p><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label></label><br/>
@@ -52,8 +50,7 @@ QWriter
             {% else %}
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
-                        <img style="image-rendering: pixelated; width: 60px; filter: invert(80%); height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-                        <div style="width: calc(100% - 90px); float: left; ">
+                        <div style="float: left; ">
                             <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                             <label class="username">{{ el.i_title }}</label><br/>
                             <label class="city"><i>{{ info_text }}</i><br/><br/><p>Последнее редактирование - {{ el.i_time }}</p><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label></label><br/>

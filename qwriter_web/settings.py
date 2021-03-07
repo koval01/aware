@@ -37,7 +37,7 @@ else:
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['www.q-writer.com']
-    LOG_HANDLERS = ['console', 'file']
+    LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     DB_PASS = os.environ['DB_PASS']
 
@@ -166,11 +166,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        # 'file': {
-        #     'level': 'INFO',
-        #     'class': 'logging.FileHandler',
-        #     'filename': '/var/log/django/debug.log',
-        # },
     },
     'loggers': {
         'django': {

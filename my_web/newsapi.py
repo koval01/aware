@@ -11,7 +11,7 @@ import logging
 token = settings.NEWSAPI_TOKEN
 
 def __main__() -> list:
-    if randint(0, 100) > 70:
+    if randint(0, 100) > 40:
         error_http=False;error_json=False
         url = 'https://rapid-art.koval.workers.dev/'
         rand_token = choice(token)

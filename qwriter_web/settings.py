@@ -41,7 +41,7 @@ else:
     from dotenv import load_dotenv
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-    ALLOWED_HOSTS = ['www.q-writer.com']
+    ALLOWED_HOSTS = ['www.q-writer.com', 'q-writer.com']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     DB_PASS = os.environ['DB_PASS']

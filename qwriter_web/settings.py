@@ -47,6 +47,9 @@ NEWSAPI_TOKEN = [
         os.environ['NEWS_API_TOKEN_RESERVE'],
     ]
 
+image_proxy_key = os.environ['IMAGE_PROXY_KEY']
+image_link_key = os.environ['IMAGE_LINK_KEY']
+
 # Application definition
 
 INSTALLED_APPS = [

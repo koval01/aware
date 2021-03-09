@@ -1,6 +1,7 @@
 from django.template.defaulttags import register
 from django.http import HttpResponseForbidden, StreamingHttpResponse, Http404
 from django.shortcuts import render
+from django.conf import settings
 from random import randrange, randint, choice
 from .models import Post, Quote, Facts, Info, Statistic
 from .newsapi import __main__ as newsfeed
@@ -14,8 +15,8 @@ import logging, string, requests
 
 
 logger = logging.getLogger(__name__)
-image_proxy_key = Fernet.generate_key()
-img_link_proxy_key = Fernet.generate_key()
+image_proxy_key = settings.image_proxy_key
+img_link_proxy_key = settings.image_link_key
 
 
 @register.filter

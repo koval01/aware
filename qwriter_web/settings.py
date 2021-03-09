@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os.path
+from django.conf import settings
+
+settings.configure(
+    image_proxy_key = os.environ['IMAGE_PROXY_KEY'],
+    image_link_key = os.environ['IMAGE_LINK_KEY'],
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,9 +52,6 @@ NEWSAPI_TOKEN = [
         os.environ['NEWS_API_TOKEN'],
         os.environ['NEWS_API_TOKEN_RESERVE'],
     ]
-
-image_proxy_key = os.environ['IMAGE_PROXY_KEY']
-image_link_key = os.environ['IMAGE_LINK_KEY']
 
 # Application definition
 

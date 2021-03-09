@@ -16,7 +16,7 @@ import logging, string, requests, os
 logger = logging.getLogger(__name__)
 
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
-image_link_key = os.environ['IMAGE_LINK_KEY']
+img_link_proxy_key = os.environ['IMAGE_LINK_KEY']
 
 
 @register.filter

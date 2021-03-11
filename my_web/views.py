@@ -5,6 +5,7 @@ from random import randrange, randint, choice
 from .models import Post, Quote, Facts, Info, Statistic
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
+from .covid.api import __main__ as covid_stat
 from .porfirevich.api import get_story as get_story_porfirevich
 from .porfirevich.api import cleanhtml
 from .link_analyze import link_image as img_link_check
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
 img_link_proxy_key = os.environ['IMAGE_LINK_KEY']
+load_more_encrypt_key = os.environ['LOAD_MORE_KEY']
 
 
 @register.filter
@@ -86,18 +88,6 @@ def get_random_string(length=16) -> str:
 
 
 @register.filter
-def get_id(l) -> str:
-    """
-    Get id block
-    :param len: set len or random if len = 0
-    :return: generated id
-    """
-    if l: l = len
-    else: l = randint(16, 24)
-    return get_random_string(randint(12, l))
-
-
-@register.filter
 def link_encrypt_img(link) -> str:
     """
     Link encryptor
@@ -141,8 +131,15 @@ def index(request):
     :param request: request body
     :return: render template page
     """
+    # unix time mark encryption
+    salt = Fernet(load_more_encrypt_key)
+    data = str.encode(str(round(time())))
+    token_valid = salt.encrypt(data).decode("utf-8")
+
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/index.html', )
+    return render(request, 'my_web/index.html', {
+        'token_valid': token_valid,
+    })
 
 
 def status(request):
@@ -340,22 +337,55 @@ def load_more(request):
     :return: render template page
     """
     if request.POST:
-        logger.info(f'function load_more: request {request}')
-        stories = porfirevich_strory()
-        posts = Post.objects.order_by('?')[:20]
-        quotes = Quote.objects.order_by('?')[:20]
-        facts = Facts.objects.order_by('?')[:20]
-        news = newsfeed()
-        # image proxy encrypt data
-        salt = Fernet(image_proxy_key)
-        data = str.encode(str(round(time())))
-        token_valid = salt.encrypt(data).decode("utf-8")
-        data = zip(stories, posts, quotes, facts, news)
-        return render(request, 'my_web/load_more.html', {
-            'data': data, 'token_image_proxy': token_valid
-        })
-    else:
-        return HttpResponseForbidden()
+        # get params
+        try:
+            token = request.POST.get('validtoken', '')
+            typeload = request.POST.get('typeload', '')
+        except Exception as e:
+            token = 0;typeload = 0
+            logging.error(e)
+
+        if token and typeload:
+            if typeload == 'newsession':
+                covid_stat_ua = covid_stat('UA')
+                covid_stat_ru = covid_stat('RU')
+            else:
+                covid_stat_ua = 0
+                covid_stat_ru = 0
+
+            # token decrypt
+            try:
+                salt = Fernet(load_more_encrypt_key)
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
+            except Exception as e:
+                token_get = 0
+                logging.error(e)
+
+            if token_get and (token_get + 1800) > round(time()):
+                # data collect
+                stories = porfirevich_strory()
+                posts = Post.objects.order_by('?')[:20]
+                quotes = Quote.objects.order_by('?')[:20]
+                facts = Facts.objects.order_by('?')[:20]
+                news = newsfeed()
+
+                # image proxy encrypt data
+                salt = Fernet(image_proxy_key)
+                data = str.encode(str(round(time())))
+                token_valid = salt.encrypt(data).decode("utf-8")
+
+                # data pack
+                data = zip(stories, posts, quotes, facts, news)
+
+                logger.info(f'function load_more: request {request}')
+
+                return render(request, 'my_web/load_more.html', {
+                    'data': data, 'token_image_proxy': token_valid,
+                    'typeload': typeload, 'covid_ru': covid_stat_ru,
+                    'covid_ua': covid_stat_ua,
+                })
+
+    return HttpResponseForbidden()
 
 
 def error_400(request, exception):

@@ -8,8 +8,8 @@ wheel
 requests
 sentry_sdk
 django-cors-headers
-# mysqlclient
 pymysql
+beautifulsoup4
 whitenoise
 python-dotenv
 cryptography

@@ -150,7 +150,8 @@ def status(request):
     :return: render template page
     """
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/status.html', )
+    status_data = status_data_api()
+    return render(request, 'my_web/status.html', {'status': status_data})
 
 
 def botpage(request):

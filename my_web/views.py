@@ -5,7 +5,8 @@ from random import randrange, randint, choice
 from .models import Post, Quote, Facts, Info, Statistic
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
-from .covid.api import __main__ as covid_stat
+from .covid.api import covid_api as covid_stat
+from .status_api.api import status_api as status_data_api
 from .porfirevich.api import get_story as get_story_porfirevich
 from .porfirevich.api import cleanhtml
 from .link_analyze import link_image as img_link_check

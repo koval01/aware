@@ -4,7 +4,7 @@ from json import loads
 import logging
 
 
-def __main__() -> list:
+def __main__() -> dict:
     error_http=False;error_json=False
     headers = {"user-agent": USER_AGENT}
     try:
@@ -26,3 +26,11 @@ def __main__() -> list:
             return data_array
     if error_http or error_json:
         logging.error(f'Error http: {error_http}; Error json: {error_json}; Code: %s;' % error_check_code)
+
+
+def status_api() -> dict:
+    """
+    Функція для виклику Status API
+    :return: Словник з даними
+    """
+    return __main__()

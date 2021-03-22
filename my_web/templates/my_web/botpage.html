@@ -27,21 +27,12 @@ QWriter
                 <div style="float: left; ">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                     <label class="username">Бот QWriter в Telegram</label><br>
-                    <label class="city"><i>Сам этот сайт - всего лишь способ просмотреть ранее созданые записи. Эти записи создаются пользователями </i><a style="font-size: 12px;" href="https://t.me/qwriter_bot"><b>QWriter</b></a><i>, Telegram бота, который является основой этого проекта. Сайт появился позже. Чтобы перейти к боту </i><a style="font-size: 12px;" href="https://t.me/qwriter_bot"><b>QWriter</b></a><i>, щелкните по его имени. </i></label><br>
+                    <label class="city">Бот qwriter был отключен, больше он не будет развиваться. На сайте можно просмотреть записи созданы им раньше (у них имеется колисчества лайков). Контент сайта наполняется как автоматически (Порфирьевич) так и вручную администратором.</label><br>
                     <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left; ">
-                    <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username">Подсказка </label><br>
-                    <label class="city"><b>Сейчас Вы видите контент, который соответствует адресу по которому Вы перешли.</b></label><br>
-                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
-                </div>
-            </div>
-        </div>
+        {% include 'my_web/page_notify.html' %}
 {% endblock %}
 
 {% block js_module %}

@@ -47,10 +47,7 @@ else:
     DB_PASS = os.environ['DB_PASS']
 
 
-NEWSAPI_TOKEN = [
-        os.environ['NEWS_API_TOKEN'],
-        os.environ['NEWS_API_TOKEN_RESERVE'],
-    ]
+NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
 
 # Application definition
 

@@ -91,3 +91,11 @@ def __main__(country='UA') -> str:
             return 0
 
     return array
+
+
+def covid_api(country) -> str:
+    """
+    Функція для виклику Covid Info API
+    :return: Строка з даними
+    """
+    return __main__(country)

@@ -44,6 +44,7 @@ else:
     ALLOWED_HOSTS = ['www.q-writer.com', 'q-writer.com']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
+    PREPEND_WWW = True
     DB_PASS = os.environ['DB_PASS']
 
 
@@ -200,7 +201,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-PREPEND_WWW = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -216,4 +216,4 @@ STATIC_URL = '/static/'
 
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 05.03.2021
+# 22.03.2021

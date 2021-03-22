@@ -32,16 +32,7 @@ QWriter - Статистика QWriter
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left; ">
-                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                <label class="username">Подсказка </label><br>
-                <label class="city"><b>Сейчас Вы видите контент, который соответствует адресу по которому Вы перешли.</b></label><br>
-                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
-            </div>
-        </div>
-    </div>
+    {% include 'my_web/page_notify.html' %}
 {% endblock %}
 
 {% block js_module %}

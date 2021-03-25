@@ -1,5 +1,5 @@
 from django.template.defaulttags import register
-from django.http import HttpResponseForbidden, StreamingHttpResponse, Http404
+from django.http import HttpResponseForbidden, StreamingHttpResponse
 from django.shortcuts import render
 from random import randrange, randint, choice
 from .models import Post, Quote, Facts, Info, Statistic

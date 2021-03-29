@@ -102,16 +102,16 @@ def link_encrypt_img(link) -> str:
 
 def image_proxy_view(request):
     if request.GET:
-        try:
-            url = request.GET['data']
-            salt_link = Fernet(img_link_proxy_key)
-            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
-            if img_link_check(link_get):
-                token = request.GET['token']
-                salt = Fernet(image_proxy_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 10
-                control_time = round(time())
-                if token_get > control_time:
+        url = request.GET['data']
+        salt_link = Fernet(img_link_proxy_key)
+        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+        if img_link_check(link_get):
+            token = request.GET['token']
+            salt = Fernet(image_proxy_key)
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 10
+            control_time = round(time())
+            if token_get > control_time:
+                try:
                     response = requests.get(
                         link_get, stream=True,
                         headers={'user-agent': request.headers.get('user-agent')}
@@ -120,9 +120,11 @@ def image_proxy_view(request):
                         response.raw,
                         content_type=response.headers.get('content-type'),
                         status=response.status_code,
-                        reason=response.reason)
-        except Exception as e:
-            logger.error(e)
+                        reason=response.reason,
+                    )
+                except Exception as e:
+                    logger.error(e)
+
     return HttpResponseForbidden()
 
 
@@ -347,6 +349,8 @@ def load_more(request):
             token = 0;typeload = 0
             logging.error(e)
 
+        additions = int(request.POST.get('additions', ''))
+
         if token and typeload:
             if typeload == 'newsession':
                 covid_stat_ua = covid_stat('UA')
@@ -384,7 +388,7 @@ def load_more(request):
                 return render(request, 'my_web/load_more.html', {
                     'data': data, 'token_image_proxy': token_valid,
                     'typeload': typeload, 'covid_ru': covid_stat_ru,
-                    'covid_ua': covid_stat_ua,
+                    'covid_ua': covid_stat_ua, 'additions': additions,
                 })
 
     return HttpResponseForbidden()

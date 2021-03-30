@@ -37,7 +37,7 @@ class Quote(models.Model):
         return self.q_text
 
     def get_absolute_url(self):
-        return "/quote/%s/" % self.uniqu_id
+        return "/quote/%s/" % self.unique_id
 
     class Meta:
         verbose_name = 'Цитата'
@@ -52,7 +52,7 @@ class Facts(models.Model):
         return self.f_text
 
     def get_absolute_url(self):
-        return "/fact/%s/" % self.uniqu_id
+        return "/fact/%s/" % self.unique_id
 
     class Meta:
         verbose_name = 'Факт'

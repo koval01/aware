@@ -32,35 +32,6 @@ QWriter
             </div>
         </div>
     </div>
-    {% for el in infoget %}
-        {% with info_text=el.i_text %}
-            {% if info_text|length > 256 %}
-                {% with info_text=info_text|cut_text %}
-                    <div class="col-12 col-lg-12 padding-block-center-box">
-                        <div class="user box aos-init aos-animate" data-aos="fade-up">
-                            <div style="float: left; ">
-                                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                                <label class="username">{{ el.i_title }}</label><br/>
-                                <label class="city"><i>{{ info_text }}</i><a style="font-size: 12px;" href="{% url 'info_page' %}{{ el.id }}"><b>Читать полностью</b></a><br/><br/><p>Последнее редактирование - {{ el.i_time }}</p><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label></label><br/>
-                                    <a style="font-size: 12px;" href="{% url 'info_page' %}{{ el.id }}"><b>q-writer.com</b></a><br>
-                            </div>
-                        </div>
-                    </div>
-                {% endwith %}
-            {% else %}
-                <div class="col-12 col-lg-12 padding-block-center-box">
-                    <div class="user box aos-init aos-animate" data-aos="fade-up">
-                        <div style="float: left; ">
-                            <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                            <label class="username">{{ el.i_title }}</label><br/>
-                            <label class="city"><i>{{ info_text }}</i><br/><br/><p>Последнее редактирование - {{ el.i_time }}</p><i><a href="https://t.me/koval_yaroslav">Y. Koval</a>&nbsp;&nbsp;<a href="mailto:koval@q-writer.com">koval@q-writer.com</a></i></label></label><br/>
-                            <a style="font-size: 12px;" href="{% url 'info_page' %}{{ el.id }}"><b>q-writer.com</b></a><br>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endwith %}
-    {% endfor %}
 {% endblock %}
 
 {% block js_module %}

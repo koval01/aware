@@ -173,8 +173,7 @@ def info(request):
     :return: render template page
     """
     logger.info(f'function info: request {request}')
-    info_pages = Info.objects.order_by('-id')[:50]
-    return render(request, 'my_web/info.html', {'infoget': info_pages},)
+    return render(request, 'my_web/info.html')
 
 
 def postview_(request):
@@ -291,27 +290,6 @@ def factview(request, factid):
         if len(facttitle) > 64:
             facttitle = facttitle[:64] + '...'
         return render(request, 'my_web/factview.html', {'factget': fact, 'facttitle': facttitle}, )
-    except Exception as e:
-        logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
-
-
-def infoview(request, infoid):
-    """
-    Info page view
-    :param infoid: searching info id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function infoview: request {request}; infoid {infoid}')
-    try:
-        infoid: request.GET.get('infoid', '')
-        for i in Info.objects.raw('SELECT * FROM my_web_info WHERE id = {} LIMIT 1'.format(infoid)):
-            info = i
-        infotitle = str(info.i_title)
-        if len(infotitle) > 128:
-            infotitle = infotitle[:128] + '...'
-        return render(request, 'my_web/infoview.html', {'infoget': info, 'infotitle': infotitle}, )
     except Exception as e:
         logger.error(e)
         return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )

@@ -20,7 +20,7 @@ def __main__() -> list:
         if not error_json:
             for el in json_response['data']:
                 text = decode_story_string(el['content'])
-                if error_check_code not in text and len(text) < 20000:
+                if error_check_code not in text:
                     time_field = datetime.fromisoformat(str(el['createdAt'])[:-5])
                     d_ = time_field.strftime("%d %B %Y г. %H:%M")
                     time_field = month_convert(d_)

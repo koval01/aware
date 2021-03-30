@@ -50,26 +50,26 @@
 
 {% for el in data %}
     {% if additions %}
-        {% if 100|get_randint > 50 %}
+        {% if 100|get_randint > 30 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                         <label class="username">Пользовательская запись</label><br>
                         <label class="city">{{ el.0.0|safe }}<br/><b>❤️ {{ el.0.2 }}</b><br/></b><i><u>Опубликовано {{ el.0.1 }} (UTC)</u></i></label><br>
-                        <a style="font-size: 12px;" href="{% url 'storyaddr' %}{{ el.0.3 }}"><b>История Порфирьевича</b></a><br>
+                        <a style="font-size: 12px;" href="{% url 'storyaddr' %}{{ el.0.3 }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>
             </div>
         {% endif %}
-        {% if 100|get_randint > 90 %}
+        {% if 100|get_randint > 97 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                         <label class="username">Пользовательская запись</label><br>
-                        <label class="city"><i title="Текст который написал пользователь">{{ el.1.user_text }}</i><b title="Текст который написал бот">{{ el.1.bot_text }}</b><br><br/><i><u>Опубликовано {{ el.1.time_field }} (UTC)</u></i></label><br>
-                        <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.1.id }}"><b>q-writer.com</b></a><br>
+                        <label class="city"><i title="Текст который написал пользователь">{{ el.1.user_text }}</i><b title="Текст который написал бот">{{ el.1.bot_text }}</b><br/><br/><i><u>Опубликовано {{ el.1.time_field }} (UTC)</u></i></label><br>
+                        <a style="font-size: 12px;" href="{% url 'postaddr' %}{{ el.1.unique_id }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                         <label class="username">Случайная цитата</label><br>
                         <label class="city"><i>„{{ el.2.q_text }}“</i><br><br><b>{{ el.2.q_author }}</b></label><br>
-                        <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.2.id }}"><b>q-writer.com</b></a><br>
+                        <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.2.unique_id }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>
             </div>
@@ -93,13 +93,13 @@
                         <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                         <label class="username">Случайный факт</label><br>
                         <label class="city"><i>{{ el.3.f_text }}</i><br></label><br><br>
-                        <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.3.id }}"><b>q-writer.com</b></a><br>
+                        <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.3.unique_id }}"><b>q-writer.com</b></a><br>
                     </div>
                 </div>
             </div>
         {% endif %}
     {% endif %}
-    {% if 100|get_randint > 96 or not additions %}
+    {% if 100|get_randint > 90 or not additions and news_append %}
         {% if el.4.0 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">

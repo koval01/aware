@@ -1,4 +1,12 @@
 from django.db import models
+import string, random
+
+
+def random_string():
+    s = string.ascii_letters + string.digits + '-_'
+    x = "".join([random.choice(s) for i in range(random.randrange(12, 16))])
+    return x
+
 
 class Post(models.Model):
     tg_uid = models.CharField('ID пользователя Telegram', max_length=128)
@@ -7,12 +15,13 @@ class Post(models.Model):
     time_field = models.DateTimeField('Время публикации')
     user_name = models.CharField('Имя пользователя', max_length=255)
     telegraph_page = models.CharField('Telegra.ph страница', max_length=255)
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
 
     def __str__(self):
         return self.user_text + self.bot_text
 
     def get_absolute_url(self):
-        return "/post/%i/" % self.id
+        return "/post/%s/" % self.unique_id
 
     class Meta:
         verbose_name = 'Запись'
@@ -22,12 +31,13 @@ class Quote(models.Model):
     q_text = models.TextField('Текст цитаты')
     q_author = models.CharField('Автор цитаты', max_length=255)
     time = models.DateTimeField('Время публикации')
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
 
     def __str__(self):
         return self.q_text
 
     def get_absolute_url(self):
-        return "/quote/%i/" % self.id
+        return "/quote/%s/" % self.uniqu_id
 
     class Meta:
         verbose_name = 'Цитата'
@@ -36,12 +46,13 @@ class Quote(models.Model):
 class Facts(models.Model):
     f_text = models.TextField('Текст факта')
     f_time = models.DateTimeField('Время публикации')
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
 
     def __str__(self):
         return self.f_text
 
     def get_absolute_url(self):
-        return "/fact/%i/" % self.id
+        return "/fact/%s/" % self.uniqu_id
 
     class Meta:
         verbose_name = 'Факт'

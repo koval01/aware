@@ -214,7 +214,7 @@ def postview(request, postid):
     logger.info(f'function postview: request {request}; postid {postid}')
     try:
         postid: request.GET.get('postid', '')
-        for p in Post.objects.raw('SELECT * FROM my_web_post WHERE id = {} LIMIT 1'.format(postid)):
+        for p in Post.objects.raw('SELECT * FROM my_web_post WHERE unique_id = "{}" LIMIT 1'.format(postid)):
             post = p
         posttitle = str(post.user_text + post.bot_text)
         if len(posttitle) > 64:
@@ -264,7 +264,7 @@ def quoteview(request, quoteid):
     logger.info(f'function quoteview: request {request}; quoteid {quoteid}')
     try:
         postid: request.GET.get('postid', '')
-        for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE id = {} LIMIT 1'.format(quoteid)):
+        for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE unique_id = "{}" LIMIT 1'.format(quoteid)):
             quote = q
         quotetitle = str(quote.q_text)
         if len(quotetitle) > 64:
@@ -285,7 +285,7 @@ def factview(request, factid):
     logger.info(f'function factview: request {request}; factid {factid}')
     try:
         factid: request.GET.get('factid', '')
-        for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE id = {} LIMIT 1'.format(factid)):
+        for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE unique_id = "{}" LIMIT 1'.format(factid)):
             fact = f
         facttitle = str(fact.f_text)
         if len(facttitle) > 64:
@@ -350,6 +350,7 @@ def load_more(request):
             logging.error(e)
 
         additions = int(request.POST.get('additions', ''))
+        news_append = int(request.POST.get('news', ''))
 
         if token and typeload:
             if typeload == 'newsession':
@@ -373,7 +374,7 @@ def load_more(request):
                 posts = Post.objects.order_by('?')[:20]
                 quotes = Quote.objects.order_by('?')[:20]
                 facts = Facts.objects.order_by('?')[:20]
-                news = newsfeed()
+                news = newsfeed(news_append)
 
                 # image proxy encrypt data
                 salt = Fernet(image_proxy_key)
@@ -389,6 +390,7 @@ def load_more(request):
                     'data': data, 'token_image_proxy': token_valid,
                     'typeload': typeload, 'covid_ru': covid_stat_ru,
                     'covid_ua': covid_stat_ua, 'additions': additions,
+                    'news_append': news_append,
                 })
 
     return HttpResponseForbidden()

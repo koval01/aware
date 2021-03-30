@@ -26,8 +26,20 @@ QWriter
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                    <label class="username">История работы QWriter</label><br>
-                    <label class="city"><i>Если Вы хотите посмотреть историю происшествий QWriter и процент его доступности. </i><a style="font-size: 12px;" href="https://stats.uptimerobot.com/j8wEGcjZ7N/785845940"><b>Перейдите на эту страницу.</b></a></label><br>
+                    <label class="username">Доступность QWriter</label><br>
+                    <label class="city">
+                        <i>За последние сутки: <b>{{ status.days1 }}%</b></i><br/>
+                        <i>За последние 7 дней: <b>{{ status.days7 }}%</b></i><br/>
+                        <i>За последние 30 дней: <b>{{ status.days30 }}%</b></i><br/>
+                        <i>За последние 90 дней: <b>{{ status.days90 }}%</b></i><br/><br/>
+                        {# Index 1, because when the site is available, the last event will be successful #}
+                        <i>Последнее событие: <b>{{ status.logs.1.dateGMT }}</b></i><br/>
+                        <i>Продолжительность события: <b>{{ status.logs.1.duration }}</b></i><br/>
+                        <i>Ответ сервера: <b>
+                            {{ status.logs.1.reason.code }}&nbsp;
+                            {{ status.logs.1.reason.detail.short }}
+                        </b></i><br/>
+                    </label><br/>
                     <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
                 </div>
             </div>

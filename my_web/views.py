@@ -29,7 +29,7 @@ def get_range(value) -> int:
     :param value: Input max value
     :return: Output random range value
     """
-    logger.info(f'function get_range: val {value}')
+    logger.info(f'function get_range: {value}')
     return randrange(1, value)
 
 
@@ -40,7 +40,7 @@ def get_randint(value) -> int:
     :param value: Input max random value
     :return: Random value result
     """
-    logger.info(f'function get_randint: val {value}')
+    logger.info(f'function get_randint: {value}')
     return randint(1, value)
 
 
@@ -51,7 +51,7 @@ def get_range_list(value) -> range:
     :param value: Some value set
     :return: Output result
     """
-    logger.info(f'function get_range_list: val {value}')
+    logger.info(f'function get_range_list: {value}')
     return range(value)
 
 
@@ -62,7 +62,7 @@ def cut_text(string) -> str:
     :param string: String for cut
     :return: Cut string result
     """
-    logger.info(f'function cut_text: string {string}')
+    logger.info(f'function cut_text: {string}')
     return string[:256]+'...'
 
 
@@ -73,7 +73,7 @@ def get_item(item) -> print:
     :param item: Input data
     :return: return print data
     """
-    logger.info(f'function get_item: string {item}')
+    logger.info(f'function get_item: {item}')
     return print(item)
 
 

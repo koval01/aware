@@ -1,7 +1,7 @@
 {% extends 'my_web/base.html' %}
 
 {% block title %}
-QWriter - Блог
+QWriter - Информация
 {% endblock %}
 
 {% block title_header %}
@@ -9,11 +9,11 @@ QWriter
 {% endblock %}
 
 {% block og_desc %}
-Блог, просто блог QWriter.
+Здесь должна быть очень важная информация о том, в каком виде способны быть разрушены наши поля, в том виде, в каком они есть сейчас, или в таком, который мы хотим.
 {% endblock %}
 
 {% block twitter_desc %}
-Блог, просто блог QWriter.
+Здесь должна быть очень важная информация о том, в каком виде способны быть разрушены наши поля, в том виде, в каком они есть сейчас, или в таком, который мы хотим.
 {% endblock %}
 
 {% block url_path %}
@@ -27,7 +27,14 @@ QWriter
             <div style="float: left; ">
                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                 <label class="username">Информация</label><br>
-                <label class="city"><b>На данной странице отображаются только те записи, которые ещё актуальны. Перейти к старым записям можно по ссылке или найдя её через поисковую систему Google.</b></label><br>
+                <label class="city">
+                    <i>Ресурс для просмотра историй, различных цитат и фактов, есть даже новости. </i>
+                    <b>Их можно смотреть одним нажатием кнопки. Но обо всем по порядку. Понятно, что для хорошего рассказа этого недостаточно.</b>
+                    <i> Но не смотря на столь скромный размер</i>
+                    <b> я, как ты уже заметила, занимаюсь довольно серьезной темой. У меня совершенно новая концепция рождения жанра.</b>
+                    <br/><br/>
+                    <b>Спасибо <a href="https://porfirevich.ru/">Порфировичу</a> за помощь с этим текстом. (Текст <a href="https://porfirevich.ru/">Порфировича</a> выделен жирным шрифтом)</b>
+                </label><br/>
                     <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
             </div>
         </div>

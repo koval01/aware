@@ -11,6 +11,14 @@
         background: #202124;
     }
 
+    a {
+        color: #565656;
+    }
+
+    a:hover {
+        color: #cccccc;
+    }
+
     *:focus {
         outline: none;
     }

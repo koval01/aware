@@ -19,7 +19,7 @@ def __main__(country='UA') -> str:
 
         if not error_http:
             try:
-                soup = BeautifulSoup(http_response.text)
+                soup = BeautifulSoup(http_response.text, "html.parser")
                 fields_all = soup.find_all('div', {"class": "one-field", "class": "info-count"})
             except Exception as e:
                 logging.error(e)
@@ -27,8 +27,8 @@ def __main__(country='UA') -> str:
 
             for i in fields_all:
                 try:
-                    soup_local = BeautifulSoup(str(i))
-                    array.append(soup_local.find('div', {"class": "field-value"}).text.replace('\n', ''))
+                    soup_local = BeautifulSoup(str(i), "html.parser")
+                    array.append(soup_local.find('div', {"class": "field-value"}).text.replace('\n', '').replace('\t', ''))
                 except Exception as e:
                     logging.error(e)
                     error_decode: True
@@ -64,7 +64,7 @@ def __main__(country='UA') -> str:
 
         if not error_http:
             try:
-                soup = BeautifulSoup(http_response.text)
+                soup = BeautifulSoup(http_response.text, "html.parser")
                 fields_all = soup.find_all('div', {"class": "cv-countdown__item"})
             except Exception as e:
                 logging.error(e)
@@ -72,15 +72,17 @@ def __main__(country='UA') -> str:
 
             for i in fields_all:
                 try:
-                    soup_local = BeautifulSoup(str(i))
-                    x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text.replace('> ', '').replace(
-                        ' млн', '00 000').replace(',', ' ')
+                    soup_local = BeautifulSoup(str(i), "html.parser")
+                    x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
+                    x = x.replace('>', '').replace(' млн', '00 000').replace(',', ' ')
                     array.append(x)
                 except Exception as e:
                     logging.error(e)
                     error_decode: True
 
             date = soup.find('div', {'class': 'cv-banner__description'}).text
+            x_d = 'По состоянию на '
+            date = x_d + date.replace(x_d, '').lstrip('0')
             array.append(re.sub(r'\d\d[:]\d\d', '', date))
 
             if len(array) != 6:

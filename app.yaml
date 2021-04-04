@@ -12,4 +12,16 @@ handlers:
 # the entire handlers section) when there are no static files defined.
 - url: /.*
   script: auto
+env_variables:
+  DJANGO_SETTINGS_MODULE: "myapp.settings"
+  PYTHONUNBUFFERED: 1
+  DISABLE_COLLECTSTATIC: 1
+  NEWS_API_TOKEN: "a96688b700f041999a06916d7d52ef1b"
+  NEWS_API_TOKEN_RESERVE: "933c91dd12af485eb98981a59801486e"
+  SECRET_KEY_DJANGO: "KxABSjX4qKod5gwUzGjiBJvJmbHeDOfGdkSGy5kQ0ExOXC2KK"
+  DB_PASS: "9{<wYjiVwwz1div9B8CtP{}5WyuPaP2}bLzm"
+  IMAGE_PROXY_KEY: "0miB3DJ0jx-WsxSgdFWJat6-fL0JDXsjoCMblbc3sbM="
+  IMAGE_LINK_KEY: "CIVwgpDmpwYgGgqo3D1gp3pC6MqG1zSN6N9PT-E5ehs="
+  LOAD_MORE_KEY: "offpGCtMwljrA0JdQaP7AuCR-FGp25ELk82c13j-SrY="
+  CKEY: "WA0fGOPVTPISYhJAnyVoF9ydyWGU2bGhSCNE"
 # [END django_app]

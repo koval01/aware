@@ -120,7 +120,7 @@ DATABASES = {
         'NAME': 'qwriter_database',
         'USER': 'root',
         'PASSWORD': DB_PASS,
-        'HOST': 'localhost',
+        'HOST': '18.184.117.236',
         'PORT': '3306',
     },
 }

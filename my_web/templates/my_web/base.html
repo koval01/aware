@@ -24,6 +24,7 @@
         <script src="{% static 'my_web/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'my_web/js/aos.js' %}"></script>
         <script defer src="{% static 'my_web/js/all.min.js' %}"></script>
+        <script src="https://www.google.com/recaptcha/api.js?render={% block public_re %}{% endblock %}"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119266831-9"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
@@ -49,6 +50,9 @@
             .padding-block-center-box {
                 padding-left: 5%;
                 padding-right: 5%;
+            }
+            .grecaptcha-badge {
+                visibility: hidden;
             }
         </style>
     </head>

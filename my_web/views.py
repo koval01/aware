@@ -1,8 +1,9 @@
 from django.template.defaulttags import register
 from django.http import HttpResponseForbidden, StreamingHttpResponse
 from django.shortcuts import render
+from django.conf import settings
 from random import randrange, randint, choice
-from .models import Post, Quote, Facts, Info, Statistic
+from .models import Post, Quote, Facts, Statistic
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
 from .covid.api import covid_api as covid_stat
@@ -10,6 +11,7 @@ from .status_api.api import status_api as status_data_api
 from .porfirevich.api import get_story as get_story_porfirevich
 from .porfirevich.api import cleanhtml
 from .link_analyze import link_image as img_link_check
+from .recaptcha_api import get_result as recaptcha_get_result
 from cryptography.fernet import Fernet
 from time import time
 import logging, string, requests, os
@@ -138,10 +140,11 @@ def index(request):
     salt = Fernet(load_more_encrypt_key)
     data = str.encode(str(round(time())))
     token_valid = salt.encrypt(data).decode("utf-8")
+    token_re = settings.RETOKEN_PUBLIC
 
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
-        'token_valid': token_valid,
+        'token_valid': token_valid, 'token_re': token_re,
     })
 
 
@@ -323,53 +326,56 @@ def load_more(request):
         try:
             token = request.POST.get('validtoken', '')
             typeload = request.POST.get('typeload', '')
+            r_token = request.POST.get('gr_token', '')
         except Exception as e:
-            token = 0;typeload = 0
+            token = 0;typeload = 0;r_token = 0
             logging.error(e)
 
-        additions = int(request.POST.get('additions', ''))
-        news_append = int(request.POST.get('news', ''))
+        if recaptcha_get_result(r_token):
 
-        if token and typeload:
-            if typeload == 'newsession':
-                covid_stat_ua = covid_stat('UA')
-                covid_stat_ru = covid_stat('RU')
-            else:
-                covid_stat_ua = 0
-                covid_stat_ru = 0
+            additions = int(request.POST.get('additions', ''))
+            news_append = int(request.POST.get('news', ''))
 
-            # token decrypt
-            try:
-                salt = Fernet(load_more_encrypt_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
-            except Exception as e:
-                token_get = 0
-                logging.error(e)
+            if token and typeload:
+                if typeload == 'newsession':
+                    covid_stat_ua = covid_stat('UA')
+                    covid_stat_ru = covid_stat('RU')
+                else:
+                    covid_stat_ua = 0
+                    covid_stat_ru = 0
 
-            if token_get and (token_get + 1800) > round(time()):
-                # data collect
-                stories = porfirevich_strory()
-                posts = Post.objects.order_by('?')[:20]
-                quotes = Quote.objects.order_by('?')[:20]
-                facts = Facts.objects.order_by('?')[:20]
-                news = newsfeed(news_append)
+                # token decrypt
+                try:
+                    salt = Fernet(load_more_encrypt_key)
+                    token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
+                except Exception as e:
+                    token_get = 0
+                    logging.error(e)
 
-                # image proxy encrypt data
-                salt = Fernet(image_proxy_key)
-                data = str.encode(str(round(time())))
-                token_valid = salt.encrypt(data).decode("utf-8")
+                if token_get and (token_get + 1800) > round(time()):
+                    # data collect
+                    stories = porfirevich_strory()
+                    posts = Post.objects.order_by('?')[:20]
+                    quotes = Quote.objects.order_by('?')[:20]
+                    facts = Facts.objects.order_by('?')[:20]
+                    news = newsfeed(news_append)
 
-                # data pack
-                data = zip(stories, posts, quotes, facts, news)
+                    # image proxy encrypt data
+                    salt = Fernet(image_proxy_key)
+                    data = str.encode(str(round(time())))
+                    token_valid = salt.encrypt(data).decode("utf-8")
 
-                logger.info(f'function load_more: request {request}')
+                    # data pack
+                    data = zip(stories, posts, quotes, facts, news)
 
-                return render(request, 'my_web/load_more.html', {
-                    'data': data, 'token_image_proxy': token_valid,
-                    'typeload': typeload, 'covid_ru': covid_stat_ru,
-                    'covid_ua': covid_stat_ua, 'additions': additions,
-                    'news_append': news_append,
-                })
+                    logger.info(f'function load_more: request {request}')
+
+                    return render(request, 'my_web/load_more.html', {
+                        'data': data, 'token_image_proxy': token_valid,
+                        'typeload': typeload, 'covid_ru': covid_stat_ru,
+                        'covid_ua': covid_stat_ua, 'additions': additions,
+                        'news_append': news_append,
+                    })
 
     return HttpResponseForbidden()
 

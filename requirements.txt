@@ -1,6 +1,7 @@
 django
 django-heroku
 django_compressor
+django-captcha-admin
 gunicorn
 pip
 setuptools

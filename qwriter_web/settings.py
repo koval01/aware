@@ -29,12 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
     ALLOWED_HOSTS = ['*']
     LOG_HANDLERS = ['console']
+    DB_HOST = 'localhost'
     DB_PASS = 'root'
 
 else:
@@ -45,10 +46,14 @@ else:
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
+    DB_HOST = '18.184.117.236'
     DB_PASS = os.environ['DB_PASS']
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
+
+RETOKEN_PUBLIC = os.environ['RECAPTCHA_PUBLIC_KEY']
+RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
 
 # Application definition
 
@@ -120,7 +125,7 @@ DATABASES = {
         'NAME': 'qwriter_database',
         'USER': 'root',
         'PASSWORD': DB_PASS,
-        'HOST': '18.184.117.236',
+        'HOST': DB_HOST,
         'PORT': '3306',
     },
 }

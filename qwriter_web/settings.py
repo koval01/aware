@@ -46,7 +46,7 @@ else:
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
-    DB_HOST = '18.184.117.236'
+    DB_HOST = 'localhost' # one server
     DB_PASS = os.environ['DB_PASS']
 
 

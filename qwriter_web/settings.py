@@ -81,11 +81,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#MIDDLEWARE_CLASSES = (
-#    # Simplified static file serving.
-#    # https://warehouse.python.org/project/whitenoise/
-#    'whitenoise.middleware.WhiteNoiseMiddleware',
-#)
+MIDDLEWARE_CLASSES = (
+   # Simplified static file serving.
+   # https://warehouse.python.org/project/whitenoise/
+   'whitenoise.middleware.WhiteNoiseMiddleware',
+)
 
 ROOT_URLCONF = 'qwriter_web.urls'
 
@@ -219,6 +219,6 @@ STATIC_URL = '/static/'
 #    '/home/code/qwriter_web/my_web/static',
 #)
 
- STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # 05.04.2021

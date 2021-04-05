@@ -1,4 +1,5 @@
 from django.template.defaulttags import register
+from ratelimit.decorators import ratelimit
 from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.conf import settings
@@ -148,6 +149,7 @@ def index(request):
     })
 
 
+@ratelimit(key='ip', rate='15/m')
 def status(request):
     """
     Status page view
@@ -380,7 +382,7 @@ def load_more(request):
     return error_403(request)
 
 
-def error_400(request, exception='Плохой запрос.'):
+def error_400(request, exception):
     """
     400 error handler page view
     :param request: request body
@@ -388,10 +390,10 @@ def error_400(request, exception='Плохой запрос.'):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. %s' % exception}, status=400)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
 
 
-def error_403(request, exception='Отказано в доступе.'):
+def error_403(request, exception):
     """
     403 error handler page view
     :param request: request body
@@ -399,10 +401,10 @@ def error_403(request, exception='Отказано в доступе.'):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. %s' % exception}, status=403)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
 
 
-def error_404(request, exception='Страница не найдена.'):
+def error_404(request, exception):
     """
     404 error handler page view
     :param request: request body
@@ -410,4 +412,4 @@ def error_404(request, exception='Страница не найдена.'):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. %s' % exception}, status=404)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)

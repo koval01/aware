@@ -1,7 +1,7 @@
 django
 django-heroku
 django_compressor
-django-captcha-admin
+django-ratelimit
 gunicorn
 pip
 setuptools

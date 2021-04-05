@@ -1,5 +1,6 @@
 from django.template.defaulttags import register
-from django.http import HttpResponseForbidden, StreamingHttpResponse
+from django.core.exceptions import PermissionDenied
+from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from random import randrange, randint, choice
@@ -127,7 +128,7 @@ def image_proxy_view(request):
                 except Exception as e:
                     logger.error(e)
 
-    return HttpResponseForbidden()
+    return PermissionDenied
 
 
 def index(request):
@@ -377,7 +378,7 @@ def load_more(request):
                         'news_append': news_append,
                     })
 
-    return HttpResponseForbidden()
+    return PermissionDenied
 
 
 def error_400(request, exception):
@@ -387,7 +388,7 @@ def error_400(request, exception):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
 
 
 def error_403(request, exception):
@@ -397,7 +398,7 @@ def error_403(request, exception):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, )
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
 
 
 def error_404(request, exception):
@@ -407,4 +408,4 @@ def error_404(request, exception):
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)

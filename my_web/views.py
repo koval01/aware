@@ -149,7 +149,7 @@ def index(request):
     })
 
 
-@ratelimit(key='ip', rate='15/m')
+@ratelimit(key='ip', rate='5/m')
 def status(request):
     """
     Status page view

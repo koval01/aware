@@ -149,13 +149,14 @@ def index(request):
     })
 
 
-@ratelimit(key='get:rate', rate='5/m', block=True)
+@ratelimit(key='ip', rate='5/m', block=True)
 def status(request):
     """
     Status page view
     :param request: request body
     :return: render template page
     """
+    logger.warning(request.META['REMOTE_ADDR'])
     logger.info(f'function index: request {request}')
     status_data = status_data_api()
     return render(request, 'my_web/status.html', {'status': status_data})

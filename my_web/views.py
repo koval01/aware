@@ -1,5 +1,4 @@
 from django.template.defaulttags import register
-from django.core.exceptions import PermissionDenied
 from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.conf import settings
@@ -128,7 +127,7 @@ def image_proxy_view(request):
                 except Exception as e:
                     logger.error(e)
 
-    return PermissionDenied
+    return error_403(request)
 
 
 def index(request):
@@ -186,7 +185,7 @@ def postview_(request):
     :param request: request body
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
+    return error_400(request)
 
 
 def storyview_(request):
@@ -195,7 +194,7 @@ def storyview_(request):
     :param request: request body
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
+    return error_400(request)
 
 
 def quoteview_(request):
@@ -204,7 +203,7 @@ def quoteview_(request):
     :param request: request body
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, )
+    return error_400(request)
 
 
 def postview(request, postid):
@@ -378,34 +377,37 @@ def load_more(request):
                         'news_append': news_append,
                     })
 
-    return PermissionDenied
+    return error_403(request)
 
 
-def error_400(request, exception):
+def error_400(request, exception='Плохой запрос.'):
     """
     400 error handler page view
     :param request: request body
+    :param exception: exception request error
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. %s' % exception}, status=400)
 
 
-def error_403(request, exception):
+def error_403(request, exception='Отказано в доступе.'):
     """
     403 error handler page view
     :param request: request body
+    :param exception: exception request error
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. %s' % exception}, status=403)
 
 
-def error_404(request, exception):
+def error_404(request, exception='Страница не найдена.'):
     """
     404 error handler page view
     :param request: request body
+    :param exception: exception request error
     :return: render template page
     """
     logger.warning(exception)
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. %s' % exception}, status=404)

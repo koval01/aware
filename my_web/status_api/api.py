@@ -1,7 +1,10 @@
 from requests import get, exceptions
 from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
-import logging
+import logging, requests_cache
+
+
+requests_cache.install_cache('requests_cache_db')
 
 
 def __main__() -> dict:

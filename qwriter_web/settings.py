@@ -58,7 +58,6 @@ RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
 # Application definition
 
 INSTALLED_APPS = [
-    "compressor",
     'my_web',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,12 +67,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'compressor',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'compression_middleware.middleware.CompressionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

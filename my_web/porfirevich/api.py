@@ -3,7 +3,10 @@ from datetime import datetime
 from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
-import logging, re, string, random
+import logging, re, string, random, requests_cache
+
+
+requests_cache.install_cache('requests_cache_db_porfirevich_api')
 
 
 def __main__() -> list:

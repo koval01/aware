@@ -1,7 +1,10 @@
 from requests import get, exceptions
 from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
-import logging, re
+import logging, re, requests_cache
+
+
+requests_cache.install_cache('requests_cache_db_covid_api')
 
 
 def __main__(country='UA') -> str:

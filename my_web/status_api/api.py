@@ -4,7 +4,7 @@ from json import loads
 import logging, requests_cache
 
 
-requests_cache.install_cache('requests_cache_db')
+requests_cache.install_cache('requests_cache_db_status_api')
 
 
 def __main__() -> dict:

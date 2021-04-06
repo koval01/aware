@@ -1,9 +1,10 @@
 from requests import post
 from json import loads
 from django.conf import settings
-import logging
+import logging, requests_cache
 
 
+requests_cache.install_cache('requests_cache_db_recaptcha_api')
 logger = logging.getLogger(__name__)
 
 

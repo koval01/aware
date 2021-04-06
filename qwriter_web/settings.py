@@ -73,8 +73,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
-    'htmlmin.middleware.HtmlMinifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,6 +80,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
 
 ROOT_URLCONF = 'qwriter_web.urls'
 

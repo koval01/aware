@@ -3,6 +3,7 @@ django-heroku
 django_compressor
 django-ratelimit
 html5lib
+django-htmlmin
 gunicorn
 pip
 setuptools

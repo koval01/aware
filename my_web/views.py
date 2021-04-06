@@ -1,6 +1,6 @@
 from django.template.defaulttags import register
 from ratelimit.decorators import ratelimit
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 from random import randrange, randint, choice
@@ -129,6 +129,33 @@ def image_proxy_view(request):
                     )
                 except Exception as e:
                     logger.error(e)
+
+    return error_403(request)
+
+
+def aware_api(request):
+    if request.POST:
+        token_get = request.POST.get('api_key', '')
+        title = request.POST.get('title', '')
+        page_html_code = request.POST.get('page_html_code', '')
+        token = os.environ['AWARE_KEY']
+        if token == token_get:
+            try:
+                a = AWARE_Page(title=title, page_html_code=page_html_code)
+                a.save()
+                return JsonResponse(
+                    {
+                        'done': True,
+                        'unique_id': a.unique_id,
+                    }
+                )
+            except Exception as e:
+                return JsonResponse(
+                    {
+                        'done': False,
+                        'exception': e,
+                    }
+                )
 
     return error_403(request)
 

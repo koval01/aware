@@ -220,13 +220,10 @@ def postview(request, postid):
         postid: request.GET.get('postid', '')
         for p in Post.objects.raw('SELECT * FROM my_web_post WHERE unique_id = "{}" LIMIT 1'.format(postid)):
             post = p
-        posttitle = str(post.user_text + post.bot_text)
-        if len(posttitle) > 24:
-            posttitle = posttitle[:24] + '...'
-        return render(request, 'my_web/postview.html', {'postget': post, 'posttitle': posttitle}, )
+        return render(request, 'my_web/postview.html', {'postget': post})
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
 
 
 def storyview(request, storyid):
@@ -240,22 +237,20 @@ def storyview(request, storyid):
     try:
         storyid: request.GET.get('storyid', '')
         if not get_story_porfirevich(storyid):
-            return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+            return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
 
         text, time, likes, id_s = get_story_porfirevich(storyid)
         t = cleanhtml(text)
-        title = t;short_text = t
-        if len(text) > 24:
-            title = title[:24] + '...'
+        short_text = t
         if len(text) > 1000:
             short_text = short_text[:1000] + '...'
         return render(request, 'my_web/storyview.html', {
-            'text': text, 'title': title, 'time': time,
+            'text': text, 'time': time,
             'likes': likes, 'id_s': id_s, 'short_text': short_text
         })
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
 
 
 def quoteview(request, quoteid):
@@ -270,10 +265,7 @@ def quoteview(request, quoteid):
         postid: request.GET.get('postid', '')
         for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE unique_id = "{}" LIMIT 1'.format(quoteid)):
             quote = q
-        quotetitle = str(quote.q_text)
-        if len(quotetitle) > 24:
-            quotetitle = quotetitle[:24] + '...'
-        return render(request, 'my_web/quoteview.html', {'quoteget': quote, 'quotetitle': quotetitle})
+        return render(request, 'my_web/quoteview.html', {'quoteget': quote})
     except Exception as e:
         logger.error(e)
         return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
@@ -291,13 +283,10 @@ def factview(request, factid):
         factid: request.GET.get('factid', '')
         for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE unique_id = "{}" LIMIT 1'.format(factid)):
             fact = f
-        facttitle = str(fact.f_text)
-        if len(facttitle) > 24:
-            facttitle = facttitle[:24] + '...'
-        return render(request, 'my_web/factview.html', {'factget': fact, 'facttitle': facttitle}, )
+        return render(request, 'my_web/factview.html', {'factget': fact})
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
 
 
 def stats(request):

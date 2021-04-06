@@ -4,7 +4,7 @@ from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from random import randrange, randint, choice
-from .models import Post, Quote, Facts, Statistic
+from .models import Post, Quote, Facts, Statistic, AWARE_Page
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
 from .covid.api import covid_api as covid_stat
@@ -149,7 +149,7 @@ def index(request):
     })
 
 
-@ratelimit(key='header:X-RateLimit-Limit', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def status(request):
     """
     Status page view
@@ -181,33 +181,6 @@ def info(request):
     return render(request, 'my_web/info.html')
 
 
-def postview_(request):
-    """
-    Post not found page view
-    :param request: request body
-    :return: render template page
-    """
-    return error_400(request)
-
-
-def storyview_(request):
-    """
-    Story not found page view
-    :param request: request body
-    :return: render template page
-    """
-    return error_400(request)
-
-
-def quoteview_(request):
-    """
-    Quote not found page view
-    :param request: request body
-    :return: render template page
-    """
-    return error_400(request)
-
-
 def postview(request, postid):
     """
     Post page view
@@ -223,7 +196,7 @@ def postview(request, postid):
         return render(request, 'my_web/postview.html', {'postget': post})
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
+        return error_404(request)
 
 
 def storyview(request, storyid):
@@ -237,7 +210,7 @@ def storyview(request, storyid):
     try:
         storyid: request.GET.get('storyid', '')
         if not get_story_porfirevich(storyid):
-            return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
+            return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
 
         text, time, likes, id_s = get_story_porfirevich(storyid)
         t = cleanhtml(text)
@@ -250,7 +223,7 @@ def storyview(request, storyid):
         })
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
+        return error_404(request)
 
 
 def quoteview(request, quoteid):
@@ -268,7 +241,7 @@ def quoteview(request, quoteid):
         return render(request, 'my_web/quoteview.html', {'quoteget': quote})
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
+        return error_404(request)
 
 
 def factview(request, factid):
@@ -286,7 +259,25 @@ def factview(request, factid):
         return render(request, 'my_web/factview.html', {'factget': fact})
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'})
+        return error_404(request)
+
+
+def awareview(request, awareid):
+    """
+    AWARE page view
+    :param awareid: searching fact id
+    :param request: request body
+    :return: render template page
+    """
+    logger.info(f'function awareview: request {request}; awareid {awareid}')
+    try:
+        awareid: request.GET.get('awareid', '')
+        for a in Facts.objects.raw('SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
+            aware = a
+        return render(request, 'my_web/awareview.html', {'awareget': aware})
+    except Exception as e:
+        logger.error(e)
+        return error_404(request)
 
 
 def stats(request):
@@ -303,7 +294,7 @@ def stats(request):
         return render(request, 'my_web/stats.html', {'statget': stat, 'sumstat': sumstat}, )
     except Exception as e:
         logger.error(e)
-        return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, )
+        return error_404(request)
 
 
 def load_more(request):

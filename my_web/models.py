@@ -27,6 +27,7 @@ class Post(models.Model):
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
 
+
 class Quote(models.Model):
     q_text = models.TextField('Текст цитаты')
     q_author = models.CharField('Автор цитаты', max_length=255)
@@ -43,6 +44,7 @@ class Quote(models.Model):
         verbose_name = 'Цитата'
         verbose_name_plural = 'Цитаты'
 
+
 class Facts(models.Model):
     f_text = models.TextField('Текст факта')
     f_time = models.DateTimeField('Время публикации')
@@ -58,6 +60,7 @@ class Facts(models.Model):
         verbose_name = 'Факт'
         verbose_name_plural = 'Факты'
 
+
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
     i_text = models.TextField('Текст поста')
@@ -72,6 +75,23 @@ class Info(models.Model):
     class Meta:
         verbose_name = 'Пост администратора'
         verbose_name_plural = 'Посты администратора'
+
+
+class AWARE_Page(models.Model):
+    title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
+    page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return "/aware/%s/" % self.unique_id
+
+    class Meta:
+        verbose_name = 'Страница AWARE'
+        verbose_name_plural = 'Страницы AWARE'
+
 
 class Statistic(models.Model):
     u_stat = models.IntegerField('Стастика пользователей')

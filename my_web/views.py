@@ -197,8 +197,7 @@ def postview(request, postid):
             post = p
         return render(request, 'my_web/postview.html', {'postget': post})
     except Exception as e:
-        logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def storyview(request, storyid):
@@ -224,8 +223,7 @@ def storyview(request, storyid):
             'likes': likes, 'id_s': id_s, 'short_text': short_text
         })
     except Exception as e:
-        logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def quoteview(request, quoteid):
@@ -242,8 +240,7 @@ def quoteview(request, quoteid):
             quote = q
         return render(request, 'my_web/quoteview.html', {'quoteget': quote})
     except Exception as e:
-        logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def factview(request, factid):
@@ -261,7 +258,7 @@ def factview(request, factid):
         return render(request, 'my_web/factview.html', {'factget': fact})
     except Exception as e:
         logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def awareview(request, awareid):
@@ -279,7 +276,7 @@ def awareview(request, awareid):
         return render(request, 'my_web/awareview.html', {'awareget': aware})
     except Exception as e:
         logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def stats(request):
@@ -295,8 +292,7 @@ def stats(request):
         sumstat = str(int(stat.u_stat) + int(stat.b_stat))
         return render(request, 'my_web/stats.html', {'statget': stat, 'sumstat': sumstat}, )
     except Exception as e:
-        logger.error(e)
-        return error_404(request)
+        return error_404(request, e)
 
 
 def load_more(request):

@@ -15,10 +15,12 @@ from .link_analyze import link_image as img_link_check
 from .recaptcha_api import get_result as recaptcha_get_result
 from cryptography.fernet import Fernet
 from time import time
-import logging, string, requests, os
+import logging, string, requests, os, requests_cache
 
 
 logger = logging.getLogger(__name__)
+
+requests_cache.install_cache('requests_cache_db_my_web_views')
 
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
 img_link_proxy_key = os.environ['IMAGE_LINK_KEY']

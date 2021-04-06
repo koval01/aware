@@ -4,7 +4,7 @@ from .models import Post, Quote, Facts, Info
 class PostSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.9
-    limit = 50000
+    limit = 1000
 
     def items(self):
         return Post.objects.all()

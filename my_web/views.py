@@ -362,7 +362,7 @@ def load_more(request):
     return error_403(request)
 
 
-def error_400(request, exception):
+def error_400(request, exception='Unknown'):
     """
     400 error handler page view
     :param request: request body
@@ -373,7 +373,7 @@ def error_400(request, exception):
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
 
 
-def error_403(request, exception):
+def error_403(request, exception='Unknown'):
     """
     403 error handler page view
     :param request: request body
@@ -384,7 +384,7 @@ def error_403(request, exception):
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
 
 
-def error_404(request, exception):
+def error_404(request, exception='Unknown'):
     """
     404 error handler page view
     :param request: request body

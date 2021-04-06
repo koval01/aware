@@ -7,7 +7,7 @@ class PostSitemap(Sitemap):
     limit = 1000
 
     def items(self):
-        return Post.objects.all()
+        return Post.objects.order_by('?')
 
     def lastmod(self, obj):
         return obj.time_field

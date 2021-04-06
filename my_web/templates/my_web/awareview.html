@@ -1,7 +1,7 @@
 {% extends 'my_web/base.html' %}
 
 {% block title %}
-QWriter - Случайный факт
+QWriter - AWARE Page
 {% endblock %}
 
 {% block title_header %}
@@ -9,15 +9,15 @@ QWriter
 {% endblock %}
 
 {% block url_path %}
-{% url 'factaddr' %}{{ factget.unique_id }}
+{% url 'awareaddr' %}{{ aware.unique_id }}
 {% endblock %}
 
 {% block og_desc %}
-{{ factget.f_text }}
+{{ aware.title }}
 {% endblock %}
 
 {% block twitter_desc %}
-{{ factget.f_text }}
+{{ aware.title }}
 {% endblock %}
 
 {% block content %}
@@ -26,8 +26,8 @@ QWriter
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <div style="float: left; ">
                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                <label class="username">Случайный факт</label><br>
-                <label class="city qwriter-content-block"><i>{{ factget.f_text }}</i><br></label><br><br>
+                <label class="username">{{ aware.title }}</label><br/><br/>
+                <label class="city qwriter-content-block"><i>{{ aware.page_html_code }}</i><br></label><br><br>
                 <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
             </div>
         </div>

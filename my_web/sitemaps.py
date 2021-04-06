@@ -1,10 +1,11 @@
 from django.contrib.sitemaps import Sitemap
 from .models import Post, Quote, Facts, Info
 
+
 class PostSitemap(Sitemap):
-    changefreq = "weekly"
+    changefreq = "always"
     priority = 0.9
-    limit = 100
+    limit = 1000
 
     def items(self):
         return Post.objects.order_by('?')
@@ -12,35 +13,38 @@ class PostSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.time_field
 
+
 class QuoteSitemap(Sitemap):
-    changefreq = "weekly"
+    changefreq = "always"
     priority = 0.9
-    limit = 50000
+    limit = 1000
 
     def items(self):
-        return Quote.objects.all()
+        return Quote.objects.order_by('?')
 
     def lastmod(self, obj):
         return obj.time
 
+
 class FactSitemap(Sitemap):
-    changefreq = "weekly"
+    changefreq = "always"
     priority = 0.9
-    limit = 50000
+    limit = 1000
 
     def items(self):
-        return Facts.objects.all()
+        return Facts.objects.order_by('?')
 
     def lastmod(self, obj):
         return obj.f_time
 
+
 class InfoSitemap(Sitemap):
-    changefreq = "weekly"
+    changefreq = "always"
     priority = 0.9
-    limit = 50000
+    limit = 1000
 
     def items(self):
-        return Info.objects.all()
+        return Info.objects.order_by('?')
 
     def lastmod(self, obj):
         return obj.i_time

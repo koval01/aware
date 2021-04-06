@@ -157,8 +157,15 @@ def aware_api(request):
                     {
                         'done': False,
                         'exception': e,
-                    }
+                    }, status=409
                 )
+        else:
+            return JsonResponse(
+                {
+                    'done': False,
+                    'exception': 'Unauthorized',
+                }, status=401
+            )
 
     return error_403(request)
 

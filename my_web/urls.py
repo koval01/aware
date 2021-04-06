@@ -1,4 +1,5 @@
 from django.contrib.sitemaps.views import sitemap
+from django.views.decorators.cache import cache_page
 from django.urls import path
 from .sitemaps import PostSitemap, QuoteSitemap, FactSitemap, InfoSitemap
 from . import views
@@ -37,10 +38,10 @@ urlpatterns = [
     path('aware/<str:awareid>/', views.awareview),
     path('story/<str:storyid>/', views.storyview),
     path('image/', views.image_proxy_view, name='imageproxy'),
-    path('sitemap_posts.xml', sitemap, {'sitemaps': sitemaps_posts},
+    path('sitemap_posts.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_posts},
          name='django.contrib.sitemaps.views.sitemap'),
-    path('sitemap_quotes.xml', sitemap, {'sitemaps': sitemaps_quotes},
+    path('sitemap_quotes.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_quotes},
          name='django.contrib.sitemaps.views.sitemap'),
-    path('sitemap_facts.xml', sitemap, {'sitemaps': sitemaps_facts},
+    path('sitemap_facts.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_facts},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

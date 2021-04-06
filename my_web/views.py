@@ -1,5 +1,6 @@
 from django.template.defaulttags import register
 from ratelimit.decorators import ratelimit
+from django.views.decorators.csrf import csrf_exempt
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render
 from django.conf import settings
@@ -133,6 +134,7 @@ def image_proxy_view(request):
     return error_403(request)
 
 
+@csrf_exempt
 def aware_api(request):
     if request.POST:
         token_get = request.POST.get('api_key', '')

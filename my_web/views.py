@@ -21,7 +21,7 @@ import logging, string, requests, os, requests_cache
 
 logger = logging.getLogger(__name__)
 
-requests_cache.install_cache('requests_cache_db_my_web_views')
+# requests_cache.install_cache('requests_cache_db_my_web_views')
 
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
 img_link_proxy_key = os.environ['IMAGE_LINK_KEY']

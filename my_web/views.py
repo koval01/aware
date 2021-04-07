@@ -119,7 +119,7 @@ def image_proxy_view(request):
             if token_get > control_time:
                 try:
                     response = requests.get(
-                        link_get, stream=True,
+                        link_get,
                         headers={'user-agent': request.headers.get('user-agent')}
                     )
                     return StreamingHttpResponse(

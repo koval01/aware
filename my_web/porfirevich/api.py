@@ -32,7 +32,7 @@ def __main__() -> list:
                         el['id'],
                     ]
                     data_array.append(data_array_pre)
-            logging.info('Successfully loaded profirevich stories.')
+            logging.info('Successfully loaded profirevich stories!')
             return data_array
     if error_http or error_json:
         logging.error(f'Error http: {error_http}; Error json: {error_json};')

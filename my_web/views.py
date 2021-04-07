@@ -387,6 +387,13 @@ def load_more(request):
                     token_valid = salt.encrypt(data).decode("utf-8")
 
                     # data pack
+                    print(
+                        len(stories),
+                        len(posts),
+                        len(quotes),
+                        len(facts),
+                        len(news),
+                    )
                     data = zip(stories, posts, quotes, facts, news)
 
                     logger.info(f'function load_more: request {request}')

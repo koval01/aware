@@ -28,8 +28,8 @@ QWriter
                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                 <label class="username">Пользовательская запись</label><br>
                 <label class="city qwriter-content-block"><i title="Текст который написал пользователь">{{ postget.user_text }}</i><b title="Текст который написал бот">{{ postget.bot_text }}</b></label><br>
-                <label class="timepub"><i style="font-size: 12px;"><u>Опубликовано {{ postget.time_field }} (UTC)</u></i><br></label>
-                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
+                <label class="timepub"><i style="font-size: 12px;"><u>Опубликовано {{ postget.time_field }} (UTC)</u></i><br></label><br/>
+                <label class="linksite"><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br></label>
             </div>
         </div>
     </div>

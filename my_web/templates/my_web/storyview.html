@@ -27,7 +27,8 @@ QWriter
             <div style="float: left;">
                 <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                 <label class="username">Пользовательская запись</label><br>
-                <label class="city qwriter-content-block">{{ text|safe }}<br/></label></b><i style="font-size: 10px;"><u>Опубликовано {{ time }} (UTC)</u></i><br>
+                <label class="city qwriter-content-block">{{ text|safe }}<br/></label>
+                <label class="timepub"><i style="font-size: 12px;"><u>Опубликовано {{ time }} (UTC)</u></i><br></label>
                 <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
             </div>
         </div>

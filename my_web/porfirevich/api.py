@@ -11,7 +11,10 @@ requests_cache.install_cache('requests_cache_db_recaptcha_api')
 
 def __main__() -> list:
     error_http=False;error_json=False
-    headers = {"user-agent": USER_AGENT}
+    headers = {
+        "user-agent": USER_AGENT,
+        "Cache-Control": "no-cache",
+    }
     data_array = []
     try:
         http_response = get(API_URL, headers=headers)

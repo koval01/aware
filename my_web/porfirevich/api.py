@@ -36,8 +36,8 @@ def __main__() -> list:
                     ]
                     data_array.append(data_array_pre)
             logging.info('Successfully loaded profirevich stories!')
-            print(str(http_response.text)[:128])
-            print(str(data_array)[:128])
+            print(str(http_response.text)[:512])
+            print(str(data_array)[:256])
             return data_array
     if error_http or error_json:
         logging.error(f'Error http: {error_http}; Error json: {error_json};')

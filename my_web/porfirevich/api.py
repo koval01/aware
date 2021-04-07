@@ -20,11 +20,6 @@ def __main__() -> list:
     data_array = []
     try:
         http_response = get(API_URL, headers=headers)
-        print(
-            http_response.url,
-            http_response.status_code,
-            http_response.text[:512],
-        )
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True

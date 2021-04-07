@@ -17,7 +17,8 @@ def get_random_article_wikipedia() -> dict:
         'action': 'query',
         'format': 'json',
         'list': 'random',
-        'rnlimit': '1',
+        'grnnamespace': 0,
+        'rnlimit': 1,
         'prop': 'info|extracts',
         'inprop': 'url',
     }

@@ -1,24 +1,28 @@
-from django.template.defaulttags import register
-from ratelimit.decorators import ratelimit
-from django.views.decorators.csrf import csrf_exempt
-from django.http import StreamingHttpResponse, JsonResponse
-from django.shortcuts import render
+import logging
+import os
+from random import randint, randrange
+from time import time
+
+import requests
+import requests_cache
+from cryptography.fernet import Fernet
 from django.conf import settings
-from random import randrange, randint, choice
-from .models import Post, Quote, Facts, Statistic, AWARE_Page
+from django.http import JsonResponse, StreamingHttpResponse
+from django.shortcuts import render
+from django.template.defaulttags import register
+from django.views.decorators.csrf import csrf_exempt
+from ratelimit.decorators import ratelimit
+
+from .common_functions import get_random_string as rand_str
+from .covid.api import covid_api as covid_stat
+from .link_analyze import link_image as img_link_check
+from .models import AWARE_Page, Facts, Post, Quote, Statistic
 from .newsapi import __main__ as newsfeed
 from .porfirevich.api import __main__ as porfirevich_strory
-from .covid.api import covid_api as covid_stat
-from .status_api.api import status_api as status_data_api
-from .porfirevich.api import get_story as get_story_porfirevich
 from .porfirevich.api import cleanhtml
-from .link_analyze import link_image as img_link_check
+from .porfirevich.api import get_story as get_story_porfirevich
 from .recaptcha_api import get_result as recaptcha_get_result
-from cryptography.fernet import Fernet
-from .common_functions import get_random_string as rand_str
-from time import time
-import logging, requests, os, requests_cache
-
+from .status_api.api import status_api as status_data_api
 
 logger = logging.getLogger(__name__)
 

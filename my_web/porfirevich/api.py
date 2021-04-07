@@ -141,9 +141,9 @@ def decode_story_string(array) -> str:
         if check_long_words_in_string(text):
             text = text.replace('\n', '</br>')
             if i[1]:
-                struct_array.append(f'<b id="{get_random_string}">{text}</b>')
+                struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
             else:
-                struct_array.append(f'<i id="{get_random_string}">{text}</i>')
+                struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
         else:
-            struct_array.append(f'<b id="{get_random_string}">{error_check_code}</b>')
+            struct_array.append(f'<b id="{get_random_string()}">{error_check_code}</b>')
     return ''.join(struct_array)

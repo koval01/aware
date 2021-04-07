@@ -8,6 +8,7 @@ import logging, re, string, random, requests_cache
 
 
 requests_cache.install_cache('requests_cache_db_porfirevich_api')
+logger = logging.getLogger(__name__)
 
 
 def __main__() -> list:
@@ -19,7 +20,8 @@ def __main__() -> list:
     data_array = []
     try:
         http_response = get(API_URL+'?cache=%s' % get_random_string, headers=headers)
-    except exceptions.RequestException:
+    except exceptions.RequestException as e:
+        logger.error(e)
         error_http = True
     if not error_http:
         json_response = loads(http_response.text)
@@ -40,8 +42,6 @@ def __main__() -> list:
                     ]
                     data_array.append(data_array_pre)
             logging.info('Successfully loaded profirevich stories!')
-            print(str(http_response.text)[:512])
-            print(str(data_array)[:256])
             return data_array
     if error_http or error_json:
         logging.error(f'Error http: {error_http}; Error json: {error_json};')

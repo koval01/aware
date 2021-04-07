@@ -15,8 +15,9 @@ from .porfirevich.api import cleanhtml
 from .link_analyze import link_image as img_link_check
 from .recaptcha_api import get_result as recaptcha_get_result
 from cryptography.fernet import Fernet
+from .common_functions import get_random_string as rand_str
 from time import time
-import logging, string, requests, os, requests_cache
+import logging, requests, os, requests_cache
 
 
 logger = logging.getLogger(__name__)
@@ -90,8 +91,7 @@ def get_random_string(length=16) -> str:
     :param length: length string
     :return: generated string
     """
-    letters = string.ascii_letters + string.digits + '_-'
-    return ''.join(choice(letters) for i in range(length))
+    return rand_str(length)
 
 
 @register.filter

@@ -3,6 +3,7 @@ from datetime import datetime
 from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
+from ..views import get_random_string
 import logging, re, string, random, requests_cache
 
 
@@ -17,7 +18,7 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        http_response = get(API_URL, headers=headers)
+        http_response = get(API_URL+'?cache=%s' % get_random_string, headers=headers)
     except exceptions.RequestException:
         error_http = True
     if not error_http:

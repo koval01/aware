@@ -4,7 +4,7 @@ from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
 from ..common_functions import get_random_string
-import logging, re, string, random, requests_cache
+import logging, re, requests_cache
 
 
 requests_cache.install_cache('requests_cache_db_porfirevich_api')
@@ -19,7 +19,12 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        http_response = get(API_URL+'?cache=%s' % get_random_string, headers=headers)
+        http_response = get(API_URL, headers=headers)
+        print(
+            http_response.url,
+            http_response.status_code,
+            http_response.text[:512],
+        )
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True
@@ -140,27 +145,9 @@ def decode_story_string(array) -> str:
         if check_long_words_in_string(text):
             text = text.replace('\n', '</br>')
             if i[1]:
-                struct_array.append(f'<b id="{get_random_string()}">{text}</b>')
+                struct_array.append(f'<b id="{get_random_string}">{text}</b>')
             else:
-                struct_array.append(f'<i id="{get_random_string()}">{text}</i>')
+                struct_array.append(f'<i id="{get_random_string}">{text}</i>')
         else:
-            struct_array.append(f'<b id="{get_random_string()}">{error_check_code}</b>')
+            struct_array.append(f'<b id="{get_random_string}">{error_check_code}</b>')
     return ''.join(struct_array)
-
-
-def get_random_string(length = 0) -> str:
-    """
-    Генерация рандомной строки из цифр и букв
-    """
-    if length == 0: length = random.randint(8, 32)
-    letters = string.ascii_letters + string.digits
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
-
-
-# def gen_link_porfirevich(post_id) -> str:
-#     """
-#     Простая генерация ссылки на запись
-#     """
-#     link = '<a id="%s" href="https://www.q-writer.com/story/%s">История Порфирьевича</a>' % (get_random_string(), post_id)
-#     return link

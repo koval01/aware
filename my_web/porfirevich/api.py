@@ -18,7 +18,7 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        http_response = get(API_URL+'?cache=%s' % get_random_string, headers=headers)
+        http_response = get(API_URL+'?cache=%s' % get_random_string(), headers=headers)
     except exceptions.RequestException:
         error_http = True
     if not error_http:

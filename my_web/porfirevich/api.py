@@ -4,12 +4,9 @@ from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
 from ..common_functions import get_random_string
-import logging, re, requests_cache
+import logging, re
 
-
-requests_cache.install_cache('requests_cache_db_porfirevich_api')
 logger = logging.getLogger(__name__)
-# 07.04.2021
 
 
 def __main__() -> list:
@@ -20,9 +17,7 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        requests_cache.disabled()
         http_response = get(API_URL, headers=headers)
-        requests_cache.enabled()
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True

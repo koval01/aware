@@ -4,7 +4,6 @@ from random import randint, randrange
 from time import time
 
 import requests
-import requests_cache
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse
@@ -25,9 +24,6 @@ from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
 
 logger = logging.getLogger(__name__)
-
-requests_cache.install_cache('requests_cache_db_my_web_views')
-
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
 img_link_proxy_key = os.environ['IMAGE_LINK_KEY']
 load_more_encrypt_key = os.environ['LOAD_MORE_KEY']

@@ -5,10 +5,8 @@ from random import choice
 from json import loads
 from .months import convert as month_convert
 from .newsfilter import text_news_filter as filter_news
-import logging, requests_cache
+import logging
 
-
-requests_cache.install_cache('requests_cache_db_news_api')
 token = settings.NEWSAPI_TOKEN
 
 def __main__(news_append) -> list:

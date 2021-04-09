@@ -1,9 +1,7 @@
 from requests import get
 from json import loads
-import logging, requests_cache
+import logging
 
-
-requests_cache.install_cache('requests_cache_db_wikipedia_api')
 logger = logging.getLogger(__name__)
 
 

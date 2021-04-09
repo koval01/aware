@@ -1,10 +1,9 @@
 from requests import get, exceptions
 from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
-import logging, requests_cache
+import logging
 
-
-requests_cache.install_cache('requests_cache_db_status_api')
+logger = logging.getLogger(__name__)
 
 
 def __main__() -> dict:

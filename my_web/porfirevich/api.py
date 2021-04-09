@@ -21,7 +21,7 @@ def __main__() -> list:
     data_array = []
     try:
         http_response = get(API_URL, headers=headers)
-        print(http_response.text)
+        print(http_response.text) # super-debug technology
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True

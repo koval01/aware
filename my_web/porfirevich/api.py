@@ -20,12 +20,12 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        http_response = urllib3.connection_from_url(API_URL, headers=headers).data.decode('utf-8')
+        http_response = urllib3.connection_from_url(API_URL, headers=headers)
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True
     if not error_http:
-        json_response = loads(http_response)
+        json_response = loads(http_response.data.decode('utf-8'))
         if not len(json_response['data']): error_json = True
         if not error_json:
             for el in json_response['data']:

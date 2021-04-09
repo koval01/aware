@@ -3,7 +3,6 @@ django-heroku
 django_compressor
 django-ratelimit
 gunicorn
-pycurl
 pip
 setuptools
 wheel

@@ -7,7 +7,6 @@ pip
 setuptools
 wheel
 requests
-requests-cache
 sentry_sdk
 django-cors-headers
 pymysql[rsa]

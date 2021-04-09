@@ -906,7 +906,7 @@
     .user img {
         margin-right: 20px;
         float: left;
-        width: 100%;
+        max-width: 100%;
     }
 
     .user .username {

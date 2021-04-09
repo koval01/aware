@@ -314,7 +314,7 @@ def awareview(request, awareid):
         awareid: request.GET.get('awareid', '')
         for a in AWARE_Page.objects.raw('SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
             aware = a
-        return render(request, 'my_web/awareview.html', {'awareget': aware})
+        return render(request, 'my_web/awareview.html', {'aware': aware})
     except Exception as e:
         logger.error(e)
         return error_404(request, e)

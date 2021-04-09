@@ -4,7 +4,7 @@ from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
 from ..common_functions import get_random_string
-import logging, re, requests_cache
+import logging, re, requests_cache, urllib3
 
 
 requests_cache.install_cache('requests_cache_db_porfirevich_api')
@@ -20,8 +20,7 @@ def __main__() -> list:
     }
     data_array = []
     try:
-        http_response = get(API_URL, headers=headers)
-        print(http_response.text) # super-debug technology
+        http_response = urllib3.connection_from_url(API_URL, headers=headers)
     except exceptions.RequestException as e:
         logger.error(e)
         error_http = True

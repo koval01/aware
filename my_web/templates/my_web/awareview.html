@@ -22,15 +22,9 @@ QWriter
 
 {% block content %}
 {% load static %}
-    <style>
-        .img {
-            width: 100%;
-        }
-    </style>
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <div style="float:left;width: 100%;">
-                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
                 <label class="username">{{ aware.title }}</label><br/><br/>
                 <label class="city qwriter-content-block" style="width:100%;">{{ aware.page_html_code|safe }}<br></label><br><br>
                 <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>

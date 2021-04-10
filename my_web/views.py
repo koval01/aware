@@ -165,13 +165,12 @@ def aware_api(request):
                     logger.info('AWARE API Title: %s' % title)
                     logger.info('AWARE API HTML: %s' % page_html_code)
                     try:
-                        a = AWARE_Page(title=title, page_html_code=page_html_code)
-                        a.save()
+                        for i in range(5):
+                            a = AWARE_Page(title=title, page_html_code=page_html_code)
+                            a.save()
+                            break # Якщо спроба вдалася, то зупиняємо цикл
                     except Exception as e:
                         logger.error(e)
-                        # Спробуємо ще раз
-                        a = AWARE_Page(title=title, page_html_code=page_html_code)
-                        a.save()
                     return JsonResponse(
                         {
                             'done': True,

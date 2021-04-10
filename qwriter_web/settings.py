@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from cryptography.fernet import Fernet
 import os.path
 
 # settings.configure(
@@ -56,9 +55,9 @@ NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
 RETOKEN_PUBLIC = os.environ['RECAPTCHA_PUBLIC_KEY']
 RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
 
-IMAGE_PROXY_KEY = Fernet.generate_key()
-IMAGE_PROXY_LINK_KEY = Fernet.generate_key()
-LOAD_MORE_ENCRYPT_KEY = Fernet.generate_key()
+IMAGE_PROXY_KEY = os.environ['IMAGE_PROXY_KEY']
+IMAGE_PROXY_LINK_KEY = os.environ['IMAGE_LINK_KEY']
+LOAD_MORE_ENCRYPT_KEY = os.environ['LOAD_MORE_KEY']
 
 # Application definition
 

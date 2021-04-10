@@ -103,36 +103,40 @@ def link_encrypt_img(link) -> str:
     :param link: Link image
     :return: Encrypted link
     """
-    salt_link = Fernet(img_link_proxy_key)
-    data_link = str.encode(str(link))
-    return salt_link.encrypt(data_link).decode("utf-8")
+    try:
+        salt_link = Fernet(img_link_proxy_key)
+        data_link = str.encode(str(link))
+        result = salt_link.encrypt(data_link).decode("utf-8")
+        return result
+    except Exception as e:
+        logger.error(e)
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='90/m', block=True)
 def image_proxy_view(request):
     if request.GET:
-        url = request.GET['data']
-        salt_link = Fernet(img_link_proxy_key)
-        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
-        if img_link_check(link_get):
-            token = request.GET['token']
-            salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 10
-            control_time = round(time())
-            if token_get > control_time:
-                try:
-                    response = img_proxy_session.get(
-                        link_get, stream=True,
-                        headers={'user-agent': request.headers.get('user-agent')}
-                    )
-                    return StreamingHttpResponse(
-                        response.raw,
-                        content_type=response.headers.get('content-type'),
-                        status=response.status_code,
-                        reason=response.reason,
-                    )
-                except Exception as e:
-                    logger.error(e)
+        try:
+            url = request.GET['data']
+            salt_link = Fernet(img_link_proxy_key)
+            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+            if img_link_check(link_get):
+                token = request.GET['token']
+                salt = Fernet(image_proxy_key)
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 10
+                control_time = round(time())
+                if token_get > control_time:
+                        response = img_proxy_session.get(
+                            link_get, stream=True,
+                            headers={'user-agent': request.headers.get('user-agent')}
+                        )
+                        return StreamingHttpResponse(
+                            response.raw,
+                            content_type=response.headers.get('content-type'),
+                            status=response.status_code,
+                            reason=response.reason,
+                        )
+        except Exception as e:
+            logger.error(e)
 
     return error_403(request)
 

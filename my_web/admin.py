@@ -7,4 +7,4 @@ admin.site.register(Facts)
 admin.site.register(Info)
 admin.site.register(AWARE_Page)
 admin.site.register(Statistic)
-admin.site.site_header = 'My administration'
+admin.site.site_header = 'Q-Writer Admin Panel'

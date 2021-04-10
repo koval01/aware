@@ -2,9 +2,9 @@ from django.db import models
 import string, random
 
 
-def random_string():
+def random_string(min_val=12, max_val=16):
     s = string.ascii_letters + string.digits + '-_'
-    x = "".join([random.choice(s) for i in range(random.randrange(12, 16))])
+    x = "".join([random.choice(s) for i in range(random.randrange(min_val, max_val))])
     return x
 
 
@@ -15,7 +15,7 @@ class Post(models.Model):
     time_field = models.DateTimeField('Время публикации')
     user_name = models.CharField('Имя пользователя', max_length=255)
     telegraph_page = models.CharField('Telegra.ph страница', max_length=255)
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string())
 
     def __str__(self):
         return self.user_text + self.bot_text
@@ -32,7 +32,7 @@ class Quote(models.Model):
     q_text = models.TextField('Текст цитаты')
     q_author = models.CharField('Автор цитаты', max_length=255)
     time = models.DateTimeField('Время публикации')
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string())
 
     def __str__(self):
         return self.q_text
@@ -48,7 +48,7 @@ class Quote(models.Model):
 class Facts(models.Model):
     f_text = models.TextField('Текст факта')
     f_time = models.DateTimeField('Время публикации')
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string())
 
     def __str__(self):
         return self.f_text
@@ -80,7 +80,7 @@ class Info(models.Model):
 class AWARE_Page(models.Model):
     title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
     page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
+    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string(24, 32))
 
     def __str__(self):
         return self.title

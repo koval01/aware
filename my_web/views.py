@@ -174,7 +174,7 @@ def aware_api(request):
                     return JsonResponse(
                         {
                             'done': True,
-                            'unique_id': a.unique_id,
+                            'unique_id': AWARE_Page.objects.latest('unique_id'),
                         }
                     )
             except Exception as e:

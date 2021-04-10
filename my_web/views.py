@@ -168,13 +168,14 @@ def aware_api(request):
                         for i in range(5):
                             a = AWARE_Page(title=title, page_html_code=page_html_code)
                             a.save()
-                            break # Якщо спроба вдалася, то зупиняємо цикл
+                            break
                     except Exception as e:
                         logger.error(e)
+                    unique_id = AWARE_Page.objects.latest('unique_id')
                     return JsonResponse(
                         {
                             'done': True,
-                            'unique_id': AWARE_Page.objects.latest('unique_id'),
+                            'unique_id': unique_id,
                         }
                     )
             except Exception as e:

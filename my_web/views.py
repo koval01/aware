@@ -127,7 +127,7 @@ def image_proxy_view(request):
             if img_link_check(link_get):
                 token = request.GET['token']
                 salt = Fernet(image_proxy_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 10
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 60
                 control_time = round(time())
                 if token_get > control_time:
                         response = img_proxy_session.get(

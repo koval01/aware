@@ -1,6 +1,7 @@
 from django.contrib.sitemaps.views import sitemap
 from django.views.decorators.cache import cache_page
-from django.urls import path
+from django.urls import path, include
+from .admin import admin_site
 from .sitemaps import PostSitemap, QuoteSitemap, FactSitemap, InfoSitemap
 from . import views
 
@@ -22,6 +23,7 @@ sitemaps_info = {
 
 urlpatterns = [
     path('', views.index, name='index_page'),
+    path('admin/', include(admin_site.urls), name='admin_panel'),
     path('info/', views.info, name='info_page'),
     path('status', views.status, name='status_page'),
     path('stats', views.stats, name='stats_page'),

@@ -199,6 +199,7 @@ def status(request):
     :param request: request body
     :return: render template page
     """
+    print(request.headers['X-Forwarded-For'])
     logger.info(f'function index: request {request}')
     status_data = status_data_api()
     return render(request, 'my_web/status.html', {'status': status_data})

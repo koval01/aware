@@ -107,7 +107,7 @@ def link_encrypt_img(link) -> str:
     return salt_link.encrypt(data_link).decode("utf-8")
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='90/m', block=True)
 def image_proxy_view(request):
     if request.GET:
         url = request.GET['data']
@@ -137,7 +137,7 @@ def image_proxy_view(request):
 
 
 @csrf_exempt
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='100/m', block=True)
 def aware_api(request):
     if request.POST:
         token_get = request.POST.get('api_key', '')
@@ -176,7 +176,7 @@ def aware_api(request):
     return error_403(request)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='40/m', block=True)
 def index(request):
     """
     Index page view
@@ -195,7 +195,7 @@ def index(request):
     })
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='3/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
 def status(request):
     """
     Status page view
@@ -207,7 +207,7 @@ def status(request):
     return render(request, 'my_web/status.html', {'status': status_data})
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def botpage(request):
     """
     Bot info page view
@@ -218,7 +218,7 @@ def botpage(request):
     return render(request, 'my_web/botpage.html', )
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def info(request):
     """
     Info site page view
@@ -229,7 +229,7 @@ def info(request):
     return render(request, 'my_web/info.html')
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def postview(request, postid):
     """
     Post page view
@@ -247,7 +247,7 @@ def postview(request, postid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def storyview(request, storyid):
     """
     Story page view
@@ -274,7 +274,7 @@ def storyview(request, storyid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def quoteview(request, quoteid):
     """
     Quote page view
@@ -292,7 +292,7 @@ def quoteview(request, quoteid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def factview(request, factid):
     """
     Fact page view
@@ -311,7 +311,7 @@ def factview(request, factid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='20/m', block=True)
 def awareview(request, awareid):
     """
     AWARE page view
@@ -347,7 +347,7 @@ def stats(request):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='50/m', block=True)
 def load_more(request):
     """
     Technical (load_more) page view

@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
 image_proxy_key = os.environ['IMAGE_PROXY_KEY']
 img_link_proxy_key = os.environ['IMAGE_LINK_KEY']
 load_more_encrypt_key = os.environ['LOAD_MORE_KEY']
+qwriter_api_for_aware = os.environ['AWARE_KEY']
 
 
 @register.filter
@@ -138,7 +139,7 @@ def image_proxy_view(request):
 def aware_api(request):
     if request.POST:
         token_get = request.POST.get('api_key', '')
-        token = os.environ['AWARE_KEY']
+        token = qwriter_api_for_aware
         if token == token_get:
             try:
                 title = request.POST.get('title', '')
@@ -155,6 +156,7 @@ def aware_api(request):
                         }
                     )
             except Exception as e:
+                logger.error(e)
                 return JsonResponse(
                     {
                         'done': False,

@@ -56,9 +56,9 @@ NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
 RETOKEN_PUBLIC = os.environ['RECAPTCHA_PUBLIC_KEY']
 RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
 
-image_proxy_key = Fernet.generate_key()
-img_link_proxy_key = Fernet.generate_key()
-load_more_encrypt_key = Fernet.generate_key()
+IMAGE_PROXY_KEY = Fernet.generate_key()
+IMAGE_PROXY_LINK_KEY = Fernet.generate_key()
+LOAD_MORE_ENCRYPT_KEY = Fernet.generate_key()
 
 # Application definition
 

@@ -195,7 +195,7 @@ def index(request):
     })
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='5/h', block=True)
 def status(request):
     """
     Status page view

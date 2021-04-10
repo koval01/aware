@@ -1,17 +1,18 @@
-from requests import get, exceptions
 from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
-import logging
+import logging, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('status_get')
 
 
 def __main__() -> dict:
     error_http=False;error_json=False
     headers = {"user-agent": USER_AGENT}
     try:
-        http_response = get(API_URL, headers=headers)
-    except exceptions.RequestException:
+        http_response = session.get(API_URL, headers=headers)
+    except Exception as e:
+        logger.error(e)
         error_http = True
     if not error_http:
         json_response = loads(http_response.text)

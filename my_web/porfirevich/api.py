@@ -4,9 +4,10 @@ from .config import USER_AGENT, API_URL, error_check_code
 from json import loads
 from ..months import convert as month_convert
 from ..common_functions import get_random_string
-import logging, re
+import logging, re, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('porfirevich_cache')
 
 
 def __main__() -> list:
@@ -50,7 +51,7 @@ def get_story(story_id) -> str:
     headers = {"user-agent": USER_AGENT}
     url = 'https://porfirevich.ru/api/story/'+story_id
     try:
-        http_response = get(url, headers=headers)
+        http_response = session.get(url, headers=headers)
     except exceptions.RequestException:
         error_http = True
     if not error_http:

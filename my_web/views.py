@@ -164,8 +164,14 @@ def aware_api(request):
                 if title and page_html_code:
                     logger.info('AWARE API Title: %s' % title)
                     logger.info('AWARE API HTML: %s' % page_html_code)
-                    a = AWARE_Page(title=title, page_html_code=page_html_code)
-                    a.save()
+                    try:
+                        a = AWARE_Page(title=title, page_html_code=page_html_code)
+                        a.save()
+                    except Exception as e:
+                        logger.error(e)
+                        # Спробуємо ще раз
+                        a = AWARE_Page(title=title, page_html_code=page_html_code)
+                        a.save()
                     return JsonResponse(
                         {
                             'done': True,

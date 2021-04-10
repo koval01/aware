@@ -224,7 +224,7 @@ def news_feed(request):
     token_re = settings.RETOKEN_PUBLIC
 
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/index.html', {
+    return render(request, 'my_web/news-feed.html', {
         'token_valid': token_valid, 'token_re': token_re,
     })
 

@@ -144,6 +144,8 @@ def aware_api(request):
                 title = request.POST.get('title', '')
                 page_html_code = request.POST.get('page_html_code', '')
                 if title and page_html_code:
+                    logger.info('AWARE API Title: %s' % title)
+                    logger.info('AWARE API HTML: %s' % page_html_code)
                     a = AWARE_Page(title=title, page_html_code=page_html_code)
                     a.save()
                     return JsonResponse(

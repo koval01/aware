@@ -3,7 +3,7 @@ import os
 from random import randint, randrange
 from time import time
 
-import requests, requests_cache
+import requests_cache
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse
@@ -24,9 +24,9 @@ from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
 
 logger = logging.getLogger(__name__)
-image_proxy_key = os.environ['IMAGE_PROXY_KEY']
-img_link_proxy_key = os.environ['IMAGE_LINK_KEY']
-load_more_encrypt_key = os.environ['LOAD_MORE_KEY']
+image_proxy_key = settings.image_proxy_key
+img_link_proxy_key = settings.img_link_proxy_key
+load_more_encrypt_key = settings.load_more_encrypt_key
 qwriter_api_for_aware = os.environ['AWARE_KEY']
 img_proxy_session = requests_cache.CachedSession('image_proxy_cache')
 

@@ -1,7 +1,9 @@
-from requests import get, exceptions
 from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
-import logging, re
+import logging, re, requests_cache
+
+session = requests_cache.CachedSession('covid_cache')
+logger = logging.getLogger(__name__)
 
 
 def __main__(country='UA') -> str:
@@ -13,8 +15,9 @@ def __main__(country='UA') -> str:
 
     if country == 'UA':
         try:
-            http_response = get(API_URL, headers=headers)
-        except exceptions.RequestException:
+            http_response = session.get(API_URL, headers=headers)
+        except Exception as e:
+            logger.error(e)
             error_http: True
 
         if not error_http:
@@ -58,8 +61,9 @@ def __main__(country='UA') -> str:
 
     elif country == 'RU':
         try:
-            http_response = get(API_URL_RU, headers=headers)
-        except exceptions.RequestException:
+            http_response = session.get(API_URL_RU, headers=headers)
+        except Exception as e:
+            logger.error(e)
             error_http: True
 
         if not error_http:

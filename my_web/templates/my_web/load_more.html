@@ -109,7 +109,7 @@
                         <label class="city">
                             {# paste news image #}
                             {% if el.4.5 %}
-                                <img src="{% url 'imageproxy' %}?data={{ el.4.5|link_encrypt_img }}&token={{ token_image_proxy }}" class="photohub_item" loading="lazy" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                <img src="{% url 'imageproxy' %}?data={{ el.4.5|link_encrypt_img }}&token={{ token_image_proxy }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                             {% endif %}
                             <b style="font-size: 14px">{{ el.4.0 }}</b><br/><i>{{ el.4.1 }}</i><br><br><b>Источник - <a href="{{ el.4.4 }}">{{ el.4.2 }}</a></b><br><i><u>Опубликовано {{ el.4.3 }} (UTC)</u></i>
                         </label><br><br>

@@ -32,6 +32,7 @@ urlpatterns = [
     path('fact/', views.error_404, name='factaddr'),
     path('aware/', views.error_404, name='awareaddr'),
     path('story/', views.error_404, name='storyaddr'),
+    path('news/', views.news_feed, name='news_page'),
     path('quote/<str:quoteid>/', views.quoteview),
     path('post/<str:postid>/', views.postview),
     path('fact/<str:factid>/', views.factview),

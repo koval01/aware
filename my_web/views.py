@@ -114,6 +114,11 @@ def link_encrypt_img(link) -> str:
 
 @ratelimit(key='header:X-Forwarded-For', rate='90/m', block=True)
 def image_proxy_view(request):
+    """
+    Image proxy function
+    :param request: body request
+    :return: raw image
+    """
     if request.GET:
         try:
             url = request.GET['data']
@@ -144,6 +149,11 @@ def image_proxy_view(request):
 @csrf_exempt
 @ratelimit(key='header:X-Forwarded-For', rate='100/m', block=True)
 def aware_api(request):
+    """
+    API for AWARE
+    :param request: body request
+    :return: json answer
+    """
     if request.POST:
         token_get = request.POST.get('api_key', '')
         token = qwriter_api_for_aware
@@ -185,6 +195,25 @@ def aware_api(request):
 def index(request):
     """
     Index page view
+    :param request: request body
+    :return: render template page
+    """
+    # unix time mark encryption
+    salt = Fernet(load_more_encrypt_key)
+    data = str.encode(str(round(time())))
+    token_valid = salt.encrypt(data).decode("utf-8")
+    token_re = settings.RETOKEN_PUBLIC
+
+    logger.info(f'function index: request {request}')
+    return render(request, 'my_web/index.html', {
+        'token_valid': token_valid, 'token_re': token_re,
+    })
+
+
+@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
+def news_feed(request):
+    """
+    News page view
     :param request: request body
     :return: render template page
     """

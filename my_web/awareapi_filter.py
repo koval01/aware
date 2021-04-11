@@ -33,7 +33,7 @@ def get_body_el_page(page_html) -> dict:
     try:
         title_page = soup.title.string
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         title_page = 'Не удалось получить заголовок страницы'
 
     text_tags = [
@@ -82,16 +82,16 @@ def get_instant_page(link) -> dict:
     try:
         yt = get_youtube_link(link)
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         yt = None
     if yt:
         html = yt
     else:
         html = data['html']
-    if bool(BeautifulSoup(html, "html.parser").find()):
-        html = html
-    else:
-        html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
+    # if bool(BeautifulSoup(html, "html.parser").find()):
+    #     html = html
+    # else:
+    #     html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
     title = data['title']
     template = 'dd7f8f14ecc26f'  # Telegram Instant View template hash
     return dict(

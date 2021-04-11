@@ -162,13 +162,8 @@ def aware_api(request):
                 title = str(request.POST.get('title', ''))
                 page_html_code = str(request.POST.get('page_html_code', ''))
                 if title and page_html_code:
-                    logger.info('AWARE API Title: %s' % title)
-                    logger.info('AWARE API HTML: %s' % page_html_code)
-                    try:
-                        a = AWARE_Page(title=title, page_html_code=page_html_code)
-                        a.save()
-                    except Exception as e:
-                        logger.error(e)
+                    a = AWARE_Page(title=title, page_html_code=page_html_code)
+                    a.save()
                     return JsonResponse(
                         {
                             'done': True,
@@ -183,13 +178,6 @@ def aware_api(request):
                         'exception': e,
                     }, status=409
                 )
-        else:
-            return JsonResponse(
-                {
-                    'done': False,
-                    'exception': 'Unauthorized',
-                }, status=401
-            )
 
     return error_403(request)
 

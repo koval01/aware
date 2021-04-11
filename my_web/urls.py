@@ -1,7 +1,7 @@
 from django.contrib.sitemaps.views import sitemap
 from django.views.decorators.cache import cache_page
 from django.urls import path
-from .sitemaps import PostSitemap, QuoteSitemap, FactSitemap, InfoSitemap
+from .sitemaps import PostSitemap, QuoteSitemap, FactSitemap, InfoSitemap, AWARE_Pages_Sitemap
 from . import views
 
 sitemaps_posts = {
@@ -18,6 +18,10 @@ sitemaps_facts = {
 
 sitemaps_info = {
     'facts': InfoSitemap,
+}
+
+sitemaps_aware_pages = {
+    'aware_pages': AWARE_Pages_Sitemap,
 }
 
 urlpatterns = [
@@ -45,5 +49,7 @@ urlpatterns = [
     path('sitemap_quotes.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_quotes},
          name='django.contrib.sitemaps.views.sitemap'),
     path('sitemap_facts.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_facts},
+         name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap_aware_pages.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_aware_pages},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

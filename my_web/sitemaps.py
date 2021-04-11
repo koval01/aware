@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from .models import Post, Quote, Facts, Info
+from .models import Post, Quote, Facts, Info, AWARE_Page
 
 
 class PostSitemap(Sitemap):
@@ -36,6 +36,18 @@ class FactSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.f_time
+
+
+class AWARE_Pages_Sitemap(Sitemap):
+    changefreq = "always"
+    priority = 0.9
+    limit = 1000
+
+    def items(self):
+        return AWARE_Page.objects.order_by('?')
+
+    def lastmod(self, obj):
+        return obj.time
 
 
 class InfoSitemap(Sitemap):

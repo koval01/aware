@@ -29,7 +29,7 @@ def get_body_el_page(page_html) -> dict:
     :param page_html: HTML код сторінки яку потрібно проаналізувати
     :return: Всі потрібні теги в строці
     """
-    soup = BeautifulSoup(page_html, 'html.parser')
+    soup = BeautifulSoup(page_html, 'lxml')
     try:
         title_page = soup.title.string
     except Exception as e:
@@ -39,15 +39,15 @@ def get_body_el_page(page_html) -> dict:
     text_tags = [
         'p', 'i', 'b', 'code', 'em', 'strong',
         'mark', 'small', 'sub', 'sup', 'ins', 'del',
-        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img',
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     ]
     tags_list = soup.find_all(text_tags)
     html = []
     for i in tags_list:
         x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
-        soup = BeautifulSoup(x, 'html.parser')
-        for s in soup.select('script'):
-            s.extract()
+        soup = BeautifulSoup(x, 'lxml')
+        [s.extract() for s in soup.select('script')]
+        [s.extract() for s in soup.select('style')]
         html.append(str(soup))
     html = ''.join(html)
     return dict(title=title_page, html=html)

@@ -147,7 +147,6 @@ def image_proxy_view(request):
 
 
 @csrf_exempt
-@ratelimit(key='header:X-Forwarded-For', rate='100/m', block=True)
 def aware_api(request):
     """
     API for AWARE

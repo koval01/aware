@@ -44,6 +44,7 @@ def get_body_el_page(page_html) -> dict:
     tags_list = soup.find_all(text_tags)
     html = []
     for i in tags_list:
+        print(str(i))
         tag = BeautifulSoup(str(i), 'html.parser')
         x = str(tag.clear())
         x = x.replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
@@ -89,7 +90,6 @@ def get_instant_page(link) -> dict:
         html = yt
     else:
         html = data['html']
-    print(html)
     if bool(BeautifulSoup(html, "html.parser").find()):
         html = html
     else:

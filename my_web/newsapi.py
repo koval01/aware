@@ -1,13 +1,15 @@
 from django.conf import settings
-from requests import get, exceptions
 from datetime import datetime
 from random import choice
 from json import loads
 from .months import convert as month_convert
 from .newsfilter import text_news_filter as filter_news
-import logging
+import logging, requests_cache
 
 token = settings.NEWSAPI_TOKEN
+logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('news_api_cache', expire_after=3600)
+
 
 def __main__(news_append) -> list:
     if news_append:
@@ -16,14 +18,15 @@ def __main__(news_append) -> list:
         params = {'apiKey': choice(token)}
         data_array = []
         try:
-            http_response = get(url, params=params)
-        except exceptions.RequestException:
+            http_response = session.get(url, params=params)
+        except Exception as e:
+            logger.error(e)
             error_http = True
         if not error_http:
             try:
                 json_response = loads(http_response.text)
             except Exception as e:
-                logging.error(e)
+                logger.error(e)
                 error_json = True
             if not error_json:
                 status_field = json_response['status']
@@ -47,7 +50,7 @@ def __main__(news_append) -> list:
                     logging.info('Successfully loaded news.')
                     return data_array
         if error_http or error_json:
-            logging.error(f'Error http: {error_http}; Error json: {error_json};')
+            logger.error(f'Error http: {error_http}; Error json: {error_json};')
     return [['' for x in range(6)] for y in range(20)]
 
 

@@ -3,7 +3,7 @@ from json import loads
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('status_get')
+session = requests_cache.CachedSession('status_get', expire_after=7200)
 
 
 def __main__() -> dict:

@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
 import logging, re, requests_cache
 
-session = requests_cache.CachedSession('covid_cache')
+session = requests_cache.CachedSession('covid_cache', expire_after=7200)
 logger = logging.getLogger(__name__)
 
 

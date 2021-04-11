@@ -1,7 +1,7 @@
 from urllib.parse import urlunsplit, urlparse
 from bs4 import BeautifulSoup
 from requests import get
-import logging, urllib
+import logging, urllib, re
 
 logger = logging.getLogger(__name__)
 user_agent_static = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4469.3 Safari/537.36'
@@ -93,6 +93,7 @@ def get_instant_page(link) -> dict:
     url_el = urlparse(link)
     domain = url_el.netloc
     html = html.replace('href="/', 'href="https://%s/' % domain)
+    html = re.sub(r'<img.*?>', '', html)
     if bool(BeautifulSoup(html, "html.parser").find()):
         html = html
     else:

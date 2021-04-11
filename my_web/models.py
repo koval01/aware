@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 import string, random
 
 
@@ -12,7 +13,7 @@ class Post(models.Model):
     tg_uid = models.CharField('ID пользователя Telegram', max_length=128)
     user_text = models.TextField('Текст пользователя')
     bot_text = models.TextField('Текст бота')
-    time_field = models.DateTimeField('Время публикации')
+    time_field = models.DateTimeField('Время публикации', default=datetime.now)
     user_name = models.CharField('Имя пользователя', max_length=255)
     telegraph_page = models.CharField('Telegra.ph страница', max_length=255)
     unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
@@ -31,7 +32,7 @@ class Post(models.Model):
 class Quote(models.Model):
     q_text = models.TextField('Текст цитаты')
     q_author = models.CharField('Автор цитаты', max_length=255)
-    time = models.DateTimeField('Время публикации')
+    time = models.DateTimeField('Время публикации', default=datetime.now)
     unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
 
     def __str__(self):
@@ -47,7 +48,7 @@ class Quote(models.Model):
 
 class Facts(models.Model):
     f_text = models.TextField('Текст факта')
-    f_time = models.DateTimeField('Время публикации')
+    f_time = models.DateTimeField('Время публикации', default=datetime.now)
     unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
 
     def __str__(self):
@@ -64,7 +65,7 @@ class Facts(models.Model):
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
     i_text = models.TextField('Текст поста')
-    i_time = models.DateTimeField('Время публикации')
+    i_time = models.DateTimeField('Время публикации', default=datetime.now)
 
     def __str__(self):
         return self.i_title
@@ -81,7 +82,7 @@ class AWARE_Page(models.Model):
     title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
     page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
     unique_id = models.CharField('Уникальный ID', max_length=255, unique=True, default=random_string)
-    time = models.DateTimeField('Время создания')
+    time = models.DateTimeField('Время создания', default=datetime.now)
 
     def __str__(self):
         return self.title
@@ -97,7 +98,7 @@ class AWARE_Page(models.Model):
 class Statistic(models.Model):
     u_stat = models.IntegerField('Стастика пользователей')
     b_stat = models.IntegerField('Статистика бота')
-    st_time = models.DateTimeField('Время обновления')
+    st_time = models.DateTimeField('Время обновления', default=datetime.now)
 
     def __str__(self):
         return str(int(self.u_stat) + int(self.b_stat))

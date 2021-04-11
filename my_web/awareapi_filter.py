@@ -46,8 +46,9 @@ def get_body_el_page(page_html) -> dict:
     for i in tags_list:
         x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
         soup = BeautifulSoup(x, 'lxml')
-        [s.extract() for s in soup.select('script')]
-        [s.extract() for s in soup.select('style')]
+        del_tags = ['img', 'svg', 'object', 'script', 'style']
+        for i in del_tags:
+            [s.extract() for s in soup.select(i)]
         html.append(str(soup))
     html = ''.join(html)
     return dict(title=title_page, html=html)
@@ -73,6 +74,18 @@ def get_youtube_link(link) -> str:
         return r
 
 
+def html_code_prepare(html, domain) -> str:
+    """
+    HTML code prepare
+    :param html: html code page
+    :param domain: domain site page from
+    :return: edited html code
+    """
+    html = html.replace('\n', '')
+    html = html.replace('href="/', 'href="https://%s/' % domain)
+    return html
+
+
 def get_instant_page(link) -> dict:
     """
     Функція для зручного отримання посилання на Instant View сторінку
@@ -92,8 +105,7 @@ def get_instant_page(link) -> dict:
         html = data['html']
     url_el = urlparse(link)
     domain = url_el.netloc
-    html = html.replace('href="/', 'href="https://%s/' % domain)
-    html = re.sub(r'<img.*?>', '', html)
+    html = html_code_prepare(html, domain)
     if bool(BeautifulSoup(html, "html.parser").find()):
         html = html
     else:

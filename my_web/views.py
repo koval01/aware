@@ -159,24 +159,20 @@ def aware_api(request):
         token = qwriter_api_for_aware
         if token == token_get:
             try:
-                title = request.POST.get('title', '')
-                page_html_code = request.POST.get('page_html_code', '')
+                title = str(request.POST.get('title', ''))
+                page_html_code = str(request.POST.get('page_html_code', ''))
                 if title and page_html_code:
                     logger.info('AWARE API Title: %s' % title)
                     logger.info('AWARE API HTML: %s' % page_html_code)
                     try:
-                        for i in range(5):
-                            a = AWARE_Page(title=title, page_html_code=page_html_code)
-                            a.save()
-                            break
+                        a = AWARE_Page(title=title, page_html_code=page_html_code)
+                        a.save()
                     except Exception as e:
                         logger.error(e)
-                    unique_id = str(AWARE_Page.objects.latest('id').unique_id)
-                    logger.info(unique_id)
                     return JsonResponse(
                         {
                             'done': True,
-                            'unique_id': unique_id,
+                            'unique_id': AWARE_Page.objects.latest('id').unique_id,
                         }
                     )
             except Exception as e:

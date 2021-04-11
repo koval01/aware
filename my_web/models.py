@@ -2,7 +2,7 @@ from django.db import models
 import string, random
 
 
-def random_string(min_val=12, max_val=16):
+def random_string(min_val=8, max_val=16):
     s = string.ascii_letters + string.digits + '-_'
     x = "".join([random.choice(s) for i in range(random.randrange(min_val, max_val))])
     return x
@@ -80,7 +80,7 @@ class Info(models.Model):
 class AWARE_Page(models.Model):
     title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
     page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
-    unique_id = models.CharField('Уникальный ID', max_length=255, unique=True, default=random_string(10, 24))
+    unique_id = models.CharField('Уникальный ID', max_length=255, unique=True, default=random_string())
 
     def __str__(self):
         return self.title

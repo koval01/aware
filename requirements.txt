@@ -6,6 +6,7 @@ gunicorn
 pip
 setuptools
 wheel
+lxml
 requests
 requests-cache
 sentry_sdk

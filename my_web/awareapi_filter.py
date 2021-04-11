@@ -89,6 +89,7 @@ def get_instant_page(link) -> dict:
         html = yt
     else:
         html = data['html']
+    print(html)
     if bool(BeautifulSoup(html, "html.parser").find()):
         html = html
     else:

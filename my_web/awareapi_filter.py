@@ -46,7 +46,7 @@ def get_body_el_page(page_html) -> dict:
     for i in tags_list:
         x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
         soup = BeautifulSoup(x, 'lxml')
-        del_tags = ['img', 'svg', 'object', 'script', 'style']
+        del_tags = ['img', 'svg', 'object', 'script', 'style', 'noscript']
         for i in del_tags:
             [s.extract() for s in soup.select(i)]
         html.append(str(soup))

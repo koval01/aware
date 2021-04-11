@@ -2,9 +2,9 @@ from django.db import models
 import string, random
 
 
-def random_string(min_val=8, max_val=16):
+def random_string():
     s = string.ascii_letters + string.digits + '-_'
-    x = "".join([random.choice(s) for i in range(random.randrange(min_val, max_val))])
+    x = "".join([random.choice(s) for i in range(random.randrange(10, 20))])
     return x
 
 

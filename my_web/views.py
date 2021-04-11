@@ -452,7 +452,7 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(exception[:150]+'...')
+    logger.warning(str(exception)[:150]+'...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
 
 
@@ -463,7 +463,7 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(exception[:150]+'...')
+    logger.warning(str(exception)[:150]+'...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
 
 
@@ -474,5 +474,5 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(exception[:150]+'...')
+    logger.warning(str(exception)[:150]+'...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)

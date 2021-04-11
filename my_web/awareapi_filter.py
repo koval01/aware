@@ -1,7 +1,7 @@
 from urllib.parse import urlunsplit
 from bs4 import BeautifulSoup
 from requests import get
-import logging, urllib
+import logging, urllib, re
 
 logger = logging.getLogger(__name__)
 user_agent_static = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4469.3 Safari/537.36'
@@ -44,11 +44,11 @@ def get_body_el_page(page_html) -> dict:
     tags_list = soup.find_all(text_tags)
     html = []
     for i in tags_list:
-        print(str(i))
-        tag = BeautifulSoup(str(i), 'html.parser')
-        x = str(tag.clear())
-        x = x.replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
-        html.append(x)
+        x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
+        soup = BeautifulSoup(x, 'html.parser')
+        for s in soup.select('script'):
+            s.extract()
+        html.append(str(soup))
     html = ''.join(html)
     return dict(title=title_page, html=html)
 

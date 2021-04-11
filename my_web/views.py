@@ -5,6 +5,7 @@ from time import time
 
 import requests_cache
 from cryptography.fernet import Fernet
+from bs4 import BeautifulSoup
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
@@ -161,7 +162,11 @@ def aware_api(request):
                 title = str(request.POST.get('title', ''))
                 page_html_code = str(request.POST.get('page_html_code', ''))
                 if title and page_html_code:
-                    a = AWARE_Page(title=title, page_html_code=page_html_code)
+                    if bool(BeautifulSoup(page_html_code, "html.parser").find()):
+                        html = page_html_code
+                    else:
+                        html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
+                    a = AWARE_Page(title=title, page_html_code=html)
                     a.save()
                     return JsonResponse(
                         {

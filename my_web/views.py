@@ -208,7 +208,7 @@ def index(request):
     })
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='20/m', block=True)
 def news_feed(request):
     """
     News page view
@@ -227,7 +227,7 @@ def news_feed(request):
     })
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def status(request):
     """
     Status page view
@@ -261,7 +261,7 @@ def info(request):
     return render(request, 'my_web/info.html')
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def postview(request, postid):
     """
     Post page view
@@ -279,7 +279,7 @@ def postview(request, postid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def storyview(request, storyid):
     """
     Story page view
@@ -306,7 +306,7 @@ def storyview(request, storyid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def quoteview(request, quoteid):
     """
     Quote page view
@@ -324,7 +324,7 @@ def quoteview(request, quoteid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def factview(request, factid):
     """
     Fact page view
@@ -343,7 +343,7 @@ def factview(request, factid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='20/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def awareview(request, awareid):
     """
     AWARE page view
@@ -362,7 +362,7 @@ def awareview(request, awareid):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='5/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def stats(request):
     """
     Statistics page view
@@ -379,7 +379,7 @@ def stats(request):
         return error_404(request, e)
 
 
-@ratelimit(key='header:X-Forwarded-For', rate='50/m', block=True)
+@ratelimit(key='header:X-Forwarded-For', rate='60/m', block=True)
 def load_more(request):
     """
     Technical (load_more) page view

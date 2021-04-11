@@ -5,7 +5,7 @@ from time import time
 
 import requests_cache
 from cryptography.fernet import Fernet
-from bs4 import BeautifulSoup
+from urllib.parse import urlunsplit, urlencode
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
@@ -23,6 +23,7 @@ from .porfirevich.api import cleanhtml
 from .porfirevich.api import get_story as get_story_porfirevich
 from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
+from .awareapi_filter import get_instant_page as instant_aware
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -159,19 +160,21 @@ def aware_api(request):
         token = qwriter_api_for_aware
         if token == token_get:
             try:
-                title = str(request.POST.get('title', ''))
-                page_html_code = str(request.POST.get('page_html_code', ''))
-                if title and page_html_code:
-                    if bool(BeautifulSoup(page_html_code, "html.parser").find()):
-                        html = page_html_code
-                    else:
-                        html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
-                    a = AWARE_Page(title=title, page_html_code=html)
+                link = str(request.POST.get('link', ''))
+                if link:
+                    data = instant_aware(link)
+                    a = AWARE_Page(title=data['title'], page_html_code=data['html'])
                     a.save()
+                    page_id = AWARE_Page.objects.latest('id').unique_id
+                    query = urlencode(dict(
+                        url='https://www.q-writer.com/aware/'+page_id,
+                        rhash=data['template'],
+                    ))
+                    link = urlunsplit(('https', 't.me', '/iv', query, ''))
                     return JsonResponse(
                         {
                             'done': True,
-                            'unique_id': AWARE_Page.objects.latest('id').unique_id,
+                            'link': link,
                         }
                     )
             except Exception as e:

@@ -44,7 +44,9 @@ def get_body_el_page(page_html) -> dict:
     tags_list = soup.find_all(text_tags)
     html = []
     for i in tags_list:
-        x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
+        tag = BeautifulSoup(str(i), 'html.parser')
+        x = str(tag.clear())
+        x = x.replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
         html.append(x)
     html = ''.join(html)
     return dict(title=title_page, html=html)

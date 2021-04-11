@@ -44,7 +44,6 @@ def get_body_el_page(page_html) -> dict:
     tags_list = soup.find_all(text_tags)
     html = []
     for i in tags_list:
-        i = i.clear()
         x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
         html.append(x)
     html = ''.join(html)
@@ -88,10 +87,10 @@ def get_instant_page(link) -> dict:
         html = yt
     else:
         html = data['html']
-    # if bool(BeautifulSoup(html, "html.parser").find()):
-    #     html = html
-    # else:
-    #     html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
+    if bool(BeautifulSoup(html, "html.parser").find()):
+        html = html
+    else:
+        html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
     title = data['title']
     template = 'dd7f8f14ecc26f'  # Telegram Instant View template hash
     return dict(

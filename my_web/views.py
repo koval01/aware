@@ -400,6 +400,7 @@ def load_more(request):
 
             additions = int(request.POST.get('additions', ''))
             news_append = int(request.POST.get('news', ''))
+            covid_stat_append = int(request.POST.get('covid_stat', ''))
 
             if token and typeload:
                 if typeload == 'newsession':
@@ -439,7 +440,7 @@ def load_more(request):
                         'data': data, 'token_image_proxy': token_valid,
                         'typeload': typeload, 'covid_ru': covid_stat_ru,
                         'covid_ua': covid_stat_ua, 'additions': additions,
-                        'news_append': news_append,
+                        'news_append': news_append, 'covid_stat_append': covid_stat_append
                     })
 
     return error_403(request)

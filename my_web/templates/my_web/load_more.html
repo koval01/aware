@@ -3,7 +3,7 @@
 {# Template for generating a tape of records on the main page of the site. #}
 {# Imagine that this code was not written by me. I don't really like him. #}
 
-{% if typeload == 'newsession' %}
+{% if typeload == 'newsession' and covid_stat_append %}
     {% if covid_ua.0 %}
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">

@@ -357,7 +357,7 @@ def awareview(request, awareid):
         awareid: request.GET.get('awareid', '')
         for a in AWARE_Page.objects.raw('SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
             aware = a
-        description = BeautifulSoup(aware['page_html_code'], 'lxml').text[:1024]
+        description = BeautifulSoup(aware.page_html_code, 'lxml').text[:1024]
         return render(request, 'my_web/awareview.html', {
             'aware': aware, 'description': description
         })

@@ -43,19 +43,19 @@ def get_body_el_page(page_html) -> dict:
     ]
     tags_list = soup.find_all(text_tags)
     html = []
+    del_ = []
     for i in tags_list:
         x = str(i).replace('h1', 'h4').replace('h2', 'h5').replace('h3', 'h6')
         soup = BeautifulSoup(x, 'lxml')
+        if len(x) > 24:
+            del_.append(x)
         del_tags = ['img', 'svg', 'object', 'script', 'style', 'noscript']
         for i in del_tags:
             [s.extract() for s in soup.select(i)]
         html.append(str(soup))
     html = ''.join(html)
-    html_code_split = html.split()
-    for i in html_code_split:
-        if len(i) > 20:
-            i = str(i)[:20]
-        html = i
+    for i in del_:
+        html = html.replace(i, '')
     return dict(title=title_page, html=html)
 
 

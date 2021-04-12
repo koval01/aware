@@ -51,6 +51,11 @@ def get_body_el_page(page_html) -> dict:
             [s.extract() for s in soup.select(i)]
         html.append(str(soup))
     html = ''.join(html)
+    html_code_split = html.split()
+    for i in html_code_split:
+        if len(i) > 20:
+            i = str(i)[:20]
+        html = i
     return dict(title=title_page, html=html)
 
 

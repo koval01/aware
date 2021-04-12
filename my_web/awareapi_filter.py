@@ -49,7 +49,7 @@ def get_body_el_page(page_html) -> dict:
         soup = BeautifulSoup(x, 'lxml')
         text_tag = (soup.text).split()
         for i in text_tag:
-            if len(i) > 23:
+            if len(i) > 25:
                 del_.append(x)
         del_tags = ['img', 'svg', 'object', 'script', 'style', 'noscript']
         for i in del_tags:

@@ -46,7 +46,7 @@ def image_edit(image, text, author) -> bytes:
     d = ImageDraw.Draw(blured_image)
 
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
-    d.text((99, 90), author, font=author_font, fill=(255, 255, 255, 128), align='left')
+    d.text((99, 830), author, font=author_font, fill=(255, 255, 255, 128), align='left')
 
     img = blured_image
 

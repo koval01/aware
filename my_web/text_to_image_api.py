@@ -36,9 +36,9 @@ def image_edit(image, text) -> bytes:
     """
     img = Image.open(BytesIO(image))
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    base_text = ImageFont.truetype(font_root, 72)
+    base_text = ImageFont.truetype(font_root, 42)
     d = ImageDraw.Draw(blured_image)
-    d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
+    d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image
     img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='JPEG')

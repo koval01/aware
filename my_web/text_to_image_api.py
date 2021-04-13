@@ -45,7 +45,7 @@ def image_edit(image, text) -> bytes:
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
 
     img = blured_image
-    
+
     img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='JPEG')
 
@@ -60,16 +60,18 @@ def text_formatting(text) -> str:
     """
     t = text.split()
     f_text = []
-    buff_text = []
+    buff_text = ''
 
     for i in t:
         if len(buff_text) < 70:
-            buff_text.append(i)
+            buff_text = '%s %s' % (buff_text, i)
 
         else:
             f_text.append(buff_text)
-            buff_text.clear()
-            buff_text.append(i)
+            buff_text = ''
+            buff_text = '%s %s' % (buff_text, i)
+
+        buff_text = buff_text.lstrip().replace('  ', ' ')
 
     if len(buff_text) != 0:
         f_text.append(buff_text)

@@ -111,7 +111,7 @@ def get_result(text, author) -> dict:
     """
     Request image processing
     :param text: The text you want to overlay on the image
-    :param author: Author photo (optional)
+    :param author: Author photo
     :return: The finished image in raw
     """
     img = get_image()

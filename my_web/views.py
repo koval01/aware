@@ -164,6 +164,7 @@ def image_generate_api(request):
             text = request.GET['text']
             author = request.GET['author']
             if 5 < len(text) <= 1000 and 2 < len(author) <= 36:
+                print(text)
                 if not sentence_check(text):
                     return JsonResponse(
                         {

@@ -17,7 +17,7 @@ def get_image() -> dict:
     try:
         img = get(url, stream=True)
         return dict(
-            img=bytes(img.raw),
+            img=bytearray(img.raw),
             status_code=img.status_code,
             reason=img.reason,
             headers=img.headers.get('content-type'),

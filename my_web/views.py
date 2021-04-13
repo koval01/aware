@@ -150,7 +150,7 @@ def image_proxy_view(request):
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
-def image_proxy_view(request):
+def image_generate_api(request):
     """
     Image to text api
     :param request: body request

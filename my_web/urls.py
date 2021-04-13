@@ -43,6 +43,7 @@ urlpatterns = [
     path('aware/<str:awareid>/', views.awareview),
     path('story/<str:storyid>/', views.storyview),
     path('image/', views.image_proxy_view, name='imageproxy'),
+    path('image_generate_api/', views.image_generate_api, name='image_generate_api'),
     path('aware_api/', views.aware_api, name='aware_api'),
     path('sitemap_posts.xml', cache_page(7200)(sitemap), {'sitemaps': sitemaps_posts},
          name='django.contrib.sitemaps.views.sitemap'),

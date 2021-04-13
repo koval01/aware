@@ -53,6 +53,20 @@ def image_edit(image, text) -> bytes:
     return img_byte_arr.getvalue()
 
 
+def sentence_check(text) -> bool:
+    """
+    Check sentences length
+    :param text: text to check
+    :return: bool result
+    """
+    t = text.split()
+    for i in t:
+        if len(i) > 50:
+            return False
+
+    return True
+
+
 def text_formatting(text) -> dict:
     """
     Format text

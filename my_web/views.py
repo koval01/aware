@@ -25,6 +25,7 @@ from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
 from .awareapi_filter import get_instant_page as instant_aware
 from .text_to_image_api import get_result as text_to_image_api
+from .text_to_image_api import sentence_check
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -160,6 +161,13 @@ def image_generate_api(request):
         try:
             text = request.GET['text']
             if 5 < len(text) < 1100:
+                if not sentence_check(text):
+                    return JsonResponse(
+                        {
+                            'code': 409, 'code_name': 'Conflict',
+                            'error': 'This text does not seem to have any value.',
+                        }
+                    )
                 img = text_to_image_api(text)
                 return HttpResponse(
                     img['img'],

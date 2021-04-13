@@ -27,23 +27,26 @@ def get_image() -> dict:
         logger.error(e)
 
 
-def image_edit(image, text) -> bytes:
+def image_edit(image, text, author) -> bytes:
     """
     Prepare an image using Pillow library
     :param image: image to edit
     :param text: The text you want to overlay on the image
+    :param author: Author photo
     :return: the finished image, which is also translated into raw
     """
     img = Image.open(BytesIO(image))
 
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    text_config = text_formatting(text)
-    text = text_config['text']
-    base_text = ImageFont.truetype(font_root, text_config['font_size'])
+    text = text_formatting(text)
+    author = '— %s' % author
+    base_text = ImageFont.truetype(font_root, 46)
+    author_font = ImageFont.truetype(font_root, 38)
 
     d = ImageDraw.Draw(blured_image)
 
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
+    d.text((950, 1570), author, font=author_font, fill=(255, 255, 255, 128), align='right')
 
     img = blured_image
 
@@ -67,11 +70,11 @@ def sentence_check(text) -> bool:
     return True
 
 
-def text_formatting(text) -> dict:
+def text_formatting(text) -> str:
     """
     Format text
     :param text: text string
-    :return: dict text, font_size
+    :return: edited text string
     """
     t = text.split()
     f_text = []
@@ -91,21 +94,28 @@ def text_formatting(text) -> dict:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    text = "\n".join(f_text)
-    return dict(
-        text=text,
-        font_size=46,
-    )
+    return "\n".join(f_text)
 
 
-def get_result(text) -> dict:
+def percent(percent_value, whole):
+    """
+    Function for easy calculation of interest
+    :param percent_value: Percents
+    :param whole: Basic number
+    :return: Percentage result
+    """
+    return whole/((1-percent_value)*100)*100
+
+
+def get_result(text, author) -> dict:
     """
     Request image processing
     :param text: The text you want to overlay on the image
+    :param author: Author photo (optional)
     :return: The finished image in raw
     """
     img = get_image()
-    result = image_edit(img['img'], text)
+    result = image_edit(img['img'], text, author)
     return dict(
         img=result,
         status_code=img['status_code'],

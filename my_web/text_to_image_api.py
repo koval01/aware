@@ -37,11 +37,12 @@ def image_edit(image, text) -> bytes:
     img = Image.open(BytesIO(image))
 
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    base_text = ImageFont.truetype(font_root, 42)
+    text_config = text_formatting(text)
+    text = text_config['text']
+    base_text = ImageFont.truetype(font_root, text_config['font_size'])
 
     d = ImageDraw.Draw(blured_image)
 
-    text = text_formatting(text)
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
 
     img = blured_image
@@ -52,11 +53,11 @@ def image_edit(image, text) -> bytes:
     return img_byte_arr.getvalue()
 
 
-def text_formatting(text) -> str:
+def text_formatting(text) -> dict:
     """
     Format text
     :param text: text string
-    :return: edited text
+    :return: dict text, font_size
     """
     t = text.split()
     f_text = []
@@ -76,7 +77,11 @@ def text_formatting(text) -> str:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    return "\n".join(f_text)
+    text = "\n".join(f_text)
+    return dict(
+        text=text,
+        font_size=46,
+    )
 
 
 def get_result(text) -> dict:

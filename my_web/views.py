@@ -75,7 +75,7 @@ def cut_text(string) -> str:
     :return: Cut string result
     """
     logger.info(f'function cut_text: {string}')
-    return string[:256]+'...'
+    return string[:256] + '...'
 
 
 @register.filter
@@ -133,16 +133,16 @@ def image_proxy_view(request):
                 token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 60
                 control_time = round(time())
                 if token_get > control_time:
-                        response = img_proxy_session.get(
-                            link_get, stream=True,
-                            headers={'user-agent': request.headers.get('user-agent')}
-                        )
-                        return StreamingHttpResponse(
-                            response.raw,
-                            content_type=response.headers.get('content-type'),
-                            status=response.status_code,
-                            reason=response.reason,
-                        )
+                    response = img_proxy_session.get(
+                        link_get, stream=True,
+                        headers={'user-agent': request.headers.get('user-agent')}
+                    )
+                    return StreamingHttpResponse(
+                        response.raw,
+                        content_type=response.headers.get('content-type'),
+                        status=response.status_code,
+                        reason=response.reason,
+                    )
         except Exception as e:
             logger.error(e)
 
@@ -159,7 +159,7 @@ def image_generate_api(request):
     if request.GET:
         try:
             text = request.GET['text']
-            if text:
+            if 5 < len(text) < 1100:
                 img = text_to_image_api(text)
                 return HttpResponse(
                     img['img'],
@@ -192,7 +192,7 @@ def aware_api(request):
                     a.save()
                     page_id = AWARE_Page.objects.latest('id').unique_id
                     query = urlencode(dict(
-                        url='https://www.q-writer.com/aware/'+page_id,
+                        url='https://www.q-writer.com/aware/' + page_id,
                         rhash=data['template'],
                     ))
                     link = urlunsplit(('https', 't.me', '/iv', query, ''))
@@ -297,11 +297,12 @@ def postview(request, postid):
     logger.info(f'function postview: request {request}; postid {postid}')
     try:
         postid: request.GET.get('postid', '')
+        post_data = ''
         for p in Post.objects.raw('SELECT * FROM my_web_post WHERE unique_id = "{}" LIMIT 1'.format(postid)):
-            post = p
-        return render(request, 'my_web/postview.html', {'postget': post})
+            post_data = p
+        return render(request, 'my_web/postview.html', {'postget': post_data})
     except Exception as e:
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
@@ -318,17 +319,17 @@ def storyview(request, storyid):
         if not get_story_porfirevich(storyid):
             return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
 
-        text, time, likes, id_s = get_story_porfirevich(storyid)
+        text, time_, likes, id_s = get_story_porfirevich(storyid)
         t = cleanhtml(text)
         short_text = t
         if len(text) > 1000:
             short_text = short_text[:1000] + '...'
         return render(request, 'my_web/storyview.html', {
-            'text': text, 'time': time,
+            'text': text, 'time': time_,
             'likes': likes, 'id_s': id_s, 'short_text': short_text
         })
     except Exception as e:
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
@@ -342,11 +343,12 @@ def quoteview(request, quoteid):
     logger.info(f'function quoteview: request {request}; quoteid {quoteid}')
     try:
         postid: request.GET.get('postid', '')
+        quote_data = ''
         for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE unique_id = "{}" LIMIT 1'.format(quoteid)):
-            quote = q
-        return render(request, 'my_web/quoteview.html', {'quoteget': quote})
+            quote_data = q
+        return render(request, 'my_web/quoteview.html', {'quoteget': quote_data})
     except Exception as e:
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
@@ -360,12 +362,13 @@ def factview(request, factid):
     logger.info(f'function factview: request {request}; factid {factid}')
     try:
         factid: request.GET.get('factid', '')
+        fact_data = ''
         for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE unique_id = "{}" LIMIT 1'.format(factid)):
-            fact = f
-        return render(request, 'my_web/factview.html', {'factget': fact})
+            fact_data = f
+        return render(request, 'my_web/factview.html', {'factget': fact_data})
     except Exception as e:
         logger.error(e)
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
@@ -379,14 +382,16 @@ def awareview(request, awareid):
     logger.info(f'function awareview: request {request}; awareid {awareid}')
     try:
         awareid: request.GET.get('awareid', '')
-        for a in AWARE_Page.objects.raw('SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
-            aware = a
+        aware_data = ''
+        for a in AWARE_Page.objects.raw(
+                'SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
+            aware_data = a
         return render(request, 'my_web/awareview.html', {
-            'aware': aware,
+            'aware': aware_data,
         })
     except Exception as e:
         logger.error(e)
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
@@ -398,12 +403,13 @@ def stats(request):
     """
     logger.info(f'function stats: request {request}')
     try:
+        stat_data = ''
         for s in Statistic.objects.raw('SELECT * FROM my_web_statistic LIMIT 1'):
-            stat = s
-        sumstat = str(int(stat.u_stat) + int(stat.b_stat))
-        return render(request, 'my_web/stats.html', {'statget': stat, 'sumstat': sumstat}, )
+            stat_data = s
+        sumstat = str(int(stat_data.u_stat) + int(stat_data.b_stat))
+        return render(request, 'my_web/stats.html', {'statget': stat_data, 'sumstat': sumstat}, )
     except Exception as e:
-        return error_404(request, e)
+        return error_404(request, str(e))
 
 
 @ratelimit(key='header:X-Forwarded-For', rate='60/m', block=True)
@@ -420,7 +426,9 @@ def load_more(request):
             typeload = request.POST.get('typeload', '')
             r_token = request.POST.get('gr_token', '')
         except Exception as e:
-            token = 0;typeload = 0;r_token = 0
+            token = 0
+            typeload = 0
+            r_token = 0
             logging.error(e)
 
         if recaptcha_get_result(r_token):
@@ -480,7 +488,7 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150]+'...')
+    logger.warning(str(exception)[:150] + '...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
 
 
@@ -491,7 +499,7 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150]+'...')
+    logger.warning(str(exception)[:150] + '...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
 
 
@@ -502,5 +510,5 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150]+'...')
+    logger.warning(str(exception)[:150] + '...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)

@@ -18,7 +18,7 @@ def get_image() -> dict:
         img = get(url, stream=True)
         img.raw.decode_content = True
         return dict(
-            img=img.raw,
+            img=img.raw.encode(),
             status_code=img.status_code,
             reason=img.reason,
             headers=img.headers.get('content-type'),

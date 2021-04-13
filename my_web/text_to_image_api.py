@@ -35,15 +35,46 @@ def image_edit(image, text) -> bytes:
     :return: the finished image, which is also translated into raw
     """
     img = Image.open(BytesIO(image))
+
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
     base_text = ImageFont.truetype(font_root, 42)
+
     d = ImageDraw.Draw(blured_image)
-    text = text.replace(' ', '\n')
+
+    text = text_formatting(text)
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
+
     img = blured_image
+    
     img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='JPEG')
+
     return img_byte_arr.getvalue()
+
+
+def text_formatting(text) -> str:
+    """
+    Format text
+    :param text: text string
+    :return: edited text
+    """
+    t = text.split()
+    f_text = []
+    buff_text = []
+
+    for i in t:
+        if len(buff_text) < 70:
+            buff_text.append(i)
+
+        else:
+            f_text.append(buff_text)
+            buff_text.clear()
+            buff_text.append(i)
+
+    if len(buff_text) != 0:
+        f_text.append(buff_text)
+
+    return "\n".join(f_text)
 
 
 def get_result(text) -> dict:

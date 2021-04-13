@@ -35,8 +35,8 @@ def image_edit(image, text) -> bytes:
     :return: the finished image, which is also translated into raw
     """
     img = Image.open(BytesIO(image))
-    blured_image = img.filter(ImageFilter.GaussianBlur(5))
-    base_text = ImageFont.truetype(font_root, 32)
+    blured_image = img.filter(ImageFilter.GaussianBlur(15))
+    base_text = ImageFont.truetype(font_root, 72)
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image

@@ -16,6 +16,7 @@ def get_image() -> dict:
     url = 'https://source.unsplash.com/random/1600x900'
     try:
         img = get(url, stream=True)
+        img.raw.decode_content = True
         return dict(
             img=img.raw,
             status_code=img.status_code,

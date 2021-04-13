@@ -24,6 +24,7 @@ from .porfirevich.api import get_story as get_story_porfirevich
 from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
 from .awareapi_filter import get_instant_page as instant_aware
+from .text_to_image_api import get_result as text_to_image_api
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -142,6 +143,30 @@ def image_proxy_view(request):
                             status=response.status_code,
                             reason=response.reason,
                         )
+        except Exception as e:
+            logger.error(e)
+
+    return error_403(request)
+
+
+@ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
+def image_proxy_view(request):
+    """
+    Image to text api
+    :param request: body request
+    :return: raw image
+    """
+    if request.GET:
+        try:
+            text = request.GET['text']
+            if text:
+                img = text_to_image_api(text)
+                return StreamingHttpResponse(
+                    img['img'],
+                    content_type=img['headers'],
+                    status=img['status_code'],
+                    reason=img['reason'],
+                )
         except Exception as e:
             logger.error(e)
 

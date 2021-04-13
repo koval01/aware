@@ -7,7 +7,7 @@ import requests_cache
 from cryptography.fernet import Fernet
 from urllib.parse import urlunsplit, urlencode
 from django.conf import settings
-from django.http import JsonResponse, StreamingHttpResponse
+from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.csrf import csrf_exempt
@@ -161,7 +161,7 @@ def image_generate_api(request):
             text = request.GET['text']
             if text:
                 img = text_to_image_api(text)
-                return StreamingHttpResponse(
+                return HttpResponse(
                     img['img'],
                     content_type=img['headers'],
                     status=img['status_code'],

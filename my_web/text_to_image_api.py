@@ -16,7 +16,6 @@ def get_image() -> dict:
     url = 'https://source.unsplash.com/random/1600x900'
     try:
         img = get(url, stream=True)
-        img.raw.decode_content = True
         return dict(
             img=img.raw,
             status_code=img.status_code,
@@ -41,8 +40,8 @@ def image_edit(image_raw, text) -> bytes:
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image
-    img.save("file.png", "PNG")
-    img = open('file.png', 'rb')
+    img.save("./image.png", "PNG")
+    img = open('./image.png', 'rb')
     return img.read()
 
 

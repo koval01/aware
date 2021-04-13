@@ -7,6 +7,7 @@ import requests_cache
 from cryptography.fernet import Fernet
 from urllib.parse import urlunsplit, urlencode
 from django.conf import settings
+from django.views.decorators.cache import cache_page
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
@@ -150,6 +151,7 @@ def image_proxy_view(request):
     return error_403(request)
 
 
+@cache_page(60 * 120)
 @ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def image_generate_api(request):
     """

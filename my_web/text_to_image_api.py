@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageFilter, ImageDraw, ImageFont
 from requests import get
 from django.conf import settings
 import logging, os
@@ -33,11 +33,12 @@ def image_edit(image_raw, text) -> str:
     :param text: The text you want to overlay on the image
     :return: the finished image, which is also translated into raw
     """
-    try:
-        img = Image.open(image_raw)
-    except Exception as e:
-        logger.error(e)
-        logger.error('error pillow')
+    img = Image.fromstring('L;16', (1600, 900), image_raw)
+    blured_image = img.filter(ImageFilter.GaussianBlur(5))
+    base_text = ImageFont.truetype(font_root, 32)
+    d = ImageDraw.Draw(blured_image)
+    d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
+    print(blured_image)
 
 
 def get_result(text) -> dict:

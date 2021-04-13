@@ -2,7 +2,7 @@ from PIL import Image, ImageFilter, ImageDraw, ImageFont
 from io import BytesIO
 from requests import get
 from django.conf import settings
-import logging, os
+import logging, os, codecs
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
@@ -94,7 +94,9 @@ def text_formatting(text) -> str:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    return "\n".join(f_text)
+    text = codecs.escape_decode(f_text)[0].decode('unicode-escape')
+
+    return "\n".join(text)
 
 
 def percent(percent_value, whole):

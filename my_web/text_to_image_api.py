@@ -39,7 +39,7 @@ def image_edit(image_raw, text) -> str:
     base_text = ImageFont.truetype(font_root, 32)
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
-    print(blured_image)
+    return blured_image
 
 
 def get_result(text) -> dict:

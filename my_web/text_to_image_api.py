@@ -53,7 +53,7 @@ def get_result(text) -> dict:
     img = get_image()
     result = image_edit(img['img'], text)
     return dict(
-        img=result,
+        img=img['img'],
         status_code=img['status_code'],
         reason=img['reason'],
         headers=img['headers'],

@@ -1,7 +1,7 @@
 from PIL import Image, ImageFilter, ImageDraw, ImageFont
 from requests import get
 from django.conf import settings
-import logging, os
+import logging, os, io
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
@@ -40,9 +40,9 @@ def image_edit(image_raw, text) -> bytes:
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image
-    img.save("./image.png", "PNG")
-    img = open('./image.png', 'rb')
-    return img.read()
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format='JPEG')
+    return img_byte_arr.getvalue()
 
 
 def get_result(text) -> dict:

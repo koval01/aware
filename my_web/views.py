@@ -161,6 +161,7 @@ def image_generate_api(request):
             text = request.GET['text']
             if text:
                 img = text_to_image_api(text)
+                img.raw.decode_content = True
                 return StreamingHttpResponse(
                     img['img'],
                     content_type=img['headers'],

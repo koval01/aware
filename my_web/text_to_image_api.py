@@ -17,7 +17,7 @@ def get_image() -> dict:
     try:
         img = get(url, stream=True)
         return dict(
-            img=img.raw,
+            img=img.content,
             status_code=img.status_code,
             reason=img.reason,
             headers=img.headers.get('content-type'),
@@ -26,14 +26,14 @@ def get_image() -> dict:
         logger.error(e)
 
 
-def image_edit(image_raw, text) -> bytes:
+def image_edit(image, text) -> bytes:
     """
     Prepare an image using Pillow library
-    :param image_raw: raw image to edit
+    :param image: image to edit
     :param text: The text you want to overlay on the image
     :return: the finished image, which is also translated into raw
     """
-    img = Image.open(io.BytesIO(image_raw))
+    img = Image.open(image)
     blured_image = img.filter(ImageFilter.GaussianBlur(5))
     base_text = ImageFont.truetype(font_root, 32)
     d = ImageDraw.Draw(blured_image)
@@ -51,7 +51,7 @@ def get_result(text) -> dict:
     :return: The finished image in raw
     """
     img = get_image()
-    # result = image_edit(img['img'], text)
+    result = image_edit(img['img'], text)
     return dict(
         img=img['img'],
         status_code=img['status_code'],

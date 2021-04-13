@@ -2,7 +2,7 @@ from PIL import Image, ImageFilter, ImageDraw, ImageFont
 from io import BytesIO
 from requests import get
 from django.conf import settings
-import logging, os, codecs
+import logging, os
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
@@ -94,7 +94,8 @@ def text_formatting(text) -> str:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    text = codecs.escape_decode("\n".join(f_text))[0].decode('unicode-escape')
+    text = "\n".join(f_text)
+    text = text.encode('latin1').decode('unicode-escape').encode('latin1').decode('utf8')
 
     return text
 

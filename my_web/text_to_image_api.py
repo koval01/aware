@@ -33,7 +33,8 @@ def image_edit(image_raw, text) -> str:
     :param text: The text you want to overlay on the image
     :return: the finished image, which is also translated into raw
     """
-    img = Image.fromstring('L;16', (1600, 900), image_raw)
+    # img = Image.fromstring('L;16', (1600, 900), image_raw)
+    img = Image.open(image_raw)
     blured_image = img.filter(ImageFilter.GaussianBlur(5))
     base_text = ImageFont.truetype(font_root, 32)
     d = ImageDraw.Draw(blured_image)

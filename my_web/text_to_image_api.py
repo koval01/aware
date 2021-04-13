@@ -38,6 +38,7 @@ def image_edit(image, text) -> bytes:
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
     base_text = ImageFont.truetype(font_root, 42)
     d = ImageDraw.Draw(blured_image)
+    text = text.replace(' ', '\n')
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image
     img_byte_arr = BytesIO()

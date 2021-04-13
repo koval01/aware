@@ -167,6 +167,12 @@ def image_generate_api(request):
                     status=img['status_code'],
                     reason=img['reason'],
                 )
+            return JsonResponse(
+                {
+                    'code': 411, 'code_name': 'Length Required',
+                    'error': 'Text length cannot be less than 5 characters or more than 1100',
+                }
+            )
         except Exception as e:
             logger.error(e)
 

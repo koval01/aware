@@ -1,7 +1,8 @@
 from PIL import Image, ImageFilter, ImageDraw, ImageFont
+from io import BytesIO
 from requests import get
 from django.conf import settings
-import logging, os, io
+import logging, os
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
@@ -33,13 +34,13 @@ def image_edit(image, text) -> bytes:
     :param text: The text you want to overlay on the image
     :return: the finished image, which is also translated into raw
     """
-    img = Image.open(image)
+    img = Image.open(BytesIO(image))
     blured_image = img.filter(ImageFilter.GaussianBlur(5))
     base_text = ImageFont.truetype(font_root, 32)
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
     img = blured_image
-    img_byte_arr = io.BytesIO()
+    img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='JPEG')
     return img_byte_arr.getvalue()
 

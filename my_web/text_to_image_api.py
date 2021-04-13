@@ -94,9 +94,9 @@ def text_formatting(text) -> str:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    text = codecs.escape_decode(f_text)[0].decode('unicode-escape')
+    text = codecs.escape_decode("\n".join(f_text))[0].decode('unicode-escape')
 
-    return "\n".join(text)
+    return text
 
 
 def percent(percent_value, whole):

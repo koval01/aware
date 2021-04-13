@@ -94,10 +94,7 @@ def text_formatting(text) -> str:
     if len(buff_text) != 0:
         f_text.append(buff_text)
 
-    text = "\n".join(f_text)
-    text = text.encode('latin1').decode('unicode-escape').encode('latin1').decode('utf8')
-
-    return text
+    return "\n".join(f_text)
 
 
 def percent(percent_value, whole):

@@ -27,7 +27,7 @@ def get_image() -> dict:
         logger.error(e)
 
 
-def image_edit(image_raw, text) -> str:
+def image_edit(image_raw, text) -> bytes:
     """
     Prepare an image using Pillow library
     :param image_raw: raw image to edit
@@ -40,7 +40,10 @@ def image_edit(image_raw, text) -> str:
     base_text = ImageFont.truetype(font_root, 32)
     d = ImageDraw.Draw(blured_image)
     d.text((10, 10), text, font=base_text, fill=(255, 255, 255, 128))
-    return blured_image.save_image()
+    img = blured_image
+    img.save("file.png", "PNG")
+    img = open('file.png', 'rb')
+    return img.read()
 
 
 def get_result(text) -> dict:

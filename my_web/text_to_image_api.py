@@ -17,7 +17,7 @@ def get_image() -> dict:
     try:
         img = get(url, stream=True)
         return dict(
-            img=img.raw.read(),
+            img=img.raw,
             status_code=img.status_code,
             reason=img.reason,
             headers=img.headers.get('content-type'),
@@ -51,7 +51,7 @@ def get_result(text) -> dict:
     :return: The finished image in raw
     """
     img = get_image()
-    result = image_edit(img['img'], text)
+    # result = image_edit(img['img'], text)
     return dict(
         img=img['img'],
         status_code=img['status_code'],

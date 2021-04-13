@@ -37,6 +37,7 @@ def image_edit(image_raw, text) -> str:
         img = Image.open(image_raw)
     except Exception as e:
         logger.error(e)
+        logger.error('error pillow')
 
 
 def get_result(text) -> dict:

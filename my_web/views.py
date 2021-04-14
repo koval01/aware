@@ -118,6 +118,7 @@ def link_encrypt_img(link) -> str:
         logger.error(e)
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='90/m', block=True)
 def image_proxy_view(request):
     """
@@ -125,33 +126,33 @@ def image_proxy_view(request):
     :param request: body request
     :return: raw image
     """
-    if request.GET:
-        try:
-            url = request.GET['data']
-            salt_link = Fernet(img_link_proxy_key)
-            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
-            if img_link_check(link_get):
-                token = request.GET['token']
-                salt = Fernet(image_proxy_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 60
-                control_time = round(time())
-                if token_get > control_time:
-                    response = img_proxy_session.get(
-                        link_get, stream=True,
-                        headers={'user-agent': request.headers.get('user-agent')}
-                    )
-                    return StreamingHttpResponse(
-                        response.raw,
-                        content_type=response.headers.get('content-type'),
-                        status=response.status_code,
-                        reason=response.reason,
-                    )
-        except Exception as e:
-            logger.error(e)
+    try:
+        url = request.GET['data']
+        salt_link = Fernet(img_link_proxy_key)
+        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+        if img_link_check(link_get):
+            token = request.GET['token']
+            salt = Fernet(image_proxy_key)
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 60
+            control_time = round(time())
+            if token_get > control_time:
+                response = img_proxy_session.get(
+                    link_get, stream=True,
+                    headers={'user-agent': request.headers.get('user-agent')}
+                )
+                return StreamingHttpResponse(
+                    response.raw,
+                    content_type=response.headers.get('content-type'),
+                    status=response.status_code,
+                    reason=response.reason,
+                )
+    except Exception as e:
+        logger.error(e)
 
     return error_403(request)
 
 
+@require_GET
 @cache_page(60 * 120)
 @ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def image_generate_api(request):
@@ -160,37 +161,37 @@ def image_generate_api(request):
     :param request: body request
     :return: raw image
     """
-    if request.GET:
-        try:
-            text = request.GET['text']
-            author = request.GET['author']
-            if 5 < len(text) <= 1000 and 2 < len(author) <= 36:
-                if not sentence_check(text):
-                    return JsonResponse(
-                        {
-                            'code': 409, 'code_name': 'Conflict',
-                            'error': 'This text does not seem to have any value.',
-                        }
-                    )
-                img = text_to_image_api(text, author)
-                return HttpResponse(
-                    img['img'],
-                    content_type=img['headers'],
-                    status=img['status_code'],
-                    reason=img['reason'],
+    try:
+        text = request.GET['text']
+        author = request.GET['author']
+        if 5 < len(text) <= 1000 and 2 < len(author) <= 36:
+            if not sentence_check(text):
+                return JsonResponse(
+                    {
+                        'code': 409, 'code_name': 'Conflict',
+                        'error': 'This text does not seem to have any value.',
+                    }
                 )
-            return JsonResponse(
-                {
-                    'code': 411, 'code_name': 'Length Required',
-                    'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 36 characters.',
-                }
+            img = text_to_image_api(text, author)
+            return HttpResponse(
+                img['img'],
+                content_type=img['headers'],
+                status=img['status_code'],
+                reason=img['reason'],
             )
-        except Exception as e:
-            logger.error(e)
+        return JsonResponse(
+            {
+                'code': 411, 'code_name': 'Length Required',
+                'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 36 characters.',
+            }
+        )
+    except Exception as e:
+        logger.error(e)
 
     return error_403(request)
 
 
+@require_POST
 @csrf_exempt
 def aware_api(request):
     """
@@ -198,40 +199,40 @@ def aware_api(request):
     :param request: body request
     :return: json answer
     """
-    if request.POST:
-        token_get = request.POST.get('api_key', '')
-        token = qwriter_api_for_aware
-        if token == token_get:
-            try:
-                link = str(request.POST.get('link', ''))
-                if link:
-                    data = instant_aware(link)
-                    a = AWARE_Page(title=data['title'], page_html_code=data['html'])
-                    a.save()
-                    page_id = AWARE_Page.objects.latest('id').unique_id
-                    query = urlencode(dict(
-                        url='https://www.q-writer.com/aware/' + page_id,
-                        rhash=data['template'],
-                    ))
-                    link = urlunsplit(('https', 't.me', '/iv', query, ''))
-                    return JsonResponse(
-                        {
-                            'done': True,
-                            'link': link,
-                        }
-                    )
-            except Exception as e:
-                logger.error(e)
+    token_get = request.POST.get('api_key', '')
+    token = qwriter_api_for_aware
+    if token == token_get:
+        try:
+            link = str(request.POST.get('link', ''))
+            if link:
+                data = instant_aware(link)
+                a = AWARE_Page(title=data['title'], page_html_code=data['html'])
+                a.save()
+                page_id = AWARE_Page.objects.latest('id').unique_id
+                query = urlencode(dict(
+                    url='https://www.q-writer.com/aware/' + page_id,
+                    rhash=data['template'],
+                ))
+                link = urlunsplit(('https', 't.me', '/iv', query, ''))
                 return JsonResponse(
                     {
-                        'done': False,
-                        'exception': e,
-                    }, status=409
+                        'done': True,
+                        'link': link,
+                    }
                 )
+        except Exception as e:
+            logger.error(e)
+            return JsonResponse(
+                {
+                    'done': False,
+                    'exception': e,
+                }, status=409
+            )
 
     return error_403(request)
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='40/m', block=True)
 def index(request):
     """
@@ -251,6 +252,7 @@ def index(request):
     })
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='20/m', block=True)
 def news_feed(request):
     """
@@ -270,6 +272,7 @@ def news_feed(request):
     })
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def status(request):
     """
@@ -282,6 +285,7 @@ def status(request):
     return render(request, 'my_web/status.html', {'status': status_data})
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def botpage(request):
     """
@@ -293,6 +297,7 @@ def botpage(request):
     return render(request, 'my_web/botpage.html', )
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def info(request):
     """
@@ -304,6 +309,7 @@ def info(request):
     return render(request, 'my_web/info.html')
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def postview(request, postid):
     """
@@ -323,6 +329,7 @@ def postview(request, postid):
         return error_404(request, str(e))
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def storyview(request, storyid):
     """
@@ -350,6 +357,7 @@ def storyview(request, storyid):
         return error_404(request, str(e))
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def quoteview(request, quoteid):
     """
@@ -369,6 +377,7 @@ def quoteview(request, quoteid):
         return error_404(request, str(e))
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
 def factview(request, factid):
     """
@@ -389,6 +398,7 @@ def factview(request, factid):
         return error_404(request, str(e))
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def awareview(request, awareid):
     """
@@ -412,6 +422,7 @@ def awareview(request, awareid):
         return error_404(request, str(e))
 
 
+@require_GET
 @ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def stats(request):
     """
@@ -438,64 +449,62 @@ def load_more(request):
     :param request: request body
     :return: render template page
     """
-    if request.POST:
-        # get params
-        try:
-            token = request.POST.get('validtoken', '')
-            typeload = request.POST.get('typeload', '')
-            r_token = request.POST.get('gr_token', '')
-        except Exception as e:
-            token = 0
-            typeload = 0
-            r_token = 0
-            logging.error(e)
+    try:
+        token = request.POST.get('validtoken', '')
+        typeload = request.POST.get('typeload', '')
+        r_token = request.POST.get('gr_token', '')
+    except Exception as e:
+        token = 0
+        typeload = 0
+        r_token = 0
+        logging.error(e)
 
-        if recaptcha_get_result(r_token):
+    if recaptcha_get_result(r_token):
 
-            additions = int(request.POST.get('additions', ''))
-            news_append = int(request.POST.get('news', ''))
-            covid_stat_append = int(request.POST.get('covid_stat', ''))
+        additions = int(request.POST.get('additions', ''))
+        news_append = int(request.POST.get('news', ''))
+        covid_stat_append = int(request.POST.get('covid_stat', ''))
 
-            if token and typeload:
-                if typeload == 'newsession':
-                    covid_stat_ua = covid_stat('UA')
-                    covid_stat_ru = covid_stat('RU')
-                else:
-                    covid_stat_ua = 0
-                    covid_stat_ru = 0
+        if token and typeload:
+            if typeload == 'newsession':
+                covid_stat_ua = covid_stat('UA')
+                covid_stat_ru = covid_stat('RU')
+            else:
+                covid_stat_ua = 0
+                covid_stat_ru = 0
 
-                # token decrypt
-                try:
-                    salt = Fernet(load_more_encrypt_key)
-                    token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
-                except Exception as e:
-                    token_get = 0
-                    logging.error(e)
+            # token decrypt
+            try:
+                salt = Fernet(load_more_encrypt_key)
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
+            except Exception as e:
+                token_get = 0
+                logging.error(e)
 
-                if token_get and (token_get + 1800) > round(time()):
-                    # data collect
-                    stories = porfirevich_strory()
-                    posts = Post.objects.order_by('?')[:20]
-                    quotes = Quote.objects.order_by('?')[:20]
-                    facts = Facts.objects.order_by('?')[:20]
-                    news = newsfeed(news_append)
+            if token_get and (token_get + 1800) > round(time()):
+                # data collect
+                stories = porfirevich_strory()
+                posts = Post.objects.order_by('?')[:20]
+                quotes = Quote.objects.order_by('?')[:20]
+                facts = Facts.objects.order_by('?')[:20]
+                news = newsfeed(news_append)
 
-                    # image proxy encrypt data
-                    salt = Fernet(image_proxy_key)
-                    data = str.encode(str(round(time())))
-                    token_valid = salt.encrypt(data).decode("utf-8")
+                # image proxy encrypt data
+                salt = Fernet(image_proxy_key)
+                data = str.encode(str(round(time())))
+                token_valid = salt.encrypt(data).decode("utf-8")
 
-                    # data pack
-                    data = zip(stories, posts, quotes, facts, news)
+                # data pack
+                data = zip(stories, posts, quotes, facts, news)
 
-                    logger.info(f'function load_more: request {request}')
+                logger.info(f'function load_more: request {request}')
 
-                    return render(request, 'my_web/load_more.html', {
-                        'data': data, 'token_image_proxy': token_valid,
-                        'typeload': typeload, 'covid_ru': covid_stat_ru,
-                        'covid_ua': covid_stat_ua, 'additions': additions,
-                        'news_append': news_append, 'covid_stat_append': covid_stat_append
-                    })
+                return render(request, 'my_web/load_more.html', {
+                    'data': data, 'token_image_proxy': token_valid,
+                    'typeload': typeload, 'covid_ru': covid_stat_ru,
+                    'covid_ua': covid_stat_ua, 'additions': additions,
+                    'news_append': news_append, 'covid_stat_append': covid_stat_append
+                })
 
     return error_403(request)
 

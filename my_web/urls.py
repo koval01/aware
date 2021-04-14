@@ -42,6 +42,7 @@ urlpatterns = [
     path('fact/<str:factid>/', views.factview),
     path('aware/<str:awareid>/', views.awareview),
     path('story/<str:storyid>/', views.storyview),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
     path('image/', views.image_proxy_view, name='imageproxy'),
     path('image_generate_api/', views.image_generate_api, name='image_generate_api'),
     path('aware_api/', views.aware_api, name='aware_api'),

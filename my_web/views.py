@@ -430,6 +430,7 @@ def stats(request):
         return error_404(request, str(e))
 
 
+@require_POST
 @ratelimit(key='header:X-Forwarded-For', rate='60/m', block=True)
 def load_more(request):
     """

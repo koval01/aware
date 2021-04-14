@@ -549,3 +549,14 @@ def error_404(request, exception='Unknown'):
     """
     logger.warning(str(exception)[:150] + '...')
     return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
+
+
+def error_500(request, exception='Unknown'):
+    """
+    500 error handler page view
+    :param request: request body
+    :param exception: exception request error
+    :return: render template page
+    """
+    logger.warning(str(exception)[:150] + '...')
+    return render(request, 'my_web/error.html', {'exception': 'Ошибка 500. Внутренняя ошибка сервера.'}, status=500)

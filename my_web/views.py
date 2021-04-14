@@ -28,6 +28,7 @@ from .status_api.api import status_api as status_data_api
 from .awareapi_filter import get_instant_page as instant_aware
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
+from .load_text import get_text as loading_button_text
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -269,6 +270,7 @@ def news_feed(request):
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/news-feed.html', {
         'token_valid': token_valid, 'token_re': token_re,
+        'loading_button_text': loading_button_text,
     })
 
 

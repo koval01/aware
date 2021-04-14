@@ -8,23 +8,7 @@ def get_text() -> str:
     """
     list_text = [
         'Загрузка',
-        'Loading',
-        'Bezig met laden',
-        'Завантаження',
-        '로딩 중',
-        'Barkirin',
-        'တင်နေသည်',
-        'Đang tải',
-        'Hoʻouka nei',
-        '載入中',
-        '読み込み中',
-        'Caricamento in corso',
-        'Luede',
-        'Ładowanie',
-        'Betöltés',
-        'Ачаалж байна',
-        'Načítava',
-        'Φόρτωση',
-        'Įkeliama',
+        'Обновление',
+        'Подготовка',
     ]
     return choice(list_text)+'...'

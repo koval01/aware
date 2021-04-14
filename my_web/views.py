@@ -9,6 +9,7 @@ from urllib.parse import urlunsplit, urlencode
 from django.conf import settings
 from django.views.decorators.cache import cache_page
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
+from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.csrf import csrf_exempt
@@ -496,6 +497,15 @@ def load_more(request):
                     })
 
     return error_403(request)
+
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Disallow: /admin/",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
 def error_400(request, exception='Unknown'):

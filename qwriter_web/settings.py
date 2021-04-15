@@ -46,7 +46,7 @@ else:
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
-    DB_HOST = '18.184.117.236' # one server
+    DB_HOST = 'localhost'
     DB_PASS = os.environ['DB_PASS']
 
 
@@ -76,7 +76,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
@@ -221,6 +221,6 @@ STATIC_URL = '/static/'
 #    '/home/code/qwriter_web/my_web/static',
 #)
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 05.04.2021
+# 15.04.2021

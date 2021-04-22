@@ -27,12 +27,12 @@ def get_result(type_) -> str:
                 y = loads(r.text)
                 if type_:
                     x = dict(
-                        author=y['author'],
-                        text=y['text'],
+                        author=y['saying']['author'],
+                        text=y['saying']['text'],
                     )
                 else:
                     x = dict(
-                        text=y['text']
+                        text=y['fact']['text']
                     )
                 return x
         except Exception as e:

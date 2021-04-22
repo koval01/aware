@@ -292,6 +292,7 @@ def index(request):
 
     r_type = random.randint(0, 1)
     add_ = rand_fact_or_quote(r_type)
+    print(add_)
 
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {

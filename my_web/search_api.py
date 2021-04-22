@@ -34,7 +34,6 @@ def get_result(question, index=1) -> dict:
                 "start": index,
             }
             r = get(u, headers=headers, params=params)
-            print(r.text)
             if r.status_code != 200:
                 logger.error("%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
             else:
@@ -87,6 +86,7 @@ def search(string) -> dict:
         if i == 1:
             data = d['s_info']
         array = array + d['array']
+    print(array)
     return dict(data=data, array=array)
 
 

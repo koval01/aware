@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
@@ -48,9 +48,9 @@ else:
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
-    DB_HOST = 'localhost'
-    DB_USER = 'postgres'
-    DB_NAME = 'postgres'
+    DB_HOST = 'ec2-54-162-119-125.compute-1.amazonaws.com'
+    DB_USER = 'aeqkmbyrsauvgo'
+    DB_NAME = 'df0sv3t9pker2v'
     DB_PASS = os.environ['DB_PASS']
 
 
@@ -141,6 +141,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': '5432',
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 

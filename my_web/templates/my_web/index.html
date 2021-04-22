@@ -37,29 +37,27 @@ AWARE Search
             <button style="margin:15px auto;display:block;background-color:#121213;margin-top: -15%;" class="btn btn-dark load-more-end-butt">Поиск&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
         </div>
         <div class="row-posts-end">
-            {% for el in add_ %}
-                {% if 100|get_randint > 50 %}
-                    <div class="col-12 col-lg-12 padding-block-center-box">
-                        <div class="user box aos-init aos-animate" data-aos="fade-up">
-                            <div style="float: left;">
-                                <label class="username">Случайная цитата</label><br>
-                                <label class="city"><i>„{{ el.0.q_text }}“</i><br><br><b>{{ el.0.q_author }}</b></label><br>
-                                <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.0.unique_id }}"><b>awse.us</b></a><br>
-                            </div>
+            {% r_type %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username">Случайный факт</label><br>
+                            <label class="city"><i>{{ add_.text }}</i><br></label><br><br>
+                            <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.1.unique_id }}"><b>awse.us</b></a><br>
                         </div>
                     </div>
-                {% else %}
-                    <div class="col-12 col-lg-12 padding-block-center-box">
-                        <div class="user box aos-init aos-animate" data-aos="fade-up">
-                            <div style="float: left;">
-                                <label class="username">Случайный факт</label><br>
-                                <label class="city"><i>{{ el.1.f_text }}</i><br></label><br><br>
-                                <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.1.unique_id }}"><b>awse.us</b></a><br>
-                            </div>
+                </div>
+            {% else %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username">Случайная цитата</label><br>
+                            <label class="city"><i>„{{ add_.text }}“</i><br><br><b>{{ add_.author }}</b></label><br>
+                            <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.0.unique_id }}"><b>awse.us</b></a><br>
                         </div>
                     </div>
-                {% endif %}
-            {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <div style="margin: auto;">
             <p class="no-more-results-text" style="color: #828282;font-size: 14px;visibility: hidden;text-align: center;">Больше результатов нет</p>

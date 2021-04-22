@@ -1,5 +1,6 @@
 import logging
 import os
+import random
 from random import randint, randrange
 from time import time
 
@@ -32,6 +33,7 @@ from .get_search_template import get_result as search_example
 from .calculate import calculator
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
+from .randstuff_api import get_result as rand_fact_or_quote
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -283,20 +285,19 @@ def index(request):
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
-    quote = Quote.objects.order_by('?')[:1]
-    fact = Facts.objects.order_by('?')[:1]
-
     search_example_get = search_example()
     search_example_get = BeautifulSoup(
         search_example_get, 'lxml'
     ).text
 
-    add_ = zip(quote, fact)
+    r_type = random.randint(0, 1)
+    add_ = rand_fact_or_quote(r_type)
 
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
+        'r_type': r_type,
     })
 
 

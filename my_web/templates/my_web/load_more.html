@@ -70,31 +70,7 @@
 {% endif %}
 
 {% for el in data %}
-    {% if additions %}
-        {% if 100|get_randint > 70 %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username">Случайная цитата</label><br>
-                        <label class="city"><i>„{{ el.0.q_text }}“</i><br><br><b>{{ el.0.q_author }}</b></label><br>
-                        <a style="font-size: 12px;" href="{% url 'quoteaddr' %}{{ el.0.unique_id }}"><b>awse.us</b></a><br>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        {% if 100|get_randint > 70 %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username">Случайный факт</label><br>
-                        <label class="city"><i>{{ el.1.f_text }}</i><br></label><br><br>
-                        <a style="font-size: 12px;" href="{% url 'factaddr' %}{{ el.1.unique_id }}"><b>awse.us</b></a><br>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
-    {% if 100|get_randint > 80 or not additions and news_append %}
+    {% if not additions and news_append %}
         {% if el.2.0 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">

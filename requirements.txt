@@ -16,4 +16,5 @@ beautifulsoup4
 whitenoise
 python-dotenv
 cryptography
+pymysql[rsa]
 Pillow

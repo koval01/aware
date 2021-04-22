@@ -47,7 +47,7 @@ else:
     ALLOWED_HOSTS = ['awse.us', 'awse-test.herokuapp.com']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
-    PREPEND_WWW = True
+    PREPEND_WWW = False
     DB_HOST = 'ec2-54-162-119-125.compute-1.amazonaws.com'
     DB_USER = 'aeqkmbyrsauvgo'
     DB_NAME = 'df0sv3t9pker2v'

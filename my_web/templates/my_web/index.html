@@ -37,12 +37,12 @@ AWARE Search
             <button style="margin:15px auto;display:block;background-color:#121213;margin-top: -15%;" class="btn btn-dark load-more-end-butt">Поиск&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
         </div>
         <div class="row-posts-end">
-            {% r_type %}
+            {% if r_type %}
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
                             <label class="username">Случайный факт</label><br>
-                            <label class="city"><i>{{ add_ }}</i><br></label><br><br>
+                            <label class="city"><i>{{ add_.text }}</i><br></label><br><br>
                             <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                         </div>
                     </div>

@@ -9,59 +9,6 @@ def random_string():
     return x
 
 
-class Post(models.Model):
-    tg_uid = models.CharField('ID пользователя Telegram', max_length=128)
-    user_text = models.TextField('Текст пользователя')
-    bot_text = models.TextField('Текст бота')
-    time_field = models.DateTimeField('Время публикации', default=datetime.now)
-    user_name = models.CharField('Имя пользователя', max_length=255)
-    telegraph_page = models.CharField('Telegra.ph страница', max_length=255)
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
-
-    def __str__(self):
-        return self.user_text + self.bot_text
-
-    def get_absolute_url(self):
-        return "/post/%s/" % self.unique_id
-
-    class Meta:
-        verbose_name = 'Запись'
-        verbose_name_plural = 'Записи'
-
-
-class Quote(models.Model):
-    q_text = models.TextField('Текст цитаты')
-    q_author = models.CharField('Автор цитаты', max_length=255)
-    time = models.DateTimeField('Время публикации', default=datetime.now)
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
-
-    def __str__(self):
-        return self.q_text
-
-    def get_absolute_url(self):
-        return "/quote/%s/" % self.unique_id
-
-    class Meta:
-        verbose_name = 'Цитата'
-        verbose_name_plural = 'Цитаты'
-
-
-class Facts(models.Model):
-    f_text = models.TextField('Текст факта')
-    f_time = models.DateTimeField('Время публикации', default=datetime.now)
-    unique_id = models.CharField('Уникальный ID', max_length=32, unique=True, default=random_string)
-
-    def __str__(self):
-        return self.f_text
-
-    def get_absolute_url(self):
-        return "/fact/%s/" % self.unique_id
-
-    class Meta:
-        verbose_name = 'Факт'
-        verbose_name_plural = 'Факты'
-
-
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
     i_text = models.TextField('Текст поста')

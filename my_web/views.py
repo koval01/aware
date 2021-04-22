@@ -20,7 +20,7 @@ from ratelimit.decorators import ratelimit
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .link_analyze import link_image as img_link_check
-from .models import AWARE_Page, Facts, Quote
+from .models import AWARE_Page
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
 from .recaptcha_api import get_result as recaptcha_get_result
@@ -357,47 +357,6 @@ def info(request):
     """
     logger.info(f'function info: request {request}')
     return render(request, 'my_web/info.html')
-
-
-@require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
-def quoteview(request, quoteid):
-    """
-    Quote page view
-    :param quoteid: searching quote id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function quoteview: request {request}; quoteid {quoteid}')
-    try:
-        postid: request.GET.get('postid', '')
-        quote_data = ''
-        for q in Quote.objects.raw('SELECT * FROM my_web_quote WHERE unique_id = "{}" LIMIT 1'.format(quoteid)):
-            quote_data = q
-        return render(request, 'my_web/quoteview.html', {'quoteget': quote_data})
-    except Exception as e:
-        return error_404(request, str(e))
-
-
-@require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
-def factview(request, factid):
-    """
-    Fact page view
-    :param factid: searching fact id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function factview: request {request}; factid {factid}')
-    try:
-        factid: request.GET.get('factid', '')
-        fact_data = ''
-        for f in Facts.objects.raw('SELECT * FROM my_web_facts WHERE unique_id = "{}" LIMIT 1'.format(factid)):
-            fact_data = f
-        return render(request, 'my_web/factview.html', {'factget': fact_data})
-    except Exception as e:
-        logger.error(e)
-        return error_404(request, str(e))
 
 
 @require_GET

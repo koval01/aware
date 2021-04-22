@@ -13,22 +13,25 @@ from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.csrf import csrf_exempt
+from bs4 import BeautifulSoup
 from ratelimit.decorators import ratelimit
 
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .link_analyze import link_image as img_link_check
-from .models import AWARE_Page, Facts, Post, Quote, Statistic
+from .models import AWARE_Page, Facts, Quote
 from .newsapi import __main__ as newsfeed
-from .porfirevich.api import __main__ as porfirevich_strory
-from .porfirevich.api import cleanhtml
-from .porfirevich.api import get_story as get_story_porfirevich
+from .newsapi import news_search as news_search_in_str
 from .recaptcha_api import get_result as recaptcha_get_result
 from .status_api.api import status_api as status_data_api
 from .awareapi_filter import get_instant_page as instant_aware
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
 from .load_text import get_text as loading_button_text
+from .get_search_template import get_result as search_example
+from .calculate import calculator
+from .search_api import select_type as search_execute
+from .search_complete_api import get_result_data as search_complete
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -192,6 +195,39 @@ def image_generate_api(request):
     return error_403(request)
 
 
+@require_GET
+@cache_page(60 * 120)
+@ratelimit(key='header:X-Forwarded-For', rate='250/m', block=True)
+def search_suggestions_get(request):
+    """
+    We receive search suggestions
+    :param request: request body
+    :return: list suggestions
+    """
+    try:
+        q = request.GET['q']
+        gr_token = request.GET['gr_token']
+        if q:
+            if not recaptcha_get_result(gr_token):
+                return JsonResponse(
+                    {
+                        'code': 403, 'code_name': 'Forbidden',
+                        'error': 'The request could not be confirmed.',
+                    }
+                )
+            return JsonResponse({"data": search_complete(q)})
+        return JsonResponse(
+            {
+                'code': 411, 'code_name': 'Length Required',
+                'error': 'The length of the search query cannot be less than 1 character.',
+            }
+        )
+    except Exception as e:
+        logger.error(e)
+
+    return error_403(request)
+
+
 @require_POST
 @csrf_exempt
 def aware_api(request):
@@ -211,7 +247,7 @@ def aware_api(request):
                 a.save()
                 page_id = AWARE_Page.objects.latest('id').unique_id
                 query = urlencode(dict(
-                    url='https://www.q-writer.com/aware/' + page_id,
+                    url='https://awse.us/aware/' + page_id,
                     rhash=data['template'],
                 ))
                 link = urlunsplit(('https', 't.me', '/iv', query, ''))
@@ -247,9 +283,20 @@ def index(request):
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
+    quote = Quote.objects.order_by('?')[:1]
+    fact = Facts.objects.order_by('?')[:1]
+
+    search_example_get = search_example()
+    search_example_get = BeautifulSoup(
+        search_example_get, 'lxml'
+    ).text
+
+    add_ = zip(quote, fact)
+
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
+        'search_template': search_example_get, 'add_': add_,
     })
 
 
@@ -309,54 +356,6 @@ def info(request):
     """
     logger.info(f'function info: request {request}')
     return render(request, 'my_web/info.html')
-
-
-@require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
-def postview(request, postid):
-    """
-    Post page view
-    :param postid: searching post id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function postview: request {request}; postid {postid}')
-    try:
-        postid: request.GET.get('postid', '')
-        post_data = ''
-        for p in Post.objects.raw('SELECT * FROM my_web_post WHERE unique_id = "{}" LIMIT 1'.format(postid)):
-            post_data = p
-        return render(request, 'my_web/postview.html', {'postget': post_data})
-    except Exception as e:
-        return error_404(request, str(e))
-
-
-@require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='25/m', block=True)
-def storyview(request, storyid):
-    """
-    Story page view
-    :param storyid: searching story id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function storyview: request {request}; storyid {storyid}')
-    try:
-        storyid: request.GET.get('storyid', '')
-        if not get_story_porfirevich(storyid):
-            return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
-
-        text, time_, likes, id_s = get_story_porfirevich(storyid)
-        t = cleanhtml(text)
-        short_text = t
-        if len(text) > 1000:
-            short_text = short_text[:1000] + '...'
-        return render(request, 'my_web/storyview.html', {
-            'text': text, 'time': time_,
-            'likes': likes, 'id_s': id_s, 'short_text': short_text
-        })
-    except Exception as e:
-        return error_404(request, str(e))
 
 
 @require_GET
@@ -424,25 +423,6 @@ def awareview(request, awareid):
         return error_404(request, str(e))
 
 
-@require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
-def stats(request):
-    """
-    Statistics page view
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function stats: request {request}')
-    try:
-        stat_data = ''
-        for s in Statistic.objects.raw('SELECT * FROM my_web_statistic LIMIT 1'):
-            stat_data = s
-        sumstat = str(int(stat_data.u_stat) + int(stat_data.b_stat))
-        return render(request, 'my_web/stats.html', {'statget': stat_data, 'sumstat': sumstat}, )
-    except Exception as e:
-        return error_404(request, str(e))
-
-
 @require_POST
 @ratelimit(key='header:X-Forwarded-For', rate='60/m', block=True)
 def load_more(request):
@@ -466,6 +446,12 @@ def load_more(request):
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
         covid_stat_append = int(request.POST.get('covid_stat', ''))
+        search = request.POST.get('search', '')
+        search_index = request.POST.get('search_index_', '')
+        if not search_index:
+            search_index = 0
+        else:
+            search_index = int(search_index)
 
         if token and typeload:
             if typeload == 'newsession':
@@ -485,10 +471,8 @@ def load_more(request):
 
             if token_get and (token_get + 1800) > round(time()):
                 # data collect
-                stories = porfirevich_strory()
-                posts = Post.objects.order_by('?')[:20]
-                quotes = Quote.objects.order_by('?')[:20]
-                facts = Facts.objects.order_by('?')[:20]
+                quotes = Quote.objects.order_by('?')[:50]
+                facts = Facts.objects.order_by('?')[:50]
                 news = newsfeed(news_append)
 
                 # image proxy encrypt data
@@ -496,8 +480,19 @@ def load_more(request):
                 data = str.encode(str(round(time())))
                 token_valid = salt.encrypt(data).decode("utf-8")
 
+                # calculator
+                c_result, c_input = calculator(search)
+
+                # news link append
+                news_link_add = news_search_in_str(search)
+
+                # Search API
+                search_api = search_execute(search, search_index)
+                search_data = search_api['data']
+                search_array = search_api['array']
+
                 # data pack
-                data = zip(stories, posts, quotes, facts, news)
+                data = zip(quotes, facts, news, search_array)
 
                 logger.info(f'function load_more: request {request}')
 
@@ -505,7 +500,9 @@ def load_more(request):
                     'data': data, 'token_image_proxy': token_valid,
                     'typeload': typeload, 'covid_ru': covid_stat_ru,
                     'covid_ua': covid_stat_ua, 'additions': additions,
-                    'news_append': news_append, 'covid_stat_append': covid_stat_append
+                    'news_append': news_append, 'covid_stat_append': covid_stat_append,
+                    'c_result': c_result, 'search': search, 'c_input': c_input,
+                    'news_search_in_str': news_link_add, 'search_data': search_data,
                 })
 
     return error_403(request)

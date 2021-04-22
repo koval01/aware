@@ -7,6 +7,7 @@ pip
 setuptools
 wheel
 lxml
+regex
 requests
 requests-cache
 sentry_sdk

@@ -6,14 +6,14 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="og:description" content="{% block og_desc %}{% endblock %}">
-        <meta name="og:url" content="https://www.q-writer.com{% block url_path %}{% endblock %}">
+        <meta name="og:url" content="https://awse.us{% block url_path %}{% endblock %}">
         <meta name="og:site_name" content="Q-Writer">
         <meta name="og:locale" content="ru_RU">
         <meta name="theme-color" content="#202124">
         <meta name="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:description" content="{% block twitter_desc %}{% endblock %}">
-        <meta name="keywords" content="сайт, веб сайт, слово, истроия, текст, свобода, соц сеть, сеть, социальная, социалная сеть, пост, посты, рассказ, фантазия, публикации">
+        <meta name="keywords" content="сайт, веб сайт, слово, истроия, текст, свобода, соц сеть, сеть, социальная, социалная сеть, пост, посты, рассказ, фантазия, публикации, поиск, новости, новое, образование, бесплатно, свободно, свободное">
         <meta name="author" content="Koval Yaroslav">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
@@ -25,9 +25,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.7.2/bluebird.min.js" integrity="sha512-TFp7JOp8so/oHJrngLI0kn9diZrc0YDr1NrGj1YbzbvSBdGfligjYVRp1xtqlmNCPWpx4xJDhiWSGgUYvqCbBg==" crossorigin="anonymous"></script>
         <script src="https://www.google.com/recaptcha/api.js?render={% block public_re %}{% endblock %}"></script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119266831-9"></script>
-        <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-119266831-9");</script>
-        <script data-ad-client="ca-pub-5845423947456266" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'my_web/images/favicon.ico' %}"/>
@@ -92,14 +89,6 @@
                 </div>
             </div>
         </a>
-        <a href="{% url 'stats_page' %}">
-            <div class="menu_item">
-                <label>Статистика</label>
-                <div class="icon_container">
-                    <i class="fas fa-signal"></i>
-                </div>
-            </div>
-        </a>
         <a href="{% url 'bot_page' %}" >
             <div class="menu_item">
                 <label>Бот</label>
@@ -122,9 +111,22 @@
     <div class="row" id="row-box-1">
             {% block content %}
             {% endblock %}
-<br>
-            </div>
-<br><br><br>
+            <br>
+        <div class="footer-aware" style="margin: auto;">
+            <p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">
+                Contact <a href="https://t.me/Jomahmadov2002">NajB</a>
+            </p>
+            <br/>
+            <p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">
+                Developed by <a href="https://t.me/koval_yaroslav">Koval Yaroslav</a>
+            </p>
+            <br/>
+            <p style="color: #a5a5a5;font-size:10px;margin-bottom:-5%;">
+                Этот сайт защищен с помощью <a href="https://www.google.com/recaptcha/about/">Google ReCaptcha</a>.
+            </p>
+        </div>
+    </div>
+    <br><br><br>
 </div>
 </body>
 {% block js_module %}

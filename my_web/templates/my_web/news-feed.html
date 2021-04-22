@@ -1,19 +1,19 @@
 {% extends 'my_web/base.html' %}
 
 {% block title %}
-QWriter - Новостная лента
+AWARE Search - Новостная лента
 {% endblock %}
 
 {% block title_header %}
-QWriter
+AWARE
 {% endblock %}
 
 {% block og_desc %}
-Основные новости на русском языке от Q-Writer
+Основные новости на русском языке от AWARE
 {% endblock %}
 
 {% block twitter_desc %}
-Основные новости на русском языке от Q-Writer
+Основные новости на русском языке от AWARE
 {% endblock %}
 
 {% block public_re %}
@@ -22,26 +22,24 @@ QWriter
 
 {% block content %}
 {% load static %}
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <img style="image-rendering: pixelated; filter: invert(80%); width: 60px; height: 60px" class="lazyloaded" data-src="{% static 'my_web/images/logo-dark.svg' %}" src="{% static 'my_web/images/logo-dark.svg' %}">
-            <div style="width: calc(100% - 90px); float: left; ">
-                <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1" style="color: 2"><i style="filter: invert(80%);" class="fas fa-circle"></i></label>
-                <label class="username">Информация</label><br>
-                <label class="city">
-                    <b>Для связи с разработчиком используйте <a href="https://t.me/koval_yaroslav">Telegram</a> или <a href="mailto:koval@q-writer.com">электронный адрес</a>. This site uses <a href="https://www.google.com/recaptcha">Google ReCaptcha</a> technology.</b>
-                    <br/></label><br/>
-                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>q-writer.com</b></a><br>
+    <div class="row-posts-end">
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label class="username">Информация</label><br>
+                    <label class="city"><i>Подождите, сейчас мы загрузим новостную ленту...</i><br></label><br><br>
+                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                </div>
             </div>
         </div>
+        <br><button style="margin:0 auto;display:block;background-color:#121213;" class="btn btn-dark load-more-end-butt">{{ loading_button_text }}&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
     </div>
-    <div class="row-posts-end"></div><br><button style="margin:0 auto;display:block;background-color:#121213;" class="btn btn-dark load-more-end-butt">{{ loading_button_text }}&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
 {% endblock %}
 
 {% block js_module %}
     {% csrf_token %}
     <script type="text/javascript">
-        if(window.location.search<2){function imgError(e){return e.onerror="",e.src="{% static 'my_web/images/background.png' %}",!0}function load_ajax_end_page(e){const o=$(".load-more-end-butt"),t=o.find("span");var n=jQuery("[name=csrfmiddlewaretoken]").val();grecaptcha.ready(function(){grecaptcha.execute("{{ token_re }}",{action:"submit"}).then(function(i){var a=i;$.ajax({url:"{% url 'load_more' %}",type:"POST",data:{csrfmiddlewaretoken:n,validtoken:"{{ token_valid }}",typeload:e,additions:0,news:1,gr_token:a,covid_stat:1},beforeSend:function(){o.attr("disabled",!0),t.addClass("d-inline-block"),AOS.init()},success:function(e){o.attr("disabled",!1),t.removeClass("d-inline-block"),"Ошибка валидации!"==e?alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу."):$(".row-posts-end").before(e),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$(".load-more-end-butt").remove()},error:function(){alert("Ошибка. Не удалось получить ответ от сервера. Попробуйте перезагрузить страницу."),o.attr("disabled",!1),t.removeClass("d-inline-block")}})})})}function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(document).ready(function(){load_ajax_end_page("newsession")}),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$("a.scroll-to").on("click",function(e){e.preventDefault();var o=$(this).attr("href");$("html, body").stop().animate({scrollTop:$(o).offset().top-60},900)}),$(window).scroll(function(){home_button=document.getElementById("h_butt"),1e3<$(window).scrollTop()?home_button.style.visibility="visible":home_button.style.visibility="hidden"}),$(document).on("click",function(e){$(e.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}else{function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(document).on("click",function(e){$(e.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}
+        if(window.location.search<2){function imgError(e){return e.onerror="",e.src="{% static 'my_web/images/background.png' %}",!0}function load_ajax_end_page(e){const o=$(".load-more-end-butt"),t=o.find("span");var n=jQuery("[name=csrfmiddlewaretoken]").val();grecaptcha.ready(function(){grecaptcha.execute("{{ token_re }}",{action:"submit"}).then(function(i){var a=i;$.ajax({url:"{% url 'load_more' %}",type:"POST",data:{csrfmiddlewaretoken:n,validtoken:"{{ token_valid }}",typeload:e,additions:0,news:1,gr_token:a,covid_stat:1},beforeSend:function(){o.attr("disabled",!0),t.addClass("d-inline-block"),AOS.init()},success:function(e){$(".row-posts-end").empty(),o.attr("disabled",!1),t.removeClass("d-inline-block"),"Ошибка валидации!"==e?alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу."):$(".row-posts-end").append(e),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$(".load-more-end-butt").remove()},error:function(){alert("Ошибка. Не удалось получить ответ от сервера. Попробуйте перезагрузить страницу."),o.attr("disabled",!1),t.removeClass("d-inline-block")}})})})}function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(document).ready(function(){load_ajax_end_page("newsession")}),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$("a.scroll-to").on("click",function(e){e.preventDefault();var o=$(this).attr("href");$("html, body").stop().animate({scrollTop:$(o).offset().top-60},900)}),$(window).scroll(function(){home_button=document.getElementById("h_butt"),1e3<$(window).scrollTop()?home_button.style.visibility="visible":home_button.style.visibility="hidden"}),$(document).on("click",function(e){$(e.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}else{function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}$(document).on("click",function(e){$(e.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())})}
     </script>
 {% endblock %}
 

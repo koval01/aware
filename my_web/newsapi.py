@@ -51,7 +51,7 @@ def __main__(news_append) -> list:
                     return data_array
         if error_http or error_json:
             logger.error(f'Error http: {error_http}; Error json: {error_json};')
-    return [['' for x in range(6)] for y in range(20)]
+    return [['' for x in range(6)] for y in range(100)]
 
 
 def __test__():
@@ -60,3 +60,18 @@ def __test__():
         'Response data:', data,
         '\nLength:', len(data),
     )
+
+
+def news_search(string) -> bool:
+    """
+    Пропонуємо новини AWARE
+    :param string: Пошуковий запит
+    :return: булентний результат
+    """
+    words = [
+        'новость', 'новости', 'новостей', 'новостью', 'новостям', 'новостями', 'новостях',
+        'новина', 'новини', 'новин', 'новиною', 'новинам', 'новинами', 'новинах', 'news',
+    ]
+    for i in words:
+        if i in string.lower():
+            return True

@@ -1,4 +1,4 @@
 # qwriter
-www.q-writer.com website code
+awse.us website code
 
-(This repository contains the server and client code of the site q-writer.com)
+(This repository contains the server and client code of the site awse.us)

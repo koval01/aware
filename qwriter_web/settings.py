@@ -29,24 +29,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
     ALLOWED_HOSTS = ['*']
     LOG_HANDLERS = ['console']
     DB_HOST = 'localhost'
-    DB_PASS = 'root'
+    DB_PASS = 'Piramida13'
+    DB_USER = 'postgres'
+    DB_NAME = 'postgres'
 
 else:
     from dotenv import load_dotenv
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-    ALLOWED_HOSTS = ['www.q-writer.com', 'q-writer.com']
+    ALLOWED_HOSTS = ['awse.us']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
     DB_HOST = 'localhost'
+    DB_USER = 'postgres'
+    DB_NAME = 'postgres'
     DB_PASS = os.environ['DB_PASS']
 
 
@@ -58,6 +62,10 @@ RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
 IMAGE_PROXY_KEY = os.environ['IMAGE_PROXY_KEY']
 IMAGE_PROXY_LINK_KEY = os.environ['IMAGE_LINK_KEY']
 LOAD_MORE_ENCRYPT_KEY = os.environ['LOAD_MORE_KEY']
+
+SEARCH_CX = os.environ['SEARCH_CX']
+SEARCH_API_HOST = os.environ['SEARCH_API_HOST']
+SEARCH_API_KEYS = os.environ['SEARCH_API_KEYS']
 
 # Application definition
 
@@ -76,7 +84,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
@@ -114,15 +122,26 @@ WSGI_APPLICATION = 'qwriter_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'qwriter_database',
+#         'USER': 'root',
+#         'PASSWORD': DB_PASS,
+#         'HOST': DB_HOST,
+#         'PORT': '3306',
+#     },
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'qwriter_database',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
-        'PORT': '3306',
-    },
+        'PORT': '5432',
+    }
 }
 
 CACHES = {
@@ -223,4 +242,4 @@ STATIC_URL = '/static/'
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 15.04.2021
+# 22.04.2021

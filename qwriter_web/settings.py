@@ -44,7 +44,7 @@ else:
     from dotenv import load_dotenv
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-    ALLOWED_HOSTS = ['awse.us']
+    ALLOWED_HOSTS = ['awse.us', 'awse-test.herokuapp.com']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True

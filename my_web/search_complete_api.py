@@ -1,8 +1,7 @@
 from requests import get
-from json import loads
 from .covid.config import USER_AGENT
 from bs4 import BeautifulSoup
-import logging, re
+import logging
 
 logger = logging.getLogger(__name__)
 

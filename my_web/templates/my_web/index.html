@@ -41,8 +41,8 @@ AWARE Search
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
-                            <label class="username">Случайный факт</label><br>
-                            <label class="city"><i>{{ add_.text }}</i><br></label><br><br>
+                            <label class="username">Случайная цитата</label><br>
+                            <label class="city"><i>„{{ add_.text }}“</i><br><br><b>{{ add_.author }}</b></label><br>
                             <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                         </div>
                     </div>
@@ -51,8 +51,8 @@ AWARE Search
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
-                            <label class="username">Случайная цитата</label><br>
-                            <label class="city"><i>„{{ add_.text }}“</i><br><br><b>{{ add_.author }}</b></label><br>
+                            <label class="username">Случайный факт</label><br>
+                            <label class="city"><i>{{ add_.text }}</i><br></label><br><br>
                             <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                         </div>
                     </div>
@@ -69,191 +69,7 @@ AWARE Search
 {% block js_module %}
     {% csrf_token %}
     <script type="text/javascript">
-        function imgError(o) {
-            return (o.onerror = ""), (o.src = "{% static 'my_web/images/background.png' %}"), !0;
-        }
-        function throttle(func, ms) {
-
-            let isThrottled = false,
-              savedArgs,
-              savedThis;
-
-            function wrapper() {
-
-              if (isThrottled) {
-                savedArgs = arguments;
-                savedThis = this;
-                return;
-              }
-
-              func.apply(this, arguments);
-
-              isThrottled = true;
-
-              setTimeout(function() {
-                isThrottled = false;
-                if (savedArgs) {
-                  wrapper.apply(savedThis, savedArgs);
-                  savedArgs = savedThis = null;
-                }
-              }, ms);
-            }
-
-            return wrapper;
-          }
-        var search_index = 0;
-        var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" data-aos="fade-up"><div style="float: left;"><label class="username ml11"><span class="text-wrapper"><span class="line line1"></span><span class="letters">Прости но мы не смогли ничего найти по твоему запросу...</span></span></label><br><label class="city"></label><br><br><a style="font-size: 12px;" href="{% url "index_page" %}"><b>awse.us</b></a><br></div></div></div>';
-        function load_ajax_end_page(o, type_loading) {
-            const text_no = $(".no-more-results-text");
-            const e = $(".load-more-end-butt"),
-                n = e.find("span");
-            const load_continue_footer = $(".load-more-end-butt-search-array"),
-                n_con = load_continue_footer.find("span");
-            var t = jQuery("[name=csrfmiddlewaretoken]").val();
-            grecaptcha.ready(function () {
-                grecaptcha.execute("{{ token_re }}", { action: "submit" }).then(function (i) {
-                    var a = i;
-                    $.ajax({
-                        url: "{% url 'load_more' %}",
-                        type: "POST",
-                        data: { csrfmiddlewaretoken: t, validtoken: "{{ token_valid }}", typeload: type_loading, additions: 0, news: 0, gr_token: a, covid_stat: 0, search: o},
-                        beforeSend: function () {
-                            text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.init();
-                        },
-                        success: function (o) {
-                            load_continue_footer.css('visibility', 'visible');
-                            if (o.replace(/[^+\w]/g, '').length < 10) {
-                                load_continue_footer.css('visibility', 'hidden');
-                            }
-                            n_con.css('visibility', 'hidden');
-                            n_con.removeClass("d-inline-block");
-                            if (type_loading == 'newsession') {
-                                $(".row-posts-end").empty();
-                                search_index = 21;
-                            }
-                            e.attr("disabled", !1),
-                                n.removeClass("d-inline-block"),
-                                "Ошибка валидации!" == o ? alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу.") : $(".row-posts-end").append(o),
-                                AOS.init(),
-                                $(document).ready(function () {
-                                    $('[data-toggle="tooltip"]').tooltip();
-                                });
-                        },
-                        error: function () {
-                            $(".row-posts-end").empty(), $(".row-posts-end").append(error_block_space_design), e.attr("disabled", !1), n.removeClass("d-inline-block");
-                        },
-                    });
-                });
-            });
-        }
-        function load_continue_ajax_end_page(o, type_loading) {
-            const text_no = $(".no-more-results-text");
-            const e = $(".load-more-end-butt-search-array"),
-                n = e.find("span");
-            var t = jQuery("[name=csrfmiddlewaretoken]").val();
-            grecaptcha.ready(function () {
-                grecaptcha.execute("{{ token_re }}", { action: "submit" }).then(function (i) {
-                    var a = i;
-                    $.ajax({
-                        url: "{% url 'load_more' %}",
-                        type: "POST",
-                        data: { csrfmiddlewaretoken: t, validtoken: "{{ token_valid }}", typeload: type_loading, additions: 0, news: 0, gr_token: a, covid_stat: 0, search: o, search_index_: search_index},
-                        beforeSend: function () {
-                            text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), n.css('visibility', 'visible'), AOS.init();
-                        },
-                        success: function (o) {
-                            n.css('visibility', 'hidden');
-                            search_index = search_index + 10;
-                            if (search_index > 100) {
-                                e.css('visibility', 'hidden');
-                                text_no.css('visibility', 'visible');
-                            }
-                            e.attr("disabled", !1),
-                                n.removeClass("d-inline-block"),
-                                "Ошибка валидации!" == o ? alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу.") : $(".row-posts-end").append(o),
-                                AOS.init(),
-                                $(document).ready(function () {
-                                    $('[data-toggle="tooltip"]').tooltip();
-                                });
-                        },
-                        error: function () {
-                            e.css('visibility', 'hidden'), e.attr("disabled", !1), n.css('visibility', 'hidden'), n.removeClass("d-inline-block"), text_no.css('visibility', 'visible');
-                        },
-                    });
-                });
-            });
-        }
-        function onMenuClicked() {
-            $(".menu_box").is(":hidden") ? ($(".menu_box").show(), $(".float_bg").show()) : ($(".menu_box").hide(), $(".float_bg").hide());
-        }
-        function get_suggestions() {
-            grecaptcha.ready(function () {
-                grecaptcha.execute("{{ token_re }}", { action: "submit" }).then(function (i) {
-                    $.ajax({
-                        url: "./suggestions",
-                        type: "GET",
-                        data: {"q": $('.search-input-aware').val(), 'gr_token': i},
-                    }).done(function() {
-                    });
-                });
-            });
-        }
-        $(".search-input-aware").on('keyup', function (e) {
-            if (e.key === 'Enter' || e.keyCode === 13) {
-                var search_text = $('.search-input-aware').val();
-                if (search_text.length == 0) {
-                    search_text = "{{ search_template }}";
-                }
-                load_ajax_end_page(search_text, 'newsession');
-            }
-        });
-        $('.search-input-aware').on('input', function() {
-            var search_text = $('.search-input-aware').val();
-            if (search_text.length == 0) {
-                get_suggestions(search_text);
-            }
-            else {
-                let throttle_get_suggestions = throttle(get_suggestions, 650);
-                throttle_get_suggestions(search_text);
-            }
-        });
-        $(".load-more-end-butt").on("click", function() {
-            var search_text = $('.search-input-aware').val();
-            if (search_text.length == 0) {
-                search_text = "{{ search_template }}";
-            }
-            load_ajax_end_page(search_text, 'newsession');
-        });
-        $(".load-more-end-butt-search-array").on("click", function() {
-            var search_text = $('.search-input-aware').val();
-            if (search_text.length == 0) {
-                search_text = "{{ search_template }}";
-            }
-            load_continue_ajax_end_page(search_text, search_index);
-        });
-        $(window).scroll(function () {
-            $(window).scrollTop() == $(document).height() - $(window).height() &&
-                setTimeout(function () {
-                    $(window).scrollTop() == $(document).height() - $(window).height();
-                }, 100);
-        }),
-            AOS.init(),
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            }),
-            $("a.scroll-to").on("click", function (o) {
-                o.preventDefault();
-                var e = $(this).attr("href");
-                $("html, body")
-                    .stop()
-                    .animate({ scrollTop: $(e).offset().top - 60 }, 900);
-            }),
-            $(window).scroll(function () {
-                (home_button = document.getElementById("h_butt")), 1e3 < $(window).scrollTop() ? (home_button.style.visibility = "visible") : (home_button.style.visibility = "hidden");
-            }),
-            $(document).on("click", function (o) {
-                $(o.target).hasClass("float_bg") && ($(".menu_box").hide(), $(".float_bg").hide());
-            });
+        function imgError(e){return e.onerror="",e.src="{% static 'my_web/images/background.png' %}",!0}function throttle(e,t){let i,n,a=!1;return function o(){if(a)return i=arguments,void(n=this);e.apply(this,arguments),a=!0,setTimeout(function(){a=!1,i&&(o.apply(n,i),i=n=null)},t)}}var search_index=0,error_block_space_design='<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" data-aos="fade-up"><div style="float: left;"><label class="username ml11"><span class="text-wrapper"><span class="line line1"></span><span class="letters">Прости но мы не смогли ничего найти по твоему запросу...</span></span></label><br><label class="city"></label><br><br><a style="font-size: 12px;" href="{% url "index_page" %}"><b>awse.us</b></a><br></div></div></div>';function load_ajax_end_page(e,t){const i=$(".no-more-results-text"),n=$(".load-more-end-butt"),a=n.find("span"),o=$(".load-more-end-butt-search-array"),s=o.find("span");var l=jQuery("[name=csrfmiddlewaretoken]").val();grecaptcha.ready(function(){grecaptcha.execute("{{ token_re }}",{action:"submit"}).then(function(r){var d=r;$.ajax({url:"{% url 'load_more' %}",type:"POST",data:{csrfmiddlewaretoken:l,validtoken:"{{ token_valid }}",typeload:t,additions:0,news:0,gr_token:d,covid_stat:0,search:e},beforeSend:function(){i.css("visibility","hidden"),n.attr("disabled",!0),a.addClass("d-inline-block"),AOS.init()},success:function(e){o.css("visibility","visible"),e.replace(/[^+\w]/g,"").length<10&&o.css("visibility","hidden"),s.css("visibility","hidden"),s.removeClass("d-inline-block"),"newsession"==t&&($(".row-posts-end").empty(),search_index=21),n.attr("disabled",!1),a.removeClass("d-inline-block"),"Ошибка валидации!"==e?alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу."):$(".row-posts-end").append(e),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()})},error:function(){$(".row-posts-end").empty(),$(".row-posts-end").append(error_block_space_design),n.attr("disabled",!1),a.removeClass("d-inline-block")}})})})}function load_continue_ajax_end_page(e,t){const i=$(".no-more-results-text"),n=$(".load-more-end-butt-search-array"),a=n.find("span");var o=jQuery("[name=csrfmiddlewaretoken]").val();grecaptcha.ready(function(){grecaptcha.execute("{{ token_re }}",{action:"submit"}).then(function(s){var l=s;$.ajax({url:"{% url 'load_more' %}",type:"POST",data:{csrfmiddlewaretoken:o,validtoken:"{{ token_valid }}",typeload:t,additions:0,news:0,gr_token:l,covid_stat:0,search:e,search_index_:search_index},beforeSend:function(){i.css("visibility","hidden"),n.attr("disabled",!0),a.addClass("d-inline-block"),a.css("visibility","visible"),AOS.init()},success:function(e){a.css("visibility","hidden"),(search_index+=10)>100&&(n.css("visibility","hidden"),i.css("visibility","visible")),n.attr("disabled",!1),a.removeClass("d-inline-block"),"Ошибка валидации!"==e?alert("Ошибка. Не удалось подтвердить запрос. Перезагрузите страницу."):$(".row-posts-end").append(e),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()})},error:function(){n.css("visibility","hidden"),n.attr("disabled",!1),a.css("visibility","hidden"),a.removeClass("d-inline-block"),i.css("visibility","visible")}})})})}function onMenuClicked(){$(".menu_box").is(":hidden")?($(".menu_box").show(),$(".float_bg").show()):($(".menu_box").hide(),$(".float_bg").hide())}function get_suggestions(){grecaptcha.ready(function(){grecaptcha.execute("{{ token_re }}",{action:"submit"}).then(function(e){$.ajax({url:"./suggestions",type:"GET",data:{q:$(".search-input-aware").val(),gr_token:e}}).done(function(){})})})}$(".search-input-aware").on("keyup",function(e){if("Enter"===e.key||13===e.keyCode){var t=$(".search-input-aware").val();0==t.length&&(t="{{ search_template }}"),load_ajax_end_page(t,"newsession")}}),$(".search-input-aware").on("input",function(){var e=$(".search-input-aware").val();if(0==e.length)get_suggestions(e);else{throttle(get_suggestions,650)(e)}}),$(".load-more-end-butt").on("click",function(){var e=$(".search-input-aware").val();0==e.length&&(e="{{ search_template }}"),load_ajax_end_page(e,"newsession")}),$(".load-more-end-butt-search-array").on("click",function(){var e=$(".search-input-aware").val();0==e.length&&(e="{{ search_template }}"),load_continue_ajax_end_page(e,search_index)}),$(window).scroll(function(){$(window).scrollTop()==$(document).height()-$(window).height()&&setTimeout(function(){$(window).scrollTop(),$(document).height(),$(window).height()},100)}),AOS.init(),$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()}),$("a.scroll-to").on("click",function(e){e.preventDefault();var t=$(this).attr("href");$("html, body").stop().animate({scrollTop:$(t).offset().top-60},900)}),$(window).scroll(function(){home_button=document.getElementById("h_butt"),1e3<$(window).scrollTop()?home_button.style.visibility="visible":home_button.style.visibility="hidden"}),$(document).on("click",function(e){$(e.target).hasClass("float_bg")&&($(".menu_box").hide(),$(".float_bg").hide())});
     </script>
 {% endblock %}
 

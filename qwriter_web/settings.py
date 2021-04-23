@@ -44,13 +44,13 @@ else:
     from dotenv import load_dotenv
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-    ALLOWED_HOSTS = ['awse.us', 'awse-test.herokuapp.com']
+    ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = False
-    DB_HOST = 'ec2-54-162-119-125.compute-1.amazonaws.com'
-    DB_USER = 'aeqkmbyrsauvgo'
-    DB_NAME = 'df0sv3t9pker2v'
+    DB_HOST = 'ec2-174-129-225-160.compute-1.amazonaws.com'
+    DB_USER = 'fqyqcmmltfyacx'
+    DB_NAME = 'dbmhdf1ft2d1ga'
     DB_PASS = os.environ['DB_PASS']
 
 
@@ -95,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
+    'my_web.middleware.Compressor_AWARE',
 ]
 
 ROOT_URLCONF = 'qwriter_web.urls'
@@ -130,7 +131,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': '5432',
-        'OPTIONS': {'sslmode': 'require'},
+        # 'OPTIONS': {'sslmode': 'require'},
     }
 }
 

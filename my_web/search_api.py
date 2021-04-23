@@ -86,7 +86,6 @@ def search(string) -> dict:
         if i == 1:
             data = d['s_info']
         array = array + d['array']
-    print(array)
     return dict(data=data, array=array)
 
 

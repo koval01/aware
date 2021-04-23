@@ -13,8 +13,7 @@ class Compressor_AWARE:
         if not response.streaming:
             for i in range(10):
                 response.content = response.content.decode("utf-8").replace(
-                    '\n', '').replace('  ', ' ').replace('> <', '><').replace(
-                    '> ', '>').replace(' <', '<')
+                    '\n', '').replace('  ', ' ').replace('> <', '><')
         return response
 
     def process_exception(self, request, exception):

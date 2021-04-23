@@ -47,7 +47,7 @@ else:
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
     SECURE_SSL_REDIRECT = True
-    PREPEND_WWW = False
+    PREPEND_WWW = True
     DB_HOST = 'ec2-174-129-225-160.compute-1.amazonaws.com'
     DB_USER = 'fqyqcmmltfyacx'
     DB_NAME = 'dbmhdf1ft2d1ga'

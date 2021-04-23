@@ -46,7 +46,7 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False
     PREPEND_WWW = True
     DB_HOST = 'ec2-174-129-225-160.compute-1.amazonaws.com'
     DB_USER = 'fqyqcmmltfyacx'

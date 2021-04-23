@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.decorators.cache import cache_page
 from django.urls import path
@@ -10,7 +9,6 @@ sitemaps_aware_pages = {
 }
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name="admin_panel_link"),
     path('', views.index, name='index_page'),
     path('info', views.info, name='info_page'),
     path('namaz', views.namaz, name='namaz_page'),

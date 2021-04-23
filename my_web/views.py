@@ -3,37 +3,36 @@ import os
 import random
 from random import randint, randrange
 from time import time
+from urllib.parse import urlunsplit, urlencode
 
 import requests_cache
+from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
-from urllib.parse import urlunsplit, urlencode
 from django.conf import settings
-from django.views.decorators.cache import cache_page
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
-from django.views.decorators.http import require_GET, require_POST
 from django.shortcuts import render
 from django.template.defaulttags import register
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
-from bs4 import BeautifulSoup
-from ratelimit.decorators import ratelimit
+from django.views.decorators.http import require_GET, require_POST
 
+from .awareapi_filter import get_instant_page as instant_aware
+from .calculate import calculator
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
+from .get_search_template import get_result as search_example
 from .link_analyze import link_image as img_link_check
+from .load_text import get_text as loading_button_text
 from .models import AWARE_Page
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
+from .randstuff_api import get_result as rand_fact_or_quote
 from .recaptcha_api import get_result as recaptcha_get_result
-from .status_api.api import status_api as status_data_api
-from .awareapi_filter import get_instant_page as instant_aware
-from .text_to_image_api import get_result as text_to_image_api
-from .text_to_image_api import sentence_check
-from .load_text import get_text as loading_button_text
-from .get_search_template import get_result as search_example
-from .calculate import calculator
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
-from .randstuff_api import get_result as rand_fact_or_quote
+from .status_api.api import status_api as status_data_api
+from .text_to_image_api import get_result as text_to_image_api
+from .text_to_image_api import sentence_check
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY

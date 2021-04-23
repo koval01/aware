@@ -1,7 +1,6 @@
 django
 django-heroku
 django_compressor
-django-ratelimit
 gunicorn
 pip
 setuptools

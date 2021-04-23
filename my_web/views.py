@@ -125,7 +125,6 @@ def link_encrypt_img(link) -> str:
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='90/m', block=True)
 def image_proxy_view(request):
     """
     Image proxy function
@@ -160,7 +159,6 @@ def image_proxy_view(request):
 
 @require_GET
 @cache_page(60 * 120)
-@ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def image_generate_api(request):
     """
     Image to text api
@@ -199,7 +197,6 @@ def image_generate_api(request):
 
 @require_GET
 @cache_page(60 * 120)
-@ratelimit(key='header:X-Forwarded-For', rate='250/m', block=True)
 def search_suggestions_get(request):
     """
     We receive search suggestions
@@ -272,7 +269,6 @@ def aware_api(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='40/m', block=True)
 def index(request):
     """
     Index page view
@@ -302,7 +298,35 @@ def index(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='20/m', block=True)
+def namaz(request):
+    """
+    Index page view
+    :param request: request body
+    :return: render template page
+    """
+    # unix time mark encryption
+    salt = Fernet(load_more_encrypt_key)
+    data = str.encode(str(round(time())))
+    token_valid = salt.encrypt(data).decode("utf-8")
+    token_re = settings.RETOKEN_PUBLIC
+
+    search_example_get = search_example()
+    search_example_get = BeautifulSoup(
+        search_example_get, 'lxml'
+    ).text
+
+    r_type = random.randint(0, 1)
+    add_ = rand_fact_or_quote(r_type)
+
+    logger.info(f'function index: request {request}')
+    return render(request, 'my_web/index.html', {
+        'token_valid': token_valid, 'token_re': token_re,
+        'search_template': search_example_get, 'add_': add_,
+        'r_type': r_type,
+    })
+
+
+@require_GET
 def news_feed(request):
     """
     News page view
@@ -323,7 +347,6 @@ def news_feed(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='10/m', block=True)
 def status(request):
     """
     Status page view
@@ -336,7 +359,6 @@ def status(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def botpage(request):
     """
     Bot info page view
@@ -348,7 +370,6 @@ def botpage(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='15/m', block=True)
 def info(request):
     """
     Info site page view
@@ -360,7 +381,6 @@ def info(request):
 
 
 @require_GET
-@ratelimit(key='header:X-Forwarded-For', rate='30/m', block=True)
 def awareview(request, awareid):
     """
     AWARE page view
@@ -384,7 +404,6 @@ def awareview(request, awareid):
 
 
 @require_POST
-@ratelimit(key='header:X-Forwarded-For', rate='60/m', block=True)
 def load_more(request):
     """
     Technical (load_more) page view

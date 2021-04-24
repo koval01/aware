@@ -369,17 +369,6 @@ def botpage(request):
 
 
 @require_GET
-def info(request):
-    """
-    Info site page view
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function info: request {request}')
-    return render(request, 'my_web/info.html')
-
-
-@require_GET
 def awareview(request, awareid):
     """
     AWARE page view

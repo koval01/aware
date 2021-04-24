@@ -167,7 +167,7 @@ def image_generate_api(request):
     try:
         text = request.GET['text']
         author = request.GET['author']
-        if 5 < len(text) <= 1000 and 2 < len(author) <= 36:
+        if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
             if not sentence_check(text):
                 return JsonResponse(
                     {
@@ -185,7 +185,7 @@ def image_generate_api(request):
         return JsonResponse(
             {
                 'code': 411, 'code_name': 'Length Required',
-                'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 36 characters.',
+                'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 64 characters.',
             }
         )
     except Exception as e:

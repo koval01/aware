@@ -168,6 +168,7 @@ def image_generate_api(request):
         text = request.GET['text']
         author = request.GET['author']
         if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
+            logger.info('IMAGE GENERATOR: Check sentences')
             if not sentence_check(text):
                 return JsonResponse(
                     {
@@ -175,7 +176,9 @@ def image_generate_api(request):
                         'error': 'This text does not seem to have any value.',
                     }
                 )
+            logger.info('IMAGE GENERATOR: Generating image')
             img = text_to_image_api(text, author)
+            logger.info('IMAGE GENERATOR: Sending image to user')
             return HttpResponse(
                 img['img'],
                 content_type=img['headers'],

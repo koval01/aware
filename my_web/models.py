@@ -11,18 +11,15 @@ def random_string():
 
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
-    i_text = models.TextField('Текст поста')
+    i_text = models.TextField('Текст')
     i_time = models.DateTimeField('Время публикации', default=datetime.now)
 
     def __str__(self):
         return self.i_title
 
-    def get_absolute_url(self):
-        return "/info/%i/" % self.id
-
     class Meta:
-        verbose_name = 'Пост администратора'
-        verbose_name_plural = 'Посты администратора'
+        verbose_name = 'Рекламная запись'
+        verbose_name_plural = 'Рекламные записи'
 
 
 class AWARE_Page(models.Model):

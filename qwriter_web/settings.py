@@ -131,7 +131,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': '5432',
-        # 'OPTIONS': {'sslmode': 'require'},
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 

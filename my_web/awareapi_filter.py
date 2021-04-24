@@ -118,7 +118,7 @@ def get_instant_page(link) -> dict:
     else:
         html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
     title = data['title']
-    template = 'dd7f8f14ecc26f'  # Telegram Instant View template hash
+    template = '8eb77d3141107a'  # Telegram Instant View template hash
     return dict(
         title=title, html=html, template=template,
     )

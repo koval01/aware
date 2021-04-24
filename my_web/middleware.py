@@ -17,4 +17,4 @@ class Compressor_AWARE:
         return response
 
     def process_exception(self, request, exception):
-        logger.error(f'Middleware: {exception}')
+        logger.error(f'Middleware Compressor: {exception}')

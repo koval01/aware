@@ -438,8 +438,6 @@ def load_more(request):
 
             if token_get and (token_get + 1800) > round(time()):
                 # data collect
-                # quotes = Quote.objects.order_by('?')[:50]
-                # facts = Facts.objects.order_by('?')[:50]
                 news = newsfeed(news_append)
 
                 # image proxy encrypt data

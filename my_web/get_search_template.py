@@ -18,7 +18,7 @@ def get_result() -> str:
             "X-Requested-With": "XMLHttpRequest",
         }
         r = post(u, headers=headers, timeout=3).text
-        return loads(r)['question']['text']
+        return loads(r)['question']['text'].replace('"', '”')
     except Exception as e:
         logger.error(e)
         return 'Введите поисковый запрос...'

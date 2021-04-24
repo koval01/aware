@@ -10,7 +10,6 @@ sitemaps_aware_pages = {
 
 urlpatterns = [
     path('', views.index, name='index_page'),
-    path('info', views.info, name='info_page'),
     path('namaz', views.namaz, name='namaz_page'),
     path('status', views.status, name='status_page'),
     path('bot', views.botpage, name='bot_page'),

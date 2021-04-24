@@ -390,10 +390,7 @@ def awareview(request, awareid):
     logger.info(f'function awareview: request {request}; awareid {awareid}')
     try:
         awareid: request.GET.get('awareid', '')
-        aware_data = ''
-        for a in AWARE_Page.objects.raw(
-                'SELECT * FROM my_web_aware_page WHERE unique_id = "{}" LIMIT 1'.format(awareid)):
-            aware_data = a
+        aware_data = AWARE_Page.objects.get(unique_id=awareid)
         return render(request, 'my_web/awareview.html', {
             'aware': aware_data,
         })

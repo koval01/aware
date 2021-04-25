@@ -25,7 +25,7 @@ class Message:
         :return: bool result
         """
         method = 'sendMessage'
-        a = get(f"{API_HOST}{TOKEN}{method}", params={
+        a = get(f"{API_HOST}{TOKEN}/{method}", params={
             "chat_id": chat_id,
             "text": text,
             "parse_mode": parse_mode,
@@ -36,6 +36,5 @@ class Message:
             "allow_sending_without_reply": allow_sending_without_reply,
             "reply_markup": reply_markup
         })
-        print(a.url)
         if a.status_code == 200:
             return True

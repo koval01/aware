@@ -39,6 +39,7 @@ if DEBUG:
     DB_PASS = 'Piramida13'
     DB_USER = 'postgres'
     DB_NAME = 'postgres'
+    ssl_mode = None
 
 else:
     from dotenv import load_dotenv
@@ -52,6 +53,7 @@ else:
     DB_USER = 'fqyqcmmltfyacx'
     DB_NAME = 'dbmhdf1ft2d1ga'
     DB_PASS = os.environ['DB_PASS']
+    ssl_mode = 'require'
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
@@ -131,7 +133,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': '5432',
-        'OPTIONS': {'sslmode': 'require'},
+        'OPTIONS': {'sslmode': ssl_mode},
     }
 }
 

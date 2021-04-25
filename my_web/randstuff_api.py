@@ -16,13 +16,13 @@ def get_result(type_) -> str:
         url = 'https://randstuff.ru/saying/generate/'
     else:
         url = 'https://randstuff.ru/fact/generate/'
-    for i in range(3):
+    for i in range(2):
         try:
             headers = {
                 "User-Agent": USER_AGENT,
                 "X-Requested-With": "XMLHttpRequest"
             }
-            r = post(url, headers=headers)
+            r = post(url, headers=headers, timeout=3)
             if r.status_code == 200:
                 y = loads(r.text)
                 if type_:

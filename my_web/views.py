@@ -33,6 +33,7 @@ from .search_complete_api import get_result_data as search_complete
 from .status_api.api import status_api as status_data_api
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
+from .namaz_api import get_namaz_data
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -312,19 +313,9 @@ def namaz(request):
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
-    search_example_get = search_example()
-    search_example_get = BeautifulSoup(
-        search_example_get, 'lxml'
-    ).text
-
-    r_type = random.randint(0, 1)
-    add_ = rand_fact_or_quote(r_type)
-
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/index.html', {
+    return render(request, 'my_web/namaz.html', {
         'token_valid': token_valid, 'token_re': token_re,
-        'search_template': search_example_get, 'add_': add_,
-        'r_type': r_type,
     })
 
 
@@ -426,10 +417,15 @@ def load_more(request):
         covid_stat_append = int(request.POST.get('covid_stat', ''))
         search = request.POST.get('search', '')
         search_index = request.POST.get('search_index_', '')
+        namaz = request.POST.get('namaz', '')
+
         if not search_index:
             search_index = 0
         else:
             search_index = int(search_index)
+
+        if namaz:
+            namaz = get_namaz_data(search)
 
         if token and typeload:
             if typeload == 'newsession':
@@ -479,6 +475,7 @@ def load_more(request):
                     'news_append': news_append, 'covid_stat_append': covid_stat_append,
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
+                    'namaz_data': namaz
                 })
 
     return error_403(request)

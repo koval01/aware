@@ -69,39 +69,56 @@
     </div>
 {% endif %}
 
-{% for el in data %}
-    {% if not additions and news_append %}
-        {% if el.0.0 %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username">{{ el.0.0 }}</label><br>
-                        <label class="city">
-                            {# paste news image #}
-                            {% if el.0.5 %}
-                                <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
-                            {% endif %}
-                            <i>{{ el.0.1 }}</i><br><br><b>Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a></b><br><i><u>Опубликовано {{ el.0.3 }} (UTC)</u></i>
-                        </label><br><br>
-                        <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
-    {% if el.1.title %}
+{% if namaz_data %}
+    {% for el in namaz_data %}
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username"><a target="_blank" href="{{ el.1.link }}">{{ el.1.title }}</a></label><br>
+                    <label class="username">Намаз на {{ el.time }}</label><br>
                     <label class="city">
-                        <p>{{ el.1.displayLink }}</p>
-                        <i>{{ el.1.snippet }}</i>
+                            {% for i in el.timings %}
+                                <p>{{ i }}</p>
+                            {% endfor %}
                     </label><br>
                     <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
-    {% endif %}
-{% endfor %}
-
+    {% endfor %}
+{% else %}
+    {% for el in data %}
+        {% if not additions and news_append %}
+            {% if el.0.0 %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username">{{ el.0.0 }}</label><br>
+                            <label class="city">
+                                {# paste news image #}
+                                {% if el.0.5 %}
+                                    <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                {% endif %}
+                                <i>{{ el.0.1 }}</i><br><br><b>Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a></b><br><i><u>Опубликовано {{ el.0.3 }} (UTC)</u></i>
+                            </label><br><br>
+                            <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if el.1.title %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label class="username"><a target="_blank" href="{{ el.1.link }}">{{ el.1.title }}</a></label><br>
+                        <label class="city">
+                            <p>{{ el.1.displayLink }}</p>
+                            <i>{{ el.1.snippet }}</i>
+                        </label><br>
+                        <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

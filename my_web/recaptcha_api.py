@@ -19,9 +19,6 @@ def get_result(token) -> bool:
     }
     try:
         r = post(u, data=data).text
-        result = loads(r)['success']
+        return loads(r)['success']
     except Exception as e:
         logger.error(e)
-        result = False
-
-    return result

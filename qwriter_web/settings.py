@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
@@ -131,7 +131,7 @@ DATABASES = {
         'PASSWORD': DB_PASS,
         'HOST': DB_HOST,
         'PORT': '5432',
-        # 'OPTIONS': {'sslmode': 'require'},
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 

@@ -4,7 +4,7 @@ from json import loads
 
 
 def heart(message):
-    print(message)
+    print(message) # b
     message = loads(message, object_hook=lambda x: SimpleNamespace(**x)).message
     if message.text:
         Message.send_message(message.chat.id, 'Ты отправил мне текст: %s' % message.text)

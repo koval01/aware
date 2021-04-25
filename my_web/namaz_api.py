@@ -12,7 +12,7 @@ def get_result(city) -> dict:
     :param city: Search city name
     :return: Dictionary result
     """
-    u = 'http://api.aladhan.com/v1/calendarByAddress'
+    u = 'https://api.aladhan.com/v1/calendarByAddress'
     params = {
         'address': city,
     }

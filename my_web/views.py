@@ -238,7 +238,7 @@ def bot_gateway(request):
     :param request: request body
     :return: response body
     """
-    print(request.body.read())
+    print(request.read())
     return HttpResponse('True')
 
 

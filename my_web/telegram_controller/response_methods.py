@@ -36,5 +36,6 @@ class Message:
             "allow_sending_without_reply": allow_sending_without_reply,
             "reply_markup": reply_markup
         })
+        print(a.url)
         if a.status_code == 200:
             return True

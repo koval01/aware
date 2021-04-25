@@ -1,5 +1,5 @@
 from requests import get
-from config import *
+from .config import *
 
 
 class Message:

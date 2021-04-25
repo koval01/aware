@@ -1,4 +1,4 @@
-from response_methods import Message
+from .response_methods import Message
 from types import SimpleNamespace
 from json import loads
 

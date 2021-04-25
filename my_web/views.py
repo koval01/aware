@@ -24,6 +24,7 @@ from .get_search_template import get_result as search_example
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text
 from .models import AWARE_Page
+from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
 from .randstuff_api import get_result as rand_fact_or_quote
@@ -31,9 +32,9 @@ from .recaptcha_api import get_result as recaptcha_get_result
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
 from .status_api.api import status_api as status_data_api
+from .telegram_controller.bot_script import heart as telegram_bot
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
-from .namaz_api import get_namaz_data
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -238,7 +239,7 @@ def bot_gateway(request):
     :param request: request body
     :return: response body
     """
-    print(request.read())
+    telegram_bot(request.read().decode("utf-8"))
     return HttpResponse('True')
 
 

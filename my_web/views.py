@@ -232,6 +232,18 @@ def search_suggestions_get(request):
 
 @require_POST
 @csrf_exempt
+def bot_gateway(request):
+    """
+    Telegram bot gateway view
+    :param request: request body
+    :return: response body
+    """
+    print(request.POST) # Get received data
+    return HttpResponse('True')
+
+
+@require_POST
+@csrf_exempt
 def aware_api(request):
     """
     API for AWARE

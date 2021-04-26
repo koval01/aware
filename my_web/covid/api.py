@@ -35,10 +35,14 @@ def __main__(country='UA') -> str:
                 logging.error(e)
                 error_parse: True
 
-            for i in fields_all:
+            for enu, i in enumerate(fields_all):
                 try:
                     soup_local = BeautifulSoup(str(i), "html.parser")
-                    array.append(soup_local.find('div', {"class": "field-value"}).text.replace('\n', '').replace('\t', ''))
+                    x = soup_local.find('div', {"class": "field-value"}).text.replace(
+                        '\n', '').replace('\t', '').replace(' ', '')
+                    if enu != 5:
+                        x = num_formatter(int(x))
+                    array.append(x)
                 except Exception as e:
                     logging.error(e)
                     error_decode: True

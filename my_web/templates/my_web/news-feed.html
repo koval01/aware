@@ -23,15 +23,6 @@ AWARE
 {% block content %}
 {% load static %}
     <div class="row-posts-end">
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <label class="username">Информация</label><br>
-                    <label class="city"><i>Подождите, сейчас мы загрузим новостную ленту...</i><br></label><br><br>
-                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
-                </div>
-            </div>
-        </div>
         <br><button style="margin:0 auto;display:block;background-color:#121213;" class="btn btn-dark load-more-end-butt">{{ loading_button_text }}&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
     </div>
 {% endblock %}

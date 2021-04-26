@@ -81,12 +81,12 @@ def __main__(country='UA') -> str:
                 logging.error(e)
                 error_parse: True
 
-            for x, i in enumerate(fields_all):
+            for enu, i in enumerate(fields_all):
                 try:
                     soup_local = BeautifulSoup(str(i), "html.parser")
                     x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
                     x = x.replace('>', '').replace(' млн', '000000').replace(' ', '')
-                    if x != 2:
+                    if enu != 5:
                         x = num_formatter(int(x))
                     array.append(x)
                 except Exception as e:

@@ -3,9 +3,11 @@ from .config import *
 
 
 class Message:
-    @staticmethod
+    def __init__(self, token):
+        self.token = token
+
     def send_message(
-            chat_id, text,
+            self, chat_id, text,
             parse_mode=None, entities=None,
             disable_web_page_preview=None, disable_notification=None,
             reply_to_message_id=None, allow_sending_without_reply=None,
@@ -25,7 +27,7 @@ class Message:
         :return: bool result
         """
         method = 'sendMessage'
-        a = get(f"{API_HOST}{TOKEN}/{method}", params={
+        a = get(f"{API_HOST}{self.token}/{method}", params={
             "chat_id": chat_id,
             "text": text,
             "parse_mode": parse_mode,

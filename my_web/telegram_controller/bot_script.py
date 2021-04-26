@@ -12,4 +12,4 @@ def heart(message, token):
         if message.text:
             bot.send_message(message.chat.id, 'Ты отправил мне текст: %s' % message.text)
     except Exception as e:
-        bot.send_message(message.chat.id, 'Это видь не текст? Верно?\nОшибка: %s' % e)
+        bot.send_message(message.chat.id, 'Случилась ошибка: %s' % e)

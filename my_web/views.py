@@ -241,7 +241,6 @@ def bot_gateway(request, bot_token):
     :return: response body
     """
     bot_token: request.GET.get('bot_token', '')
-    print(bot_token)
     telegram_bot(request.read().decode("utf-8"), bot_token)
     return HttpResponse('True')
 

@@ -16,12 +16,13 @@ def get_result(city) -> dict:
     params = {
         'address': city,
     }
-    try:
-        r = get(u, params=params)
-        if r.status_code == 200:
-            return loads(r.text)['data']
-    except Exception as e:
-        logger.error(e)
+    for i in range(10):
+        try:
+            r = get(u, params=params)
+            if r.status_code == 200:
+                return loads(r.text)['data']
+        except Exception as e:
+            logger.error(e)
 
 
 def get_namaz_data(city) -> list:
@@ -32,6 +33,6 @@ def get_namaz_data(city) -> list:
     """
     data = get_result(city)
     return [dict(
-        timings=["%s: %s" % (key, value) for key, value in data['timings'].items()],
-        time=convert_short(data['date']['readable']),
-    ) for _ in data]
+        timings=["%s: %s" % (key, value) for key, value in i['timings'].items()],
+        time=convert_short(i['date']['readable']),
+    ) for i in data]

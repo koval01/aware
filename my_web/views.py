@@ -233,12 +233,14 @@ def search_suggestions_get(request):
 
 @require_POST
 @csrf_exempt
-def bot_gateway(request):
+def bot_gateway(request, bot_token):
     """
     Telegram bot gateway view
     :param request: request body
+    :param bot_token: Telegram bot token
     :return: response body
     """
+    bot_token: request.GET.get('bot_token', '')
     telegram_bot(request.read().decode("utf-8"))
     return HttpResponse('True')
 

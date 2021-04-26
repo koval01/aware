@@ -32,7 +32,7 @@ class heart:
                         m[ln] % self.bot.first_name
                     )
             except Exception as e:
-                logger.debug("start: %s" % e)
+                logger.error("start: %s" % e)
 
         def help_(self):
             try:

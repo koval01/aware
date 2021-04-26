@@ -16,7 +16,7 @@ def get_result(city) -> dict:
     params = {
         'address': city,
     }
-    for i in range(10):
+    for i in range(16):
         try:
             r = get(u, params=params)
             if r.status_code == 200:

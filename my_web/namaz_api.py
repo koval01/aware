@@ -25,13 +25,13 @@ def get_result(city) -> dict:
             logger.error(e)
 
 
-def unix_time_to_day(unix_time) -> str:
+def unix_time_to_day(unix_time) -> int:
     """
     Convert unix time to day number
     :param unix_time: unix time integer
     :return: day number
     """
-    return datetime.utcfromtimestamp(unix_time).strftime('%d')
+    return int(datetime.utcfromtimestamp(int(unix_time)).strftime('%d'))
 
 
 def get_namaz_data(city) -> list:
@@ -41,8 +41,8 @@ def get_namaz_data(city) -> list:
     :return: dict
     """
     data = get_result(city)
-    d = datetime.now().strftime("%d")
+    d = int(datetime.now().strftime("%d"))
     return [dict(
         timings=["%s: %s" % (key, value) for key, value in i['timings'].items()],
         time=convert_short(i['date']['readable']),
-    ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or str(int(d)+1) == unix_time_to_day(i['date']['timestamp'])]
+    ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or d+1 == unix_time_to_day(i['date']['timestamp'])]

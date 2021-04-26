@@ -5,6 +5,13 @@ import logging, re, requests_cache
 session = requests_cache.CachedSession('covid_cache', expire_after=7200)
 logger = logging.getLogger(__name__)
 
+def num_formatter(num):
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    return '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
+
 
 def __main__(country='UA') -> str:
     error_http = False;
@@ -78,7 +85,8 @@ def __main__(country='UA') -> str:
                 try:
                     soup_local = BeautifulSoup(str(i), "html.parser")
                     x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
-                    x = x.replace('>', '').replace(' млн', '00 000').replace(',', ' ')
+                    x = x.replace('>', '').replace(' млн', '000000')
+                    x = num_formatter(int(x))
                     array.append(x)
                 except Exception as e:
                     logging.error(e)

@@ -1,4 +1,6 @@
 from requests import get
+from types import SimpleNamespace
+from json import loads
 from .config import *
 
 
@@ -40,3 +42,18 @@ class Message:
         })
         if a.status_code == 200:
             return True
+
+
+class Bot:
+    def __init__(self, token):
+        self.token = token
+
+    def send_message(self) -> object:
+        """
+        Get bot information
+        :return: python objects
+        """
+        method = 'getMe'
+        a = get(f"{API_HOST}{self.token}/{method}")
+        if a.status_code == 200:
+            return loads(a.text, object_hook=lambda x: SimpleNamespace(**x)).result

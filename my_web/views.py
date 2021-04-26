@@ -445,7 +445,6 @@ def load_more(request):
 
         if namaz:
             namaz = get_namaz_data(search)
-            print(namaz)
 
         if token and typeload:
             if typeload == 'newsession':

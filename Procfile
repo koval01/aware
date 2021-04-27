@@ -1,1 +1,1 @@
-web: gunicorn --workers=3 qwriter_web.wsgi
+web: gunicorn --workers=4 qwriter_web.wsgi

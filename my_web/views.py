@@ -379,7 +379,7 @@ def feed(request):
     tiktok = tiktok_data_get()
 
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/news-feed.html', {
+    return render(request, 'my_web/feed.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'loading_button_text': loading_button_text,
         'add_': add_, 'tiktok': tiktok,

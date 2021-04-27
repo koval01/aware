@@ -423,10 +423,12 @@ def load_more(request):
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')
         r_token = request.POST.get('gr_token', '')
+        videos = request.POST.get('videos', '')
     except Exception as e:
         token = 0
         typeload = 0
         r_token = 0
+        videos = 0
         logging.error(e)
 
     if recaptcha_get_result(r_token):

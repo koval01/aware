@@ -89,7 +89,7 @@ def __main__(country='UA') -> str:
                 try:
                     soup_local = BeautifulSoup(str(i), "html.parser")
                     x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
-                    x = x.replace('>', '').replace(' млн', '000000').replace(' ', '')
+                    x = re.sub(r'[","].*', '000000', x.replace('>', ''))
                     if enu != 5:
                         x = num_formatter(int(x))
                     array.append(x)

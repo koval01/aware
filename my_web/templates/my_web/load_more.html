@@ -74,16 +74,41 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label style="margin-bottom: 10%;" class="username">Намаз на {{ el.time }}</label><br>
+                    <label class="username">Намаз на {{ el.time }}, {{ el.hijri_day }} Рамадан {{ el.hijri_year }}</label><br>
                     <label class="city">
-                            {% for i in el.timings %}
-                                <p style="margin-top: -10%;">{{ i }}</p>
-                            {% endfor %}
+                        <p>
+                            <br/>
+                        {% for i in el.timings %}
+                            {{ i }}<br/>
+                        {% endfor %}
+                            <br/>
+                            Методика расчета: Всемирная исламская лига
+                            <br/><br/>
+                            Временная зона: {{ el.timezone }}
+                            <br/>
+                            Обновлено: {{ el.update_time }} (Время на сервере)
+                        </p>
                     </label><br>
                     <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
+    {% endfor %}
+{% elif videos %}
+    {% for el in videos %}
+<!--        <div class="col-12 col-lg-12 padding-block-center-box">-->
+<!--            <div class="user box aos-init aos-animate" data-aos="fade-up">-->
+<!--                <div style="float: left;">-->
+<!--                    <label style="margin-bottom: 10%;" class="username">Намаз на {{ el.time }}</label><br>-->
+<!--                    <label class="city">-->
+<!--                            {% for i in el.timings %}-->
+<!--                                <p style="margin-top: -10%;">{{ i }}</p>-->
+<!--                            {% endfor %}-->
+<!--                    </label><br>-->
+<!--                    <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     {% endfor %}
 {% else %}
     {% for el in data %}

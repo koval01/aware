@@ -375,14 +375,11 @@ def feed(request):
     # get quote
     add_ = rand_fact_or_quote(True)
 
-    # get tiktok elements
-    tiktok = tiktok_data_get()
-
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/feed.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'loading_button_text': loading_button_text,
-        'add_': add_, 'tiktok': tiktok,
+        'add_': add_
     })
 
 
@@ -476,6 +473,9 @@ def load_more(request):
         if namaz:
             namaz = get_namaz_data(search)
 
+        if videos:
+            videos = tiktok_data_get()
+
         if token and typeload:
             if typeload == 'newsession':
                 covid_stat_ua = covid_stat('UA')
@@ -524,7 +524,7 @@ def load_more(request):
                     'news_append': news_append, 'covid_stat_append': covid_stat_append,
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
-                    'namaz_data': namaz
+                    'namaz_data': namaz, 'videos': videos,
                 })
 
     return error_403(request)

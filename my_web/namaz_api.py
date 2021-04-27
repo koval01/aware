@@ -45,4 +45,8 @@ def get_namaz_data(city) -> list:
     return [dict(
         timings=["%s: %s" % (key, value) for key, value in i['timings'].items()],
         time=convert_short(i['date']['readable']),
+        hijri_year=i['date']['hijri']['year'],
+        hijri_day=i['date']['hijri']['day'],
+        timezone=i['meta']['timezone'],
+        update_time=datetime.today().replace(microsecond=0),
     ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or d+1 == unix_time_to_day(i['date']['timestamp'])]

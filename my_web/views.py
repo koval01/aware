@@ -35,6 +35,7 @@ from .status_api.api import status_api as status_data_api
 from .telegram_controller.bot_script import heart as telegram_bot
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
+from .tiktok_static import get_data as tiktok_data_get
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -355,6 +356,33 @@ def news_feed(request):
         'token_valid': token_valid, 'token_re': token_re,
         'loading_button_text': loading_button_text,
         'add_': add_,
+    })
+
+
+@require_GET
+def feed(request):
+    """
+    Feed page view
+    :param request: request body
+    :return: render template page
+    """
+    # unix time mark encryption
+    salt = Fernet(load_more_encrypt_key)
+    data = str.encode(str(round(time())))
+    token_valid = salt.encrypt(data).decode("utf-8")
+    token_re = settings.RETOKEN_PUBLIC
+
+    # get quote
+    add_ = rand_fact_or_quote(True)
+
+    # get tiktok elements
+    tiktok = tiktok_data_get()
+
+    logger.info(f'function index: request {request}')
+    return render(request, 'my_web/news-feed.html', {
+        'token_valid': token_valid, 'token_re': token_re,
+        'loading_button_text': loading_button_text,
+        'add_': add_, 'tiktok': tiktok,
     })
 
 

@@ -152,7 +152,6 @@ def image_proxy_view(request):
     try:
         salt = Fernet(sign_key)
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
-        print(salt.decrypt(str.encode(str(request.GET['sign']))))
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         if original_address == received_address:
             try:
@@ -161,6 +160,7 @@ def image_proxy_view(request):
                 video = False
                 logger.warning(e)
             url = request.GET['data']
+            print(url)
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
             if img_link_check(link_get, video=video):

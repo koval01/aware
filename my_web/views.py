@@ -41,6 +41,7 @@ logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
 load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
+sign_key = settings.SIGN_ENCRYPT_KEY
 qwriter_api_for_aware = os.environ['AWARE_KEY']
 
 
@@ -551,8 +552,10 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150] + '...')
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 400. Плохой запрос.'}, status=400)
+    return JsonResponse({
+        'code': 400,
+        'description': 'Bad Request',
+    }, status=400)
 
 
 def error_403(request, exception='Unknown'):

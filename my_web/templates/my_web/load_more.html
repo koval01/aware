@@ -117,8 +117,8 @@
     <div class="col-12 col-lg-12">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <img style="image-rendering: pixelated; width: 60px; height: 60px" class="lazyloaded"
-                 data-src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                 src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
+                 data-src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                 src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
             <div style="width: calc(100% - 90px); float: left; ">
                 <label class="username">{{ videos.0.author.nickname }}</label><br>
                 <label class="city">

@@ -3,6 +3,7 @@ import os
 import random
 from random import randint, randrange
 from time import time
+from datetime import timedelta
 from urllib.parse import urlunsplit, urlencode
 
 from bs4 import BeautifulSoup
@@ -91,6 +92,16 @@ def cut_text(string) -> str:
 
 
 @register.filter
+def seconds_to_time(val) -> str:
+    """
+    Convert seconds to time XX:XX:XX
+    :param val: seconds int
+    :return: string time
+    """
+    return str(timedelta(seconds=val))
+
+
+@register.filter
 def get_item(item) -> print:
     """
     Print data from template function
@@ -129,6 +140,11 @@ def link_encrypt_img(link) -> str:
 
 @register.filter
 def num_rounder_custom(val) -> str:
+    """
+    Round value to K, M...
+    :param val: int value
+    :return: string rounded value
+    """
     return num_formatter(val)
 
 

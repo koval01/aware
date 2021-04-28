@@ -385,9 +385,9 @@ def news_feed(request):
 
 
 @require_GET
-def feed(request):
+def tiktok(request):
     """
-    Feed page view
+    TikTok page view
     :param request: request body
     :return: render template page
     """
@@ -401,7 +401,7 @@ def feed(request):
     add_ = rand_fact_or_quote(True)
 
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/feed.html', {
+    return render(request, 'my_web/tiktok.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'loading_button_text': loading_button_text,
         'add_': add_

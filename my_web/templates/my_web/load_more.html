@@ -107,6 +107,10 @@
                             <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1&sign={{ user_address_original|sign_address_encrypt }}" type="video/mp4;">
                         </video>
                     </div>
+                    <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
+                        Cледующее видео&nbsp;
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    </button>
                     <p>
                         <i class="far fa-eye"></i>
                         {{ videos.0.stats.playCount|num_rounder_custom }}

@@ -126,6 +126,22 @@ def link_encrypt_img(link) -> str:
         logger.error(e)
 
 
+@register.filter
+def sign_address_encrypt(address) -> str:
+    """
+    Address encryptor
+    :param address: User address
+    :return: Encrypted address
+    """
+    try:
+        salt_sign = Fernet(sign_key)
+        data_sign = str.encode(str(address))
+        result = salt_sign.encrypt(data_sign).decode("utf-8")
+        return result
+    except Exception as e:
+        logger.error(e)
+
+
 @require_GET
 def image_proxy_view(request):
     """
@@ -133,32 +149,36 @@ def image_proxy_view(request):
     :param request: body request
     :return: raw image
     """
-    print(request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0])
     try:
-        try:
-            video = request.GET['video_mode']
-        except Exception as e:
-            video = False
-            logger.warning(e)
-        url = request.GET['data']
-        salt_link = Fernet(img_link_proxy_key)
-        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
-        if img_link_check(link_get, video=video):
-            token = request.GET['token']
-            salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 20
-            control_time = round(time())
-            if token_get > control_time:
-                response = get(
-                    link_get, stream=True,
-                    headers={'user-agent': request.headers.get('user-agent')}
-                )
-                return StreamingHttpResponse(
-                    response.raw,
-                    content_type=response.headers.get('content-type'),
-                    status=response.status_code,
-                    reason=response.reason,
-                )
+        salt = Fernet(sign_key)
+        data = str.encode(request.GET['sign'])
+        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        received_address = salt.encrypt(data).decode("utf-8")
+        if original_address == received_address:
+            try:
+                video = request.GET['video_mode']
+            except Exception as e:
+                video = False
+                logger.warning(e)
+            url = request.GET['data']
+            salt_link = Fernet(img_link_proxy_key)
+            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+            if img_link_check(link_get, video=video):
+                token = request.GET['token']
+                salt = Fernet(image_proxy_key)
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 20
+                control_time = round(time())
+                if token_get > control_time:
+                    response = get(
+                        link_get, stream=True,
+                        headers={'user-agent': request.headers.get('user-agent')}
+                    )
+                    return StreamingHttpResponse(
+                        response.raw,
+                        content_type=response.headers.get('content-type'),
+                        status=response.status_code,
+                        reason=response.reason,
+                    )
     except Exception as e:
         logger.error(e)
 
@@ -470,6 +490,7 @@ def load_more(request):
         search = request.POST.get('search', '')
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
+        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
 
         if not search_index:
             search_index = 0
@@ -530,7 +551,7 @@ def load_more(request):
                     'news_append': news_append, 'covid_stat_append': covid_stat_append,
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
-                    'namaz_data': namaz, 'videos': videos,
+                    'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                 })
 
     return error_403(request)

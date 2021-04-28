@@ -103,7 +103,7 @@
                     <div clas="video_view_block_aware" style="margin-right: 20px;min-width: 100%;float: left;max-width: 100%;">
                         <video width="100%" controls="controls" class="aware_video_feed_el photohub_item" id="video_player_block_aware"
                                autoplay="true" loop="loop" style="margin-bottom: 40px;width: min-content;max-width: 100%;max-height: 80vh;">
-                            <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1" type="video/mp4;">
+                            <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1&sign={{ user_address_original|sign_address_encrypt }}" type="video/mp4;">
                         </video>
                     </div>
                     <p>

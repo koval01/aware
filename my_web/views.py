@@ -149,12 +149,11 @@ def image_proxy_view(request):
     :param request: body request
     :return: raw image
     """
-    print(str(request.GET['sign']))
     try:
         salt = Fernet(sign_key)
-        data = str.encode(str(request.GET['sign']))
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
-        received_address = salt.encrypt(data).decode("utf-8")
+        print(salt.decrypt(str.encode(str(request.GET['sign']))))
+        received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         if original_address == received_address:
             try:
                 video = request.GET['video_mode']

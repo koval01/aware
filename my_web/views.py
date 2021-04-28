@@ -20,6 +20,7 @@ from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
+from .covid.api import num_formatter
 from .get_search_template import get_result as search_example
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text
@@ -124,6 +125,11 @@ def link_encrypt_img(link) -> str:
         return result
     except Exception as e:
         logger.error(e)
+
+
+@register.filter
+def num_rounder_custom(val) -> str:
+    return num_formatter(val)
 
 
 @register.filter

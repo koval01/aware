@@ -108,6 +108,9 @@
                         </video>
                     </div>
                     <p>
+                        <i class="far fa-eye"></i>
+                        {{ videos.0.stats.playCount|num_rounder_custom }}
+                        <br/>
                         {{ videos.0.desc }}
                     </p>
                 </label><br>

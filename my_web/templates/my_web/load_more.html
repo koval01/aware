@@ -114,6 +114,20 @@
             </div>
         </div>
     </div>
+    <div class="col-12 col-lg-12">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <img style="image-rendering: pixelated; width: 60px; height: 60px" class="lazyloaded"
+                 data-src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                 src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
+            <div style="width: calc(100% - 90px); float: left; ">
+                <label class="username">{{ videos.0.author.nickname }}</label><br>
+                <label class="city">
+                    {{ videos.0.author.signature }}
+                </label><br>
+                <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+            </div>
+        </div>
+    </div>
 {% else %}
     {% for el in data %}
         {% if not additions and news_append %}
@@ -125,7 +139,7 @@
                             <label class="city">
                                 {# paste news image #}
                                 {% if el.0.5 %}
-                                    <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                    <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                                 {% endif %}
                                 <i>{{ el.0.1 }}</i><br><br><b>Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a></b><br><i><u>Опубликовано {{ el.0.3 }} (UTC)</u></i>
                             </label><br><br>

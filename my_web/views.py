@@ -151,7 +151,7 @@ def image_proxy_view(request):
     """
     try:
         salt = Fernet(sign_key)
-        data = str.encode(request.GET['sign'])
+        data = str.encode(str(request.GET['sign']))
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
         received_address = salt.encrypt(data).decode("utf-8")
         if original_address == received_address:

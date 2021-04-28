@@ -144,12 +144,13 @@ def sign_address_encrypt(address) -> str:
 
 @require_GET
 def image_proxy_view(request):
-    # """
-    # Image proxy function
-    # :param request: body request
-    # :return: raw image
-    # """
-    # try:
+    """
+    Image proxy function
+    :param request: body request
+    :return: raw image
+    """
+    print(str(request.GET['sign']))
+    try:
         salt = Fernet(sign_key)
         data = str.encode(str(request.GET['sign']))
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
@@ -179,10 +180,10 @@ def image_proxy_view(request):
                         status=response.status_code,
                         reason=response.reason,
                     )
-    # except Exception as e:
-    #     logger.error(e)
-    #
-    # return error_400(request)
+    except Exception as e:
+        logger.error(e)
+
+    return error_400(request)
 
 
 @require_GET

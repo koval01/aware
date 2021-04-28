@@ -162,7 +162,7 @@ def image_proxy_view(request):
     except Exception as e:
         logger.error(e)
 
-    return error_403(request)
+    return error_400(request)
 
 
 @require_GET

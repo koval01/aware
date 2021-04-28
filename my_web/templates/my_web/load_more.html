@@ -111,6 +111,16 @@
                         <i class="far fa-eye"></i>
                         {{ videos.0.stats.playCount|num_rounder_custom }}
                         <br/>
+                        <i class="fas fa-heart"></i>
+                        {{ videos.0.stats.diggCount|num_rounder_custom }}
+                        <br/>
+                        <i class="far fa-comments"></i>
+                        {{ videos.0.stats.commentCount|num_rounder_custom }}
+                        <br/>
+                        <i class="fas fa-share-alt"></i>
+                        {{ videos.0.stats.shareCount|num_rounder_custom }}
+                        <br/>
+                        <br/>
                         {{ videos.0.desc }}
                     </p>
                 </label><br>

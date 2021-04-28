@@ -162,6 +162,7 @@ def image_proxy_view(request):
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+            print(link_get)
             if img_link_check(link_get, video=video):
                 token = request.GET['token']
                 salt = Fernet(image_proxy_key)

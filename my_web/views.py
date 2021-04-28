@@ -144,7 +144,7 @@ def image_proxy_view(request):
         if img_link_check(link_get, video=video):
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 30
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 20
             control_time = round(time())
             if token_get > control_time:
                 response = get(

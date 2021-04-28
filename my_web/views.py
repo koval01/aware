@@ -114,7 +114,7 @@ def get_random_string(length=16) -> str:
 def link_encrypt_img(link) -> str:
     """
     Link encryptor
-    :param link: Link image
+    :param link: Link image / video
     :return: Encrypted link
     """
     try:
@@ -134,10 +134,15 @@ def image_proxy_view(request):
     :return: raw image
     """
     try:
+        try:
+            video = request.GET['video_mode']
+        except Exception as e:
+            video = False
+            logger.warning(e)
         url = request.GET['data']
         salt_link = Fernet(img_link_proxy_key)
         link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
-        if img_link_check(link_get):
+        if img_link_check(link_get, video=video):
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
             token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 30

@@ -142,13 +142,13 @@
                 <label class="city">
                     {% if not videos.0.music.original %}
                         <i class="fas fa-user"></i>
-                        <span title="Автор">{{ videos.0.music.authorName }}</span>
+                        <span title="Автор">&nbsp;{{ videos.0.music.authorName }}</span>
                         <br/>
                         <i class="fas fa-record-vinyl"></i>
-                        <span title="Альбом">{{ videos.0.music.album }}</span>
+                        <span title="Альбом">&nbsp;{{ videos.0.music.album }}</span>
                         <br/>
                         <i class="far fa-clock"></i>
-                        <span title="Длительность">{{ videos.0.music.duration|seconds_to_time }}</span>
+                        <span title="Длительность">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
                         <br/><br/>
                         <a href="{{ videos.0.music.playUrl }}" target="_blank">Перейти к треку</a>
                     {% endif %}

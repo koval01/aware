@@ -5,7 +5,6 @@ from random import randint, randrange
 from time import time
 from urllib.parse import urlunsplit, urlencode
 
-import requests_cache
 from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
 from django.conf import settings
@@ -15,6 +14,7 @@ from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
+from requests import get
 
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
@@ -42,7 +42,6 @@ image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
 load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
 qwriter_api_for_aware = os.environ['AWARE_KEY']
-img_proxy_session = requests_cache.CachedSession('image_proxy_cache')
 
 
 @register.filter
@@ -148,7 +147,7 @@ def image_proxy_view(request):
             token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 30
             control_time = round(time())
             if token_get > control_time:
-                response = img_proxy_session.get(
+                response = get(
                     link_get, stream=True,
                     headers={'user-agent': request.headers.get('user-agent')}
                 )

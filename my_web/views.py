@@ -132,6 +132,8 @@ def image_proxy_view(request):
     :param request: body request
     :return: raw image
     """
+    print(request.headers['User-Agent'])
+    print(request.headers['X-Forwarded-For'])
     try:
         try:
             video = request.GET['video_mode']

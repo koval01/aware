@@ -160,7 +160,6 @@ def image_proxy_view(request):
                 video = False
                 logger.warning(e)
             url = request.GET['data']
-            print(url)
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
             if img_link_check(link_get, video=video):

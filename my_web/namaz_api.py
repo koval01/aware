@@ -1,10 +1,10 @@
-from requests import get
 from json import loads
 from .months import convert_short
 from datetime import datetime
-import logging
+import logging, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('namaz_get', expire_after=7200)
 
 def get_result(city) -> dict:
     """
@@ -18,7 +18,7 @@ def get_result(city) -> dict:
     }
     for i in range(5):
         try:
-            r = get(u, params=params)
+            r = session.get(u, params=params)
             if r.status_code == 200:
                 return loads(r.text)['data']
         except Exception as e:

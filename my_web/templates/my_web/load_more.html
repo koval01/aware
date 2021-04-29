@@ -57,6 +57,21 @@
         </div>
     </div>
 {% endif %}
+{% if translate_result %}
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <div style="float: left;">
+                <label class="username">Переводчик</label><br>
+                <label class="city">
+                    <i>{{ search }}</i>
+                    <br/><br/>
+                    <b>{{ translate_result }}</b>
+                </label><br>
+                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% if news_search_in_str %}
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">

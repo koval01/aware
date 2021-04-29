@@ -16,6 +16,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from requests import get
+from .deepl import translate_simple
 
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
@@ -560,6 +561,9 @@ def load_more(request):
                 search_data = search_api['data']
                 search_array = search_api['array']
 
+                # DeepL API
+                translate_result = translate_simple(search)
+
                 # data pack
                 data = zip(news, search_array)
 
@@ -573,6 +577,7 @@ def load_more(request):
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
+                    'translate_result': translate_result,
                 })
 
     return error_403(request)

@@ -562,7 +562,10 @@ def load_more(request):
                 search_array = search_api['array']
 
                 # DeepL API
-                translate_result = translate_simple(search)
+                try:
+                    translate_result = translate_simple(search)
+                except Exception as e:
+                    logger.debug("Translate API in views error: %s" % e)
 
                 # data pack
                 data = zip(news, search_array)

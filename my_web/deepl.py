@@ -92,11 +92,9 @@ def translate_simple(text) -> str:
     :param text: text string
     :return: result (String)
     """
-    x = dict(
-        l=latin_detect(text),
-        c=cyrillic_detect(text),
-    )
-    if x['l']:
-        return x['l']
-    elif x['c']:
-        return x['c']
+    l = latin_detect(text)
+    c = cyrillic_detect(text)
+    if l:
+        return l
+    elif c:
+        return c

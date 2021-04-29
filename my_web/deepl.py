@@ -55,7 +55,6 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
             "id": 0
         }
     ).json()['result']['translations'][0]['beams'][1:]['postprocessed_sentence']
-
     return data
 
 
@@ -66,10 +65,7 @@ def latin_detect(text) -> str:
     :return: translated text (to russian)
     """
     result = regex.sub(r'[^.,-!?:;\p{Latin}]', '', text)
-    try:
-        return translate_text(result, lang_to="RU")
-    except Exception as e:
-        logger.debug(e)
+    return translate_text(result, lang_to="RU")
 
 
 def cyrillic_detect(text) -> str:
@@ -79,10 +75,7 @@ def cyrillic_detect(text) -> str:
     :return: translated text (to english)
     """
     result = regex.sub(r'[^.,-!?:;\p{Cyrillic}]', '', text)
-    try:
-        return translate_text(result)
-    except Exception as e:
-        logger.debug(e)
+    return translate_text(result)
 
 
 def translate_simple(text) -> str:
@@ -91,4 +84,7 @@ def translate_simple(text) -> str:
     :param text: text string
     :return: result (String)
     """
-    return translate_text(text, lang_to="RU")
+    try:
+        return translate_text(text, lang_to="RU")
+    except Exception as e:
+        logger.warning(e)

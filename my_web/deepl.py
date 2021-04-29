@@ -78,7 +78,7 @@ def cyrillic_detect(text) -> str:
     :param text: text string
     :return: translated text (to english)
     """
-    result = regex.sub(r'[^\p{Cyrillic}]', '', text)
+    result = regex.sub(r'[^.,-!?:;\p{Cyrillic}]', '', text)
     try:
         return translate_text(result)
     except Exception as e:
@@ -95,6 +95,7 @@ def translate_simple(text) -> str:
         l=latin_detect(text),
         c=cyrillic_detect(text),
     )
+    print(x)
     if x['l']:
         return x['l']
     elif x['c']:

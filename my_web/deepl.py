@@ -27,7 +27,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                 "jobs": [
                     {
                         "kind": "default",
-                        "raw_en_sentence": text,
+                        "raw_en_sentence": str(text),
                         "raw_en_context_before": [
                         ],
                         "raw_en_context_after": [

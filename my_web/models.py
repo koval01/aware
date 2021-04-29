@@ -12,7 +12,7 @@ def random_string():
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
     i_text = models.TextField('Текст')
-    i_time = models.DateTimeField('Время публикации', default=datetime.now)
+    i_time = models.DateTimeField('Время публикации', default=datetime.now())
 
     def __str__(self):
         return self.i_title
@@ -26,7 +26,7 @@ class AWARE_Page(models.Model):
     title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
     page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
     unique_id = models.CharField('Уникальный ID', max_length=255, unique=True, default=random_string)
-    time = models.DateTimeField('Время создания', default=datetime.now)
+    time = models.DateTimeField('Время создания', default=datetime.now())
 
     def __str__(self):
         return self.title
@@ -42,7 +42,7 @@ class AWARE_Page(models.Model):
 class Statistic(models.Model):
     u_stat = models.IntegerField('Стастика пользователей')
     b_stat = models.IntegerField('Статистика бота')
-    st_time = models.DateTimeField('Время обновления', default=datetime.now)
+    st_time = models.DateTimeField('Время обновления', default=datetime.now())
 
     def __str__(self):
         return str(int(self.u_stat) + int(self.b_stat))

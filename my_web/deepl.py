@@ -15,6 +15,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     """
     if not lang:
         lang = "auto"
+    print(text)
     data = session.post(
         'https://www2.deepl.com/jsonrpc',
         headers={
@@ -95,7 +96,6 @@ def translate_simple(text) -> str:
         l=latin_detect(text),
         c=cyrillic_detect(text),
     )
-    print(x)
     if x['l']:
         return x['l']
     elif x['c']:

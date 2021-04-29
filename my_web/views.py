@@ -565,6 +565,7 @@ def load_more(request):
                 try:
                     translate_result = translate_simple(search)
                 except Exception as e:
+                    translate_result = None
                     logger.debug("Translate API in views error: %s" % e)
 
                 # data pack

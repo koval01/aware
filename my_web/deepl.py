@@ -15,7 +15,6 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     """
     if not lang:
         lang = "auto"
-    print(text)
     data = session.post(
         'https://www2.deepl.com/jsonrpc',
         headers={
@@ -66,7 +65,9 @@ def latin_detect(text) -> str:
     :param text: text string
     :return: translated text (to russian)
     """
+    print(text)
     result = regex.sub(r'[^.,-!?:;\p{Latin}]', '', text)
+    print(result)
     try:
         return translate_text(result, lang_to="RU")
     except Exception as e:
@@ -79,7 +80,9 @@ def cyrillic_detect(text) -> str:
     :param text: text string
     :return: translated text (to english)
     """
+    print(text)
     result = regex.sub(r'[^.,-!?:;\p{Cyrillic}]', '', text)
+    print(result)
     try:
         return translate_text(result)
     except Exception as e:

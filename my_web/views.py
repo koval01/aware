@@ -331,7 +331,7 @@ def aware_api(request):
                 }, status=409
             )
 
-    return error_403(request)
+    return error_400(request)
 
 
 @require_GET

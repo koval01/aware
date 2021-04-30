@@ -13,49 +13,51 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     :param lang_to: exit text
     :return: translated text
     """
-    if not lang:
-        lang = "auto"
-    data = session.post(
+    hosts = [
         'https://www2.deepl.com/jsonrpc',
-        headers={
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4484.3 Safari/537.36",
-        },
-        json={
-            "jsonrpc": "2.0",
-            "method": "LMT_handle_jobs",
-            "params": {
-                "jobs": [
-                    {
-                        "kind": "default",
-                        "raw_en_sentence": str(text),
-                        "raw_en_context_before": [
-                        ],
-                        "raw_en_context_after": [
-                        ],
-                        "preferred_num_beams": 4,
-                        "quality": "fast"
-                    }
-                ],
-                "lang": {
-                    "user_preferred_langs": [
-                        "EN",
-                        "DE",
-                        "RU"
-                    ],
-                    "source_lang_user_selected": lang,
-                    "target_lang": lang_to,
-                },
-                "priority": -1,
-                "commonJobParams": {
-                    "regionalVariant": "en-US",
-                    "formality": "null",
-                },
-                "timestamp": int(str(time()).replace('.', '')[:13])
+    ]
+    for host in hosts:
+        if not lang:
+            lang = "auto"
+        data = session.post(
+            host,
+            headers={
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4484.3 Safari/537.36",
             },
-            "id": 0
-        }
-    ).json()['result']['translations'][0]['beams'][1:]['postprocessed_sentence']
-    return data
+            json={
+                "jsonrpc": "2.0",
+                "method": "LMT_handle_jobs",
+                "params": {
+                    "jobs": [
+                        {
+                            "kind": "default",
+                            "raw_en_sentence": str(text),
+                            "raw_en_context_before": [
+                            ],
+                            "raw_en_context_after": [
+                            ],
+                            "preferred_num_beams": 4,
+                            "quality": "fast"
+                        }
+                    ],
+                    "lang": {
+                        "user_preferred_langs": [
+                            "DE",
+                            "RU",
+                            "EN"
+                        ],
+                        "source_lang_user_selected": lang,
+                        "target_lang": lang_to
+                    },
+                    "priority": -1,
+                    "commonJobParams": {
+                    },
+                    "timestamp": int(str(time()).replace('.', '')[:13])
+                },
+                "id": 0
+            }
+        ).json()['result']['translations'][0]['beams'][1:]['postprocessed_sentence']
+        return data
 
 
 def latin_detect(text) -> str:

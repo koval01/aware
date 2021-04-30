@@ -123,10 +123,12 @@
                             <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1&sign={{ user_address_original|sign_address_encrypt }}" type="video/mp4;">
                         </video>
                     </div>
-                    <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
-                        Cледующее видео&nbsp;
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <div class="load_next_video_block_button">
+                        <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
+                            Cледующее видео&nbsp;
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        </button>
+                    </div>
                     <p>
                         <i class="far fa-eye"></i>
                         {{ videos.0.stats.playCount|num_rounder_custom }}
@@ -210,9 +212,19 @@
                             <label class="city">
                                 {# paste news image #}
                                 {% if el.0.5 %}
-                                    <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                    <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                         class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                                 {% endif %}
-                                <i>{{ el.0.1 }}</i><br><br><b>Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a></b><br><i><u>Опубликовано {{ el.0.3 }} (UTC)</u></i>
+                                <i>
+                                    {{ el.0.1 }}
+                                </i><br><br>
+                                <b>
+                                    Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a>
+                                </b>
+                                <br>
+                                <i>
+                                    <u>Опубликовано {{ el.0.3 }} (UTC)</u>
+                                </i>
                             </label><br><br>
                             <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                         </div>

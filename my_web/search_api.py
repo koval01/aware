@@ -73,8 +73,10 @@ def search(string) -> dict:
     :return: Список результатів
     """
     def search_error():
-        x = [['' for x in range(6)] for y in range(100)]
-        return dict(data='', array=x)
+        return dict(
+            data='',
+            array=[['' for _ in range(6)] for y in range(100)]
+        )
 
     try:
         if not string:

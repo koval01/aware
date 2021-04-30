@@ -88,7 +88,8 @@ def search(string) -> dict:
                 data = d['s_info']
             array = array + d['array']
     except Exception as e:
-        data = None; array = None
+        data = []
+        array = [[None] for _ in range(20)]
         logger.debug("Search error: %s" % e)
     return dict(data=data, array=array)
 

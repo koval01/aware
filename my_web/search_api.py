@@ -92,7 +92,7 @@ def search(string) -> dict:
                 data = d['s_info']
             array = array + d['array']
     except Exception as e:
-        logger.debug("Search error: %s" % e)
+        logger.warning(e)
         return search_error()
 
     return dict(data=data, array=array)

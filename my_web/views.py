@@ -44,6 +44,7 @@ logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
 load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
+bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY
 qwriter_api_for_aware = os.environ['AWARE_KEY']
 
@@ -282,16 +283,18 @@ def search_suggestions_get(request):
 
 @require_POST
 @csrf_exempt
-def bot_gateway(request, bot_token):
+def bot_gateway(request, token):
     """
     Telegram bot gateway view
     :param request: request body
-    :param bot_token: Telegram bot token
+    :param token: Secret token
     :return: response body
     """
-    bot_token: request.GET.get('bot_token', '')
-    telegram_bot(request.read().decode("utf-8"), bot_token)
-    return HttpResponse('True')
+    token: request.GET.get('token', '')
+    if token == bot_check_tk:
+        telegram_bot(request.read().decode("utf-8"))
+        return HttpResponse('True')
+    return error_400(request)
 
 
 @require_POST

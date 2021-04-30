@@ -69,6 +69,7 @@ SIGN_ENCRYPT_KEY = os.environ['SIGN_ENCRYPT_KEY']
 SEARCH_CX = os.environ['SEARCH_CX']
 SEARCH_API_HOST = os.environ['SEARCH_API_HOST']
 SEARCH_API_KEYS = os.environ['SEARCH_API_KEYS']
+BOT_CHECK_TOKEN = os.environ['BOT_CHECK_TOKEN']
 
 # Application definition
 

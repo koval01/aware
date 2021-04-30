@@ -13,7 +13,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     :param lang_to: exit text
     :return: translated text
     """
-    for _ in range(16):
+    for _ in range(24):
         if not lang:
             lang = "auto"
         data = session.post(

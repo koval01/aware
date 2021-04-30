@@ -72,10 +72,14 @@ def search(string) -> dict:
     :param string: Пошуковий запит
     :return: Список результатів
     """
+    def search_error():
+        x = [['' for x in range(6)] for y in range(100)]
+        return dict(data='', array=x)
+
     try:
         if not string:
-            x = [['' for x in range(6)] for y in range(100)]
-            return dict(data='', array=x)
+            return search_error()
+
         array = []
         for i in range(2):
             if i == 0:
@@ -87,9 +91,10 @@ def search(string) -> dict:
             if i == 1:
                 data = d['s_info']
             array = array + d['array']
-        return dict(data=data, array=array)
+            return dict(data=data, array=array)
     except Exception as e:
-        logger.debug("Search error: %s" % e)
+        logger.warning(e)
+        return search_error()
 
 
 def search_custom_index(string, index) -> dict:

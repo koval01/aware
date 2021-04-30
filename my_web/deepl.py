@@ -2,7 +2,7 @@ from time import time
 import logging, requests_cache, regex
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('deepl_get')
+session = requests_cache.CachedSession('deepl_get', expire_after=99999*99999)
 
 
 def translate_text(text, lang=None, lang_to='EN') -> str:

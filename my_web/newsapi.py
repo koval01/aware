@@ -37,6 +37,8 @@ def __main__(news_append) -> list:
                         d_ = time_field.strftime("%d %B %Y г. %H:%M")
                         time_field = month_convert(d_)
                         description = filter_news(el['description'])
+                        if not description:
+                            description = 'Новость не содержит описания'
                         title = filter_news(el['title'])
                         data_array_pre = [
                             title,

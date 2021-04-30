@@ -561,7 +561,6 @@ def load_more(request):
 
                 # Search API
                 search_api = search_execute(search, search_index)
-                print(search_api)
                 search_data = search_api['data']
                 search_array = search_api['array']
 

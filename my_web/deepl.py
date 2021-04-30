@@ -13,14 +13,11 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     :param lang_to: exit text
     :return: translated text
     """
-    hosts = [
-        'https://www2.deepl.com/jsonrpc',
-    ]
-    for host in hosts:
+    for _ in range(2):
         if not lang:
             lang = "auto"
         data = session.post(
-            host,
+            'https://www2.deepl.com/jsonrpc',
             headers={
                 "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4484.3 Safari/537.36",
             },
@@ -56,7 +53,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                 },
                 "id": 0
             }
-        ).json()['result']['translations'][0]['beams'][1:]['postprocessed_sentence']
+        ).json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
         return data
 
 

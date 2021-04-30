@@ -13,7 +13,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     :param lang_to: exit text
     :return: translated text
     """
-    for _ in range(10):
+    for _ in range(12):
         if not lang:
             lang = "auto"
         data = session.post(
@@ -63,7 +63,7 @@ def latin_detect(text) -> str:
     :param text: text string
     :return: translated text (to russian)
     """
-    result = regex.sub(r'[^.,-!?:;\p{Latin}]', '', text)
+    result = regex.sub(r'[^.,-:;\?! \p{Latin}]', '', text)
     if result:
         return translate_text(result, lang_to="RU")
 

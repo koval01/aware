@@ -53,8 +53,9 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                 },
                 "id": 0
             }
-        ).json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
-        return data
+        )
+        logger.info(data.text[:120]+'...')
+        return data.json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
 
 
 def latin_detect(text) -> str:

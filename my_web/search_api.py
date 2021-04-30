@@ -87,9 +87,10 @@ def search(string) -> dict:
             if i == 1:
                 data = d['s_info']
             array = array + d['array']
-        return dict(data=data, array=array)
     except Exception as e:
+        data = None; array = None
         logger.debug("Search error: %s" % e)
+    return dict(data=data, array=array)
 
 
 def search_custom_index(string, index) -> dict:

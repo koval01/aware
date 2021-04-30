@@ -94,6 +94,7 @@ def search(string) -> dict:
             return dict(data=data, array=array)
     except Exception as e:
         logger.warning(e)
+        return search_error()
 
 
 def search_custom_index(string, index) -> dict:

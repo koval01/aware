@@ -221,18 +221,21 @@
             {% endif %}
         {% endif %}
         {% if el.1 %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username"><a target="_blank" href="{{ el.1.link }}">{{ el.1.title }}</a></label><br>
-                        <label class="city">
-                            <p>{{ el.1.displayLink }}</p>
-                            <i>{{ el.1.snippet }}</i>
-                        </label><br>
-                        <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+            {# First we find out if there is an array with the results at all, and then if it exists, it checks the information itself #}
+            {% if el.1.title %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username"><a target="_blank" href="{{ el.1.link }}">{{ el.1.title }}</a></label><br>
+                            <label class="city">
+                                <p>{{ el.1.displayLink }}</p>
+                                <i>{{ el.1.snippet }}</i>
+                            </label><br>
+                            <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endif %}

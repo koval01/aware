@@ -63,7 +63,7 @@ def latin_detect(text) -> str:
     :param text: text string
     :return: translated text (to russian)
     """
-    result = regex.sub(r'[^.,-:;\?! \p{Latin}]', '', text)
+    result = regex.sub(r'[^.,-`\'":;\?! \p{Latin}]', '', text)
     latin_words = regex.sub(r'[^\p{Latin}]', '', text)
     if result and latin_words:
         return translate_text(result, lang_to="RU")

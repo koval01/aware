@@ -72,21 +72,24 @@ def search(string) -> dict:
     :param string: Пошуковий запит
     :return: Список результатів
     """
-    if not string:
-        x = [['' for x in range(6)] for y in range(100)]
-        return dict(data='', array=x)
-    array = []
-    for i in range(2):
-        if i == 0:
-            s = 1
-        else:
-            s = i * 10 + 1
-        x = get_result(string, s)
-        d = data_prepare(x)
-        if i == 1:
-            data = d['s_info']
-        array = array + d['array']
-    return dict(data=data, array=array)
+    try:
+        if not string:
+            x = [['' for x in range(6)] for y in range(100)]
+            return dict(data='', array=x)
+        array = []
+        for i in range(2):
+            if i == 0:
+                s = 1
+            else:
+                s = i * 10 + 1
+            x = get_result(string, s)
+            d = data_prepare(x)
+            if i == 1:
+                data = d['s_info']
+            array = array + d['array']
+        return dict(data=data, array=array)
+    except Exception as e:
+        logger.debug("Search error: %s" % e)
 
 
 def search_custom_index(string, index) -> dict:

@@ -3,4 +3,4 @@ from .models import Info, AWARE_Page
 
 admin.site.register(Info)
 admin.site.register(AWARE_Page)
-admin.site.site_header = 'AWARE Admin Panel'
+admin.site.site_header = 'Aware Admin Panel'

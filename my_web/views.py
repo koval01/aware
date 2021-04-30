@@ -468,7 +468,7 @@ def botpage(request):
 @require_GET
 def awareview(request, awareid):
     """
-    AWARE page view
+    Aware page view
     :param awareid: searching fact id
     :param request: request body
     :return: render template page

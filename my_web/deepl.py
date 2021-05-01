@@ -1,11 +1,11 @@
 import logging
 from random import randint
 from time import time
-from requests import post
 
-import regex
+import regex, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('deepl_get', expire_after=259200)
 
 
 def translate_text(text, lang=None, lang_to='EN') -> str:
@@ -61,17 +61,17 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
         }
         host_api = 'https://www2.deepl.com/jsonrpc'
-        cookies_get = post(
+        cookies_get = session.post(
             host_api, headers=headers, json=json_body,
         ).headers['Set-Cookie']
         cookies_get = {
             'cookie': cookies_get
         }
         headers.update(cookies_get)
-        data = post(
+        data = session.post(
             host_api, headers=headers, json=json_body,
         )
-        logger.warning(data.text[:128] + '...')
+        logger.warning("%s\n%s" % (data.text[:128], headers))
         return data.json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
 
 

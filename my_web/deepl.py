@@ -3,7 +3,7 @@ from random import randint
 import logging, requests_cache, regex
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('deepl_get', expire_after=99999*99999)
+session = requests_cache.CachedSession('deepl_get', expire_after=259200)
 
 
 def translate_text(text, lang=None, lang_to='EN') -> str:

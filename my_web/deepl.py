@@ -20,7 +20,10 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
         data = session.post(
             'https://www2.deepl.com/jsonrpc',
             headers={
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4484.3 Safari/537.36",
+                "origin": "https://www.deepl.com",
+                "pragma": "no-cache",
+                "referer": "https://www.deepl.com/",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
             },
             json={
                 "jsonrpc": "2.0",

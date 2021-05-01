@@ -58,7 +58,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                 "id": randint(1000000, 9999999)
             }
         )
-        logger.info(data.text[:120]+'...')
+        logger.warning(data.text[:120]+'...')
         return data.json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
 
 

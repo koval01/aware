@@ -142,7 +142,7 @@
                         <i class="fas fa-share-alt"></i>
                         {{ videos.0.stats.shareCount|num_rounder_custom }}
                         <br/><br/>
-                        {{ videos.0.desc|get_item }}
+                        {{ videos.0.desc }}
                     </p>
                 </label><br>
                 <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
@@ -195,7 +195,7 @@
                     {% endif %}
                 </label><br>
                 <label class="city">
-                    {{ videos.0.author.signature }}
+                    {{ videos.0.author.signature|get_item }}
                 </label><br>
                 <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
             </div>

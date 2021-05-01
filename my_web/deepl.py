@@ -1,4 +1,5 @@
 from time import time
+from random import randint
 import logging, requests_cache, regex
 
 logger = logging.getLogger(__name__)
@@ -51,7 +52,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                     },
                     "timestamp": int(str(time()).replace('.', '')[:13])
                 },
-                "id": 0
+                "id": randint(3910012, 3930012)
             }
         )
         logger.info(data.text[:120]+'...')

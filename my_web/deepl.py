@@ -1,6 +1,9 @@
-from time import time
+import logging
 from random import randint
-import logging, requests_cache, regex
+from time import time
+
+import regex
+import requests_cache
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('deepl_get', expire_after=259200)
@@ -17,48 +20,51 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     for _ in range(24):
         if not lang:
             lang = "auto"
+        json_body = {
+            "jsonrpc": "2.0",
+            "method": "LMT_handle_jobs",
+            "params": {
+                "jobs": [
+                    {
+                        "kind": "default",
+                        "raw_en_sentence": str(text),
+                        "raw_en_context_before": [
+                        ],
+                        "raw_en_context_after": [
+                        ],
+                        "preferred_num_beams": 4,
+                        "quality": "fast"
+                    }
+                ],
+                "lang": {
+                    "user_preferred_langs": [
+                        "DE",
+                        "RU",
+                        "EN"
+                    ],
+                    "source_lang_user_selected": lang,
+                    "target_lang": lang_to
+                },
+                "priority": -1,
+                "commonJobParams": {
+                },
+                "timestamp": int(str(time()).replace('.', '')[:13])
+            },
+            "id": randint(1000000, 9999999)
+        }
         data = session.post(
             'https://www2.deepl.com/jsonrpc',
             headers={
+                "Content-Type": "application/json",
+                "Content-Length": len(str(json_body)),
+                "cache-control": "no-cache",
                 "origin": "https://www.deepl.com",
                 "pragma": "no-cache",
                 "referer": "https://www.deepl.com/",
                 "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
-            },
-            json={
-                "jsonrpc": "2.0",
-                "method": "LMT_handle_jobs",
-                "params": {
-                    "jobs": [
-                        {
-                            "kind": "default",
-                            "raw_en_sentence": str(text),
-                            "raw_en_context_before": [
-                            ],
-                            "raw_en_context_after": [
-                            ],
-                            "preferred_num_beams": 4,
-                            "quality": "fast"
-                        }
-                    ],
-                    "lang": {
-                        "user_preferred_langs": [
-                            "DE",
-                            "RU",
-                            "EN"
-                        ],
-                        "source_lang_user_selected": lang,
-                        "target_lang": lang_to
-                    },
-                    "priority": -1,
-                    "commonJobParams": {
-                    },
-                    "timestamp": int(str(time()).replace('.', '')[:13])
-                },
-                "id": randint(1000000, 9999999)
-            }
+            }, json=json_body,
         )
-        logger.warning(data.text[:256]+'...')
+        logger.warning(data.text[:256] + '...')
         return data.json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
 
 

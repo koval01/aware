@@ -110,8 +110,8 @@ def get_item(item) -> print:
     :param item: Input data
     :return: return print data
     """
-    logger.info(f'function get_item: {item}')
-    return print(item)
+    print(item)
+    return item
 
 
 @register.filter

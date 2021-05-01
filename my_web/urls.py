@@ -18,7 +18,7 @@ urlpatterns = [
     path('bot_gateway/<str:token>/', views.bot_gateway, name='bot_gateway'),
     path('aware/', views.error_404, name='awareaddr'),
     path('news/', views.news_feed, name='news_page'),
-    path('tiktok/', views.tiktok, name='tiktok_page'),
+    # path('tiktok/', views.tiktok, name='tiktok_page'),
     path('aware/<str:awareid>/', views.awareview),
     path('robots.txt/', views.robots_txt, name='robots_txt'),
     path('image/', views.image_proxy_view, name='imageproxy'),

@@ -71,6 +71,8 @@ SEARCH_API_HOST = os.environ['SEARCH_API_HOST']
 SEARCH_API_KEYS = os.environ['SEARCH_API_KEYS']
 BOT_CHECK_TOKEN = os.environ['BOT_CHECK_TOKEN']
 
+TIKTOK_PAGE_ENABLED = False
+
 # Application definition
 
 INSTALLED_APPS = [

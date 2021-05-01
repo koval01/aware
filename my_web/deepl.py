@@ -52,7 +52,11 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
             "id": randint(1000000, 9999999)
         }
         headers = {
+            "Content-Type": "application/json",
+            "Content-Length": str(len(str(json_body))),
+            "cache-control": "no-cache",
             "origin": "https://www.deepl.com",
+            "pragma": "no-cache",
             "referer": "https://www.deepl.com/",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
         }

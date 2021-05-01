@@ -1,12 +1,11 @@
 import logging
 from random import randint
 from time import time
+from requests import get, post
 
 import regex
-import requests_cache
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('deepl_get', expire_after=259200)
 
 
 def translate_text(text, lang=None, lang_to='EN') -> str:
@@ -17,7 +16,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
     :param lang_to: exit text
     :return: translated text
     """
-    for _ in range(24):
+    for _ in range(1):  # Делаем только одну попытку
         if not lang:
             lang = "auto"
         json_body = {
@@ -52,19 +51,20 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
             },
             "id": randint(1000000, 9999999)
         }
-        data = session.post(
-            'https://www2.deepl.com/jsonrpc',
-            headers={
-                "Content-Type": "application/json",
-                "Content-Length": str(len(str(json_body))),
-                "cache-control": "no-cache",
-                "origin": "https://www.deepl.com",
-                "pragma": "no-cache",
-                "referer": "https://www.deepl.com/",
-                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
-            }, json=json_body,
+        headers = {
+            "origin": "https://www.deepl.com",
+            "referer": "https://www.deepl.com/",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4491.6 Safari/537.36",
+        }
+        host_api = 'https://www2.deepl.com/jsonrpc'
+        cookies_get = post(
+            host_api, headers=headers
+        ).headers['Set-Cookie']
+        headers.update(cookies_get)
+        data = post(
+            host_api, headers=headers, json=json_body,
         )
-        logger.warning(data.text[:256] + '...')
+        logger.warning(data.text[:128] + '...')
         return data.json()['result']['translations'][0]['beams'][0]['postprocessed_sentence']
 
 

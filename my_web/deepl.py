@@ -58,7 +58,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
         }
         host_api = 'https://www2.deepl.com/jsonrpc'
         cookies_get = post(
-            host_api, headers=headers
+            host_api, headers=headers, json=json_body,
         ).headers['Set-Cookie']
         headers.update(cookies_get)
         data = post(

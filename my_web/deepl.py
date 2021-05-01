@@ -52,7 +52,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
                     },
                     "timestamp": int(str(time()).replace('.', '')[:13])
                 },
-                "id": randint(3910012, 3930012)
+                "id": randint(1000000, 9999999)
             }
         )
         logger.info(data.text[:120]+'...')

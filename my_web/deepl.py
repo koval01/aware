@@ -56,7 +56,7 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
             'https://www2.deepl.com/jsonrpc',
             headers={
                 "Content-Type": "application/json",
-                "Content-Length": len(str(json_body)),
+                "Content-Length": str(len(str(json_body))),
                 "cache-control": "no-cache",
                 "origin": "https://www.deepl.com",
                 "pragma": "no-cache",

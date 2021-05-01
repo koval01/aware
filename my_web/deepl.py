@@ -1,7 +1,7 @@
 import logging
 from random import randint
 from time import time
-from requests import get, post
+from requests import post
 
 import regex
 
@@ -60,6 +60,9 @@ def translate_text(text, lang=None, lang_to='EN') -> str:
         cookies_get = post(
             host_api, headers=headers, json=json_body,
         ).headers['Set-Cookie']
+        cookies_get = {
+            'cookie': cookies_get
+        }
         headers.update(cookies_get)
         data = post(
             host_api, headers=headers, json=json_body,

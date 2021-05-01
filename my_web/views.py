@@ -586,7 +586,7 @@ def load_more(request):
                     'translate_result': translate_result,
                 })
 
-    return error_403(request)
+    return error_400(request)
 
 
 @require_GET

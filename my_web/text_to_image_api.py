@@ -84,7 +84,7 @@ def text_formatting(text) -> str:
     buff_text = ''
 
     for i in t:
-        if len(buff_text) < 55:
+        if len(buff_text) < 53:
             buff_text = '%s %s' % (buff_text, i)
 
         else:

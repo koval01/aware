@@ -56,7 +56,7 @@ def image_edit(image, text, author) -> bytes:
 
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
     d.text((99, 830), author, font=author_font, fill=(255, 255, 255, 128), align='left')
-    d.text((1325, 800), 'awse.us', font=water_font, fill=(255, 255, 255, 128))
+    d.text((1320, 800), 'awse.us', font=water_font, fill=(255, 255, 255, 128))
 
     img = blured_image
 

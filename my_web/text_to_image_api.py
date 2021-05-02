@@ -15,7 +15,7 @@ def get_image() -> dict:
     Get image from Unsplash source
     :return: raw image template
     """
-    url = 'https://source.unsplash.com/collection/4900654/1600x900'
+    url = 'https://source.unsplash.com/collection/772342/1600x900'
     try:
         img = get(url, stream=True)
         return dict(

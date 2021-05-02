@@ -521,8 +521,8 @@ def load_more(request):
         if not videos:
             videos = 0
 
-        if mobile:
-            mobile = get_mobile_bool(mobile)
+        if not mobile:
+            mobile = get_mobile_bool(0)
         else:
             mobile = False
 

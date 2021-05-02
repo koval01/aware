@@ -21,6 +21,7 @@ from .deepl import translate_simple
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
+from .common_functions import get_mobile_bool
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .get_search_template import get_result as search_example
@@ -503,11 +504,9 @@ def load_more(request):
         typeload = request.POST.get('typeload', '')
         r_token = request.POST.get('gr_token', '')
         videos = request.POST.get('videos', '')
+        mobile = request.POST.get('mobile', '')
     except Exception as e:
-        token = 0
-        typeload = 0
-        r_token = 0
-        videos = 0
+        mobile = token = typeload = r_token = videos = 0
         logging.error(e)
 
     if recaptcha_get_result(r_token):
@@ -583,7 +582,7 @@ def load_more(request):
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
-                    'translate_result': translate_result,
+                    'translate_result': translate_result, 'mobile': mobile,
                 })
 
     return error_400(request)

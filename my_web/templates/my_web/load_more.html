@@ -212,8 +212,14 @@
                             <label class="username">{{ el.0.0 }}</label><br>
                             <label class="city">
                                 {# paste news image #}
-                                <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}"
-                                         class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                {% if mobile %}
+                                    <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}"
+                                             class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                {% else %}
+                                    <i>
+                                        {{ el.0.1 }}
+                                    </i>
+                                {% endif %}
                                 <br><br>
                                 <b>
                                     Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a>

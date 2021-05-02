@@ -67,6 +67,8 @@ def data_prepare(data) -> dict:
                         i = i[:27]+"..."
                     array_done.append(i)
 
+                snippet = " ".join(array_done)
+
                 array.append(dict(
                     title=i['title'],
                     link=i['link'],

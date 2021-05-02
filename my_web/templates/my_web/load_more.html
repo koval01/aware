@@ -215,6 +215,9 @@
                                 {% if el.0.5 %}
                                     <img src="{% url 'imageproxy' %}?data={{ el.0.5|link_encrypt_img }}&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
                                          class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                {% else %}
+                                    <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}"
+                                         class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                                 {% endif %}
                                 <i>
                                     {{ el.0.1 }}

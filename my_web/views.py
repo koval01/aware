@@ -21,7 +21,6 @@ from .deepl import translate_simple
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
-from .common_functions import get_mobile_bool
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .get_search_template import get_result as search_example
@@ -522,7 +521,7 @@ def load_more(request):
             videos = 0
 
         if not mobile:
-            mobile = get_mobile_bool(0)
+            mobile = True
         else:
             mobile = False
 

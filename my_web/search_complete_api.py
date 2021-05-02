@@ -1,10 +1,10 @@
-from requests import get
 from .covid.config import USER_AGENT
 from bs4 import BeautifulSoup
 from .common_functions import get_random_string
-import logging
+import logging, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('search_complete_cache')
 
 
 def get_result(question) -> str:
@@ -26,7 +26,7 @@ def get_result(question) -> str:
                 "gs_ri": "gws-wiz",
                 "hl": "ru-RU",
             }
-            r = get("https://www.google.com.ua/complete/search", headers=headers, params=params)
+            r = session.get("https://www.google.com.ua/complete/search", headers=headers, params=params)
             if r.status_code == 200:
                 return r.text
         except Exception as e:

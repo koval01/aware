@@ -6,7 +6,8 @@ import logging, os
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
-font_root = os.path.join(base_dir, 'my_web/fonts_for_Pillow/Roboto-Light.ttf')
+font_root_Roboto = os.path.join(base_dir, 'my_web/fonts_for_Pillow/Roboto-Light.ttf')
+font_root_Quicksand = os.path.join(base_dir, 'my_web/fonts_for_Pillow/Quicksand-Medium.ttf')
 
 
 def get_image() -> dict:
@@ -40,13 +41,15 @@ def image_edit(image, text, author) -> bytes:
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
     text = text_formatting(text)
     author = '— %s' % author
-    base_text = ImageFont.truetype(font_root, 46)
-    author_font = ImageFont.truetype(font_root, 38)
+    base_text = ImageFont.truetype(font_root_Roboto, 46)
+    author_font = ImageFont.truetype(font_root_Roboto, 38)
+    water_font = ImageFont.truetype(font_root_Quicksand, 70)
 
     d = ImageDraw.Draw(blured_image)
 
     d.text((99, 90), text, font=base_text, fill=(255, 255, 255, 128))
     d.text((99, 830), author, font=author_font, fill=(255, 255, 255, 128), align='left')
+    d.text((1240, 825), text, font=water_font, fill=(255, 255, 255, 128))
 
     img = blured_image
 

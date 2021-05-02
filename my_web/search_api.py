@@ -52,9 +52,14 @@ def data_prepare(data) -> dict:
                 formattedTotalResults=s['formattedTotalResults'],
             )
             for i in data['items']:
-                snippet = BeautifulSoup(
-                    i['snippet'], 'lxml'
-                ).text
+                try:
+                    snippet = BeautifulSoup(
+                        i['snippet'], 'lxml'
+                    ).text
+                except Exception as e:
+                    snippet = '...'
+                    logger.warning(e)
+
                 array.append(dict(
                     title=i['title'],
                     link=i['link'],

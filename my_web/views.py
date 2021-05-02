@@ -189,7 +189,7 @@ def image_proxy_view(request):
             if img_link_check(link_get, video=video):
                 token = request.GET['token']
                 salt = Fernet(image_proxy_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 20
+                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
                 control_time = round(time())
                 if token_get > control_time:
                     response = get(
@@ -216,37 +216,46 @@ def image_generate_api(request):
     :param request: body request
     :return: raw image
     """
-    try:
-        text = request.GET['text']
-        author = request.GET['author']
-        if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
-            logger.info('IMAGE GENERATOR: Check sentences')
-            if not sentence_check(text):
+    salt = Fernet(sign_key)
+    original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+    received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
+    if original_address == received_address:
+        token = request.GET['token']
+        salt = Fernet(image_proxy_key)
+        token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
+        control_time = round(time())
+        if token_get > control_time:
+            try:
+                text = request.GET['text']
+                author = request.GET['author']
+                if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
+                    logger.info('IMAGE GENERATOR: Check sentences')
+                    if not sentence_check(text):
+                        return JsonResponse(
+                            {
+                                'code': 409, 'code_name': 'Conflict',
+                                'error': 'This text does not seem to have any value.',
+                            }
+                        )
+                    logger.info('IMAGE GENERATOR: Generating image')
+                    img = text_to_image_api(text, author)
+                    logger.info('IMAGE GENERATOR: Sending image to user')
+                    return HttpResponse(
+                        img['img'],
+                        content_type=img['headers'],
+                        status=img['status_code'],
+                        reason=img['reason'],
+                    )
                 return JsonResponse(
                     {
-                        'code': 409, 'code_name': 'Conflict',
-                        'error': 'This text does not seem to have any value.',
+                        'code': 411, 'code_name': 'Length Required',
+                        'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 64 characters.',
                     }
                 )
-            logger.info('IMAGE GENERATOR: Generating image')
-            img = text_to_image_api(text, author)
-            logger.info('IMAGE GENERATOR: Sending image to user')
-            return HttpResponse(
-                img['img'],
-                content_type=img['headers'],
-                status=img['status_code'],
-                reason=img['reason'],
-            )
-        return JsonResponse(
-            {
-                'code': 411, 'code_name': 'Length Required',
-                'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 64 characters.',
-            }
-        )
-    except Exception as e:
-        logger.error(e)
+            except Exception as e:
+                logger.error(e)
 
-    return error_403(request)
+    return error_400(request)
 
 
 @require_GET

@@ -46,43 +46,45 @@
     {% endif %}
 {% endif %}
 
-{% if c_result %}
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left;">
-                <label class="username">Калькулятор</label><br>
-                <label class="city"><i>{{ c_input }}&nbsp;=&nbsp;{{ c_result }}</i></label><br>
-                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+{% if typeload == "newsession" %}
+    {% if c_result %}
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label class="username">Калькулятор</label><br>
+                    <label class="city"><i>{{ c_input }}&nbsp;=&nbsp;{{ c_result }}</i></label><br>
+                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                </div>
             </div>
         </div>
-    </div>
-{% endif %}
-{% if translate_result %}
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left;">
-                <label class="username">Переводчик</label><br>
-                <label class="city">
-                    <i>{{ search }}</i>
-                    <br/><br/>
-                    <b>{{ translate_result }}</b>
-                    <br/><br/>
-                </label><br>
-                <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+    {% endif %}
+    {% if translate_result %}
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label class="username">Переводчик</label><br>
+                    <label class="city">
+                        <i>{{ search }}</i>
+                        <br/><br/>
+                        <b>{{ translate_result }}</b>
+                        <br/><br/>
+                    </label><br>
+                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                </div>
             </div>
         </div>
-    </div>
-{% endif %}
-{% if news_search_in_str %}
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left;">
-                <label class="username"><a href="{% url 'news_page' %}">Новости от AWARE</a></label><br>
-                <label class="city"><i>Подборка новостей на сегодня от AWARE</i></label><br>
-                <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+    {% endif %}
+    {% if news_search_in_str %}
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label class="username"><a href="{% url 'news_page' %}">Новости от AWARE</a></label><br>
+                    <label class="city"><i>Подборка новостей на сегодня от AWARE</i></label><br>
+                    <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endif %}
 
 {% if namaz_data %}

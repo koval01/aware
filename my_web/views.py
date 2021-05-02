@@ -503,11 +503,8 @@ def load_more(request):
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')
         r_token = request.POST.get('gr_token', '')
-        videos = request.POST.get('videos', '')
-        mobile = request.POST.get('mobile', '')
     except Exception as e:
-        mobile = token = typeload = r_token = videos = 0
-        mobile = get_mobile_bool(mobile)
+        token = typeload = r_token= 0
         logging.error(e)
 
     if recaptcha_get_result(r_token):
@@ -518,6 +515,17 @@ def load_more(request):
         search = request.POST.get('search', '')
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
+        mobile = request.POST.get('mobile', '')
+        videos = request.POST.get('videos', '')
+
+        if not videos:
+            videos = 0
+
+        if mobile:
+            mobile = get_mobile_bool(mobile)
+        else:
+            mobile = False
+
         user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
 
         if not search_index:

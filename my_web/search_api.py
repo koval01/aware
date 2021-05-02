@@ -60,9 +60,9 @@ def data_prepare(data) -> dict:
                     snippet = '...'
                     logger.warning(e)
 
-                splitted_snipet = snippet.split()
+                splitted_snippet = snippet.split()
                 array_done = []
-                for i in splitted_snipet:
+                for i in splitted_snippet:
                     if len(i) > 27:
                         i = i[:27]+"..."
                     array_done.append(i)

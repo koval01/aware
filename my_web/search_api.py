@@ -60,6 +60,13 @@ def data_prepare(data) -> dict:
                     snippet = '...'
                     logger.warning(e)
 
+                splitted_snipet = snippet.split()
+                array_done = []
+                for i in splitted_snipet:
+                    if len(i) > 27:
+                        i = i[:27]+"..."
+                    array_done.append(i)
+
                 array.append(dict(
                     title=i['title'],
                     link=i['link'],

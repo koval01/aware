@@ -73,15 +73,27 @@ def sentence_check(text) -> bool:
     return True
 
 
-def text_formatting(text, length=60) -> str:
+def text_formatting(string, length=60) -> str:
     """
     Format text
     :param length: length max one string
-    :param text: text string
+    :param string: text string
     :return: edited text string
     """
-    for i in range(0, len(text), length):
-        yield text[i:i+length].strip()
+    lower_bound = 0
+    upper_bound = 0
+    last_space_position = string.rindex(' ')
+    try:
+        while upper_bound < len(string):
+            upper_bound = string.rindex(' ', lower_bound, lower_bound + length)
+            if upper_bound == last_space_position:
+                upper_bound = len(string)
+            if upper_bound - lower_bound > length:
+                raise ValueError()
+            yield string[lower_bound:upper_bound].strip()
+            lower_bound = upper_bound
+    except ValueError:
+        raise ValueError('Unable to get substring within given bounds')
 
 
 def percent(percent_value, whole):

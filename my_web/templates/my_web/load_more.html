@@ -212,7 +212,7 @@
                             <label class="username">{{ el.0.0 }}</label><br>
                             <label class="city">
                                 {# paste news image or text if this is a mobile device #}
-                                {% if not mobile %}
+                                {% if mobile %}
                                     <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}"
                                              class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                                 {% else %}

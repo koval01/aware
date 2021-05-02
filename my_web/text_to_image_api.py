@@ -39,7 +39,7 @@ def image_edit(image, text, author) -> bytes:
     img = Image.open(BytesIO(image))
 
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    text = '\n'.join(text_formatting(text))
+    text = '-\n'.join(text_formatting(text))
     author = '— %s' % author
     base_text = ImageFont.truetype(font_root_Roboto, 46)
     author_font = ImageFont.truetype(font_root_Roboto, 38)
@@ -73,7 +73,7 @@ def sentence_check(text) -> bool:
     return True
 
 
-def text_formatting(text, length=50) -> str:
+def text_formatting(text, length=60) -> str:
     """
     Format text
     :param length: length max one string

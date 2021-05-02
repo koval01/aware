@@ -212,7 +212,6 @@
                             <label class="username">{{ el.0.0 }}</label><br>
                             <label class="city">
                                 {# paste news image or text if this is a mobile device #}
-                                <p style="visibility: hidden;">{{ mobile }}</p>
                                 {% if mobile == '1' %}
                                     <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"
                                              class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">

@@ -507,6 +507,7 @@ def load_more(request):
         mobile = request.POST.get('mobile', '')
     except Exception as e:
         mobile = token = typeload = r_token = videos = 0
+        mobile = get_mobile_bool(mobile)
         logging.error(e)
 
     if recaptcha_get_result(r_token):

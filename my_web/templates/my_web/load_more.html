@@ -216,11 +216,12 @@
                                     <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}"
                                              class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
                                 {% else %}
+                                    <br/>
                                     <i>
                                         {{ el.0.1 }}
                                     </i>
                                 {% endif %}
-                                <br><br>
+                                <br/><br/>
                                 <b>
                                     Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a>
                                 </b>

@@ -39,7 +39,14 @@ def image_edit(image, text, author) -> bytes:
     img = Image.open(BytesIO(image))
 
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    text = '\n'.join(text_formatting(text))
+
+    for i in range(10):
+        try:
+            text = '\n'.join(text_formatting(text, 60 - i))
+            break
+        except Exception as e:
+            logger.warning(e)
+
     author = '— %s' % author
     base_text = ImageFont.truetype(font_root_Roboto, 46)
     author_font = ImageFont.truetype(font_root_Roboto, 38)

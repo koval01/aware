@@ -529,11 +529,6 @@ def load_more(request):
         if not videos:
             videos = 0
 
-        if not mobile:
-            mobile = True
-        else:
-            mobile = False
-
         user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
 
         if not search_index:

@@ -81,7 +81,7 @@ def text_formatting(text, length=50) -> str:
     :return: edited text string
     """
     for i in range(0, len(text), length):
-        yield '\n'.join(text[i:i + length].strip())
+        return '\n'.join(text[i:i + length].strip())
 
 
 def percent(percent_value, whole):

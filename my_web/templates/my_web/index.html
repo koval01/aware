@@ -24,17 +24,18 @@ Aware Search
 {% load static %}
     <div style="display: block;margin-left: auto;margin-right: auto;border-radius: 20%;">
         <div class="search-aware-block-global">
-            <input type="text" maxlength="3000" class="search-input-aware" size="70" placeholder="{{ search_template }}" style="
-                width: 65%;
-                border-radius: 15px;
-                background: #202124;
-                color: #dedede;
-                margin: 17%;
-                border-color: #bbbbbb;
-            ">
-        </div>
-        <div class="search-aware-button-one">
-            <button style="margin:15px auto;display:block;background-color:#121213;margin-top: -15%;" class="btn btn-dark load-more-end-butt">Поиск&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
+            <div class="wrapper" style="margin-bottom: 5%;">
+                <div class="search-input">
+                    <a href="" target="_blank" hidden></a>
+                    <input type="text" maxlength="3000" class="search-input-aware" size="100" placeholder="{{ search_template }}">
+                    <div class="autocom-box">
+                        <li>Durov</li>
+                        <li>Durov Pavel</li>
+                        <li>Durov Telegram</li>
+                    </div>
+                    <div class="load-more-end-butt icon"><i class="fas fa-search"></i></div>
+                </div>
+            </div>
         </div>
         <div class="row-posts-end">
             {% if r_type %}

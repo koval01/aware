@@ -73,31 +73,15 @@ def sentence_check(text) -> bool:
     return True
 
 
-def text_formatting(text) -> str:
+def text_formatting(text, length=50) -> str:
     """
     Format text
+    :param length: length max one string
     :param text: text string
     :return: edited text string
     """
-    t = text.split()
-    f_text = []
-    buff_text = ''
-
-    for i in t:
-        if len(buff_text) < 51:
-            buff_text = '%s %s' % (buff_text, i)
-
-        else:
-            f_text.append(buff_text)
-            buff_text = ''
-            buff_text = '%s %s' % (buff_text, i)
-
-        buff_text = buff_text.lstrip().replace('  ', ' ')
-
-    if len(buff_text) != 0:
-        f_text.append(buff_text)
-
-    return "\n".join(f_text)
+    for i in range(0, len(text), length):
+        yield '\n'.join(text[i:i + length].strip())
 
 
 def percent(percent_value, whole):

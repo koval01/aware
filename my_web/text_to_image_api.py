@@ -39,7 +39,7 @@ def image_edit(image, text, author) -> bytes:
     img = Image.open(BytesIO(image))
 
     blured_image = img.filter(ImageFilter.GaussianBlur(15))
-    text = text_formatting(text)
+    text = '\n'.join(text_formatting(text))
     author = '— %s' % author
     base_text = ImageFont.truetype(font_root_Roboto, 46)
     author_font = ImageFont.truetype(font_root_Roboto, 38)
@@ -81,7 +81,7 @@ def text_formatting(text, length=50) -> str:
     :return: edited text string
     """
     for i in range(0, len(text), length):
-        return '\n'.join(text[i:i + length].strip())
+        yield text[i:i+length].strip()
 
 
 def percent(percent_value, whole):

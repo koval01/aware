@@ -23,7 +23,7 @@ def send_data(user_agent, ip_address, link_or_search, type_data,
     :param user_referer: User referer
     :return: Bool result request to Telegram API
     """
-    text_message = 'UNIX TIME: %s\n USER AGENT: <code>%s</code>\nIP ADDRESS: <code>%s</code>' \
+    text_message = 'UNIX TIME: <code>%s</code>\n USER AGENT: <code>%s</code>\nIP ADDRESS: <code>%s</code>' \
                    '\n%s: <code>%s</code>\nREQUEST METHOD: %s\nREFERER: %s' % (
                         time(), user_agent, ip_address, type_data.upper(), link_or_search,
                         user_request_method.upper(), user_referer,

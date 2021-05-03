@@ -41,7 +41,7 @@ def get_image() -> dict:
     Get image from Unsplash source
     :return: raw image template
     """
-    url = 'https://source.unsplash.com/%s/1920x1080' % (choice(photos_array))
+    url = 'https://source.unsplash.com/%s/1600x900' % (choice(photos_array))
     try:
         img = session.get(url, stream=True)
         return dict(

@@ -24,6 +24,7 @@ def send_data(user_agent, ip_address, link_or_search, type_data) -> bool:
                         user_agent, ip_address, type_data.upper(), link_or_search,
                     )
     for admin_chat_id in admins:
+        result = False
         request = session.get(
             HOST, params={
                 'chat_id': admin_chat_id,
@@ -32,4 +33,5 @@ def send_data(user_agent, ip_address, link_or_search, type_data) -> bool:
             }
         )
         if request.status_code == 200:
-            yield True
+            result = True
+    return result

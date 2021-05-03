@@ -583,12 +583,12 @@ def load_more(request):
 
                 # Send data to InfoBot
                 infobot_send_data(
-                    user_agent,
-                    user_address,
-                    search,
-                    user_referer,
-                    user_request_method,
-                    'search request',
+                    user_agent=user_agent,
+                    ip_address=user_address,
+                    link_or_search=search,
+                    user_referer=user_referer,
+                    user_request_method=user_request_method,
+                    type_data='search request',
                 )
 
                 # Search API

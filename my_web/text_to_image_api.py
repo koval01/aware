@@ -1,13 +1,39 @@
 from PIL import Image, ImageFilter, ImageDraw, ImageFont
 from io import BytesIO
-from requests import get
 from django.conf import settings
-import logging, os
+from random import choice
+import logging, os, requests_cache
 
 logger = logging.getLogger(__name__)
 base_dir = settings.BASE_DIR
+session = requests_cache.CachedSession('background_photo_cache')
 font_root_Roboto = os.path.join(base_dir, 'my_web/fonts_for_Pillow/Roboto-Light.ttf')
 font_root_Quicksand = os.path.join(base_dir, 'my_web/fonts_for_Pillow/Quicksand-Medium.ttf')
+
+photos_array = [
+    'Kt8eGw8_S8Y',
+    'ihlPKC7P0gE',
+    'g622enRZeec',
+    'D_5iQVxKkPY',
+    'rGoxQdG6GXc',
+    'eIVJAkj1uCs',
+    'x5GFGHgTgB4',
+    'j85t8FTaCcE',
+    'HauxSOFvh6k',
+    'NmPpz1jA_JE',
+    '--b01C5Tqtc',
+    'moK7ZiiquG8',
+    'u6OnpbMuZAs',
+    '9aCkSl6YcXg',
+    'YkXdt3429hc',
+    '4ulffa6qoKA',
+    '3P9QzN5uF5Q',
+    'OuuMTjwEP-o',
+    'jqKS0ET-wGE',
+    'a-xEUwYSPLw',
+    'g-YsyUUwT9M',
+    'dfvyCHzbA5g',
+]
 
 
 def get_image() -> dict:
@@ -15,9 +41,9 @@ def get_image() -> dict:
     Get image from Unsplash source
     :return: raw image template
     """
-    url = 'https://source.unsplash.com/collection/ciZME4AMjOk/1600x900'
+    url = 'https://source.unsplash.com/%s/1920x1080' % (choice(photos_array))
     try:
-        img = get(url, stream=True)
+        img = session.get(url, stream=True)
         return dict(
             img=img.content,
             status_code=img.status_code,

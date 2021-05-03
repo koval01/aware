@@ -583,13 +583,17 @@ def load_more(request):
 
                 # Send data to InfoBot
                 if search:
+                    if namaz:
+                        search_type_data = 'namaz'
+                    else:
+                        search_type_data = 'search request'
                     infobot_send_data(
                         user_agent=user_agent,
                         ip_address=user_address,
                         link_or_search=search,
                         user_referer=user_referer,
                         user_request_method=user_request_method,
-                        type_data='search request',
+                        type_data=search_type_data,
                     )
 
                 # Search API

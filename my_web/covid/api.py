@@ -91,7 +91,7 @@ def __main__(country='UA') -> str:
                     x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
                     x = x.replace(' ', '')
                     if not enu:
-                        x = re.sub(r'[","].*', '000000', x.replace('>', '').replace('млн', ''))
+                        x = re.sub(r'[","].*', '000000', x.replace('>', '').replace('млн', '000000'))
                     if enu != 5:
                         x = num_formatter(int(x))
                     array.append(x)

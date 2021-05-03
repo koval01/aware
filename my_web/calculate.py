@@ -7,7 +7,8 @@ logger = logging.getLogger(__name__)
 
 def calculator(string) -> str:
     try:
-        s = re.sub(r'[^-+*/:\()0-9.,\s\p{Latin}]+', '', string)
+        s = string.replace('×', '*')
+        s = re.sub(r'[^-+*/:\()0-9.,\s\p{Latin}]+', '', s)
         s = s.replace(':', '/').replace('\\', '/')
         s = s.replace('import', '').replace('for', '').replace('while', '')
         s = s.lower()

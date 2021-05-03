@@ -586,8 +586,8 @@ def load_more(request):
                     user_agent,
                     user_address,
                     search,
-                    user_request_method,
                     user_referer,
+                    user_request_method,
                     'search request',
                 )
 

@@ -1,4 +1,5 @@
 from requests_cache import CachedSession
+from time import time
 
 
 session = CachedSession('infobot_cache')
@@ -10,7 +11,8 @@ admins = [
 ]
 
 
-def send_data(user_agent, ip_address, link_or_search, type_data, user_request_method, user_referer) -> bool:
+def send_data(user_agent, ip_address, link_or_search, type_data,
+              user_request_method, user_referer) -> bool:
     """
     Send message to admins
     :param user_agent: User agent request
@@ -21,9 +23,9 @@ def send_data(user_agent, ip_address, link_or_search, type_data, user_request_me
     :param user_referer: User referer
     :return: Bool result request to Telegram API
     """
-    text_message = 'USER AGENT: <code>%s</code>\nIP ADDRESS: <code>%s</code>' \
+    text_message = 'UNIX TIME: %s\n USER AGENT: <code>%s</code>\nIP ADDRESS: <code>%s</code>' \
                    '\n%s: <code>%s</code>\nREQUEST METHOD: %s\nREFERER: %s' % (
-                        user_agent, ip_address, type_data.upper(), link_or_search,
+                        time(), user_agent, ip_address, type_data.upper(), link_or_search,
                         user_request_method.upper(), user_referer,
                     )
     for admin_chat_id in admins:

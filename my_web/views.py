@@ -268,15 +268,15 @@ def search_suggestions_get(request):
     """
     try:
         q = request.GET['q']
-        # gr_token = request.GET['gr_token']
+        gr_token = request.GET['gr_token']
         if q:
-            # if not recaptcha_get_result(gr_token):
-            #     return JsonResponse(
-            #         {
-            #             'code': 403, 'code_name': 'Forbidden',
-            #             'error': 'The request could not be confirmed.',
-            #         }
-            #     )
+            if not recaptcha_get_result(gr_token):
+                return JsonResponse(
+                    {
+                        'code': 403, 'code_name': 'Forbidden',
+                        'error': 'The request could not be confirmed.',
+                    }
+                )
             return JsonResponse({"data": search_complete(q)})
         return JsonResponse(
             {

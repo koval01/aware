@@ -532,7 +532,7 @@ def load_more(request):
 
         user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
         user_agent = request.headers['User-Agent']
-        user_request_method = request.headers['REQUEST_METHOD']
+        user_request_method = request.method
         user_referer = request.headers['HTTP_REFERER']
 
         if not search_index:

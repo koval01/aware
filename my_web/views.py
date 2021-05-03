@@ -582,14 +582,15 @@ def load_more(request):
                 news_link_add = news_search_in_str(search)
 
                 # Send data to InfoBot
-                infobot_send_data(
-                    user_agent=user_agent,
-                    ip_address=user_address,
-                    link_or_search=search,
-                    user_referer=user_referer,
-                    user_request_method=user_request_method,
-                    type_data='search request',
-                )
+                if search:
+                    infobot_send_data(
+                        user_agent=user_agent,
+                        ip_address=user_address,
+                        link_or_search=search,
+                        user_referer=user_referer,
+                        user_request_method=user_request_method,
+                        type_data='search request',
+                    )
 
                 # Search API
                 search_api = search_execute(search, search_index)

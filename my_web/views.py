@@ -269,7 +269,7 @@ def search_suggestions_get(request):
     """
     try:
         q = request.GET['q']
-        if q and len(q) < 700:
+        if q and len(q) < 500:
             return JsonResponse({"data": search_complete(q)})
     except Exception as e:
         logger.error(e)

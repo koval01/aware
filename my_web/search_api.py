@@ -30,7 +30,7 @@ def get_result(question, index=1) -> dict:
                 "cx": cx,
                 "q": question,
                 "queries": 10,
-                "safe": 1,
+                "safe": 0,
                 "start": index,
             }
             r = get(u, headers=headers, params=params)

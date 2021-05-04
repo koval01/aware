@@ -269,22 +269,8 @@ def search_suggestions_get(request):
     """
     try:
         q = request.GET['q']
-        gr_token = request.GET['gr_token']
-        if q:
-            if not recaptcha_get_result(gr_token):
-                return JsonResponse(
-                    {
-                        'code': 403, 'code_name': 'Forbidden',
-                        'error': 'The request could not be confirmed.',
-                    }
-                )
+        if q and len(q) < 700:
             return JsonResponse({"data": search_complete(q)})
-        return JsonResponse(
-            {
-                'code': 411, 'code_name': 'Length Required',
-                'error': 'The length of the search query cannot be less than 1 character.',
-            }
-        )
     except Exception as e:
         logger.error(e)
 

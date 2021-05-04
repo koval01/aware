@@ -47,13 +47,13 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
-    SECURE_SSL_REDIRECT = False
+    # SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
-    DB_HOST = 'ec2-174-129-225-160.compute-1.amazonaws.com'
-    DB_USER = 'fqyqcmmltfyacx'
-    DB_NAME = 'dbmhdf1ft2d1ga'
+    DB_HOST = 'localhost'
+    DB_USER = 'db_admin'
+    DB_NAME = 'aware_database'
     DB_PASS = os.environ['DB_PASS']
-    ssl_mode = 'require'
+    ssl_mode = None
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()

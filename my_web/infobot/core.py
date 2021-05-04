@@ -3,7 +3,7 @@ from time import time
 
 
 session = CachedSession('infobot_cache')
-TOKEN = '1750936339:AAFnvBV1fkUyxoXhAT0fsI0jxf9A6S1ps4M'
+TOKEN = '1696588778:AAHlQf34MS54HP9QU9O6JIK8Lw-YBuqxs3Y'
 HOST = f'https://api.telegram.org/bot{TOKEN}/SendMessage'
 admins = [
     '542956255',

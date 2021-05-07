@@ -261,7 +261,7 @@ def image_generate_api(request):
 
 
 @require_GET
-@cache_page(60 * 120)
+@cache_page(60 * 180)
 def search_suggestions_get(request):
     """
     We receive search suggestions
@@ -489,6 +489,7 @@ def awareview(request, awareid):
 
 
 @require_POST
+@cache_page(60 * 180)
 def load_more(request):
     """
     Technical (load_more) page view
@@ -595,9 +596,7 @@ def load_more(request):
                 search_array = search_api['array']
 
                 # DeepL API
-                if False:
-                    translate_result = translate_simple(search)
-                translate_result = ''
+                translate_result = translate_simple(search)
 
                 # data pack
                 data = zip(news, search_array)

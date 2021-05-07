@@ -633,7 +633,7 @@ def search_config(request):
     :param request: request body
     :return: render template page
     """
-    return render(request, 'my_web/search.xml')
+    return render(request, 'my_web/search.xml', content_type='text/xml')
 
 
 def error_400(request, exception='Unknown'):

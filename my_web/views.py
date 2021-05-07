@@ -626,6 +626,16 @@ def robots_txt(request):
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
+@require_GET
+def search_config(request):
+    """
+    Search XML config
+    :param request: request body
+    :return: render template page
+    """
+    return render(request, 'my_web/search.xml')
+
+
 def error_400(request, exception='Unknown'):
     """
     400 error handler page view

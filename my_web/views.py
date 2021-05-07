@@ -1,10 +1,12 @@
 import logging
 import os
 import random
+from datetime import timedelta
+from multiprocessing import Process
 from random import randint, randrange
 from time import time
-from datetime import timedelta
 from urllib.parse import urlunsplit, urlencode
+
 from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
 from django.conf import settings
@@ -15,15 +17,15 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from requests import get
-from .infobot.core import send_data as infobot_send_data
-from .deepl import translate_simple
-from multiprocessing import Process
+
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
+from .deepl import translate_simple
 from .get_search_template import get_result as search_example
+from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text
 from .models import AWARE_Page
@@ -209,7 +211,7 @@ def image_proxy_view(request):
 
 
 @require_GET
-@cache_page(60 * 120)
+@cache_page(60 * 180)
 def image_generate_api(request):
     """
     Image to text api
@@ -574,14 +576,7 @@ def load_more(request):
                         search_type_data = 'namaz'
                     else:
                         search_type_data = 'search request'
-                    # infobot_send_data(
-                    #     user_agent=user_agent,
-                    #     ip_address=user_address,
-                    #     link_or_search=search,
-                    #     user_referer=user_referer,
-                    #     user_request_method=user_request_method,
-                    #     type_data=search_type_data,
-                    # )
+
                     Process(
                         target=infobot_send_data,
                         args=(
@@ -600,7 +595,8 @@ def load_more(request):
                 search_array = search_api['array']
 
                 # DeepL API
-                translate_result = translate_simple(search)
+                if False:
+                    translate_result = translate_simple(search)
 
                 # data pack
                 data = zip(news, search_array)

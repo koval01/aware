@@ -501,7 +501,7 @@ def load_more(request):
         typeload = request.POST.get('typeload', '')
         r_token = request.POST.get('gr_token', '')
     except Exception as e:
-        token = typeload = r_token= 0
+        token = typeload = r_token = 0
         logging.error(e)
 
     if recaptcha_get_result(r_token):

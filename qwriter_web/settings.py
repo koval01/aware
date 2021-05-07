@@ -47,7 +47,7 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
-    # SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
     DB_HOST = 'localhost'
     DB_USER = 'db_admin'

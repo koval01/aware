@@ -5,7 +5,6 @@ from random import randint, randrange
 from time import time
 from datetime import timedelta
 from urllib.parse import urlunsplit, urlencode
-
 from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
 from django.conf import settings
@@ -18,7 +17,7 @@ from django.views.decorators.http import require_GET, require_POST
 from requests import get
 from .infobot.core import send_data as infobot_send_data
 from .deepl import translate_simple
-
+from multiprocessing import Process
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
@@ -514,11 +513,13 @@ def load_more(request):
         videos = request.POST.get('videos', '')
 
         if not videos:
+            # If the variable does not exist, then set its value - 0
             videos = 0
 
         user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
         user_agent = request.headers['User-Agent']
         user_request_method = request.method
+
         try:
             user_referer = request.headers['HTTP_REFERER']
         except Exception as e:
@@ -573,14 +574,25 @@ def load_more(request):
                         search_type_data = 'namaz'
                     else:
                         search_type_data = 'search request'
-                    infobot_send_data(
-                        user_agent=user_agent,
-                        ip_address=user_address,
-                        link_or_search=search,
-                        user_referer=user_referer,
-                        user_request_method=user_request_method,
-                        type_data=search_type_data,
-                    )
+                    # infobot_send_data(
+                    #     user_agent=user_agent,
+                    #     ip_address=user_address,
+                    #     link_or_search=search,
+                    #     user_referer=user_referer,
+                    #     user_request_method=user_request_method,
+                    #     type_data=search_type_data,
+                    # )
+                    Process(
+                        target=infobot_send_data,
+                        args=(
+                            user_agent,
+                            user_address,
+                            search,
+                            search_type_data,
+                            user_request_method,
+                            user_referer,
+                        )
+                    ).start()
 
                 # Search API
                 search_api = search_execute(search, search_index)

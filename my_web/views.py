@@ -597,6 +597,7 @@ def load_more(request):
                 # DeepL API
                 if False:
                     translate_result = translate_simple(search)
+                translate_result = ''
 
                 # data pack
                 data = zip(news, search_array)

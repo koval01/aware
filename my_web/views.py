@@ -1,7 +1,7 @@
 import logging
 import os
 import random
-from datetime import timedelta
+from datetime import timedelta, datetime
 from multiprocessing import Process
 from random import randint, randrange
 from time import time
@@ -290,7 +290,9 @@ def get_ad(request):
         done_get = False
         while not done_get:
             for i in all_data:
-                if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 6):
+                if i.i_chance >= randint(1, 100) \
+                        and randint(1, 6) > randint(1, 6) \
+                        and time() > datetime(i.i_time_active).timestamp():
                     done_get = True
                     return JsonResponse(
                         {

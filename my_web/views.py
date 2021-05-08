@@ -287,11 +287,9 @@ def get_ad(request):
     """
     try:
         all_data = Info.objects.all()
-        done_get = False; cycle_execute = True
-        while not done_get and cycle_execute:
-            cycle_execute = False
+        done_get = False
+        while not done_get and Info.objects.exists():
             for i in all_data:
-                cycle_execute = True
                 if i.i_chance >= randint(1, 100) \
                         and randint(1, 6) > randint(1, 6) \
                         and round(time()) < round(i.i_time_active.timestamp()):
@@ -304,9 +302,6 @@ def get_ad(request):
                             "active_to": i.i_time_active,
                         }
                     )
-            if not cycle_execute:
-                break
-
     except Exception as e:
         logger.error(e)
 

@@ -288,7 +288,7 @@ def get_ad(request):
     try:
         all_data = Info.objects.all()
         done_get = False
-        max_retry = 20; n = 0
+        max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
         while not done_get and Info.objects.exists() and max_retry <= n:
             n += 1  # Add cycle to counter
             for i in all_data:

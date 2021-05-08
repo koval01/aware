@@ -304,6 +304,9 @@ def get_ad(request):
                             "active_to": i.i_time_active,
                         }
                     )
+            if not cycle_execute:
+                break
+
     except Exception as e:
         logger.error(e)
 

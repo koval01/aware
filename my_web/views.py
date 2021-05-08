@@ -289,6 +289,7 @@ def get_ad(request):
         all_data = Info.objects.all()
         done_get = False; cycle_execute = True
         while not done_get and cycle_execute:
+            cycle_execute = False
             for i in all_data:
                 cycle_execute = True
                 if i.i_chance >= randint(1, 100) \
@@ -303,7 +304,6 @@ def get_ad(request):
                             "active_to": i.i_time_active,
                         }
                     )
-            cycle_execute = False
     except Exception as e:
         logger.error(e)
 

@@ -46,7 +46,7 @@ else:
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
-    LOG_HANDLERS = ['console']
+    LOG_HANDLERS = ['console', 'gunicorn']
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
     DB_HOST = 'localhost'
@@ -191,6 +191,13 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
+        },
+        'gunicorn': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': '/var/log/gunicorn/awse.log',
+            'maxBytes': 1024 * 1024 * 100,  # bytes * kilobytes * 100 megabytes
         },
     },
     'loggers': {

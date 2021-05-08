@@ -290,7 +290,7 @@ def get_ad(request):
         done_get = False
         while not done_get:
             for i in all_data:
-                if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 8):
+                if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 6):
                     done_get = True
                     return JsonResponse(
                         {

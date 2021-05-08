@@ -28,7 +28,7 @@ from .get_search_template import get_result as search_example
 from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text
-from .models import AWARE_Page
+from .models import AWARE_Page, Info
 from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
@@ -270,8 +270,24 @@ def search_suggestions_get(request):
     """
     try:
         q = request.GET['q']
-        if q and len(q) < 110:
+        if q and len(q) <= 100:
             return JsonResponse({"data": search_complete(q)})
+    except Exception as e:
+        logger.error(e)
+
+    return error_400(request)
+
+
+@require_GET
+def get_ad(request):
+    """
+    Get advertise
+    :param request: request body
+    :return: advertise data
+    """
+    try:
+        all_data = Info.objects.all()
+        return JsonResponse({"data": all_data})
     except Exception as e:
         logger.error(e)
 

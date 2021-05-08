@@ -197,7 +197,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
             'filename': '/var/log/gunicorn/awse.log',
-            'maxBytes': 1024 * 1024 * 100,  # bytes * kilobytes * 100 megabytes
+            'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
         },
     },
     'loggers': {

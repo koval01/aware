@@ -288,8 +288,7 @@ def get_ad(request):
     try:
         all_data = Info.objects.all()
         for i in all_data:
-            print(i)
-        return JsonResponse({"data": all_data})
+            return JsonResponse({"data": str(i)})
     except Exception as e:
         logger.error(e)
 

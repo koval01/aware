@@ -288,7 +288,9 @@ def get_ad(request):
     try:
         all_data = Info.objects.all()
         done_get = False
-        while not done_get and Info.objects.exists():
+        max_retry = 20; n = 0
+        while not done_get and Info.objects.exists() and max_retry <= n:
+            n += 1  # Add cycle to counter
             for i in all_data:
                 if i.i_chance >= randint(1, 100) \
                         and randint(1, 6) > randint(1, 6) \

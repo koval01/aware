@@ -26,6 +26,7 @@ urlpatterns = [
     path('suggestions/', views.search_suggestions_get, name='search_suggestions_get'),
     path('image_generate_api/', views.image_generate_api, name='image_generate_api'),
     path('aware_api/', views.aware_api, name='aware_api'),
+    path('get_ad/', views.get_ad, name='get_ad'),
     path('sitemap_aware_pages.xml/', cache_page(7200)(sitemap), {'sitemaps': sitemaps_aware_pages},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

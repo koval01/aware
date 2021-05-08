@@ -12,6 +12,8 @@ def random_string():
 class Info(models.Model):
     i_title = models.TextField('Заголовок')
     i_text = models.TextField('Текст')
+    i_chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
+    i_time_active = models.DateTimeField('Активно до', default=timezone.now())
     i_time = models.DateTimeField('Время публикации', default=timezone.now())
 
     def __str__(self):

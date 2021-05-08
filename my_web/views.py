@@ -288,7 +288,7 @@ def get_ad(request):
     try:
         all_data = Info.objects.all()
         for i in all_data:
-            if i.i_chance >= randint(1, 100):
+            if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 8):
                 return JsonResponse(
                     {
                         "title": i.i_title,

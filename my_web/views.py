@@ -285,25 +285,25 @@ def get_ad(request):
     :param request: request body
     :return: advertise data
     """
-    try:
-        all_data = Info.objects.all()
-        done_get = False
-        while not done_get:
-            for i in all_data:
-                if i.i_chance >= randint(1, 100) \
-                        and randint(1, 6) > randint(1, 6) \
-                        and time() > 0.0:  # datetime.fromisoformat(str(i.i_time_active)[:-1]).timestamp()
-                    done_get = True
-                    return JsonResponse(
-                        {
-                            "title": i.i_title,
-                            "text": i.i_text,
-                            "chance": i.i_chance,
-                            "active_to": i.i_time_active,
-                        }
-                    )
-    except Exception as e:
-        logger.error(e)
+    # try:
+    all_data = Info.objects.all()
+    done_get = False
+    while not done_get:
+        for i in all_data:
+            if i.i_chance >= randint(1, 100) \
+                    and randint(1, 6) > randint(1, 6) \
+                    and time() > datetime.fromisoformat(str(i.i_time_active)[:-1]).timestamp():
+                done_get = True
+                return JsonResponse(
+                    {
+                        "title": i.i_title,
+                        "text": i.i_text,
+                        "chance": i.i_chance,
+                        "active_to": i.i_time_active,
+                    }
+                )
+    # except Exception as e:
+    #     logger.error(e)
 
     return error_400(request)
 

@@ -292,7 +292,7 @@ def get_ad(request):
         for i in all_data:
             if i.i_chance >= randint(1, 100) \
                     and randint(1, 6) > randint(1, 6) \
-                    and round(time()) > round(i.i_time_active.timestamp()):
+                    and round(time()) < round(i.i_time_active.timestamp()):
                 done_get = True
                 return JsonResponse(
                     {

@@ -287,16 +287,19 @@ def get_ad(request):
     """
     try:
         all_data = Info.objects.all()
-        for i in all_data:
-            if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 8):
-                return JsonResponse(
-                    {
-                        "title": i.i_title,
-                        "text": i.i_text,
-                        "chance": i.i_chance,
-                        "active_to": i.i_time_active,
-                    }
-                )
+        done_get = False
+        while not done_get:
+            for i in all_data:
+                if i.i_chance >= randint(1, 100) and randint(1, 6) > randint(1, 8):
+                    done_get = True
+                    return JsonResponse(
+                        {
+                            "title": i.i_title,
+                            "text": i.i_text,
+                            "chance": i.i_chance,
+                            "active_to": i.i_time_active,
+                        }
+                    )
     except Exception as e:
         logger.error(e)
 

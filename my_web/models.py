@@ -10,6 +10,7 @@ def random_string():
 
 
 class Info(models.Model):
+    # Choice list
     SELECT_LANGUAGE = [
         ('ua', 'Украинский'),
         ('ru', 'Русский'),

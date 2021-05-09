@@ -183,7 +183,9 @@
             <i class="fas fa-home"></i>
         </a>
         <div class="header_content">
-            <label class="header_title" style="font-family: 'Pacifico', cursive;">{% block title_header %}{% endblock %}</label>
+            <a href="{% url 'index_page' %}">
+                <label class="header_title" style="font-family: 'Pacifico', cursive;">{% block title_header %}{% endblock %}</label>
+            </a>
         </div>
         <div class="dropdowncustom1">
             <i class="fas fa-compass" onclick="onMenuClicked()"></i>

@@ -289,6 +289,12 @@ def get_ad(request):
     try:
         key = request.GET['key']
         if key == ad_key or recaptcha_get_result(key):
+            lang = request.GET['lang']
+            valid_codes_lang = ['ua', 'ru', 'en']
+
+            if not lang or lang not in valid_codes_lang:
+                lang = "ru"
+
             all_data = Info.objects.all()
             done_get = False
             max_retry = round(1000 / (Info.objects.count() / 4)); n = 0

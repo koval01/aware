@@ -305,7 +305,7 @@ def get_ad(request):
                             and randint(1, 6) > randint(1, 6) \
                             and round(time()) < round(i.i_time_active.timestamp()):
                         done_get = True
-                        i.update(i_views=+1)
+                        i.i_views += 1  # Add one view
                         return JsonResponse(
                             {
                                 "title": i.i_title,

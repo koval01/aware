@@ -46,6 +46,7 @@ logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
 load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
+ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY
 qwriter_api_for_aware = os.environ['AWARE_KEY']
@@ -286,24 +287,26 @@ def get_ad(request):
     :return: advertise data
     """
     try:
-        all_data = Info.objects.all()
-        done_get = False
-        max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
-        while not done_get and Info.objects.exists() and max_retry >= n:
-            n += 1  # Add cycle to counter
-            for i in all_data:
-                if i.i_chance >= randint(1, 100) \
-                        and randint(1, 6) > randint(1, 6) \
-                        and round(time()) < round(i.i_time_active.timestamp()):
-                    done_get = True
-                    return JsonResponse(
-                        {
-                            "title": i.i_title,
-                            "text": i.i_text,
-                            "chance": i.i_chance,
-                            "active_to": i.i_time_active,
-                        }
-                    )
+        key = request.GET['key']
+        if key == ad_key or recaptcha_get_result(key):
+            all_data = Info.objects.all()
+            done_get = False
+            max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
+            while not done_get and Info.objects.exists() and max_retry >= n:
+                n += 1  # Add cycle to counter
+                for i in all_data:
+                    if i.i_chance >= randint(1, 100) \
+                            and randint(1, 6) > randint(1, 6) \
+                            and round(time()) < round(i.i_time_active.timestamp()):
+                        done_get = True
+                        return JsonResponse(
+                            {
+                                "title": i.i_title,
+                                "text": i.i_text,
+                                "chance": i.i_chance,
+                                "active_to": i.i_time_active,
+                            }
+                        )
     except Exception as e:
         logger.error(e)
 

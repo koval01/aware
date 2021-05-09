@@ -297,8 +297,8 @@ def get_ad(request):
 
             all_data = Info.objects.all().filter(i_language=lang)
             done_get = False
-            max_retry = round(1000 / (Info.objects.count().filter(i_language=lang) / 4)); n = 0
-            while not done_get and Info.objects.exists().filter(i_language=lang) and max_retry >= n:
+            max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
+            while not done_get and Info.objects.exists() and max_retry >= n:
                 n += 1  # Add cycle to counter
                 for i in all_data:
                     if i.i_chance >= randint(1, 100) \

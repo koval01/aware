@@ -305,13 +305,13 @@ def get_ad(request):
                             and randint(1, 6) > randint(1, 6) \
                             and round(time()) < round(i.i_time_active.timestamp()):
                         done_get = True
-                        # i.i_views += 1  # Add one view
+                        i.i_views += 1  # Add one view
                         return JsonResponse(
                             {
                                 "title": i.i_title,
                                 "text": i.i_text,
                                 "chance": i.i_chance,
-                                "manual_active": dict(i.i_active),
+                                "manual_active": i.i_active,
                                 "active_to": i.i_time_active,
                             }
                         )

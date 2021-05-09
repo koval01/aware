@@ -295,10 +295,11 @@ def get_ad(request):
             if not lang or lang not in valid_codes_lang:
                 lang = "ru"
 
-            all_data = Info.objects.all().filter(i_language=lang)
+            obj = Info.objects
+            all_data = obj.all().filter(i_language=lang)
             done_get = False
-            max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
-            while not done_get and Info.objects.exists() and max_retry >= n:
+            max_retry = round(1000 / (obj.count() / 4)); n = 0
+            while not done_get and obj.exists() and max_retry >= n:
                 n += 1  # Add cycle to counter
                 for i in all_data:
                     if i.i_chance >= randint(1, 100) \
@@ -306,9 +307,10 @@ def get_ad(request):
                             and round(time()) < round(i.i_time_active.timestamp()) \
                             and i.i_active == 'yes':
                         done_get = True
-                        i.i_views += 1  # Add one view
+                        obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
                         return JsonResponse(
                             {
+                                "id": i.id,
                                 "title": i.i_title,
                                 "text": i.i_text,
                                 "chance": i.i_chance,

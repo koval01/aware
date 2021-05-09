@@ -304,7 +304,7 @@ def get_ad(request):
                     if i.i_chance >= randint(1, 100) \
                             and randint(1, 6) > randint(1, 6) \
                             and round(time()) < round(i.i_time_active.timestamp()) \
-                            and i.i_active == 'yes':
+                            and str(i.i_active) == 'yes':
                         done_get = True
                         i.i_views += 1  # Add one view
                         return JsonResponse(

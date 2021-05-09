@@ -10,16 +10,21 @@ def random_string():
 
 
 class Info(models.Model):
-    # Choice list
+    # Choice lists
     SELECT_LANGUAGE = [
         ('ua', 'Украинский'),
         ('ru', 'Русский'),
         ('en', 'Английский'),
     ]
+    SELECT_ACTIVE_MODE = [
+        ('yes', 'Да'),
+        ('no', 'Нет'),
+    ]
 
     i_title = models.CharField('Заголовок', max_length=255, default='Рекламная запись')
     i_text = models.TextField('Текст')
     i_language = models.CharField('Язык', choices=SELECT_LANGUAGE, default='ru', max_length=2)
+    i_active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
     i_chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
     i_time_active = models.DateTimeField('Активно до', default=timezone.now())
 

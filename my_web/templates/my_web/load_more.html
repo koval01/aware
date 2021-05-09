@@ -10,16 +10,14 @@
                 <div style="float: left; ">
                     <label class="username">Статистика COVID-19 в Украине</label><br>
                     <label class="city"><br/>
-                        <!-- Body start -->
                         <h6>😷Больных Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
                         <h6>❤️Выздоровели: <b>{{ covid_ua.2 }}</b></h6>
                         <h6>💔Летальных исходов: <b>{{ covid_ua.3 }}</b></h6>
                         <h6>📝Протестировано: <b>{{ covid_ua.4 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ua.5 }}</b></h6>
-                        <!-- Body finish -->
-                        <br/></label><br/>
-                        <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                        <br/>
+                    </label><br/>
                 </div>
             </div>
         </div>
@@ -30,16 +28,14 @@
                 <div style="float: left; ">
                     <label class="username">Статистика COVID-19 в России</label><br>
                     <label class="city"><br/>
-                        <!-- Body start -->
                         <h6>😷Больных Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
                         <h6>❤️Выздоровели: <b>{{ covid_ru.3 }}</b></h6>
                         <h6>💔Летальных исходов: <b>{{ covid_ru.4 }}</b></h6>
                         <h6>📝Протестировано: <b>{{ covid_ru.0 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ru.5 }}</b></h6>
-                        <!-- Body finish -->
-                        <br/></label><br/>
-                        <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                        <br/>
+                    </label><br/>
                 </div>
             </div>
         </div>
@@ -53,7 +49,6 @@
                 <div style="float: left;">
                     <label class="username">Калькулятор</label><br>
                     <label class="city"><i>{{ c_input }}&nbsp;=&nbsp;{{ c_result }}</i></label><br>
-                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
@@ -69,7 +64,6 @@
                         <b>{{ translate_result }}</b>
                         <br/><br/>
                     </label><br>
-                    <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
@@ -83,7 +77,6 @@
                         Новости от AWARE</a>
                     </label><br>
                     <label class="city"><i>Подборка новостей на сегодня от AWARE</i></label><br>
-                    <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
@@ -110,7 +103,6 @@
                             Обновлено: {{ el.update_time }} (Время на сервере)
                         </p>
                     </label><br>
-                    <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
@@ -150,7 +142,6 @@
                         {{ videos.0.desc }}
                     </p>
                 </label><br>
-                <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
             </div>
         </div>
     </div>
@@ -179,7 +170,6 @@
                         <br/><br/>
                         <a href="{{ videos.0.music.playUrl }}" target="_blank">Перейти к треку</a>
                     </label><br>
-                    <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
                 </div>
             </div>
         </div>
@@ -203,7 +193,6 @@
                     {# User profile description (bio) #}
                     {{ videos.0.author.signature }}
                 </label><br>
-                <br/><a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
             </div>
         </div>
     </div>
@@ -234,8 +223,7 @@
                                 <i>
                                     <u>Опубликовано {{ el.0.3 }} (UTC)</u>
                                 </i>
-                            </label><br><br>
-                            <a style="font-size: 12px;" href="{% url 'index_page' %}"><b>awse.us</b></a><br>
+                            </label><br>
                         </div>
                     </div>
                 </div>
@@ -253,10 +241,6 @@
                             <p>{{ el.1.displayLink }}</p>
                             <i>{{ el.1.snippet }}</i>
                         </label><br>
-                        <br/>
-                        <a style="font-size: 12px;" href="{% url 'index_page' %}">
-                            <b>awse.us</b>
-                        </a><br>
                     </div>
                 </div>
             </div>

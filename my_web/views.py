@@ -287,8 +287,8 @@ def get_ad(request):
     :return: advertise data
     """
     try:
-        key = str(request.GET['key'])
-        if key == str(ad_key) or recaptcha_get_result(key):
+        key = request.GET['key']
+        if key == ad_key or recaptcha_get_result(key):
             all_data = Info.objects.all()
             done_get = False
             max_retry = round(1000 / (Info.objects.count() / 4)); n = 0

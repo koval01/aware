@@ -295,7 +295,7 @@ def get_ad(request):
             if not lang or lang not in valid_codes_lang:
                 lang = "ru"
 
-            all_data = Info.objects.all()
+            all_data = Info.objects.all().filter(i_language=lang)
             done_get = False
             max_retry = round(1000 / (Info.objects.count() / 4)); n = 0
             while not done_get and Info.objects.exists() and max_retry >= n:

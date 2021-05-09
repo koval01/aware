@@ -30,7 +30,10 @@ class Info(models.Model):
     i_time_active = models.DateTimeField('Активно до', default=timezone.now())
 
     def __str__(self):
-        return self.i_title
+        title = self.i_title; views = self.i_views
+        if len(title) > 16:
+            title = "%s..." % title[:16]
+        return "%s (Просмотров: %s)" % (title, views)
 
     class Meta:
         verbose_name = 'Рекламная запись'

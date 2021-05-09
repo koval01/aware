@@ -79,6 +79,7 @@ TIKTOK_PAGE_ENABLED = False
 
 INSTALLED_APPS = [
     'my_web',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

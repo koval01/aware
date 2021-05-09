@@ -1,8 +1,11 @@
 django
 django-heroku
+https://github.com/darklow/django-suit/tarball/v2
+django-robots
 django_compressor
 gunicorn
 pip
+six
 setuptools
 wheel
 lxml

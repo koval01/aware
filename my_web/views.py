@@ -303,8 +303,7 @@ def get_ad(request):
                 for i in all_data:
                     if i.i_chance >= randint(1, 100) \
                             and randint(1, 6) > randint(1, 6) \
-                            and round(time()) < round(i.i_time_active.timestamp()) \
-                            and str(i.i_active) == 'yes':
+                            and round(time()) < round(i.i_time_active.timestamp()):
                         done_get = True
                         i.i_views += 1  # Add one view
                         return JsonResponse(
@@ -312,6 +311,7 @@ def get_ad(request):
                                 "title": i.i_title,
                                 "text": i.i_text,
                                 "chance": i.i_chance,
+                                "manual_active": i.i_active,
                                 "active_to": i.i_time_active,
                             }
                         )

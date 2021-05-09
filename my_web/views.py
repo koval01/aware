@@ -295,10 +295,11 @@ def get_ad(request):
             if not lang or lang not in valid_codes_lang:
                 lang = "ru"
 
-            all_data = Info.objects.all().filter(i_language=lang)
+            model = Info.objects.filter(i_language=lang)
+            all_data = model.all()
             done_get = False
-            max_retry = round(1000 / (Info.objects.count().filter(i_language=lang) / 4)); n = 0
-            while not done_get and Info.objects.exists().filter(i_language=lang) and max_retry >= n:
+            max_retry = round(1000 / (model.count() / 4)); n = 0
+            while not done_get and model.exists() and max_retry >= n:
                 n += 1  # Add cycle to counter
                 for i in all_data:
                     if i.i_chance >= randint(1, 100) \

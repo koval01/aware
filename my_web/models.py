@@ -26,7 +26,7 @@ class Info(models.Model):
     i_language = models.CharField('Язык', choices=SELECT_LANGUAGE, default='ru', max_length=2)
     i_active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
     i_chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
-    i_views = models.IntegerField('Просмотры', max_length=32)
+    i_views = models.IntegerField('Просмотры', max_length=32, default='0')
     i_time_active = models.DateTimeField('Активно до', default=timezone.now())
 
     def __str__(self):

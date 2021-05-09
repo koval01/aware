@@ -1,6 +1,5 @@
 django
 django-heroku
-django-suit
 django-robots
 django_compressor
 gunicorn

@@ -311,7 +311,7 @@ def get_ad(request):
                                 "title": i.i_title,
                                 "text": i.i_text,
                                 "chance": i.i_chance,
-                                "manual_active": i.i_active,
+                                "manual_active": str(i.i_active),
                                 "active_to": i.i_time_active,
                             }
                         )

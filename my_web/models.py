@@ -31,8 +31,8 @@ class Info(models.Model):
 
     def __str__(self):
         title = self.i_title; views = self.i_views
-        if len(title) > 16:
-            title = "%s..." % str(title[:16]).rstrip()
+        if len(title) > 30:
+            title = "%s..." % str(title[:30]).rstrip()
         return "%s (Просмотров: %s)" % (title, views)
 
     class Meta:

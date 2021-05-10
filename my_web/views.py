@@ -307,15 +307,15 @@ def get_ad(request):
                                 and round(time()) < round(i.i_time_active.timestamp()) \
                                 and i.i_active == 'yes':
                             done_get = True
-                            Info.objects.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+                            obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
                             return JsonResponse(
                                 {
-                                    "id": i.id,
-                                    "title": i.i_title,
+                                    # "id": i.id,
+                                    # "title": i.i_title,
                                     "text": i.i_text,
-                                    "chance": i.i_chance,
-                                    "manual_active": i.i_active,
-                                    "active_to": i.i_time_active,
+                                    # "chance": i.i_chance,
+                                    # "manual_active": i.i_active,
+                                    # "active_to": i.i_time_active,
                                 }
                             )
     except Exception as e:

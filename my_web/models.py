@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from bs4 import BeautifulSoup
 import string, random
 
 
@@ -21,7 +22,6 @@ class Info(models.Model):
         ('no', 'Нет'),
     ]
 
-    i_title = models.CharField('Заголовок', max_length=255, default='Рекламная запись')
     i_text = models.TextField('Текст')
     i_language = models.CharField('Язык', choices=SELECT_LANGUAGE, default='ru', max_length=2)
     i_active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
@@ -30,7 +30,8 @@ class Info(models.Model):
     i_time_active = models.DateTimeField('Активно до', default=timezone.now())
 
     def __str__(self):
-        title = self.i_title; views = self.i_views
+        title = BeautifulSoup(self.i_text, 'lxml').text
+        views = self.i_views
         if len(title) > 30:
             title = "%s..." % str(title[:30]).rstrip()
         return "%s (Просмотров: %s)" % (title, views)

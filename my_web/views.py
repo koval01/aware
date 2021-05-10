@@ -24,7 +24,6 @@ from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .deepl import translate_simple
-from .get_search_template import get_result as search_example
 from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text

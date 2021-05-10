@@ -297,9 +297,8 @@ def get_ad(request):
             obj = Info.objects
             all_data = obj.all().filter(i_language=lang)
             done_get = False
-            max_retry = round(500 / (obj.count() / 4))
             n = 0
-            while not done_get and obj.exists() and max_retry >= n:
+            while not done_get and obj.exists() and 2 >= n:
                 n += 1  # Add cycle to counter
                 for i in all_data:
                     if i.i_chance >= randint(1, 100):
@@ -310,12 +309,7 @@ def get_ad(request):
                             obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
                             return JsonResponse(
                                 {
-                                    # "id": i.id,
-                                    # "title": i.i_title,
                                     "text": i.i_text,
-                                    # "chance": i.i_chance,
-                                    # "manual_active": i.i_active,
-                                    # "active_to": i.i_time_active,
                                 }
                             )
     except Exception as e:

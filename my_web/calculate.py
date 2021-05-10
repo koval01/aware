@@ -11,7 +11,7 @@ def calculator(string) -> str:
         s = re.sub(r'[^-+*/:\()0-9.,\s\p{Latin}]+', '', s)
         s = s.replace(':', '/').replace('\\', '/')
         s = s.replace('import', '').replace('for', '').replace('while', '')
-        if ['+', '-', '*', '/'] in s:
+        if any(word in s for word in ['+', '-', '*', '/']):
             return eval(s), s
     except Exception as e:
         logger.error(e)

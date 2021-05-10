@@ -307,7 +307,7 @@ def get_ad(request):
                                 and round(time()) < round(i.i_time_active.timestamp()) \
                                 and i.i_active == 'yes':
                             done_get = True
-                            obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+                            Info.objects.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
                             return JsonResponse(
                                 {
                                     "id": i.id,

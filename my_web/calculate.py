@@ -13,6 +13,8 @@ def calculator(string) -> str:
         s = s.replace('import', '').replace('for', '').replace('while', '')
         if any(word in s for word in ['+', '-', '*', '/']):
             return eval(s), s
+        else:
+            return '', ''
     except Exception as e:
         logger.error(e)
         return '', ''

@@ -395,10 +395,7 @@ def index(request):
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
-    search_example_get = search_example()
-    search_example_get = BeautifulSoup(
-        search_example_get, 'lxml'
-    ).text
+    search_example_get = "Что нужно найти?"
 
     r_type = random.randint(0, 1)
     add_ = rand_fact_or_quote(r_type)

@@ -296,7 +296,7 @@ def get_ad(request):
 
             obj = Info.objects
             all_data = obj.all().filter(i_language=lang)
-            max_retry = round(500 / (obj.count() / 4))
+            max_retry = round(200 / (obj.count() / 4))
             done_get = False
             n = 0
             while not done_get and obj.exists() and max_retry >= n:

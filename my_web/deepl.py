@@ -103,9 +103,10 @@ def translate_simple(text) -> str:
     :param text: text string
     :return: result (String)
     """
-    try:
-        latin = latin_detect(text)
-        if latin:
-            return latin
-    except Exception as e:
-        logger.warning(e)
+    if text:
+        try:
+            latin = latin_detect(text)
+            if latin:
+                return latin
+        except Exception as e:
+            logger.warning(e)

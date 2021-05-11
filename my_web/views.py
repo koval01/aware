@@ -299,20 +299,21 @@ def get_ad(request):
             max_retry = round(200 / (obj.count() / 4))
             done_get = False
             n = 0
-            while not done_get and obj.exists() and max_retry >= n:
+            while max_retry >= n:
                 n += 1  # Add cycle to counter
-                for i in all_data:
-                    if i.i_chance >= randint(1, 100):
-                        if randint(1, 6) > randint(1, 6) \
-                                and round(time()) < round(i.i_time_active.timestamp()) \
-                                and i.i_active == 'yes':
-                            done_get = True
-                            obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
-                            return JsonResponse(
-                                {
-                                    "text": i.i_text,
-                                }
-                            )
+                if not done_get and obj.exists():
+                    for i in all_data:
+                        if i.i_chance >= randint(1, 100):
+                            if randint(1, 6) > randint(1, 6) \
+                                    and round(time()) < round(i.i_time_active.timestamp()) \
+                                    and i.i_active == 'yes':
+                                done_get = True
+                                obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+                                return JsonResponse(
+                                    {
+                                        "text": i.i_text,
+                                    }
+                                )
     except Exception as e:
         logger.error(e)
 

@@ -1,12 +1,12 @@
-from requests import get
 from json import loads
 from .covid.config import USER_AGENT
 from django.conf import settings
 from random import shuffle
 from bs4 import BeautifulSoup
-import logging
+import logging, requests_cache
 
 logger = logging.getLogger(__name__)
+session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
 
 
 def get_result(question, index=1) -> dict:
@@ -33,7 +33,7 @@ def get_result(question, index=1) -> dict:
                 "safe": 0,
                 "start": index,
             }
-            r = get(u, headers=headers, params=params)
+            r = session.get(u, headers=headers, params=params)
             if r.status_code != 200:
                 logger.error("%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
             else:

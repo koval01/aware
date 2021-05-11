@@ -567,7 +567,7 @@ def load_more(request):
             user_referer = request.headers['HTTP_REFERER']
         except Exception as e:
             logger.warning(e)
-            user_referer = 'no'
+            user_referer = None
 
         if not search_index:
             search_index = 0
@@ -581,7 +581,7 @@ def load_more(request):
             videos = tiktok_data_get()
 
         if token and typeload:
-            if typeload == 'newsession':
+            if typeload == 'newsession' and covid_stat_append:
                 covid_stat_ua = covid_stat('UA')
                 covid_stat_ru = covid_stat('RU')
             else:

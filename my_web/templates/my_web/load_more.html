@@ -72,8 +72,7 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username"><a href="{% url 'news_page' %}"
-                    style="background: #fff;border-radius: 5px;padding: 0.17em">
+                    <label class="username"><a href="{% url 'news_page' %}">
                         Новости от AWARE</a>
                     </label><br>
                     <label class="city"><i>Подборка новостей на сегодня от AWARE</i></label><br>
@@ -217,7 +216,7 @@
                                 {% endif %}
                                 <br/><br/>
                                 <b>
-                                    Источник - <a href="{{ el.0.4 }}" style="background: #fff;border-radius: 5px;padding: 0.17em">{{ el.0.2 }}</a>
+                                    Источник - <a href="{{ el.0.4 }}">{{ el.0.2 }}</a>
                                 </b>
                                 <br>
                                 <i>
@@ -233,8 +232,7 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label class="username"><a target="_blank" href="{{ el.1.link }}"
-                        style="background: #fff;border-radius: 5px;padding: 0.17em">
+                        <label class="username"><a target="_blank" href="{{ el.1.link }}">
                             {{ el.1.title }}</a>
                         </label><br>
                         <label class="city">

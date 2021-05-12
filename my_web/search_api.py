@@ -63,11 +63,11 @@ def data_prepare(data) -> dict:
                 split_snippet = str(snippet).split()
                 array_done = []
 
-                # for i in split_snippet:
-                #     if len(i) > 27:
-                #         i = i[:27]+"..."
-                #     array_done.append(i)
-                # snippet = " ".join(array_done)
+                for x in split_snippet:
+                    if len(x) > 27:
+                        x = x[:27]+"..."
+                    array_done.append(x)
+                snippet = " ".join(array_done)
 
                 array.append(dict(
                     title=i['title'],

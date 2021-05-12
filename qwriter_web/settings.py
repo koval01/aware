@@ -35,6 +35,7 @@ if DEBUG:
     SECRET_KEY = 'debugsecretkey'
     ALLOWED_HOSTS = ['*']
     LOG_HANDLERS = ['console']
+    append_gunicorn_config = False
     DB_HOST = 'localhost'
     DB_PASS = 'Piramida13'
     DB_USER = 'postgres'
@@ -47,6 +48,7 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console', 'gunicorn']
+    append_gunicorn_config = True
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
     DB_HOST = 'localhost'
@@ -58,8 +60,18 @@ else:
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
 
-RETOKEN_PUBLIC = os.environ['RECAPTCHA_PUBLIC_KEY']
-RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
+DEPLOY_RETOKEN_PUBLIC = os.environ['RECAPTCHA_PUBLIC_KEY']
+DEPLOY_RETOKEN_PRIVATE = os.environ['RECAPTCHA_PRIVATE_KEY']
+
+TEST_RETOKEN_PUBLIC = '6Lep8tEaAAAAAKr5V662XA4LK9O-NsE23rrqo2CI'
+TEST_RETOKEN_PRIVATE = '6Lep8tEaAAAAACckN_qxPgcyuBsbEPxRF_jRqThA'
+
+if DEBUG:
+    RETOKEN_PUBLIC = TEST_RETOKEN_PUBLIC
+    RETOKEN_PRIVATE = TEST_RETOKEN_PRIVATE
+else:
+    RETOKEN_PUBLIC = DEPLOY_RETOKEN_PUBLIC
+    RETOKEN_PRIVATE = DEPLOY_RETOKEN_PRIVATE
 
 IMAGE_PROXY_KEY = os.environ['IMAGE_PROXY_KEY']
 IMAGE_PROXY_LINK_KEY = os.environ['IMAGE_LINK_KEY']
@@ -194,13 +206,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'gunicorn': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'formatter': 'verbose',
-            'filename': '/var/log/gunicorn/awse.log',
-            'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
-        },
     },
     'loggers': {
         'django': {
@@ -209,6 +214,19 @@ LOGGING = {
         },
     }
 }
+
+GUNICORN_CONFIG = {
+    'gunicorn': {
+        'level': 'DEBUG',
+        'class': 'logging.handlers.RotatingFileHandler',
+        'formatter': 'verbose',
+        'filename': '/var/log/gunicorn/awse.log',
+        'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
+    },
+}
+
+if append_gunicorn_config:
+    LOGGING['handlers'].update(GUNICORN_CONFIG)
 
 STATICFILES_FINDERS = (
    'django.contrib.staticfiles.finders.FileSystemFinder',

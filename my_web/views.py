@@ -559,7 +559,12 @@ def load_more(request):
             # If the variable does not exist, then set its value - 0
             videos = 0
 
-        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        try:
+            user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        except Exception as e:
+            user_address = '127.0.0.1'
+            logger.error(e)
+
         user_agent = request.headers['User-Agent']
         user_request_method = request.method
 

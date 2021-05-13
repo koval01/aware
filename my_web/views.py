@@ -40,6 +40,7 @@ from .telegram_controller.bot_script import heart as telegram_bot
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
 from .tiktok_static import get_data as tiktok_data_get
+from .weather_api import weather_get, get_weather_icon
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -60,6 +61,37 @@ def get_range(value) -> int:
     """
     logger.info(f'function get_range: {value}')
     return randrange(1, value)
+
+
+@register.filter
+def get_weather_ico(value) -> str:
+    """
+    Отримання піктограми погоди
+    :param value: Код погоди
+    :return: HTML код
+    """
+    return get_weather_icon(value)
+
+
+@register.filter
+def add_days_by_timestamp(value=1) -> object:
+    """
+    Функція яка додає до поточного часу дні
+    :param value: Кількість днів
+    :return: Результат (об'єкт часу)
+    """
+    s = value * 86400
+    return datetime.fromtimestamp(s)
+
+
+@register.filter
+def pop_convert_weather(value) -> str:
+    """
+    Функція, що переводить float значення pop в відсотки
+    :param value:
+    :return:
+    """
+    return str(value)[-2:] + '%'
 
 
 @register.filter
@@ -329,10 +361,10 @@ def bot_gateway(request, token):
     :param token: Secret token
     :return: response body
     """
-    # token: request.GET.get('token', '')
-    # if token == bot_check_tk:
-    #     telegram_bot(request.read().decode("utf-8"))
-    #     return HttpResponse('True')
+    token: request.GET.get('token', '')
+    if token == bot_check_tk:
+        telegram_bot(request.read().decode("utf-8"))
+        return HttpResponse('True')
 
     return error_400(request)
 
@@ -640,6 +672,9 @@ def load_more(request):
                 search_data = search_api['data']
                 search_array = search_api['array']
 
+                # Weather
+                weather = weather_get(search)
+
                 # DeepL API
                 translate_result = translate_simple(search)
 
@@ -656,7 +691,7 @@ def load_more(request):
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
-                    'translate_result': translate_result, 'mobile': mobile,
+                    'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                 })
 
     return error_400(request)

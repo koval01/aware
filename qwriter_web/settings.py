@@ -85,6 +85,8 @@ BOT_CHECK_TOKEN = os.environ['BOT_CHECK_TOKEN']
 
 ADVERTISE_BOT_KEY = os.environ['ADVERTISE_BOT_KEY']
 
+WEATHER_API_KEYS = os.environ['WEATHER_API_KEYS']
+
 TIKTOK_PAGE_ENABLED = False
 
 # Application definition

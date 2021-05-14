@@ -1,6 +1,7 @@
 from django.conf import settings
 from random import shuffle
 from json import loads
+from datetime import datetime
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
@@ -29,24 +30,41 @@ def weather_get(string) -> dict:
                     if i == 2:
                         city_local = city[:-1] + 'а'
 
-                    params = {
-                        'q': city_local,
-                        'appid': key,
-                        'lang': 'ru',
-                        'units': 'metric',
-                    }
+                    def check_word(city_in_func) -> bool:
+                        """
+                        Внутрішня функція для перевірки неправильних назв
+                        :param city_in_func: Отримана назва міста
+                        :return: Булентний результат
+                        """
+                        city_in_func = city_in_func.lower()
+                        words = {
+                            'кака',
+                        }
+                        return set(city_in_func.split()) & words
 
-                    if weather_words(string):
-                        try:
-                            r = session.get(u, params=params).text
-                            result = loads(r)
-                            if result['cod'] == 200:
-                                return result
-                        except Exception as e:
-                            logger.error(e)
+                    if not check_word(city_local):
+
+                        params = {
+                            'q': city_local,
+                            'appid': key,
+                            'lang': 'ru',
+                            'units': 'metric',
+                        }
+
+                        if weather_words(string):
+                            try:
+                                r = session.get(u, params=params).text
+                                result = loads(r)
+                                if result['cod'] == 200:
+                                    return dict(
+                                        now_weather=result,
+                                        future_weather=weather_by_days_get(city_local),
+                                    )
+                            except Exception as e:
+                                logger.error(e)
 
 
-def weather_by_days_get(city) -> dict:
+def weather_by_days_get(city) -> list:
     """
     Отримання даних про погоду по днях (12:00)
     :param city: Строка в якій потрібно знайти назву міста
@@ -65,19 +83,10 @@ def weather_by_days_get(city) -> dict:
             try:
                 r = session.get(u, params=params).text
                 result = loads(r)
-                if result['cod'] == 200:
-                    return result
+                if result['cod'] == "200":
+                    return [b for b in result['list'] if '12:00:00' in b['dt_txt'] and datetime.fromtimestamp(b['dt']).day != datetime.now().day]
             except Exception as e:
                 logger.error(e)
-
-
-def get_data_by_days(data) -> list:
-    """
-    Функція яка формує список даних про погоду
-    :param data: Масив з даними
-    :return: List result
-    """
-    pass
 
 
 def get_weather_icon(code) -> str:
@@ -106,18 +115,17 @@ def get_weather_icon(code) -> str:
         return '<i class="fas fa-smog"></i>'
 
 
-def weather_words(string) -> bool:
+def weather_words(string) -> list:
     """
     Перевірка строки, чи пов'язана вона з погодою
     :param string: Стока яку потрібно перевірити
     :return: Результат перевірки
     """
-    words = [
+    words = {
         'погода', 'погоды', 'погоде', 'погоду', 'погодой', 'погодою', 'погодах', 'погодами', 'погодам',
         'weather',
-    ]
+    }
     string = string.lower()
+    in_data = set(string.split()) & words
 
-    for i in words:
-        if i in string:
-            return True
+    return [True for i in words if in_data]

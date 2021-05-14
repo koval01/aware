@@ -81,70 +81,60 @@
         </div>
     {% endif %}
     {% if weather %}
-        <div class="col-10 col-lg-8 padding-block-center-box" style="margin: auto;">
+        <div class="col-10 col-lg-6 padding-block-center-box" style="margin: auto;">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <div class="col-xs-12">
                         <div class="weather-panel col-xs-12 col-sm-12"
                         style="color: #fff;">
                             <div class="col-xs-6">
-                                <h2>{{ weather.name }}<br>
+                                <h2>{{ weather.now_weather.name }}<br>
                                     <small style="color: inherit;font-size: 50%;">
-                                        {% now "j E" %}
+                                        {% now "l, j E" %}
                                     </small>
                                 </h2>
                                 <p class="h3">
-                                    {{ weather.weather.0.icon|get_weather_ico|safe }}
-                                    &nbsp;{{ weather.weather.0.description|capfirst }}
+                                    {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
+                                    &nbsp;{{ weather.now_weather.weather.0.description|capfirst }}
                                 </p>
                                 <p>
                                     <i class="fas fa-temperature-low"></i>
-                                    Ощущается как {{ weather.main.feels_like|floatformat:"0" }}°
+                                    Ощущается как {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
                                 </p>
                                 <p>
                                     <i class="fas fa-wind"></i>
-                                    {{ weather.wind.speed }} м/сек
+                                    {{ weather.now_weather.wind.speed }} м/сек
                                 </p>
                             </div>
                             <div class="col-xs-6 text-center">
                                 <div class="h1 temperature">
-                                    <span style="font-size: 2em;">{{ weather.main.temp|floatformat:"0" }}°</span>
+                                    <span style="font-size: 2em;">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
                                     <br>
                                     <small style="color: inherit;font-size: 50%;">
-                                        {{ weather.main.temp_min|floatformat:"0" }}° / {{ weather.main.temp_max|floatformat:"0" }}°
+                                        {{ weather.now_weather.main.temp_min|floatformat:"0" }}° / {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
                                     </small>
                                 </div>
                             </div>
                             <div class="col-xs-12">
                                 <ul class="list-inline row forecast">
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
+                                    <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                         <h3 class="h5">{% now "D" %}</h3>
                                         <p>
-                                            {{ weather.weather.0.icon|get_weather_ico|safe }}
+                                            {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
                                             <br>
-                                            {{ weather.main.temp_min|floatformat:"0" }}°/{{ weather.main.temp_max|floatformat:"0" }}°
+                                            {{ weather.now_weather.main.temp|floatformat:"0" }}°
                                         </p>
                                     </li>
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{{ 1|add_days_by_timestamp|date:"D" }}</h3>
-                                        <p><i class="fas fa-cloud-sun"></i><br>12°/23°</p>
-                                    </li>
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{{ 2|add_days_by_timestamp|date:"D" }}</h3>
-                                        <p><i class="fas fa-cloud-sun"></i><br>14°/24°</p>
-                                    </li>
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{{ 3|add_days_by_timestamp|date:"D" }}</h3>
-                                        <p><i class="fas fa-cloud-sun"></i><br>15°/23°</p>
-                                    </li>
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{{ 4|add_days_by_timestamp|date:"D" }}</h3>
-                                        <p><i class="fas fa-cloud-sun"></i><br>15°/22°</p>
-                                    </li>
-                                    <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{{ 5|add_days_by_timestamp|date:"D" }}</h3>
-                                        <p><i class="fas fa-cloud-sun"></i><br>12°/17°</p>
-                                    </li>
+                                    {% for weather_el in weather.future_weather %}
+                                        <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
+                                            <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D" }}</h3>
+                                            <p>
+                                                {{ weather_el.weather.0.icon|get_weather_ico|safe }}
+                                                <br>
+                                                {{ weather_el.main.temp|floatformat:"0" }}°
+                                            </p>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>

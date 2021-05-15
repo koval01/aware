@@ -30,6 +30,10 @@
         color: #4d82d8;
     }
 
+    a:visited {
+        color: #7369ea;
+    }
+
     *:focus {
         outline: none;
     }

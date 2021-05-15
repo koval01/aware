@@ -60,6 +60,12 @@ def data_prepare(data) -> dict:
                     snippet = '...'
                     logger.warning(e)
 
+                try:
+                    thumb = i['pagemap']['cse_thumbnail'][0]['src']
+                except Exception as e:
+                    thumb = None
+                    logger.warning(e)
+
                 split_snippet = str(snippet).split()
                 array_done = []
 
@@ -74,6 +80,7 @@ def data_prepare(data) -> dict:
                     link=i['link'],
                     displayLink=i['displayLink'],
                     snippet=snippet,
+                    thumb=thumb,
                 ))
             return dict(s_info=s_info, array=array)
     except Exception as e:

@@ -299,6 +299,15 @@
                             {{ el.1.title }}</a>
                         </label><br>
                         <label class="city">
+                            {% if el.1.thumb %}
+                                <img
+                                        id="{{ 16|get_random_string }}"
+                                        src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                        onerror="imgError(this);"
+                                        style="margin-top: 1%;width: 20%;margin-right: 10px;height: auto;-webkit-appearance: none;border-radius: 5px;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                        alt="Изображения предварительного просмотра"
+                                >
+                            {% endif %}
                             <p>{{ el.1.displayLink }}</p>
                             <i>{{ el.1.snippet }}</i>
                         </label><br>

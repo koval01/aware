@@ -209,8 +209,13 @@ def image_proxy_view(request):
     """
     try:
         salt = Fernet(sign_key)
-        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
+        try:
+            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        except Exception as e:
+            original_address = '127.0.0.1'
+            logger.error(e)
+
         if original_address == received_address:
             try:
                 video = request.GET['video_mode']

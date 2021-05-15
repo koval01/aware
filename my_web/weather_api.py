@@ -84,7 +84,7 @@ def weather_by_days_get(city) -> list:
                 r = session.get(u, params=params).text
                 result = loads(r)
                 if result['cod'] == "200":
-                    return [b for b in result['list'] if '12:00:00' in b['dt_txt'] and datetime.fromtimestamp(b['dt']).day != datetime.now().day]
+                    return [b for b in result['list'] if '09:00:00' in b['dt_txt'] and datetime.fromtimestamp(b['dt']).day != datetime.now().day]
             except Exception as e:
                 logger.error(e)
 

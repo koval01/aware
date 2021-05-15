@@ -80,7 +80,7 @@ def add_days_by_timestamp(value=1) -> object:
     :param value: Кількість днів
     :return: Результат (об'єкт часу)
     """
-    s = (value + 1) * 86400
+    s = (value * 86400) + round(time())
     return datetime.fromtimestamp(s)
 
 

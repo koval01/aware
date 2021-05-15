@@ -81,7 +81,7 @@
         </div>
     {% endif %}
     {% if weather %}
-        <div class="col-10 col-lg-6 padding-block-center-box" style="margin: auto;">
+        <div class="col-12 col-lg-12 padding-block-center-box" style="margin: auto;">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <div class="col-xs-12">
@@ -126,6 +126,7 @@
                                         </p>
                                     </li>
                                     {% for weather_el in weather.future_weather %}
+                                        <!-- {{ forloop.counter }} -->
                                         <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                             <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D" }}</h3>
                                             <p>

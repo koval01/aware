@@ -315,11 +315,15 @@
                                         frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen=""
-                                        style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 5px;padding: 0px;text-align: left;padding-bottom: 5px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                        style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
                                 ></iframe>
                             {% endif %}
-                            <p>{{ el.1.displayLink }}</p>
-                            <i>{{ el.1.snippet }}</i>
+                            <p style="margin-top: 0.8em;">
+                                {{ el.1.displayLink }}
+                            </p>
+                            <i>
+                                {{ el.1.snippet }}
+                            </i>
                         </label><br>
                     </div>
                 </div>

@@ -374,7 +374,7 @@ def bot_gateway(request, token):
     token: request.GET.get('token', '')
     try:
         logger.info('Get webhook request from Telegram API')
-        telegram_bot(request.read().decode("utf-8"))
+        telegram_bot(request.read().decode("utf-8"), token)
         return HttpResponse('True')
     except Exception as e:
         logger.error(e)

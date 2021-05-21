@@ -47,7 +47,7 @@ else:
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
-    LOG_HANDLERS = ['console', 'gunicorn']
+    LOG_HANDLERS = ['console']
     append_gunicorn_config = False  # Heroku mode
     SECURE_SSL_REDIRECT = False  # Heroku mode
     PREPEND_WWW = True

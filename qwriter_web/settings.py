@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
@@ -48,12 +48,12 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console', 'gunicorn']
-    append_gunicorn_config = True
-    SECURE_SSL_REDIRECT = True
+    append_gunicorn_config = False  # Heroku mode
+    SECURE_SSL_REDIRECT = False  # Heroku mode
     PREPEND_WWW = True
-    DB_HOST = 'localhost'
-    DB_USER = 'db_admin'
-    DB_NAME = 'aware_database'
+    DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
+    DB_USER = 'hhsqjxbatavscv'
+    DB_NAME = 'dfcsnien868r9s'
     DB_PASS = os.environ['DB_PASS']
     ssl_mode = None
 
@@ -217,15 +217,15 @@ LOGGING = {
     }
 }
 
-GUNICORN_CONFIG = {
-    'gunicorn': {
-        'level': 'DEBUG',
-        'class': 'logging.handlers.RotatingFileHandler',
-        'formatter': 'verbose',
-        'filename': '/var/log/gunicorn/awse.log',
-        'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
-    },
-}
+# GUNICORN_CONFIG = {
+#     'gunicorn': {
+#         'level': 'DEBUG',
+#         'class': 'logging.handlers.RotatingFileHandler',
+#         'formatter': 'verbose',
+#         'filename': '/var/log/gunicorn/awse.log',
+#         'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
+#     },
+# }
 
 if append_gunicorn_config:
     LOGGING['handlers'].update(GUNICORN_CONFIG)
@@ -261,11 +261,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-#STATICFILES_DIRS = (
-#    # os.path.join(BASE_DIR, '../my_web/static'),
-#    '/home/code/qwriter_web/my_web/static',
-#)
+STATICFILES_DIRS = (
+   # os.path.join(BASE_DIR, '../my_web/static'),
+   '/home/code/qwriter_web/my_web/static',
+)
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 22.04.2021
+# 21.05.2021

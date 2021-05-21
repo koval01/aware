@@ -1,9 +1,10 @@
 from json import loads
 from .covid.config import USER_AGENT
+from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 from random import shuffle
 from bs4 import BeautifulSoup
-import logging, requests_cache
+import logging, requests_cache, re
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
@@ -40,6 +41,27 @@ def get_result(question, index=1) -> dict:
                 return loads(r.text)
         except Exception as e:
             logger.error(e)
+
+
+def search_youtube(link) -> str:
+    """
+    Перевірка чи веде посилання на YouTube
+    :return: ID відео або None, якщо не веде на YouTube
+    """
+    domains = [
+        'youtube.com', 'youtu.be',
+    ]
+    url = urlparse(link)
+
+    try:
+        if re.search(domains[0], link):
+            return parse_qs(url.query)['v'][0]
+
+        elif re.search(domains[1], link):
+            return url.path.replace('/', '')
+
+    except Exception as e:
+        logger.warning(e)
 
 
 def data_prepare(data) -> dict:
@@ -81,6 +103,7 @@ def data_prepare(data) -> dict:
                     displayLink=i['displayLink'],
                     snippet=snippet,
                     thumb=thumb,
+                    youtube=search_youtube(i['link']),
                 ))
             return dict(s_info=s_info, array=array)
     except Exception as e:

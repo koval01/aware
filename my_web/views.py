@@ -674,6 +674,7 @@ def load_more(request):
                             search_type_data,
                             user_request_method,
                             user_referer,
+                            search_index,
                         )
                     ).start()
 

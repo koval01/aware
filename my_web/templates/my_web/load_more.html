@@ -310,15 +310,18 @@
                                         alt="Изображения предварительного просмотра"
                                 >
                             {% elif el.1.youtube %}
-                                <iframe
-                                        id="{{ 32|get_random_string }}"
-                                        src="https://www.youtube.com/embed/{{ el.1.youtube }}"
-                                        title="YouTube video player"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen=""
-                                        style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                ></iframe>
+                                <div class="view-container-youtube-video">
+                                    <iframe
+                                            id="{{ 32|get_random_string }}"
+                                            src="https://www.youtube.com/embed/{{ el.1.youtube }}"
+                                            title="YouTube video player"
+                                            frameborder="0"
+                                            loading="lazy"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen=""
+                                            style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                    ></iframe>
+                                </div>
                             {% endif %}
                             <p style="margin-top: 0.8em;">
                                 {{ el.1.displayLink }}

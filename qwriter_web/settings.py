@@ -217,15 +217,15 @@ LOGGING = {
     }
 }
 
-# GUNICORN_CONFIG = {
-#     'gunicorn': {
-#         'level': 'DEBUG',
-#         'class': 'logging.handlers.RotatingFileHandler',
-#         'formatter': 'verbose',
-#         'filename': '/var/log/gunicorn/awse.log',
-#         'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
-#     },
-# }
+GUNICORN_CONFIG = {
+    'gunicorn': {
+        'level': 'DEBUG',
+        'class': 'logging.handlers.RotatingFileHandler',
+        'formatter': 'verbose',
+        'filename': '/var/log/gunicorn/awse.log',
+        'maxBytes': 1024 * 1024 * 40,  # bytes * kilobytes * 40 megabytes
+    },
+}
 
 if append_gunicorn_config:
     LOGGING['handlers'].update(GUNICORN_CONFIG)
@@ -261,10 +261,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-   # os.path.join(BASE_DIR, '../my_web/static'),
-   '/home/code/qwriter_web/my_web/static',
-)
+# STATICFILES_DIRS = (
+#    # os.path.join(BASE_DIR, '../my_web/static'),
+#    '/home/code/qwriter_web/my_web/static',
+# )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

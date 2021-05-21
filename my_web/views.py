@@ -372,10 +372,12 @@ def bot_gateway(request, token):
     :return: response body
     """
     token: request.GET.get('token', '')
-    if token == bot_check_tk:
+    try:
         logger.info('Get webhook request from Telegram API')
         telegram_bot(request.read().decode("utf-8"))
         return HttpResponse('True')
+    except Exception as e:
+        logger.error(e)
 
     return error_400(request)
 

@@ -4,6 +4,7 @@ from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 from random import shuffle
 from bs4 import BeautifulSoup
+from string import punctuation
 import logging, requests_cache, re
 
 logger = logging.getLogger(__name__)
@@ -64,7 +65,36 @@ def search_youtube(link) -> str:
         logger.warning(e)
 
 
-def data_prepare(data) -> dict:
+def search_words_in_result(search_text, result_text) -> str:
+    """
+    Пошук слів у результатах із запиту користувача
+    :param search_text: Текст пошукового запиту
+    :param result_text: Текст результату пошуку
+    :return: Відредагований текст для результату
+    """
+    tag_template = '<b style="color: #808080;text-decoration: underline;">%s</b>'
+
+    symbols = punctuation.replace('', ' ').split()
+
+    for i in symbols:
+        search_text = search_text.replace(i, ' ')
+
+    only_letters_search = ''.join(w for w in search_text if w.isalpha() or w == ' ')
+    result = result_text
+
+    for i in only_letters_search.split():
+        result = result.replace(i, tag_template % i)
+
+    return result.replace('> <', '>&nbsp;<')
+
+
+def data_prepare(data, search_text) -> dict:
+    """
+    Обробка і підготовка даних
+    :param data: Масив з даними
+    :param search_text: Пошуковий запит
+    :return: Сформований масив даних
+    """
     try:
         if data['searchInformation']['totalResults']:
             array = []
@@ -96,6 +126,8 @@ def data_prepare(data) -> dict:
                         x = x[:27]+"..."
                     array_done.append(x)
                 snippet = " ".join(array_done)
+
+                snippet = search_words_in_result(search_text, snippet)
 
                 array.append(dict(
                     title=i['title'],
@@ -133,7 +165,7 @@ def search(string) -> dict:
             else:
                 s = i * 10 + 1
             x = get_result(string, s)
-            d = data_prepare(x)
+            d = data_prepare(x, string)
             if i == 1:
                 data = d['s_info']
             array = array + d['array']
@@ -151,7 +183,7 @@ def search_custom_index(string, index) -> dict:
     :return: Список результатів
     """
     x = get_result(string, index)
-    d = data_prepare(x)
+    d = data_prepare(x, string)
     return dict(data=d['s_info'], array=d['array'])
 
 

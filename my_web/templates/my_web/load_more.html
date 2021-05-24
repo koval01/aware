@@ -16,8 +16,7 @@
                         <h6>📝Протестировано: <b>{{ covid_ua.4 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ua.5 }}</b></h6>
-                        <br/>
-                    </label><br/>
+                    </label>
                 </div>
             </div>
         </div>
@@ -34,8 +33,7 @@
                         <h6>📝Протестировано: <b>{{ covid_ru.0 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ru.5 }}</b></h6>
-                        <br/>
-                    </label><br/>
+                    </label>
                 </div>
             </div>
         </div>
@@ -48,7 +46,11 @@
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <label class="username">Калькулятор</label><br>
-                    <label class="city"><i>{{ c_input }}&nbsp;=&nbsp;{{ c_result }}</i></label><br>
+                    <label class="city">
+                        <i>
+                            {{ c_input }}&nbsp;=&nbsp;{{ c_result }}
+                        </i>
+                    </label>
                 </div>
             </div>
         </div>
@@ -59,11 +61,15 @@
                 <div style="float: left;">
                     <label class="username">Переводчик</label><br>
                     <label class="city">
-                        <i>{{ search }}</i>
+                        <i>
+                            {{ search }}
+                        </i>
                         <br/><br/>
-                        <b>{{ translate_result }}</b>
+                        <b>
+                            {{ translate_result }}
+                        </b>
                         <br/><br/>
-                    </label><br>
+                    </label>
                 </div>
             </div>
         </div>
@@ -75,7 +81,11 @@
                     <label class="username"><a href="{% url 'news_page' %}">
                         Новости от AWARE</a>
                     </label><br>
-                    <label class="city"><i>Подборка новостей на сегодня от AWARE</i></label><br>
+                    <label class="city">
+                        <i>
+                            Подборка новостей на сегодня от AWARE
+                        </i>
+                    </label>
                 </div>
             </div>
         </div>
@@ -164,7 +174,7 @@
                             <br/>
                             Обновлено: {{ el.update_time }} (Время на сервере)
                         </p>
-                    </label><br>
+                    </label>
                 </div>
             </div>
         </div>
@@ -203,7 +213,7 @@
                         <br/><br/>
                         {{ videos.0.desc }}
                     </p>
-                </label><br>
+                </label>
             </div>
         </div>
     </div>
@@ -231,7 +241,7 @@
                         <span title="Длительность">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
                         <br/><br/>
                         <a href="{{ videos.0.music.playUrl }}" target="_blank">Перейти к треку</a>
-                    </label><br>
+                    </label>
                 </div>
             </div>
         </div>
@@ -254,7 +264,7 @@
                 <label class="city">
                     {# User profile description (bio) #}
                     {{ videos.0.author.signature }}
-                </label><br>
+                </label>
             </div>
         </div>
     </div>
@@ -285,7 +295,7 @@
                                 <i>
                                     <u>Опубликовано {{ el.0.3 }} (UTC)</u>
                                 </i>
-                            </label><br>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -336,7 +346,7 @@
                             <i>
                                 {{ el.1.snippet|safe }}
                             </i>
-                        </label><br>
+                        </label>
                     </div>
                 </div>
             </div>

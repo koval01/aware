@@ -1,11 +1,11 @@
-from json import loads
+from json import loads, dumps
 from .covid.config import USER_AGENT
 from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 from random import shuffle
 from bs4 import BeautifulSoup
 from string import punctuation
-import logging, requests_cache, re
+import logging, requests_cache, re, traceback
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
@@ -137,9 +137,10 @@ def data_prepare(data, search_text) -> dict:
                     thumb=thumb,
                     youtube=search_youtube(i['link']),
                 ))
-            return dict(s_info=s_info, array=array)
     except Exception as e:
-        logging.error(e)
+        logger.error(traceback.print_tb(e.__traceback__))
+
+    return dict(s_info=s_info, array=array)
 
 
 def search(string) -> dict:

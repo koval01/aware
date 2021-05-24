@@ -83,7 +83,8 @@ def search_words_in_result(search_text, result_text) -> str:
     result = result_text
 
     for i in only_letters_search.split():
-        result = result.replace(i, tag_template % i)
+        if len(i) >= 3:
+            result = result.replace(i, tag_template % i)
 
     return result.replace('> <', '>&nbsp;<')
 

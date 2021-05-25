@@ -1,9 +1,11 @@
 from .response_methods import *
 from types import SimpleNamespace
 from json import loads
+from formatting_parser import parser as telegram_message_entities_parser
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 def language(code):
     if code != 'ru' or code != 'uk':
@@ -22,9 +24,9 @@ class heart:
             try:
                 if ['/start'] in self.message.text:
                     m = dict(
-                        uk='Привіт! Моє ім\'я %s. Я можу тобі допомогти у пошуку інформації.',
-                        ru='Привет! Мое имя %s. Я могу тебе помочь в поиске информации.',
-                        en='Hi there! My name is %s. I can help you find information.',
+                        uk='Привіт! Моє ім\'я %s. Надішли мені текст (підтримується форматування і посилання) і я відправлю його на перевірку.',
+                        ru='Привет! Мое имя %s. Пришли мне текст (поддерживается форматирование и ссылки) и я отправлю его на проверку.',
+                        en='Hi there! My name is %s. Send me the text (formatting and links are supported) and I will send it for review.',
                     )
                     ln = language(self.message.from_user.language_code)
                     self.msg.send_message(
@@ -34,12 +36,11 @@ class heart:
             except Exception as e:
                 logger.error("start: %s" % e)
 
-        def help_(self):
+        def text(self):
             try:
-                if ['/help'] in self.message.text:
-                    pass
+                print(self.message.text)
             except Exception as e:
-                logger.debug("help_: %s" % e)
+                logger.debug("text: %s" % e)
 
     except Exception as e:
         logger.warning("heart: %s" % e)

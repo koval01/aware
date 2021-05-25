@@ -1,7 +1,7 @@
 from .response_methods import *
 from types import SimpleNamespace
 from json import loads
-from formatting_parser import parser as telegram_message_entities_parser
+from .formatting_parser import parser as telegram_message_entities_parser
 import logging
 
 logger = logging.getLogger(__name__)

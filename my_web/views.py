@@ -371,13 +371,13 @@ def bot_gateway(request, token):
     :param token: Secret token
     :return: response body
     """
-    token: request.GET.get('token', '')
-    try:
-        logger.info('Get webhook request from Telegram API')
-        telegram_bot(request.read().decode("utf-8"), token)
-        return HttpResponse('True')
-    except Exception as e:
-        logger.error(e)
+    # token: request.GET.get('token', '')
+    # try:
+    #     logger.info('Get webhook request from Telegram API')
+    #     telegram_bot(request.read().decode("utf-8"), token)
+    #     return HttpResponse('True')
+    # except Exception as e:
+    #     logger.error(e)
 
     return error_400(request)
 

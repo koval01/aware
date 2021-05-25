@@ -5,7 +5,7 @@ def parser(data) -> str:
     """
     Парсер/конвертвер розмітки повідомлення Telegram в HTML
     :param data: JSON-тіло повідомлення
-    :return: Оброблене повідомлення
+    :return: Оброблене повідомлення (З тегами HTML)
     """
     a = loads(data.text)
     text = a['message']['text']

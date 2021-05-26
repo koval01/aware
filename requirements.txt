@@ -2,6 +2,7 @@ django
 django-heroku
 django-robots
 django_compressor
+django-allauth
 gunicorn
 pip
 six

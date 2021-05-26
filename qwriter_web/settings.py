@@ -31,6 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# USE_SRI = True
+
 if DEBUG:
     SECRET_KEY = 'debugsecretkey'
     ALLOWED_HOSTS = ['*']
@@ -102,6 +104,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'compressor',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [

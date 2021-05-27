@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('news_api_cache', expire_after=3600)
 
 
-def __main__(news_append) -> list:
+def __main__(news_append, get_one=False) -> list:
     if news_append:
         error_http=False;error_json=False
         url = 'https://rapid-art.koval.workers.dev/'
@@ -50,7 +50,11 @@ def __main__(news_append) -> list:
                         ]
                         data_array.append(data_array_pre)
                     logging.info('Successfully loaded news.')
+                    if get_one:
+                        return choice(data_array)
+
                     return data_array
+
         if error_http or error_json:
             logger.error(f'Error http: {error_http}; Error json: {error_json};')
     return [['' for x in range(6)] for y in range(100)]

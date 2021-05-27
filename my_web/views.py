@@ -7,7 +7,6 @@ from random import randint, randrange
 from time import time
 from urllib.parse import urlunsplit, urlencode
 
-from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
@@ -36,7 +35,6 @@ from .recaptcha_api import get_result as recaptcha_get_result
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
 from .status_api.api import status_api as status_data_api
-from .telegram_controller.bot_script import heart as telegram_bot
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
 from .tiktok_static import get_data as tiktok_data_get
@@ -333,29 +331,39 @@ def get_ad(request):
             lang = request.GET['lang']
             valid_codes_lang = ['ua', 'ru', 'en']
 
+            try:
+                index_block_mode = request.GET['index_block_mode']
+            except Exception as e:
+                index_block_mode = False
+                logger.debug(e)
+
             if not lang or lang not in valid_codes_lang:
                 lang = "ru"
 
-            obj = Info.objects
-            all_data = obj.all().filter(i_language=lang)
-            max_retry = round(200 / (obj.count() / 4))
-            done_get = False
-            n = 0
-            while max_retry >= n:
-                n += 1  # Add cycle to counter
-                if not done_get and obj.exists():
-                    for i in all_data:
-                        if i.i_chance >= randint(1, 100):
-                            if randint(1, 6) > randint(1, 6) \
-                                    and round(time()) < round(i.i_time_active.timestamp()) \
-                                    and i.i_active == 'yes':
-                                done_get = True
-                                obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
-                                return JsonResponse(
-                                    {
-                                        "text": i.i_text,
-                                    }
-                                )
+            if index_block_mode:
+                return JsonResponse({'data': newsfeed(True, True)})
+
+            else:
+                obj = Info.objects
+                all_data = obj.all().filter(i_language=lang)
+                max_retry = round(200 / (obj.count() / 4))
+                done_get = False
+                n = 0
+                while max_retry >= n:
+                    n += 1  # Add cycle to counter
+                    if not done_get and obj.exists():
+                        for i in all_data:
+                            if i.i_chance >= randint(1, 100):
+                                if randint(1, 6) > randint(1, 6) \
+                                        and round(time()) < round(i.i_time_active.timestamp()) \
+                                        and i.i_active == 'yes':
+                                    done_get = True
+                                    obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+                                    return JsonResponse(
+                                        {
+                                            "text": i.i_text,
+                                        }
+                                    )
     except Exception as e:
         logger.error(e)
 
@@ -438,14 +446,19 @@ def index(request):
 
     search_example_get = "Что нужно найти?"
 
-    r_type = random.randint(0, 1)
-    add_ = rand_fact_or_quote(r_type)
+    news_rand = random.randint(0, 1)
+    if not news_rand:
+        r_type = random.randint(0, 1)
+        add_ = rand_fact_or_quote(r_type)
+    else:
+        r_type = 0
+        add_ = newsfeed(True, True)
 
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
-        'r_type': r_type,
+        'r_type': r_type, 'news_rand': news_rand,
     })
 
 

@@ -318,6 +318,36 @@ def search_suggestions_get(request):
     return error_400(request)
 
 
+def global_ad_function(lang) -> dict:
+    """
+    Глобальна функція для отримання реклами всередині viws.py
+    :param lang: Мова (мовний код)
+    :return: Словник з даними
+    """
+    valid_codes_lang = ['ua', 'ru', 'en']
+
+    if not lang or lang not in valid_codes_lang:
+        lang = "ru"
+
+    obj = Info.objects
+    all_data = obj.all().filter(i_language=lang)
+    if all_data.count():
+        max_retry = round(200 / (obj.count() / 4))
+        done_get = False
+        n = 0
+        while max_retry >= n:
+            n += 1  # Add cycle to counter
+            if not done_get and obj.exists():
+                for i in all_data:
+                    if i.i_chance >= randint(1, 100):
+                        if randint(1, 6) > randint(1, 6) \
+                                and round(time()) < round(i.i_time_active.timestamp()) \
+                                and i.i_active == 'yes':
+                            done_get = True
+                            obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+                            return i
+
+
 @require_GET
 def get_ad(request):
     """
@@ -459,6 +489,7 @@ def index(request):
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'r_type': r_type, 'news_rand': news_rand,
+        'advertise': global_ad_function('ru'),
     })
 
 

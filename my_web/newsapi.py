@@ -24,7 +24,7 @@ def __main__(news_append, get_one=False) -> list:
         data_array = []
         try:
             http_response = session.get(url, params=params)
-            print(http_response.text, http_response.url, http_response.status_code)
+            # print(http_response.text, http_response.url, http_response.status_code)
         except Exception as e:
             logger.error(e)
             error_http = True

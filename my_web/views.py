@@ -750,7 +750,7 @@ def load_more(request):
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                     'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                    'search_api_full_dict': search_api,
+                    'search_api_full_dict': search_api, 'advertise': global_ad_function('ru'),
                 })
 
     return error_400(request)

@@ -13,7 +13,6 @@ urlpatterns = [
     path('info/', views.info, name='info_page'),
     path('namaz/', views.namaz, name='namaz_page'),
     path('status/', views.status, name='status_page'),
-    path('bot/', views.botpage, name='bot_page'),
     path('load_more/', views.load_more, name='load_more'),
     path('bot_gateway/<str:token>/', views.bot_gateway, name='bot_gateway'),
     path('aware/', views.error_404, name='awareaddr'),

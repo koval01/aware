@@ -20,6 +20,7 @@ from requests import get
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
+from .common_functions import check_bot_request_search
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .deepl import translate_simple
@@ -220,6 +221,7 @@ def image_proxy_view(request):
             except Exception as e:
                 video = False
                 logger.warning(e)
+
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
@@ -233,6 +235,7 @@ def image_proxy_view(request):
                         link_get, stream=True,
                         headers={'user-agent': request.headers.get('user-agent')}
                     )
+
                     return StreamingHttpResponse(
                         response.raw,
                         content_type=response.headers.get('content-type'),
@@ -359,7 +362,6 @@ def get_ad(request):
         key = request.GET['key']
         if key == ad_key or recaptcha_get_result(key):
             lang = request.GET['lang']
-            valid_codes_lang = ['ua', 'ru', 'en']
 
             try:
                 index_block_mode = request.GET['index_block_mode']
@@ -367,33 +369,13 @@ def get_ad(request):
                 index_block_mode = False
                 logger.debug(e)
 
-            if not lang or lang not in valid_codes_lang:
-                lang = "ru"
-
             if index_block_mode:
                 return JsonResponse({'data': newsfeed(True, True)})
 
             else:
-                obj = Info.objects
-                all_data = obj.all().filter(i_language=lang)
-                max_retry = round(200 / (obj.count() / 4))
-                done_get = False
-                n = 0
-                while max_retry >= n:
-                    n += 1  # Add cycle to counter
-                    if not done_get and obj.exists():
-                        for i in all_data:
-                            if i.i_chance >= randint(1, 100):
-                                if randint(1, 6) > randint(1, 6) \
-                                        and round(time()) < round(i.i_time_active.timestamp()) \
-                                        and i.i_active == 'yes':
-                                    done_get = True
-                                    obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
-                                    return JsonResponse(
-                                        {
-                                            "text": i.i_text,
-                                        }
-                                    )
+                data = global_ad_function(lang)
+                return JsonResponse({"text": data.i_text})
+
     except Exception as e:
         logger.error(e)
 
@@ -587,17 +569,6 @@ def info(request):
 
 
 @require_GET
-def botpage(request):
-    """
-    Bot info page view
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function index: request {request}')
-    return render(request, 'my_web/botpage.html', )
-
-
-@require_GET
 def awareview(request, awareid):
     """
     Aware page view
@@ -751,6 +722,7 @@ def load_more(request):
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                     'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                     'search_api_full_dict': search_api, 'advertise': global_ad_function('ru'),
+                    'check_bot_request_search': check_bot_request_search(search),
                 })
 
     return error_400(request)

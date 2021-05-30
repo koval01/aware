@@ -6,8 +6,9 @@ from random import shuffle
 from bs4 import BeautifulSoup
 from string import punctuation
 from .models import BlackWord
+from .common_functions import similarity
 import logging, requests_cache, \
-    re, traceback, difflib
+    re, traceback, pafy
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
@@ -47,7 +48,7 @@ def get_result(question, index=1) -> dict:
             logger.error(e)
 
 
-def search_youtube(link) -> str:
+def search_youtube(link) -> dict:
     """
     Перевірка чи веде посилання на YouTube
     :return: ID відео або None, якщо не веде на YouTube
@@ -59,10 +60,16 @@ def search_youtube(link) -> str:
 
     try:
         if re.search(domains[0], link):
-            return parse_qs(url.query)['v'][0]
+            video_id = parse_qs(url.query)['v'][0]
 
         elif re.search(domains[1], link):
-            return url.path.replace('/', '')
+            video_id = url.path.replace('/', '')
+
+        else:
+            return dict(link=None, id=None)
+
+        v = pafy.new(video_id)
+        return dict(link=v.streams[0].url_https, id=video_id)
 
     except Exception as e:
         logger.warning(e)
@@ -87,7 +94,9 @@ def search_words_in_result(search_text, result_text) -> str:
 
     for i in only_letters_search.split():
         if len(i) >= 3:
-            result = result.replace(i, tag_template % i)
+            x = re.findall(i, result, flags=re.I)
+            for w in x:
+                result = result.replace(w, tag_template % w)
 
     return result.replace('> <', '>&nbsp;<')
 
@@ -132,6 +141,7 @@ def data_prepare(data, search_text) -> dict:
                 snippet = " ".join(array_done)
 
                 snippet = search_words_in_result(search_text, snippet)
+                yt = search_youtube(i['link'])
 
                 array.append(dict(
                     title=i['title'],
@@ -139,7 +149,8 @@ def data_prepare(data, search_text) -> dict:
                     displayLink=i['displayLink'],
                     snippet=snippet,
                     thumb=thumb,
-                    youtube=search_youtube(i['link']),
+                    youtube=yt['link'],
+                    youtube_id=yt['id'],
                 ))
     except Exception as e:
         logger.error(traceback.print_tb(e.__traceback__))
@@ -153,12 +164,6 @@ def check_words_in_search_string(search_string) -> bool:
     :param search_string: Пошукова строка
     :return: Результат перевірки (bool)
     """
-    def similarity(string_one, string_two):
-        matcher = difflib.SequenceMatcher(
-            None, string_one.lower(), string_two.lower()
-        )
-        return matcher.ratio()
-
     for i in search_string.split():
         alpha = ''.join(filter(str.isalpha, i)).capitalize()
 

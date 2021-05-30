@@ -281,6 +281,18 @@
         </div>
     </div>
 {% else %}
+    {% if check_bot_request_search %}
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left; ">
+                    <label class="username">Бот AWARE в Telegram</label><br>
+                    <label class="city">
+                        Удобная поисковая система прямо в Telegram. Чтобы перейти к боту - нажмите на его псевдоним <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
+                    </label>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% for el in data %}
         {% if not additions and news_append %}
             {% if el.0.0 %}
@@ -336,17 +348,15 @@
                                         {{ el.1.displayLink }}
                                     </p>
                                 {% elif el.1.youtube %}
-                                    <div class="view-container-youtube-video">
-                                        <iframe
+                                    <div class="view-container-youtube-video" id="{{ 32|get_random_string }}">
+                                        <video
+                                                style="margin-top: 1%;opacity: 1;width: 100%;transition: opacity 0.5s linear;margin-right: 10px;height: auto;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                                controls="controls"
                                                 id="{{ 32|get_random_string }}"
-                                                src="https://www.youtube.com/embed/{{ el.1.youtube }}"
-                                                title="YouTube video player"
-                                                frameborder="0"
-                                                loading="lazy"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen=""
-                                                style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                        ></iframe>
+                                                class="video-stream"
+                                                data-youtube-id="{{ el.1.youtube_id }}"
+                                                src="{{ el.1.youtube }}"
+                                        ></video>
                                     </div>
                                     <p style="margin-top: 0.8em;">
                                         {{ el.1.displayLink }}

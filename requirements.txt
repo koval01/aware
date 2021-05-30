@@ -6,6 +6,8 @@ django-allauth
 gunicorn
 pip
 six
+youtube-dl
+pafy
 setuptools
 wheel
 lxml

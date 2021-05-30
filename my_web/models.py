@@ -58,6 +58,30 @@ class AWARE_Page(models.Model):
         verbose_name_plural = 'Страницы AWARE'
 
 
+class BlackWord(models.Model):
+    SELECT_MODE = [
+        ('yes', 'Да'),
+        ('no', 'Нет'),
+    ]
+
+    word = models.CharField('Слово', max_length=255, unique=True)
+    ano_mode = models.CharField('Анаграмма', choices=SELECT_MODE, default='yes', max_length=3)
+
+    def __str__(self):
+        return self.word
+
+    def save(self, *args, **kwargs):
+        for field_name in ['word']:
+            value = getattr(self, field_name, False)
+            if value:
+                setattr(self, field_name, value.capitalize())
+        super(BlackWord, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Черное слово'
+        verbose_name_plural = 'Черные слова'
+
+
 class Statistic(models.Model):
     u_stat = models.IntegerField('Стастика пользователей')
     b_stat = models.IntegerField('Статистика бота')

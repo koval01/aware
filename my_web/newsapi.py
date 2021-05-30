@@ -13,12 +13,18 @@ session = requests_cache.CachedSession('news_api_cache', expire_after=3600)
 
 def __main__(news_append, get_one=False) -> list:
     if news_append:
-        error_http=False;error_json=False
-        url = 'https://rapid-art.koval.workers.dev/'
-        params = {'apiKey': choice(token)}
+        error_http = False
+        error_json = False
+        url = 'https://newsapi.org/v2/top-headlines'
+        params = {
+            'country': 'ru',
+            'category': 'general',
+            'apiKey': choice(token),
+        }
         data_array = []
         try:
             http_response = session.get(url, params=params)
+            print(http_response.text, http_response.url, http_response.status_code)
         except Exception as e:
             logger.error(e)
             error_http = True

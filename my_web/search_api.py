@@ -1,14 +1,17 @@
-from json import loads, dumps
+from json import loads
 from .covid.config import USER_AGENT
 from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 from random import shuffle
 from bs4 import BeautifulSoup
 from string import punctuation
-import logging, requests_cache, re, traceback
+from .models import BlackWord
+import logging, requests_cache, \
+    re, traceback, difflib
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
+null_search_dict = [['' for _ in range(6)] for y in range(100)]
 
 
 def get_result(question, index=1) -> dict:
@@ -32,7 +35,7 @@ def get_result(question, index=1) -> dict:
                 "cx": cx,
                 "q": question,
                 "queries": 10,
-                "safe": 0,
+                "safe": 'active',
                 "start": index,
             }
             r = session.get(u, headers=headers, params=params)
@@ -144,6 +147,32 @@ def data_prepare(data, search_text) -> dict:
     return dict(s_info=s_info, array=array)
 
 
+def check_words_in_search_string(search_string) -> bool:
+    """
+    Функція яка перевіряє пошукову стрічку на наявність заборонених слів
+    :param search_string: Пошукова строка
+    :return: Результат перевірки (bool)
+    """
+    def similarity(string_one, string_two):
+        matcher = difflib.SequenceMatcher(
+            None, string_one.lower(), string_two.lower()
+        )
+        return matcher.ratio()
+
+    for i in search_string.split():
+        alpha = ''.join(filter(str.isalpha, i)).capitalize()
+
+        for word in BlackWord.objects.values('word'):
+            word = word['word']
+
+            if alpha.lower() == word.lower():
+                return True
+
+            if similarity(alpha, word) >= 0.75:
+                if BlackWord.objects.filter(word=word.capitalize()).values('ano_mode')[0]['ano_mode'] == 'yes':
+                    return True
+
+
 def search(string) -> dict:
     """
     Функція пошуку
@@ -151,10 +180,7 @@ def search(string) -> dict:
     :return: Список результатів
     """
     def search_error():
-        return dict(
-            data='',
-            array=[['' for _ in range(6)] for y in range(100)]
-        )
+        return dict(data='', array=null_search_dict)
 
     try:
         if not string:
@@ -171,7 +197,7 @@ def search(string) -> dict:
             if i == 1:
                 data = d['s_info']
             array = array + d['array']
-        return dict(data=data, array=array)
+        return dict(data=data, array=array, error=False)
     except Exception as e:
         logger.warning(e)
         return search_error()
@@ -196,6 +222,13 @@ def select_type(string, index) -> dict:
     :param index: Індекс
     :return: результат пошуку
     """
+    x = check_words_in_search_string(string)
+
+    if x and not index:
+        return dict(data=[], array=null_search_dict, error=x)
+    elif x and index:
+        return dict(data=[], array=null_search_dict, error=False)
+
     if index:
         return search_custom_index(string, index)
     return search(string)

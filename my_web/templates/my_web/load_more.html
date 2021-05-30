@@ -301,52 +301,94 @@
                 </div>
             {% endif %}
         {% endif %}
-        {% if el.1.title %}
+        {% if not search_api_full_dict.error %}
+            {% if el.1.title %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username" style="margin-top: -0.5em;">
+                                <a target="_blank" href="{{ el.1.link }}">
+                                    {{ el.1.title }}
+                                </a>
+                            </label><br>
+                            <label class="city">
+                                {% if el.1.thumb and not el.1.youtube %}
+                                    <img
+                                            id="{{ 32|get_random_string }}"
+                                            src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                            onerror="imgError(this);"
+                                            style="margin-top: 1%;width: 20%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                            alt="Изображения предварительного просмотра"
+                                    >
+                                    <p style="margin-top: 0.5em;">
+                                        {{ el.1.displayLink }}
+                                    </p>
+                                {% elif el.1.youtube %}
+                                    <div class="view-container-youtube-video">
+                                        <iframe
+                                                id="{{ 32|get_random_string }}"
+                                                src="https://www.youtube.com/embed/{{ el.1.youtube }}"
+                                                title="YouTube video player"
+                                                frameborder="0"
+                                                loading="lazy"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen=""
+                                                style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                        ></iframe>
+                                    </div>
+                                    <p style="margin-top: 0.8em;">
+                                        {{ el.1.displayLink }}
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        {{ el.1.displayLink }}
+                                    </p>
+                                {% endif %}
+                                <i>
+                                    {{ el.1.snippet|safe }}
+                                </i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% elif search_api_full_dict.error and forloop.counter == 1 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username" style="margin-top: -0.5em;">
-                            <a target="_blank" href="{{ el.1.link }}">
-                                {{ el.1.title }}
-                            </a>
-                        </label><br>
-                        <label class="city">
-                            {% if el.1.thumb and not el.1.youtube %}
-                                <img
-                                        id="{{ 32|get_random_string }}"
-                                        src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                                        onerror="imgError(this);"
-                                        style="margin-top: 1%;width: 20%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                        alt="Изображения предварительного просмотра"
-                                >
-                                <p style="margin-top: 0.5em;">
-                                    {{ el.1.displayLink }}
-                                </p>
-                            {% elif el.1.youtube %}
-                                <div class="view-container-youtube-video">
-                                    <iframe
-                                            id="{{ 32|get_random_string }}"
-                                            src="https://www.youtube.com/embed/{{ el.1.youtube }}"
-                                            title="YouTube video player"
-                                            frameborder="0"
-                                            loading="lazy"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen=""
-                                            style="margin-top: 1%;width: 100%;margin-right: 10px;height: 45vh;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                    ></iframe>
+                    <div class="box_aware_error">
+                        <div class="box_aware_error__ghost">
+                            <div class="symbol"></div>
+                            <div class="symbol"></div>
+                            <div class="symbol"></div>
+                            <div class="symbol"></div>
+                            <div class="symbol"></div>
+                            <div class="symbol"></div>
+                            <div class="box_aware_error__ghost-container">
+                                <div class="box_aware_error__ghost-eyes">
+                                    <div class="box_aware_error__eye-left"></div>
+                                    <div class="box_aware_error__eye-right"></div>
                                 </div>
-                                <p style="margin-top: 0.8em;">
-                                    {{ el.1.displayLink }}
-                                </p>
-                            {% else %}
-                                <p>
-                                    {{ el.1.displayLink }}
-                                </p>
-                            {% endif %}
-                            <i>
-                                {{ el.1.snippet|safe }}
-                            </i>
-                        </label>
+                                <div class="box_aware_error__ghost-bottom">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div class="box_aware_error__ghost-shadow"></div>
+                        </div>
+                        <div class="box_aware_error__description">
+                            <div class="box_aware_error__description-container">
+                                <div class="box_aware_error__description-title">
+                                    Ой!
+                                </div>
+                                <div class="box_aware_error__description-text">
+                                    Похоже, что в твоем поисковом запросе есть слово которое запретил администратор. Обратитесь к
+                                    <a href="https://t.me/Jomahmadov2002">Администратору</a>, если считаете это ошибкой.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

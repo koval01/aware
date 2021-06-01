@@ -661,7 +661,7 @@ def load_more(request):
                 token_get = 0
                 logging.error(e)
 
-            if token_get and (token_get + 1800) > round(time()):
+            if token_get and (token_get + 72000) > round(time()):
                 # data collect
                 news = newsfeed(news_append)
 

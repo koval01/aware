@@ -173,7 +173,7 @@ def check_words_in_search_string(search_string) -> bool:
             if alpha.lower() == word.lower():
                 return True
 
-            if similarity(alpha, word) >= 0.75:
+            if similarity(alpha, word) >= 0.85:
                 if BlackWord.objects.filter(word=word.capitalize()).values('ano_mode')[0]['ano_mode'] == 'yes':
                     return True
 

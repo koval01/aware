@@ -35,3 +35,20 @@ def check_bot_request_search(string) -> bool:
         for x in words_list:
             if similarity(a, x) > 0.80:
                 return True
+
+
+def check_info_request_search(string) -> bool:
+    """
+    Перевірка чи пов'язаний запит з інформацією (описом проекту)
+    :param string: Строка в якій виконується пошук
+    :return: Результат перевірки
+    """
+    words_get = string.lower().split()
+    words_list = [
+        'awse', 'aware', 'авар', 'аваре', 'awse.us', 'эвси', 'авси'
+    ]
+    for i in words_get:
+        a = ''.join(filter(str.isalpha, i))
+        for x in words_list:
+            if similarity(a, x) > 0.80:
+                return True

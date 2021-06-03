@@ -46,6 +46,7 @@ def get_namaz_data(city) -> list:
         timings=["%s: %s" % (key, value) for key, value in i['timings'].items()],
         time=convert_short(i['date']['readable']),
         hijri_year=i['date']['hijri']['year'],
+        hijri_month=i['date']['hijri']['month']['en'],
         hijri_day=i['date']['hijri']['day'],
         timezone=i['meta']['timezone'],
         update_time=datetime.today().replace(microsecond=0),

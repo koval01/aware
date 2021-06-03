@@ -20,7 +20,7 @@ from requests import get
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
-from .common_functions import check_bot_request_search
+from .common_functions import check_bot_request_search, check_info_request_search
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .deepl import translate_simple
@@ -558,17 +558,6 @@ def status(request):
 
 
 @require_GET
-def info(request):
-    """
-    Info site page view
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function info: request {request}')
-    return render(request, 'my_web/info.html')
-
-
-@require_GET
 def awareview(request, awareid):
     """
     Aware page view
@@ -713,16 +702,16 @@ def load_more(request):
                 logger.info(f'function load_more: request {request}')
 
                 return render(request, 'my_web/load_more.html', {
-                    'data': data, 'token_image_proxy': token_valid,
-                    'typeload': typeload, 'covid_ru': covid_stat_ru,
-                    'covid_ua': covid_stat_ua, 'additions': additions,
-                    'news_append': news_append, 'covid_stat_append': covid_stat_append,
+                    'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
+                    'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
+                    'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
                     'c_result': c_result, 'search': search, 'c_input': c_input,
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                     'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                     'search_api_full_dict': search_api, 'advertise': global_ad_function('ru'),
                     'check_bot_request_search': check_bot_request_search(search),
+                    'check_info_request_search': check_info_request_search(search),
                 })
 
     return error_400(request)

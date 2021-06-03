@@ -214,7 +214,7 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username">Намаз на {{ el.time }}, {{ el.hijri_day }} Рамадан {{ el.hijri_year }}</label><br>
+                    <label class="username">Намаз на {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
                     <label class="city">
                         <p>
                             <br/>
@@ -323,17 +323,31 @@
         </div>
     </div>
 {% else %}
-    {% if check_bot_request_search %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left; ">
-                    <label class="username">Бот AWARE в Telegram</label><br>
-                    <label class="city">
-                        Удобная поисковая система прямо в Telegram. Чтобы перейти к боту - нажмите на его псевдоним <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
-                    </label>
+    {% if not search_index %}
+        {% if check_bot_request_search %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label class="username">Бот AWARE в Telegram</label><br>
+                        <label class="city">
+                            Удобная поисковая система прямо в Telegram. Чтобы перейти к боту - нажмите на его псевдоним <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% elif check_info_request_search %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label class="city">
+                            Давайте мы вам расскажем о нашем проекте AWARE, он<strong> не из популярных и по финансовым причинам не привлекает широкого внимания.</strong> Но<strong> это наш сайт, который обслуживает клиентов из других городов.</strong> Мы поможем найти почти всё что угодно<strong> – бизнес, который вы захотите сменить, любимое кино, музыка, книги и даже одежды.</strong> Также есть калькулятор, просто напишите уравнение в строку поиска<strong>, и по нему ваше поисковое приложение сможет на досуге сделать всё остальное. Это своего рода бесплатно.</strong> Не забыли также о новостях<strong>, которые поднимают настроение. Наш сайт включает новости о ядерной энергии, кризисе в Америке и секретном оружии. Чем больше информации вы ищете в интернете, тем сильнее у вас оптимизм.</strong> Есть возможно посмотреть время Намаза<strong> за рубежом. Ещё вы сможете узнать что-нибудь о своей безопасности. Например, насколько реально совершить уголовное преступление на территории России. Поэтому давайте попробуем.</strong> Также вы можете обращаться к владельцу ресурса, Наджибулло, он с радостью<strong> расскажет обо всех наших услугах. Пока вы набираете текст, я расскажу о нашем алгоритме. У каждого из нас есть сайты, на которых мы размещаем информацию. На одном из них вы можете найти ссылку на этот сайт.</strong> И самое главное, не забывайте что наш сервер<strong> ничего не знает о ваших желаниях, он даже не знает о существовании этого сайта.</strong>
+                            <br/><br/>
+                            <b>Спасибо <a href="https://porfirevich.ru/">Порфировичу</a> за помощь с этим текстом. (Текст <a href="https://porfirevich.ru/">Порфировича</a> выделен жирным шрифтом)</b>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
     {% for el in data %}
         {% if not additions and news_append %}

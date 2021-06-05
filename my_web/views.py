@@ -280,6 +280,7 @@ def video_proxy_view(request):
                 reason=response.reason,
             )
             resp_obj.headers['accept-ranges'] = 'bytes'
+            resp_obj.headers['vary'] = 'Origin'
 
             return resp_obj
     except Exception as e:

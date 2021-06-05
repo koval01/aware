@@ -174,9 +174,11 @@
                                 <div class="h1 temperature">
                                     <span style="font-size: 2em;">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
                                     <br>
-                                    <small style="color: inherit;font-size: 50%;">
-                                        {{ weather.now_weather.main.temp_min|floatformat:"0" }}° / {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
-                                    </small>
+                                    {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
+                                        <small style="color: inherit;font-size: 50%;">
+                                            От {{ weather.now_weather.main.temp_min|floatformat:"0" }}° до {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
+                                        </small>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-xs-12">

@@ -1,5 +1,6 @@
 from random import choice
 from string import ascii_letters, digits
+from requests import get
 import difflib
 
 
@@ -52,3 +53,12 @@ def check_info_request_search(string) -> bool:
         for x in words_list:
             if similarity(a, x) > 0.80:
                 return True
+
+
+def check_link(link) -> str:
+    """
+    Перевірка чи є переадресації в посиланні
+    :param link: Посилання для перевірки
+    :return: Отримане посилання
+    """
+    return get(link, timeout=1).url

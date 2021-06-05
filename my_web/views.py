@@ -21,6 +21,7 @@ from requests import get
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
+from .common_functions import check_link as youtube_check_link_video
 from .common_functions import check_bot_request_search, check_info_request_search
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
@@ -397,7 +398,7 @@ def get_video_yt(request):
         if recaptcha_get_result(key) or key == 'test':
             v = pafy.new(video_id)
             link = v.streams[0].url_https
-            return JsonResponse({"link": link, "time": str(time() - s)[:5]})
+            return JsonResponse({"g_link": youtube_check_link_video(link), 'o_link': link, "time": str(time() - s)[:5]})
 
     except Exception as e:
         logger.error(e)

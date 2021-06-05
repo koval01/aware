@@ -386,13 +386,13 @@
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
-                            <label class="username" style="margin-top: -0.5em;">
-                                <a target="_blank" href="{{ el.1.link }}">
+                            <label id="{{ 32|get_random_string }}" class="username" style="margin-top: -0.5em;">
+                                <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}">
                                     {{ el.1.title }}
                                 </a>
                             </label><br>
-                            <label class="city">
-                                {% if el.1.thumb and not el.1.youtube %}
+                            <label id="{{ 32|get_random_string }}" class="city">
+                                {% if el.1.thumb and not el.1.youtube_id %}
                                     <img
                                             id="{{ 32|get_random_string }}"
                                             src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
@@ -400,32 +400,64 @@
                                             style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
                                             alt="Изображения предварительного просмотра"
                                     >
-                                    <p style="margin-top: 0.5em;">
-                                        {{ el.1.displayLink }}
-                                    </p>
-                                {% elif el.1.youtube %}
-                                    <div class="view-container-youtube-video" id="{{ 32|get_random_string }}">
-                                        <video
-                                                style="margin-top: 1%;opacity: 1;width: 100%;transition: opacity 0.5s linear;margin-right: 10px;height: auto;-webkit-appearance: none;border-radius: 2vh;padding: 0px;text-align: left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                                controls="controls"
+                                {% elif el.1.youtube_id %}
+                                    <div class="view-container-youtube-video-aware" id="{{ 32|get_random_string }}">
+                                        <img
                                                 id="{{ 32|get_random_string }}"
-                                                class="video-stream"
+                                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                                onerror="imgError(this);"
+                                                style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                                class="video_youtube_preview_image_aware"
+                                                alt="Изображения предварительного просмотра"
                                                 data-youtube-id="{{ el.1.youtube_id }}"
-                                                src="{{ el.1.youtube }}"
-                                        ></video>
+                                        >
                                     </div>
-                                    <p style="margin-top: 0.8em;">
-                                        {{ el.1.displayLink }}
-                                    </p>
-                                {% else %}
-                                    <p>
-                                        {{ el.1.displayLink }}
-                                    </p>
                                 {% endif %}
-                                <i>
+                                <p id="{{ 32|get_random_string }}">
+                                    {{ el.1.displayLink }}
+                                </p>
+                                <i id="{{ 32|get_random_string }}">
                                     {{ el.1.snippet|safe }}
                                 </i>
                             </label>
+                            {% if el.1.youtube_id %}
+                                <div
+                                        id="{{ 32|get_random_string }}"
+                                        style="margin-top: 1em;transition: margin-top 1s;"
+                                        class="hint_text_video_play_yt"
+                                >
+                                    <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                                        Для просмотра видео - нажмите на картинку
+                                    </b>
+                                </div>
+                                <div
+                                        id="{{ 32|get_random_string }}"
+                                        class="youtube_video_info_div"
+                                        style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        "
+                                        title="Для просмотра видео - нажмите на картинку"
+                                >
+                                    <span id="{{ 32|get_random_string }}" style="
+                                        margin: 0.5em;
+                                    ">YouTube&nbsp;
+                                        <i id="{{ 32|get_random_string }}" class="fab fa-youtube"></i>
+                                        <i id="{{ 32|get_random_string }}" class="spinner-border youtube_video_load_wait_aware" style="
+                                            width: 20px !important;
+                                            height: 20px !important;
+                                            display: none;
+                                            margin-left: 5px;
+                                            position: relative;
+                                            top: 0.1em;
+                                        "></i>
+                                    </span>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

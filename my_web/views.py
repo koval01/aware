@@ -1,6 +1,7 @@
 import logging
 import os
 import random
+import pafy
 from datetime import timedelta, datetime
 from multiprocessing import Process
 from random import randint, randrange
@@ -375,6 +376,28 @@ def get_ad(request):
             else:
                 data = global_ad_function(lang)
                 return JsonResponse({"text": data.i_text})
+
+    except Exception as e:
+        logger.error(e)
+
+    return error_400(request)
+
+
+@require_GET
+def get_video_yt(request):
+    """
+    Get video from YouTube
+    :param request: request body
+    :return: video direct link
+    """
+    try:
+        s = time()
+        key = request.GET['key']
+        video_id = request.GET['video_id']
+        if recaptcha_get_result(key) or key == 'test':
+            v = pafy.new(video_id)
+            link = v.streams[0].url_https
+            return JsonResponse({"link": link, "time": str(time() - s)[:5]})
 
     except Exception as e:
         logger.error(e)

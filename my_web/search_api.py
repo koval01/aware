@@ -6,9 +6,9 @@ from random import shuffle
 from bs4 import BeautifulSoup
 from string import punctuation
 from .models import BlackWord
-from .common_functions import similarity
+from .common_functions import similarity, get_random_string
 import logging, requests_cache, \
-    re, traceback, pafy
+    re, traceback
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
@@ -68,11 +68,15 @@ def search_youtube(link) -> dict:
         else:
             return dict(link=None, id=None)
 
-        v = pafy.new(video_id)
-        return dict(link=v.streams[0].url_https, id=video_id)
+        # v = pafy.new(video_id)
+        # id_ = v.streams[0].url_https
+
+        return dict(link=None, id=video_id)
 
     except Exception as e:
         logger.warning(e)
+
+    return dict(link=None, id=None)
 
 
 def search_words_in_result(search_text, result_text) -> str:
@@ -82,7 +86,7 @@ def search_words_in_result(search_text, result_text) -> str:
     :param result_text: Текст результату пошуку
     :return: Відредагований текст для результату
     """
-    tag_template = '<b style="color: #808080;text-decoration: underline;">%s</b>'
+    tag_template = '<b id="b_tag___%s" style="color: #808080;text-decoration: underline;">%s</b>'
 
     symbols = punctuation.replace('', ' ').split()
 
@@ -96,7 +100,7 @@ def search_words_in_result(search_text, result_text) -> str:
         if len(i) >= 3:
             x = re.findall(i, result, flags=re.I)
             for w in x:
-                result = result.replace(w, tag_template % w)
+                result = result.replace(w, tag_template % (get_random_string(32), w))
 
     return result.replace('> <', '>&nbsp;<')
 

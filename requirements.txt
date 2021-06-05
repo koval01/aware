@@ -21,5 +21,4 @@ whitenoise
 python-dotenv
 pydantic
 cryptography
-pymysql[rsa]
 Pillow

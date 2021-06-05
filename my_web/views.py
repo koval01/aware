@@ -250,6 +250,42 @@ def image_proxy_view(request):
 
 
 @require_GET
+def video_proxy_view(request):
+    """
+    Video proxy function
+    :param request: body request
+    :return: raw image
+    """
+    try:
+        url = request.GET['data']
+        salt_link = Fernet(img_link_proxy_key)
+        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+
+        token = request.GET['token']
+        salt = Fernet(image_proxy_key)
+        token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 3600
+
+        control_time = round(time())
+
+        if token_get > control_time:
+            response = get(
+                link_get, stream=True,
+                headers={'user-agent': request.headers.get('user-agent')}
+            )
+
+            return StreamingHttpResponse(
+                response.raw,
+                content_type=response.headers.get('content-type'),
+                status=response.status_code,
+                reason=response.reason,
+            )
+    except Exception as e:
+        logger.error(e)
+
+    return error_400(request)
+
+
+@require_GET
 @cache_page(60 * 180)
 def image_generate_api(request):
     """
@@ -397,7 +433,16 @@ def get_video_yt(request):
         if recaptcha_get_result(key) or key == 'test':
             v = pafy.new(video_id)
             link = v.streams[0].url_https
-            return JsonResponse({"g_link": link, 'o_link': None, "time": str(time() - s)[:5]})
+
+            salt = Fernet(image_proxy_key)
+            data = str.encode(str(round(time())))
+            token_valid = salt.encrypt(data).decode("utf-8")
+
+            return JsonResponse({
+                "data": link_encrypt_img(link),
+                "token": token_valid,
+                "time": str(time() - s)[:5]
+            })
 
     except Exception as e:
         logger.error(e)

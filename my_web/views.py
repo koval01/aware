@@ -273,12 +273,15 @@ def video_proxy_view(request):
                 headers={'user-agent': request.headers.get('user-agent')}
             )
 
-            return StreamingHttpResponse(
+            resp_obj = HttpResponse(
                 response.raw,
                 content_type=response.headers.get('content-type'),
                 status=response.status_code,
                 reason=response.reason,
             )
+            resp_obj.headers['accept-ranges'] = 'bytes'
+
+            return resp_obj
     except Exception as e:
         logger.error(e)
 

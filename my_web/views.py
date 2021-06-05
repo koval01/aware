@@ -276,10 +276,10 @@ def video_proxy_view(request):
             resp_obj = HttpResponse(
                 response.raw,
                 content_type=response.headers.get('content-type'),
-                status=response.status_code,
+                status=200,
                 reason=response.reason,
             )
-            resp_obj.headers['accept-ranges'] = 'bytes'
+            resp_obj.headers['Accept-Ranges'] = 'bytes'
             resp_obj.headers['vary'] = 'Origin'
 
             return resp_obj

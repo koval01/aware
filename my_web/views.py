@@ -469,9 +469,17 @@ def get_banner(request):
         key = request.GET['key']
         if recaptcha_get_result(key):
             data = global_banner_function()
+            link = "https://%s/?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s&utm_term=%s" % (
+                data.link_site,
+                data.utm_source,
+                data.utm_medium,
+                data.utm_campaign,
+                data.utm_content,
+                data.utm_term,
+            )
             return JsonResponse({
                 "link": data.link_image,
-                "ad_site": data.link_site,
+                "ad_site": link,
                 "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),
                 "time": str(time() - s)[:5]

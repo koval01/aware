@@ -200,6 +200,21 @@ def sign_address_encrypt(address) -> str:
         logger.error(e)
 
 
+def link_encrypt_img_ex(link) -> str:
+    """
+    Link encryptor
+    :param link: Link image / video
+    :return: Encrypted link
+    """
+    try:
+        salt_link = Fernet(img_link_proxy_key)
+        data_link = str.encode(str(link))
+        result = salt_link.encrypt(data_link).decode("utf-8")
+        return result
+    except Exception as e:
+        logger.error(e)
+
+
 @require_GET
 def image_proxy_view(request):
     """
@@ -478,7 +493,7 @@ def get_banner(request):
                 data.utm_term,
             )
 
-            img_link = link_encrypt_img(str(data.link_image))
+            img_link = link_encrypt_img_ex(data.link_image)
 
             return JsonResponse({
                 "link": img_link,

@@ -21,7 +21,7 @@ def weather_get(string) -> dict:
             u = 'https://api.openweathermap.org/data/2.5/weather'
             a_string = string.split()
             for city in a_string:
-                for i in range(3):
+                for i in range(4):
                     city_local = city
 
                     if i:

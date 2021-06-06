@@ -606,7 +606,6 @@ def index(request):
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'r_type': r_type, 'news_rand': news_rand,
-        'advertise': global_ad_function('ru'),
     })
 
 
@@ -844,7 +843,7 @@ def load_more(request):
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                     'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                    'search_api_full_dict': search_api,
+                    'search_api_full_dict': search_api, 'advertise': global_ad_function('ru'),
                     'check_bot_request_search': check_bot_request_search(search),
                     'check_info_request_search': check_info_request_search(search),
                 })

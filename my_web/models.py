@@ -49,11 +49,11 @@ class Banner(models.Model):
         ('no', 'Нет'),
     ]
 
-    text = models.TextField('Текст')
+    text = models.CharField('Текст', max_length=255)
     active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
     chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
     link_image = models.TextField('Ссылка на изображение')
-    link_site = models.TextField('Домен сайта (Пример - awse.us)')
+    link_site = models.CharField('Домен сайта (Пример - awse.us)', max_length=255)
     utm_source = models.CharField('UTM Source', max_length=255)
     utm_medium = models.CharField('UTM Medium', max_length=255)
     utm_campaign = models.CharField('UTM Campaign', max_length=255)

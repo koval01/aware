@@ -786,7 +786,7 @@ def load_more(request):
                     'news_search_in_str': news_link_add, 'search_data': search_data,
                     'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                     'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                    'search_api_full_dict': search_api, 'advertise': global_ad_function('ru'),
+                    'search_api_full_dict': search_api,
                     'check_bot_request_search': check_bot_request_search(search),
                     'check_info_request_search': check_info_request_search(search),
                 })

@@ -438,13 +438,8 @@ def get_video_yt(request):
             v = pafy.new(video_id)
             link = v.streams[0].url_https
 
-            salt = Fernet(image_proxy_key)
-            data = str.encode(str(round(time())))
-            token_valid = salt.encrypt(data).decode("utf-8")
-
             return JsonResponse({
-                "data": link_encrypt_img(link),
-                "token": token_valid,
+                "link": link,
                 "time": str(time() - s)[:5]
             })
 

@@ -27,8 +27,11 @@ def weather_get(string) -> dict:
                     if i:
                         city_local = city[:-1]
 
-                    if i == 2:
+                    if i > 1:
                         city_local = city[:-1] + 'а'
+
+                    if i > 2:
+                        city_local = city[:-2] + 'ы'
 
                     def check_word(city_in_func) -> bool:
                         """

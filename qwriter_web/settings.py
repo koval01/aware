@@ -51,7 +51,7 @@ else:
     ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
     LOG_HANDLERS = ['console']
     append_gunicorn_config = False  # Heroku mode
-    SECURE_SSL_REDIRECT = False  # Heroku mode
+    SECURE_SSL_REDIRECT = True
     PREPEND_WWW = True
     DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
     DB_USER = 'hhsqjxbatavscv'

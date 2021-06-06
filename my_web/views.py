@@ -257,32 +257,42 @@ def video_proxy_view(request):
     :return: raw image
     """
     try:
-        url = request.GET['data']
-        salt_link = Fernet(img_link_proxy_key)
-        link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+        salt = Fernet(sign_key)
+        received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
 
-        token = request.GET['token']
-        salt = Fernet(image_proxy_key)
-        token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 3600
+        try:
+            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        except Exception as e:
+            original_address = '127.0.0.1'
+            logger.error(e)
 
-        control_time = round(time())
+        if original_address == received_address:
+            url = request.GET['data']
+            salt_link = Fernet(img_link_proxy_key)
+            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
 
-        if token_get > control_time:
-            response = get(
-                link_get, stream=True,
-                headers={'user-agent': request.headers.get('user-agent')}
-            )
+            token = request.GET['token']
+            salt = Fernet(image_proxy_key)
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 3600
 
-            resp_obj = HttpResponse(
-                response.raw,
-                content_type=response.headers.get('content-type'),
-                status=200,
-                reason=response.reason,
-            )
-            resp_obj.headers['vary'] = 'Origin'
-            resp_obj.headers['accept-ranges'] = 'bytes'
+            control_time = round(time())
 
-            return resp_obj
+            if token_get > control_time:
+                response = get(
+                    link_get, stream=True,
+                    headers={'user-agent': request.headers.get('user-agent')}
+                )
+
+                resp_obj = HttpResponse(
+                    response.raw,
+                    content_type=response.headers.get('content-type'),
+                    status=200,
+                    reason=response.reason,
+                )
+                resp_obj.headers['vary'] = 'Origin'
+                resp_obj.headers['accept-ranges'] = 'bytes'
+
+                return resp_obj
     except Exception as e:
         logger.error(e)
 

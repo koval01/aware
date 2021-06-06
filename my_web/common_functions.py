@@ -69,4 +69,4 @@ def num_formatter(num):
     while abs(num) >= 1000:
         magnitude += 1
         num /= 1000.0
-    return '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
+    return ('%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])).replace('.00', '')

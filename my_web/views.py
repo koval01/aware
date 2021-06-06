@@ -477,8 +477,11 @@ def get_banner(request):
                 data.utm_content,
                 data.utm_term,
             )
+
+            img_link = link_encrypt_img(data.link_image)
+
             return JsonResponse({
-                "link": data.link_image,
+                "link": img_link,
                 "ad_site": link,
                 "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),

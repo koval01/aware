@@ -1,16 +1,10 @@
 from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
+from ..common_functions import num_formatter
 import logging, re, requests_cache
 
 session = requests_cache.CachedSession('covid_cache', expire_after=7200)
 logger = logging.getLogger(__name__)
-
-def num_formatter(num):
-    magnitude = 0
-    while abs(num) >= 1000:
-        magnitude += 1
-        num /= 1000.0
-    return '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
 
 
 def __main__(country='UA') -> str:

@@ -28,7 +28,7 @@ from .deepl import translate_simple
 from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
 from .load_text import get_text as loading_button_text
-from .models import AWARE_Page, Info
+from .models import AWARE_Page, Info, Banner
 from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
@@ -384,7 +384,7 @@ def global_ad_function(lang) -> dict:
         lang = "ru"
 
     obj = Info.objects
-    all_data = obj.all().filter(i_language=lang)
+    all_data = obj.all().filter(i_language=lang, i_active='yes')
     if all_data.count():
         max_retry = round(200 / (obj.count() / 4))
         done_get = False
@@ -395,8 +395,7 @@ def global_ad_function(lang) -> dict:
                 for i in all_data:
                     if i.i_chance >= randint(1, 100):
                         if randint(1, 6) > randint(1, 6) \
-                                and round(time()) < round(i.i_time_active.timestamp()) \
-                                and i.i_active == 'yes':
+                                and round(time()) < round(i.i_time_active.timestamp()):
                             done_get = True
                             obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
                             return i
@@ -433,6 +432,57 @@ def get_ad(request):
     return error_400(request)
 
 
+def global_banner_function() -> dict:
+    """
+    Глобальна функція для отримання банерів всередині viws.py
+    :return: Словник з даними
+    """
+    obj = Banner.objects
+    all_data = obj.all().filter(active='yes')
+    if all_data.count():
+        max_retry = round(200 / (obj.count() / 4))
+        if max_retry < 1:
+            max_retry = 1
+        done_get = False
+        n = 0
+        while max_retry >= n:
+            n += 1  # Add cycle to counter
+            if not done_get and obj.exists():
+                for i in all_data:
+                    if i.chance >= randint(1, 100):
+                        if randint(1, 6) > randint(1, 6) \
+                                and round(time()) < round(i.time_active.timestamp()):
+                            done_get = True
+                            obj.filter(id=i.id).update(views=i.views + 1)  # Add one view
+                            return i
+
+
+@require_GET
+def get_banner(request):
+    """
+    Get banner ad
+    :param request: request body
+    :return: video direct link
+    """
+    try:
+        s = time()
+        key = request.GET['key']
+        if recaptcha_get_result(key):
+            data = global_banner_function()
+            return JsonResponse({
+                "link": data.link_image,
+                "ad_site": data.link_site,
+                "title": data.text,
+                "id": "%s__%s" % (data.id, rand_str(32)),
+                "time": str(time() - s)[:5]
+            })
+
+    except Exception as e:
+        logger.error(e)
+
+    return error_400(request)
+
+
 @require_GET
 def get_video_yt(request):
     """
@@ -444,7 +494,7 @@ def get_video_yt(request):
         s = time()
         key = request.GET['key']
         video_id = request.GET['video_id']
-        if recaptcha_get_result(key) or key == 'test':
+        if recaptcha_get_result(key):
             v = pafy.new(video_id)
             link = v.streams[0].url_https
 

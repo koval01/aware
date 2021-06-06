@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from bs4 import BeautifulSoup
+from .common_functions import num_formatter
 import string, random
 
 
@@ -34,11 +35,43 @@ class Info(models.Model):
         views = self.i_views
         if len(title) > 30:
             title = "%s..." % str(title[:30]).rstrip()
-        return "%s (Просмотров: %s)" % (title, views)
+        return "%s (Просмотров: %s)" % (title, num_formatter(views))
 
     class Meta:
         verbose_name = 'Рекламная запись'
         verbose_name_plural = 'Рекламные записи'
+
+
+class Banner(models.Model):
+    # Choice lists
+    SELECT_ACTIVE_MODE = [
+        ('yes', 'Да'),
+        ('no', 'Нет'),
+    ]
+
+    text = models.TextField('Текст')
+    active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
+    chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
+    link_image = models.TextField('Ссылка на изображение')
+    link_site = models.TextField('Домен сайта (Пример - awse.us)')
+    utm_source = models.CharField('UTM Source', max_length=255)
+    utm_medium = models.CharField('UTM Medium', max_length=255)
+    utm_campaign = models.CharField('UTM Campaign', max_length=255)
+    utm_content = models.CharField('UTM Content', max_length=255)
+    utm_term = models.CharField('UTM Term', max_length=255)
+    views = models.PositiveIntegerField('Просмотры', default=0, editable=False)
+    time_active = models.DateTimeField('Активно до', default=timezone.now())
+
+    def __str__(self):
+        title = BeautifulSoup(self.text, 'lxml').text
+        views = self.views
+        if len(title) > 30:
+            title = "%s..." % str(title[:30]).rstrip()
+        return "%s (Просмотров: %s)" % (title, num_formatter(views))
+
+    class Meta:
+        verbose_name = 'Баннер'
+        verbose_name_plural = 'Баннеры'
 
 
 class AWARE_Page(models.Model):

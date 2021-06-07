@@ -605,11 +605,18 @@ def index(request):
         r_type = 0
         add_ = newsfeed(True, True)
 
+    try:
+        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+    except Exception as e:
+        user_address = '127.0.0.1'
+        logger.error(e)
+
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'r_type': r_type, 'news_rand': news_rand,
+        'user_address': user_address,
     })
 
 

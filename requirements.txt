@@ -6,7 +6,7 @@ django-allauth
 gunicorn
 pip
 six
-youtube-dl>1.0
+youtube-dl
 pafy
 setuptools
 wheel

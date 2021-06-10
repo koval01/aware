@@ -4,7 +4,7 @@ django-robots
 django_compressor
 django-allauth
 gunicorn
-pip
+pip>1.0
 six
 youtube-dl
 pafy

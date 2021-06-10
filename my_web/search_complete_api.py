@@ -15,11 +15,12 @@ def get_result(question) -> str:
     for i in range(3):
         try:
             headers = {
+                "referer": "https://www.google.com/",
                 "User-Agent": USER_AGENT,
             }
             params = {
                 "q": question,
-                "cp": 5,
+                "cp": len(question),
                 "client": "gws-wiz",
                 "xssi": "t",
                 "gs_ri": "gws-wiz",

@@ -1,5 +1,4 @@
 from .covid.config import USER_AGENT
-from .common_functions import get_random_string
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
@@ -51,4 +50,4 @@ def get_result_data(question) -> str:
     """
     d = get_result(question)
     r = data_prepare(d)
-    return ''.join(['<li id="%s" class="aware-recommendation-search-el">%s</li>' % (get_random_string(), i[0].replace('\\', '')) for i in r[0]])
+    return ''.join(['<li class="aware-recommendation-search-el">%s</li>' % i[0].replace('\\', '') for i in r[0]])

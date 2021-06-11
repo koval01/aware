@@ -739,7 +739,12 @@ def awareview(request, awareid):
 
 
 def my_ip_key(group, request):
-    return request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
+    try:
+        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
+    except Exception as e:
+        user_address = '127.0.0.1'
+        logger.error(e)
+    return user_address
 
 
 @require_POST

@@ -10,6 +10,7 @@ from urllib.parse import urlunsplit, urlencode
 
 from cryptography.fernet import Fernet
 from ratelimit.decorators import ratelimit
+from blacklist.ratelimit import blacklist_ratelimited
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
@@ -740,6 +741,7 @@ def awareview(request, awareid):
 @require_POST
 @cache_page(60 * 180)
 @ratelimit(key='user_or_ip', rate='1/5s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
     Technical (load_more) page view

@@ -3,6 +3,7 @@ django-heroku
 django-robots
 django_compressor
 django-ratelimit
+django-blacklist
 django-allauth
 gunicorn
 pip

@@ -284,7 +284,7 @@ def video_proxy_view(request):
                     headers={'user-agent': request.headers.get('user-agent')}
                 )
 
-                resp_obj = StreamingHttpResponse(
+                resp_obj = HttpResponse(
                     response.raw,
                     content_type=response.headers.get('content-type'),
                     status=200,

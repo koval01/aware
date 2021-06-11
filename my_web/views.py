@@ -508,10 +508,24 @@ def get_video_yt(request):
         video_id = request.GET['video_id']
         if recaptcha_get_result(key):
             v = pafy.new(video_id)
-            link = v.streams[0].url_https
+            link = link_encrypt_img(v.streams[0].url_https)
+
+            salt = Fernet(image_proxy_key)
+            data = str.encode(str(round(time())))
+            token_valid = salt.encrypt(data).decode("utf-8")
+
+            try:
+                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            except Exception as e:
+                user_address = '127.0.0.1'
+                logger.error(e)
+
+            user_address = sign_address_encrypt(user_address)
 
             return JsonResponse({
-                "link": link,
+                "data": link,
+                "token": token_valid,
+                "sign": user_address,
                 "time": str(time() - s)[:5]
             })
 

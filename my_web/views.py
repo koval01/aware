@@ -740,7 +740,7 @@ def awareview(request, awareid):
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key='header:X-Forwarded-For', rate='1/5s', block=True)
+@ratelimit(key='header:x-real-ip', rate='1/5s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """

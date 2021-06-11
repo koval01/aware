@@ -213,7 +213,7 @@ def image_proxy_view(request):
         salt = Fernet(sign_key)
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         try:
-            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
         except Exception as e:
             original_address = '127.0.0.1'
             logger.error(e)
@@ -264,7 +264,7 @@ def video_proxy_view(request):
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
 
         try:
-            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
         except Exception as e:
             original_address = '127.0.0.1'
             logger.error(e)
@@ -313,7 +313,7 @@ def image_generate_api(request):
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
     try:
-        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
     except Exception as e:
         original_address = '127.0.0.1'
         logger.error(e)
@@ -517,7 +517,7 @@ def get_video_yt(request):
             token_valid = salt.encrypt(data).decode("utf-8")
 
             try:
-                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
             except Exception as e:
                 user_address = '127.0.0.1'
                 logger.error(e)
@@ -622,7 +622,7 @@ def index(request):
         add_ = newsfeed(True, True)
 
     try:
-        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
     except Exception as e:
         user_address = '127.0.0.1'
         logger.error(e)
@@ -738,13 +738,13 @@ def awareview(request, awareid):
         return error_404(request, str(e))
 
 
-def my_key(group, request):
-    return request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+def my_ip_key(group, request):
+    return request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
 
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key=my_key, rate='1/5s', block=True)
+@ratelimit(key=my_ip_key, rate='1/10s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
@@ -776,7 +776,7 @@ def load_more(request):
             videos = 0
 
         try:
-            user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[1:]
         except Exception as e:
             user_address = '127.0.0.1'
             logger.error(e)
@@ -913,7 +913,7 @@ def error_400(request, exception='Unknown'):
     return JsonResponse({
         'code': 400,
         'description': 'Bad Request',
-        'exception': str(exception),
+        'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': request.headers['X-Forwarded-For'],
     }, status=400)
@@ -929,7 +929,7 @@ def error_403(request, exception='Unknown'):
     return JsonResponse({
         'code': 403,
         'description': 'Forbidden',
-        'exception': str(exception),
+        'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': request.headers['X-Forwarded-For'],
     }, status=403)
@@ -945,7 +945,7 @@ def error_404(request, exception='Unknown'):
     return JsonResponse({
         'code': 404,
         'description': 'Not Found',
-        'exception': str(exception),
+        'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': request.headers['X-Forwarded-For'],
     }, status=404)
@@ -961,7 +961,7 @@ def error_500(request, exception='Unknown'):
     return JsonResponse({
         'code': 500,
         'description': 'Internal Server Error',
-        'exception': str(exception),
+        'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': request.headers['X-Forwarded-For'],
     }, status=500)

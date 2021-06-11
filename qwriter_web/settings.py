@@ -125,7 +125,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'my_web.middleware.Compressor_AWARE',
+    # 'my_web.middleware.Compressor_AWARE',
 ]
 
 ROOT_URLCONF = 'qwriter_web.urls'

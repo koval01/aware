@@ -189,7 +189,7 @@ def search(string) -> dict:
     :return: Список результатів
     """
     def search_error():
-        return dict(data='', array=null_search_dict)
+        return dict(data='', array=null_search_dict, error=True)
 
     try:
         if not string:
@@ -234,9 +234,9 @@ def select_type(string, index) -> dict:
     x = check_words_in_search_string(string)
 
     if x and not index:
-        return dict(data=[], array=null_search_dict, error=x)
+        return dict(data=[], array=null_search_dict, error=True)
     elif x and index:
-        return dict(data=[], array=null_search_dict, error=False)
+        return dict(data=[], array=null_search_dict, error=True)
 
     if index:
         return search_custom_index(string, index)

@@ -9,6 +9,8 @@ from time import time
 from urllib.parse import urlunsplit, urlencode
 
 from cryptography.fernet import Fernet
+from ratelimit.decorators import ratelimit
+from blacklist.ratelimit import blacklist_ratelimited
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
@@ -738,6 +740,8 @@ def awareview(request, awareid):
 
 @require_POST
 @cache_page(60 * 180)
+@ratelimit(key='user_or_ip', rate='1/5s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
     Technical (load_more) page view
@@ -905,6 +909,8 @@ def error_400(request, exception='Unknown'):
     return JsonResponse({
         'code': 400,
         'description': 'Bad Request',
+        'exception': str(exception),
+        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
     }, status=400)
 
 
@@ -915,8 +921,12 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150] + '...')
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 403. Отказано в доступе.'}, status=403)
+    return JsonResponse({
+        'code': 403,
+        'description': 'Forbidden',
+        'exception': str(exception),
+        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+    }, status=403)
 
 
 def error_404(request, exception='Unknown'):
@@ -926,8 +936,12 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150] + '...')
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 404. Страница не найдена.'}, status=404)
+    return JsonResponse({
+        'code': 404,
+        'description': 'Not Found',
+        'exception': str(exception),
+        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+    }, status=404)
 
 
 def error_500(request, exception='Unknown'):
@@ -937,5 +951,9 @@ def error_500(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    logger.warning(str(exception)[:150] + '...')
-    return render(request, 'my_web/error.html', {'exception': 'Ошибка 500. Внутренняя ошибка сервера.'}, status=500)
+    return JsonResponse({
+        'code': 500,
+        'description': 'Internal Server Error',
+        'exception': str(exception),
+        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+    }, status=500)

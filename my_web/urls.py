@@ -19,6 +19,7 @@ urlpatterns = [
     path('tiktok/', views.tiktok, name='tiktok_page'),
     path('aware/<str:awareid>/', views.awareview),
     path('robots.txt', views.robots_txt, name='robots_txt'),
+    path('footer_load', views.footer_html, name='footer_load'),
     path('opensearch.xml', views.search_config, name='search_config'),
     path('image/', views.image_proxy_view, name='imageproxy'),
     path('video/', views.video_proxy_view, name='videoproxy'),

@@ -899,6 +899,22 @@ def robots_txt(request):
 
 
 @require_GET
+def footer_html(request):
+    lines = [
+        '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
+        'Contact <a href="https://t.me/Jomahmadov2002" style="color: #636363;">Jomahmadov Najibullo</a>',
+        '</p><br>',
+        '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
+        'Developed by <a href="https://t.me/koval_yaroslav" style="color: #636363;">Koval Yaroslav</a>',
+        '</p><br>',
+        '<p style="color: #a5a5a5;font-size:10px;margin-bottom:-5%;">',
+        'This site is protected with <a href="https://www.google.com/recaptcha/about/" style="color: #636363;">Google ReCaptcha</a>.',
+        '</p>',
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+@require_GET
 def search_config(request):
     """
     Search XML config

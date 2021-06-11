@@ -3,7 +3,7 @@
 {# Template for generating a tape of records on the main page of the site. #}
 {# Imagine that this code was not written by me. I don't really like him. #}
 
-{% if advertise and data %}
+{% if advertise and data and not search_api_full_dict.error %}
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <div style="float: left;">

@@ -749,7 +749,7 @@ def my_ip_key(group, request):
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key=my_ip_key, rate='1/7s', block=True)
+@ratelimit(key=my_ip_key, rate='1/12s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """

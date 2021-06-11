@@ -749,7 +749,7 @@ def my_ip_key(group, request):
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key=my_ip_key, rate='1/10s', block=True)
+@ratelimit(key=my_ip_key, rate='1/7s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
@@ -920,7 +920,7 @@ def error_400(request, exception='Unknown'):
         'description': 'Bad Request',
         'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': request.headers['X-Forwarded-For'],
+        'x-forwarded-for': my_ip_key('ip', request),
     }, status=400)
 
 
@@ -936,7 +936,7 @@ def error_403(request, exception='Unknown'):
         'description': 'Forbidden',
         'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': request.headers['X-Forwarded-For'],
+        'x-forwarded-for': my_ip_key('ip', request),
     }, status=403)
 
 
@@ -952,7 +952,7 @@ def error_404(request, exception='Unknown'):
         'description': 'Not Found',
         'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': request.headers['X-Forwarded-For'],
+        'x-forwarded-for': my_ip_key('ip', request),
     }, status=404)
 
 
@@ -968,5 +968,5 @@ def error_500(request, exception='Unknown'):
         'description': 'Internal Server Error',
         'exception': str(exception)[:16],
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': request.headers['X-Forwarded-For'],
+        'x-forwarded-for': my_ip_key('ip', request),
     }, status=500)

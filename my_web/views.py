@@ -774,7 +774,16 @@ def load_more(request):
         token = typeload = 0
         logging.error(e)
 
-    if check_request__(c_token):
+    salt = Fernet(sign_key)
+    received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
+
+    try:
+        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
+    except Exception as e:
+        original_address = '127.0.0.1'
+        logger.error(e)
+
+    if check_request__(c_token) and original_address == received_address:
 
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
@@ -941,7 +950,7 @@ def error_400(request, exception='Unknown'):
     return JsonResponse({
         'code': 400,
         'description': 'Bad Request',
-        'exception': str(exception)[:16],
+        'exception': str(exception)[:16]+'...',
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=400)
@@ -957,7 +966,7 @@ def error_403(request, exception='Unknown'):
     return JsonResponse({
         'code': 403,
         'description': 'Forbidden',
-        'exception': str(exception)[:16],
+        'exception': str(exception)[:16]+'...',
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=403)
@@ -973,7 +982,7 @@ def error_404(request, exception='Unknown'):
     return JsonResponse({
         'code': 404,
         'description': 'Not Found',
-        'exception': str(exception)[:16],
+        'exception': str(exception)[:16]+'...',
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=404)
@@ -989,7 +998,7 @@ def error_500(request, exception='Unknown'):
     return JsonResponse({
         'code': 500,
         'description': 'Internal Server Error',
-        'exception': str(exception)[:16],
+        'exception': str(exception)[:16]+'...',
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=500)

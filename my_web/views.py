@@ -816,7 +816,7 @@ def load_more(request):
         if videos:
             videos = tiktok_data_get()
 
-        if token and typeload and len(search) == len_c:
+        if token and typeload and len(search) == int(len_c):
             if typeload == 'newsession' and covid_stat_append:
                 covid_stat_ua = covid_stat('UA')
                 covid_stat_ru = covid_stat('RU')

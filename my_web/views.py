@@ -23,7 +23,7 @@ from requests import get
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import get_random_string as rand_str
-from .common_functions import check_bot_request_search, check_info_request_search
+from .common_functions import check_bot_request_search, check_info_request_search, check_request__
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .deepl import translate_simple
@@ -35,7 +35,6 @@ from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
 from .randstuff_api import get_result as rand_fact_or_quote
-from .recaptcha_api import get_result as recaptcha_get_result
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
 from .status_api.api import status_api as status_data_api
@@ -412,8 +411,8 @@ def get_ad(request):
     :return: advertise data
     """
     try:
-        key = request.GET['key']
-        if key == ad_key or recaptcha_get_result(key):
+        key = request.POST.get('c_t___kk_', '')
+        if key == ad_key or check_request__(key):
             lang = request.GET['lang']
 
             try:
@@ -469,8 +468,8 @@ def get_banner(request):
     """
     try:
         s = time()
-        key = request.GET['key']
-        if recaptcha_get_result(key):
+        key = request.GET['c_t___kk_']
+        if check_request__(key):
             data = global_banner_function()
             link = "https://%s/?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s&utm_term=%s" % (
                 data.link_site,
@@ -506,9 +505,9 @@ def get_video_yt(request):
     """
     try:
         s = time()
-        key = request.GET['key']
+        key = request.GET['c_t___kk_']
         video_id = request.GET['video_id']
-        if recaptcha_get_result(key):
+        if check_request__(key):
             v = pafy.new(video_id)
             link = link_encrypt_img(v.streams[0].url_https)
 
@@ -757,15 +756,15 @@ def load_more(request):
     :param request: request body
     :return: render template page
     """
+    c_token = request.POST.get('c_t___kk_', '')
     try:
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')
-        r_token = request.POST.get('gr_token', '')
     except Exception as e:
-        token = typeload = r_token = 0
+        token = typeload = 0
         logging.error(e)
 
-    if recaptcha_get_result(r_token):
+    if check_request__(c_token):
 
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
@@ -906,9 +905,6 @@ def footer_html(request):
         '</p><br>',
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
         'Developed by <a href="https://t.me/koval_yaroslav" style="color: #636363;">Koval Yaroslav</a>',
-        '</p><br>',
-        '<p style="color: #a5a5a5;font-size:10px;margin-bottom:-5%;">',
-        'This site is protected with <a href="https://www.google.com/recaptcha/about/" style="color: #636363;">Google ReCaptcha</a>.',
         '</p>',
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")

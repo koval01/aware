@@ -1,7 +1,9 @@
 from random import choice
 from string import ascii_letters, digits
 from requests import get
-import difflib
+from datetime import datetime
+import calendar
+import difflib, re
 
 
 def get_random_string(length=16) -> str:
@@ -70,3 +72,19 @@ def num_formatter(num):
         magnitude += 1
         num /= 1000.0
     return ('%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])).replace('.00', '')
+
+
+def check_request__(data) -> bool:
+    """
+    Перевірка запиту
+    :param data: Отримана інформація (str)
+    :return: bool result
+    """
+    s = re.findall(r'[_].*?[_]', data)
+    x = re.sub(r'\D', '', s[0])[:10]
+
+    d = datetime.utcnow()
+    unixtime = calendar.timegm(d.utctimetuple())
+
+    if int(x)+8 > round(unixtime):
+        return True

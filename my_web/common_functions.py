@@ -2,8 +2,10 @@ from random import choice
 from string import ascii_letters, digits
 from requests import get
 from datetime import datetime
-import calendar
-import difflib, re
+from time import time
+import difflib, re, logging, calendar
+
+logger = logging.getLogger(__name__)
 
 
 def get_random_string(length=16) -> str:
@@ -80,11 +82,16 @@ def check_request__(data) -> bool:
     :param data: Отримана інформація (str)
     :return: bool result
     """
-    s = re.findall(r'[_].*?[_]', data)
-    x = re.sub(r'\D', '', s[0])[:10]
+    try:
+        s = re.findall(r'[_].*?[_]', data)
+        x = re.sub(r'\D', '', s[0])[:10]
+        y = re.sub(r'\D', '', s[1])[:10]
 
-    d = datetime.utcnow()
-    unixtime = calendar.timegm(d.utctimetuple())
+        d = datetime.utcnow()
+        unixtime = calendar.timegm(d.utctimetuple())
 
-    if int(x)+8 > round(unixtime):
-        return True
+        if int(x)+8 > round(unixtime) and int(y)+12 > round(time()):
+            # check user UTC time and server time
+            return True
+    except Exception as e:
+        logger.error(e)

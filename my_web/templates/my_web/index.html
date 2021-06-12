@@ -134,7 +134,7 @@ AWARE
 {% block js_module %}
     {% csrf_token %}
     <script type="text/javascript">
-        const load_more__='{% url "load_more" %}',enc_key_glb__='{{ enc_generated }}',background_static__='{% static "my_web/images/background.png" %}',token_valid__="{{ token_valid }}",imageproxy__='{% url "imageproxy" %}',user_address__="{{ user_address|sign_address_encrypt }}",get_video_yt__='{% url "get_video_yt" %}',search_template__="{{ search_template }}",get_banner__='{% url "get_banner" %}',videoproxy__='{% url "videoproxy" %}',search_suggestions_get__='{% url "search_suggestions_get" %}',get_ad__='{% url "get_ad" %}',footer_load__='{% url "footer_load" %}',token_re__="{{ token_re }}";
+        const load_more__='{% url "load_more" %}',sync_time__by_server__='{% url "sync_time_server" %}',enc_key_glb__='{{ enc_generated }}',background_static__='{% static "my_web/images/background.png" %}',token_valid__="{{ token_valid }}",imageproxy__='{% url "imageproxy" %}',user_address__="{{ user_address|sign_address_encrypt }}",get_video_yt__='{% url "get_video_yt" %}',search_template__="{{ search_template }}",get_banner__='{% url "get_banner" %}',videoproxy__='{% url "videoproxy" %}',search_suggestions_get__='{% url "search_suggestions_get" %}',get_ad__='{% url "get_ad" %}',footer_load__='{% url "footer_load" %}',token_re__="{{ token_re }}";
     </script>
     <script src="{% static 'my_web/js/core.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

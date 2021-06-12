@@ -374,6 +374,16 @@ def search_suggestions_get(request):
     return error_400(request)
 
 
+@require_GET
+def sync_time_server(request):
+    """
+    Get server time
+    :param request: request body
+    :return: json resp
+    """
+    return JsonResponse({"time_unix": round(time())})
+
+
 def global_ad_function(lang) -> dict:
     """
     Глобальна функція для отримання реклами всередині viws.py
@@ -748,7 +758,7 @@ def my_ip_key(group, request):
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key=my_ip_key, rate='1/12s', block=True)
+@ratelimit(key=my_ip_key, rate='1/6s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
@@ -770,6 +780,7 @@ def load_more(request):
         news_append = int(request.POST.get('news', ''))
         covid_stat_append = int(request.POST.get('covid_stat', ''))
         search = request.POST.get('search', '')
+        len_c = request.POST.get('c', '')
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
@@ -805,7 +816,7 @@ def load_more(request):
         if videos:
             videos = tiktok_data_get()
 
-        if token and typeload:
+        if token and typeload and len(search) == len(len_c):
             if typeload == 'newsession' and covid_stat_append:
                 covid_stat_ua = covid_stat('UA')
                 covid_stat_ru = covid_stat('RU')

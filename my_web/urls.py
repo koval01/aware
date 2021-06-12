@@ -24,6 +24,7 @@ urlpatterns = [
     path('image/', views.image_proxy_view, name='imageproxy'),
     path('video/', views.video_proxy_view, name='videoproxy'),
     path('suggestions/', views.search_suggestions_get, name='search_suggestions_get'),
+    path('sync_time_server/', views.sync_time_server, name='sync_time_server'),
     path('image_generate_api/', views.image_generate_api, name='image_generate_api'),
     path('aware_api/', views.aware_api, name='aware_api'),
     path('get_ad/', views.get_ad, name='get_ad'),

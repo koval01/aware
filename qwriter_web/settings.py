@@ -57,7 +57,7 @@ else:
     DB_USER = 'hhsqjxbatavscv'
     DB_NAME = 'dfcsnien868r9s'
     DB_PASS = os.environ['DB_PASS']
-    ssl_mode = None
+    ssl_mode = 'require'
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()

@@ -403,7 +403,7 @@ def global_ad_function(lang) -> dict:
                             return i
 
 
-@require_GET
+@require_POST
 def get_ad(request):
     """
     Get advertise
@@ -459,7 +459,7 @@ def global_banner_function() -> dict:
                             return i
 
 
-@require_GET
+@require_POST
 def get_banner(request):
     """
     Get banner ad
@@ -468,7 +468,7 @@ def get_banner(request):
     """
     try:
         s = time()
-        key = request.GET['c_t___kk_']
+        key = request.POST.get('c_t___kk_', '')
         if check_request__(key):
             data = global_banner_function()
             link = "https://%s/?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s&utm_term=%s" % (
@@ -496,7 +496,7 @@ def get_banner(request):
     return error_400(request)
 
 
-@require_GET
+@require_POST
 def get_video_yt(request):
     """
     Get video from YouTube
@@ -505,7 +505,7 @@ def get_video_yt(request):
     """
     try:
         s = time()
-        key = request.GET['c_t___kk_']
+        key = request.POST.get('c_t___kk_', '')
         video_id = request.GET['video_id']
         if check_request__(key):
             v = pafy.new(video_id)

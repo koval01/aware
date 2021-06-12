@@ -413,7 +413,7 @@ def get_ad(request):
     try:
         key = request.POST.get('c_t___kk_', '')
         if key == ad_key or check_request__(key):
-            lang = request.GET['lang']
+            lang = request.POST.get('lang', '')
 
             try:
                 index_block_mode = request.GET['index_block_mode']
@@ -506,7 +506,7 @@ def get_video_yt(request):
     try:
         s = time()
         key = request.POST.get('c_t___kk_', '')
-        video_id = request.GET['video_id']
+        video_id = request.POST.get('video_id', '')
         if check_request__(key):
             v = pafy.new(video_id)
             link = link_encrypt_img(v.streams[0].url_https)

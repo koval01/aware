@@ -767,6 +767,7 @@ def load_more(request):
     :return: render template page
     """
     c_token = request.POST.get('c_t___kk_', '')
+    sign_data = request.POST.get('sign', '')
     try:
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')
@@ -775,7 +776,7 @@ def load_more(request):
         logging.error(e)
 
     salt = Fernet(sign_key)
-    received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
+    received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
 
     try:
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]

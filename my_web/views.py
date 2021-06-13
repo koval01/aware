@@ -665,30 +665,6 @@ def namaz(request):
 
 
 @require_GET
-def news_feed(request):
-    """
-    News page view
-    :param request: request body
-    :return: render template page
-    """
-    # unix time mark encryption
-    salt = Fernet(load_more_encrypt_key)
-    data = str.encode(str(round(time())))
-    token_valid = salt.encrypt(data).decode("utf-8")
-    token_re = settings.RETOKEN_PUBLIC
-
-    # get quote
-    add_ = rand_fact_or_quote(True)
-
-    logger.info(f'function index: request {request}')
-    return render(request, 'my_web/news-feed.html', {
-        'token_valid': token_valid, 'token_re': token_re,
-        'loading_button_text': loading_button_text,
-        'add_': add_,
-    })
-
-
-@require_GET
 def tiktok(request):
     """
     TikTok page view

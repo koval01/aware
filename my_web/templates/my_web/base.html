@@ -43,6 +43,28 @@
         <link href="{% static 'my_web/css/fonts_settings.css' %}" rel="stylesheet" crossorigin="anonymous" />
 
         <title>{% block title %}{% endblock %}</title>
+
+        {# Style scrollbar #}
+        <style>
+            ::-webkit-scrollbar {
+                width: 15px;
+            }
+            .disable-track-aware::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #939393;
+                border-radius: 8px;
+                border: 4px solid #191919;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #7c7c7c;
+            }
+        </style>
     </head>
     <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0" style="background: #191919;transition: width 1s, height 1s;">
     <div class="container">

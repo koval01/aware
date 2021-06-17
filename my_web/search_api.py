@@ -103,7 +103,7 @@ def search_words_in_result(search_text, result_text) -> str:
             for w in x:
                 result = result.replace(w, tag_template % w)
 
-    return result.replace('> <', '>&nbsp;<')
+    return result
 
 
 def data_prepare(data, search_text) -> dict:

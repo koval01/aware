@@ -89,6 +89,7 @@ def search_words_in_result(search_text, result_text) -> str:
     tag_template = '<b class="text_select_in_results">%s</b>'
 
     symbols = punctuation.replace('', ' ').split()
+    # get punctuation symbols
 
     for i in symbols:
         search_text = search_text.replace(i, ' ')

@@ -95,6 +95,10 @@
     .box_aware_error .box_aware_error__ghost .symbol:nth-child(4):after {
         transform: rotate(-45deg);
     }
+    .text_select_in_results {
+        color: #808080;
+        text-decoration: underline;
+    }
     .box_aware_error .box_aware_error__ghost .symbol:nth-child(5) {
         position: absolute;
         right: 5px;

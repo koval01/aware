@@ -96,15 +96,17 @@ def search_words_in_result(search_text, result_text) -> str:
 
     only_letters_search = ''.join(w for w in search_text if w.isalpha() or w == ' ')
     result = result_text
+    used = []
 
     for i in only_letters_search.split():
         if len(i) >= 3:
             x = re.findall(i, result, flags=re.I)
             for w in x:
-                if not re.findall('<b class="text_select_in_results">', w):
+                if w not in used:
+                    used.append(w)
                     result = result.replace(w, tag_template % w)
 
-    return result.replace('> <', '>&nbsp;<')
+    return result.replace('> <', '> &nbsp;<')
 
 
 def data_prepare(data, search_text) -> dict:

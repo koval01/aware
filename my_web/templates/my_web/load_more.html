@@ -391,9 +391,7 @@
                                 <p id="{{ 32|get_random_string }}">
                                     {{ el.1.displayLink }}
                                 </p>
-                                <i id="{{ 32|get_random_string }}">
-                                    {{ el.1.snippet|safe }}
-                                </i>
+                                {{ el.1.snippet|safe }}
                             </label>
                             {% if el.1.youtube_id %}
                                 <div
@@ -441,7 +439,7 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div class="box_aware_error">
-                        <div class="box_aware_error__ghost">
+                        <div class="box_aware_error__ghost" id="{{ 32|get_random_string }}">
                             <div class="symbol"></div>
                             <div class="symbol"></div>
                             <div class="symbol"></div>
@@ -461,14 +459,14 @@
                                     <div></div>
                                 </div>
                             </div>
-                            <div class="box_aware_error__ghost-shadow"></div>
+                            <div class="box_aware_error__ghost-shadow" id="{{ 32|get_random_string }}"></div>
                         </div>
                         <div class="box_aware_error__description">
                             <div class="box_aware_error__description-container">
                                 <div class="box_aware_error__description-title">
                                     Ой!
                                 </div>
-                                <div class="box_aware_error__description-text">
+                                <div class="box_aware_error__description-text" id="{{ 32|get_random_string }}">
                                     Похоже, что в твоем поисковом запросе есть слово которое запретил администратор. Обратитесь к
                                     <a href="https://t.me/Jomahmadov2002">Администратору</a>, если считаете это ошибкой.
                                 </div>

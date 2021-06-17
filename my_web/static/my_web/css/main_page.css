@@ -98,6 +98,7 @@
     .text_select_in_results {
         color: #808080;
         text-decoration: underline;
+        word-wrap: break-word;
     }
     .box_aware_error .box_aware_error__ghost .symbol:nth-child(5) {
         position: absolute;

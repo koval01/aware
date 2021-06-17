@@ -86,7 +86,7 @@ def search_words_in_result(search_text, result_text) -> str:
     :param result_text: Текст результату пошуку
     :return: Відредагований текст для результату
     """
-    tag_template = '<b class="text_select_in_results">%s</b>'
+    tag_template = '</i><b class="text_select_in_results">%s</b><i>'
 
     symbols = punctuation.replace('', ' ').split()
 

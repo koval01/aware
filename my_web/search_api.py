@@ -101,7 +101,7 @@ def search_words_in_result(search_text, result_text) -> str:
         if len(i) >= 3:
             x = re.findall(i, result, flags=re.I)
             for w in x:
-                if '<b class="text_select_in_results">' not in w:
+                if not re.findall('<b class="text_select_in_results">', w):
                     result = result.replace(w, tag_template % w)
 
     return result.replace('> <', '>&nbsp;<')

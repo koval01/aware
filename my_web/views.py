@@ -51,6 +51,7 @@ ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY
 qwriter_api_for_aware = os.environ['AWARE_KEY']
+max_search_len = settings.MAX_SEARCH_LENGTH
 
 
 @register.filter
@@ -641,7 +642,7 @@ def index(request):
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'r_type': r_type, 'news_rand': news_rand,
-        'user_address': user_address,
+        'user_address': user_address, 'max_search_len': max_search_len,
     })
 
 
@@ -734,7 +735,7 @@ def my_ip_key(group, request):
 
 @require_POST
 @cache_page(60 * 180)
-@ratelimit(key=my_ip_key, rate='1/6s', block=True)
+@ratelimit(key=my_ip_key, rate='1/3s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load_more(request):
     """
@@ -772,115 +773,116 @@ def load_more(request):
         mobile = request.POST.get('mobile', '')
         videos = request.POST.get('videos', '')
 
-        if not videos:
-            # If the variable does not exist, then set its value - 0
-            videos = 0
+        if len(search) <= max_search_len:
+            if not videos:
+                # If the variable does not exist, then set its value - 0
+                videos = 0
 
-        try:
-            user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
-        except Exception as e:
-            user_address = '127.0.0.1'
-            logger.error(e)
-
-        user_agent = request.headers['User-Agent']
-        user_request_method = request.method
-
-        try:
-            user_referer = request.headers['HTTP_REFERER']
-        except Exception as e:
-            logger.warning(e)
-            user_referer = None
-
-        if not search_index:
-            search_index = 0
-        else:
-            search_index = int(search_index)
-
-        if namaz:
-            namaz = get_namaz_data(search)
-
-        if videos:
-            videos = tiktok_data_get()
-
-        if token and typeload and len(search) == int(len_c):
-            if typeload == 'newsession' and covid_stat_append:
-                covid_stat_ua = covid_stat('UA')
-                covid_stat_ru = covid_stat('RU')
-            else:
-                covid_stat_ua = 0
-                covid_stat_ru = 0
-
-            # token decrypt
             try:
-                salt = Fernet(load_more_encrypt_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
+                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
             except Exception as e:
-                token_get = 0
-                logging.error(e)
+                user_address = '127.0.0.1'
+                logger.error(e)
 
-            if token_get and (token_get + 72000) > round(time()):
-                # data collect
-                news = newsfeed(news_append)
+            user_agent = request.headers['User-Agent']
+            user_request_method = request.method
 
-                # image proxy encrypt data
-                salt = Fernet(image_proxy_key)
-                data = str.encode(str(round(time())))
-                token_valid = salt.encrypt(data).decode("utf-8")
+            try:
+                user_referer = request.headers['HTTP_REFERER']
+            except Exception as e:
+                logger.warning(e)
+                user_referer = None
 
-                # calculator
-                c_result, c_input = calculator(search)
+            if not search_index:
+                search_index = 0
+            else:
+                search_index = int(search_index)
 
-                # news link append
-                news_link_add = news_search_in_str(search)
+            if namaz:
+                namaz = get_namaz_data(search)
 
-                # Send data to InfoBot
-                if search:
-                    if namaz:
-                        search_type_data = 'namaz'
-                    else:
-                        search_type_data = 'search request'
+            if videos:
+                videos = tiktok_data_get()
 
-                    Process(
-                        target=infobot_send_data,
-                        args=(
-                            user_agent,
-                            user_address,
-                            search,
-                            search_type_data,
-                            user_request_method,
-                            user_referer,
-                            search_index,
-                        )
-                    ).start()
+            if token and typeload and len(search) == int(len_c):
+                if typeload == 'newsession' and covid_stat_append:
+                    covid_stat_ua = covid_stat('UA')
+                    covid_stat_ru = covid_stat('RU')
+                else:
+                    covid_stat_ua = 0
+                    covid_stat_ru = 0
 
-                # Search API
-                search_api = search_execute(search, search_index)
-                search_data = search_api['data']
-                search_array = search_api['array']
+                # token decrypt
+                try:
+                    salt = Fernet(load_more_encrypt_key)
+                    token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
+                except Exception as e:
+                    token_get = 0
+                    logging.error(e)
 
-                # Weather
-                weather = weather_get(search)
+                if token_get and (token_get + 72000) > round(time()):
+                    # data collect
+                    news = newsfeed(news_append)
 
-                # DeepL API
-                translate_result = translate_simple(search)
+                    # image proxy encrypt data
+                    salt = Fernet(image_proxy_key)
+                    data = str.encode(str(round(time())))
+                    token_valid = salt.encrypt(data).decode("utf-8")
 
-                # data pack
-                data = zip(news, search_array)
+                    # calculator
+                    c_result, c_input = calculator(search)
 
-                logger.info(f'function load_more: request {request}')
+                    # news link append
+                    news_link_add = news_search_in_str(search)
 
-                return render(request, 'my_web/load_more.html', {
-                    'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
-                    'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
-                    'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
-                    'c_result': c_result, 'search': search, 'c_input': c_input,
-                    'news_search_in_str': news_link_add, 'search_data': search_data,
-                    'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
-                    'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                    'search_api_full_dict': search_api,
-                    'check_bot_request_search': check_bot_request_search(search),
-                    'check_info_request_search': check_info_request_search(search),
-                })
+                    # Send data to InfoBot
+                    if search:
+                        if namaz:
+                            search_type_data = 'namaz'
+                        else:
+                            search_type_data = 'search request'
+
+                        Process(
+                            target=infobot_send_data,
+                            args=(
+                                user_agent,
+                                user_address,
+                                search,
+                                search_type_data,
+                                user_request_method,
+                                user_referer,
+                                search_index,
+                            )
+                        ).start()
+
+                    # Search API
+                    search_api = search_execute(search, search_index)
+                    search_data = search_api['data']
+                    search_array = search_api['array']
+
+                    # Weather
+                    weather = weather_get(search)
+
+                    # DeepL API
+                    translate_result = translate_simple(search)
+
+                    # data pack
+                    data = zip(news, search_array)
+
+                    logger.info(f'function load_more: request {request}')
+
+                    return render(request, 'my_web/load_more.html', {
+                        'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
+                        'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
+                        'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
+                        'c_result': c_result, 'search': search, 'c_input': c_input,
+                        'news_search_in_str': news_link_add, 'search_data': search_data,
+                        'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
+                        'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
+                        'search_api_full_dict': search_api,
+                        'check_bot_request_search': check_bot_request_search(search),
+                        'check_info_request_search': check_info_request_search(search),
+                    })
 
     return error_400(request)
 

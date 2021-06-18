@@ -106,7 +106,7 @@ def search_words_in_result(search_text, result_text) -> str:
                     used.append(w)
                     result = result.replace(w, tag_template % w)
 
-    return result.replace('> <', '> &nbsp;<')
+    return result
 
 
 def data_prepare(data, search_text) -> dict:
@@ -126,36 +126,19 @@ def data_prepare(data, search_text) -> dict:
             )
             for i in data['items']:
                 try:
-                    snippet = BeautifulSoup(
-                        i['snippet'], 'lxml'
-                    ).text
-                except Exception as e:
-                    snippet = '...'
-                    logger.warning(e)
-
-                try:
                     thumb = i['pagemap']['cse_thumbnail'][0]['src']
                 except Exception as e:
                     thumb = None
                     logger.warning(e)
 
-                split_snippet = str(snippet).split()
-                array_done = []
-
-                for x in split_snippet:
-                    if len(x) > 27:
-                        x = x[:27]+"..."
-                    array_done.append(x)
-                snippet = " ".join(array_done)
-
-                snippet = search_words_in_result(search_text, snippet)
                 yt = search_youtube(i['link'])
 
                 array.append(dict(
                     title=i['title'],
                     link=i['link'],
                     displayLink=i['displayLink'],
-                    snippet=snippet,
+                    snippet=i['htmlSnippet'].replace('<br>', '').replace(
+                        '<b>', '<b class="text_select_in_results">'),
                     thumb=thumb,
                     youtube=yt['link'],
                     youtube_id=yt['id'],

@@ -97,7 +97,6 @@
     }
     .text_select_in_results {
         color: #808080;
-        text-decoration: underline;
     }
     .box_aware_error .box_aware_error__ghost .symbol:nth-child(5) {
         position: absolute;
@@ -427,11 +426,11 @@
     }
 
     a {
-        color: #8AB4F8;
+        color: #a0a0a0;
     }
 
     a:hover {
-        color: #4d82d8;
+        color: #fff;
     }
 
     a:visited {
@@ -440,6 +439,17 @@
 
     *:focus {
         outline: none;
+    }
+
+    .search_line_gray {
+        width: 0px;
+        height: 85%;
+        display: block;
+        border-left: 2px solid #a9a9a9;
+        position:absolute;
+        right: 65px;
+        top: 4px;
+        border-radius: 24px;
     }
 
     button:focus {

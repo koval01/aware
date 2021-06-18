@@ -33,15 +33,14 @@ AWARE
             <div class="wrapper">
                 <div class="search-input" style="z-index: 106;">
                     <a href="" target="_blank" hidden></a>
-                    <input type="text" maxlength="800" class="search-input-aware" size="100" style="transition: padding 0.5s;" placeholder="{{ search_template }}">
-                    <div class="autocom-box disable-track-aware">
-                    </div>
+                    <input type="text" maxlength="{{ max_search_len }}" class="search-input-aware" size="100" style="transition: padding 0.5s;" placeholder="{{ search_template }}">
+                    <div class="autocom-box disable-track-aware"></div>
                     <div class="load-more-end-butt icon">
                         <i class="spinner-border spinner_search_load_aware" style="visibility: hidden;"></i>
                         <i class="fas fa-search icon_search_load_aware_one" style="visibility: hidden;" title="Поиск"></i>
                     </div>
                     <div class="clear_aware_search_string" style="visibility: hidden;transition: margin-right 0.6s;margin-right: 2.3em;top: 0.8em;position: absolute;right: 0px;text-align: center;line-height: 55px;font-size: 20px;color: #202124;cursor: pointer;">
-                        <i class="fas fa-times" title="Очистить строку"></i>
+                        <i class="fas fa-times" style="color: #000000ad;" title="Очистить строку"></i>
                     </div>
                 </div>
             </div>
@@ -103,7 +102,7 @@ AWARE
                             <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
                             <label class="city">
                                 <u
-                                        style="color: #8AB4F8;font-weight: 600;"
+                                        style="color: #a0a0a0;font-weight: 600;"
                                         class="news_search_button_aware_index_block"
                                 >Искать новость</u>
                                 <br/><br/>

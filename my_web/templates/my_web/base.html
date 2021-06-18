@@ -73,27 +73,6 @@
                 <label class="header_title" style="font-family: 'Pacifico', cursive;user-select: none;">{% block title_header %}{% endblock %}</label>
             </a>
         </div>
-        <div class="dropdowncustom1">
-            <i class="fas fa-compass" onclick="onMenuClicked()"></i>
-        </div>
-    </div>
-    <div class="menu_box disable-track-aware" style="display: none;">
-        <a href="{% url 'index_page' %}">
-            <div class="menu_item menu_item_first">
-                <label>Главная</label>
-                <div class="icon_container">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </a>
-        <a href="{% url 'status_page' %}">
-            <div class="menu_item">
-                <label>Статус</label>
-                <div class="icon_container">
-                    <i class="fa fa-calendar"></i>
-                </div>
-            </div>
-        </a>
     </div>
     <div class="float_bg" style="display: none"></div>
     <br><br>

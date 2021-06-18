@@ -426,7 +426,7 @@
     }
 
     a {
-        color: #a0a0a0;
+        color: #fff;
     }
 
     a:hover {
@@ -434,7 +434,7 @@
     }
 
     a:visited {
-        color: #7369ea;
+        color: #a0a0a0;
     }
 
     *:focus {

@@ -926,6 +926,9 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
+    if not settings.DEBUG:
+        exception = 'Appears in debug mode only.'
+
     return JsonResponse({
         'code': 400,
         'description': 'Bad Request',
@@ -942,6 +945,9 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
+    if not settings.DEBUG:
+        exception = 'Appears in debug mode only.'
+
     return JsonResponse({
         'code': 403,
         'description': 'Forbidden',
@@ -958,6 +964,9 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
+    if not settings.DEBUG:
+        exception = 'Appears in debug mode only.'
+
     return JsonResponse({
         'code': 404,
         'description': 'Not Found',
@@ -974,6 +983,9 @@ def error_500(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
+    if not settings.DEBUG:
+        exception = 'Appears in debug mode only.'
+
     return JsonResponse({
         'code': 500,
         'description': 'Internal Server Error',

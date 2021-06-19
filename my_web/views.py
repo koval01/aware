@@ -929,7 +929,7 @@ def error_400(request, exception='Unknown'):
     return JsonResponse({
         'code': 400,
         'description': 'Bad Request',
-        'exception': str(exception)[:16]+'...',
+        'exception': exception,
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=400)
@@ -945,7 +945,7 @@ def error_403(request, exception='Unknown'):
     return JsonResponse({
         'code': 403,
         'description': 'Forbidden',
-        'exception': str(exception)[:16]+'...',
+        'exception': exception,
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=403)
@@ -961,7 +961,7 @@ def error_404(request, exception='Unknown'):
     return JsonResponse({
         'code': 404,
         'description': 'Not Found',
-        'exception': str(exception)[:16]+'...',
+        'exception': exception,
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=404)
@@ -977,7 +977,7 @@ def error_500(request, exception='Unknown'):
     return JsonResponse({
         'code': 500,
         'description': 'Internal Server Error',
-        'exception': str(exception)[:16]+'...',
+        'exception': exception,
         'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'x-forwarded-for': my_ip_key('ip', request),
     }, status=500)

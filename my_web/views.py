@@ -520,24 +520,10 @@ def get_video_yt(request):
         video_id = request.POST.get('video_id', '')
         if check_request__(key):
             v = pafy.new(video_id)
-            link = link_encrypt_img(v.streams[0].url_https)
-
-            salt = Fernet(image_proxy_key)
-            data = str.encode(str(round(time())))
-            token_valid = salt.encrypt(data).decode("utf-8")
-
-            try:
-                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
-            except Exception as e:
-                user_address = '127.0.0.1'
-                logger.error(e)
-
-            user_address = sign_address_encrypt(user_address)
+            link = v.streams[0].url_https
 
             return JsonResponse({
-                "data": link,
-                "token": token_valid,
-                "sign": user_address,
+                "link": link,
                 "time": str(time() - s)[:5]
             })
 

@@ -21,7 +21,7 @@ def weather_get(string) -> dict:
             u = 'https://api.openweathermap.org/data/2.5/weather'
             a_string = string.split()
             for city in a_string:
-                for i in range(4):
+                for i in range(5):
                     city_local = city
 
                     if i:
@@ -32,6 +32,9 @@ def weather_get(string) -> dict:
 
                     if i > 2:
                         city_local = city[:-2] + 'ы'
+
+                    if i > 3:
+                        city_local = city + 'е'
 
                     def check_word(city_in_func) -> bool:
                         """

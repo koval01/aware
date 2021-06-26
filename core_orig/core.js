@@ -234,13 +234,15 @@ var temp_html_index_page = '';
 
 // var hide_index_page_blocks = $.cookie('hide_block_index');
 
-var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_aware_error">\
-<div class="box_aware_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>\
-<div class="symbol"></div><div class="symbol"></div><div class="box_aware_error__ghost-container"><div class="box_aware_error__ghost-eyes">\
-<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom"><div></div><div></div>\
-<div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div><div class="box_aware_error__description">\
-<div class="box_aware_error__description-container"><div class="box_aware_error__description-title">Ой!</div><div class="box_aware_error__description-text">\
-Мы не смогли ничего найти по вашему запросу... Повторите попытку, или переформулируйте вопрос.</div></div></div></div></div></div>';
+var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box">'+
+    '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_aware_error">'+
+    '<div class="box_aware_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>'+
+    '<div class="symbol"></div><div class="symbol"></div><div class="box_aware_error__ghost-container"><div class="box_aware_error__ghost-eyes">'+
+    '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">'+
+    '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>'+
+    '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">'+
+    'Ой!</div><div class="box_aware_error__description-text">'+
+    'Мы не смогли ничего найти по вашему запросу... Повторите попытку, или переформулируйте вопрос.</div></div></div></div></div></div>';
 
 var pageX = $(document).width();
 var pageY = $(document).height();

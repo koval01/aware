@@ -842,7 +842,11 @@ def load_more(request):
                         ).start()
 
                     # Search API
-                    search_api = search_execute(search, search_index)
+                    search_send = search
+                    if namaz:
+                        search_send = None
+
+                    search_api = search_execute(search_send, search_index)
                     search_data = search_api['data']
                     search_array = search_api['array']
 

@@ -271,9 +271,27 @@ function hide_hint_text_video() {
 }
 
 function covid_anal(string) {
+    /*
+    Функція для перевірки - чи пов'язаний запит з коронавірусом
+    */
     const words = [
         'covid', 'covid-19', 'коронавирус', 'коронавірус',
         'коронавируса', 'коронавіруса', 'коронавірусу', 'коронавирусом', 'коронавірусом',
+    ];
+
+    for (let i = 0; i < words.length; i++) {
+        if (string.toLowerCase().indexOf(words[i]) !== -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+function namaz_anal(string) {
+    /*
+    Функція для перевірки - чи пов'язаний запит з Намазом
+    */
+    const words = [
+        'намаз', 'намаза', 'намазом', 'намазов',
     ];
 
     for (let i = 0; i < words.length; i++) {

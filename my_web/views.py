@@ -716,6 +716,16 @@ def my_ip_key(group, request):
     except Exception as e:
         user_address = '127.0.0.1'
         logger.error(e)
+
+    try:
+        namaz = request.POST.get('namaz', '')
+    except Exception as e:
+        namaz = None
+        logger.error(e)
+
+    if namaz:
+        user_address = '%d.%d.%d.%d' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
     return user_address
 
 
@@ -844,7 +854,7 @@ def load_more(request):
                     # Search API
                     search_send = search
                     if namaz:
-                        search_send = None
+                        search_send = ''
 
                     search_api = search_execute(search_send, search_index)
                     search_data = search_api['data']

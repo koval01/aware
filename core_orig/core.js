@@ -286,6 +286,7 @@ function covid_anal(string) {
     }
     return 0;
 }
+
 function namaz_anal(string) {
     /*
     Функція для перевірки - чи пов'язаний запит з Намазом
@@ -302,6 +303,45 @@ function namaz_anal(string) {
     return 0;
 }
 
+function get_namaz(string) {
+    /*
+    Функція для отримання інформації про Намаз
+    */
+    if (namaz_anal(string)) {
+        // Переконуємося ще раз, що цю функцію потрібно активувати
+        const string_split = string.split();
+        var result = null;
+
+        for (let i = 0; i < string_split.length; i++) {
+            let c_b = string.length;
+            $.ajax({
+                url: load_more__,
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
+                    validtoken: token_valid__,
+                    typeload: 'newsession',
+                    additions: 0,
+                    c_t___kk_: get__(true),
+                    news: 0,
+                    sign: user_address__,
+                    c: c_b,
+                    gr_token: null,
+                    covid_stat: 0,
+                    search: string_split[i],
+                    namaz: 1,
+                    mobile: mob()
+                },
+                success: function(o) {
+                    return o;
+                },
+                async: false,
+                timeout: 5000,
+            });
+        }
+    }
+}
+
 function load_ajax_end_page(o, type_loading) {
     const text_no = $(".no-more-results-text");
 
@@ -316,6 +356,7 @@ function load_ajax_end_page(o, type_loading) {
     var get = get__(true);
     var geted_c = o.length;
     var his = new search_history_data();
+    var namaz_data = '';
 
     function move_error_block() {
         if (is_search_now) {
@@ -323,6 +364,10 @@ function load_ajax_end_page(o, type_loading) {
         } else {
             $(".row-posts-end").css('margin-top', '-12em');
         }
+    }
+
+    if (namaz_anal(search_data_text)) {
+        namaz_data = get_namaz(search_data_text);
     }
 
     $.ajax({
@@ -433,6 +478,11 @@ function load_ajax_end_page(o, type_loading) {
 
             setTimeout(update_AOS_blocks, 1200);
             setTimeout(hide_hint_text_video, 10000);
+
+            if (namaz_data) {
+                $(".row-posts-end").prepend(namaz_data);
+                AOS.refresh();
+            }
 
             init_video_search_in_results();
             is_search_now = true;

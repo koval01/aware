@@ -426,7 +426,7 @@
                     </div>
                 </div>
             {% endif %}
-        {% elif search_api_full_dict.error and forloop.counter == 1 %}
+        {% elif search_api_full_dict.error and forloop.counter == 1 and not namaz_data %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div class="box_aware_error">

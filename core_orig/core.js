@@ -333,12 +333,13 @@ function get_namaz(string) {
                     mobile: mob()
                 },
                 success: function(o) {
-                    return o;
+                    result = o;
                 },
                 async: false,
                 timeout: 5000,
             });
         }
+        return result;
     }
 }
 

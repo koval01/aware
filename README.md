@@ -18,21 +18,33 @@
 **If you are working on Frontend, here is the JS project code - https://github.com/koval01/aware_site/blob/master/core_orig/core.js**
 
 **The following is an example of code design:**
+
 ```javascript
 function example(string) {
     /*
     Ця функція є прикладом для README.md
+    ---
+    This function is an example for README.md
     */
+    
     const developers = [
         "John", "Alex", "Sandy"
     ];
     
     for (let i = 0; i < developers.length; i++) {
+    
         if (string.toLowerCase().indexOf(words[i]) !== -1) {
             // Yeah, this developer in list
             return true;
         }
+        
         // Or send false bool var
     }
 }
 ```
+
+**Templates posted at this address - https://github.com/koval01/aware_site/tree/master/my_web/templates/my_web**
+
+**The CSS code of this site is located here - https://github.com/koval01/aware_site/blob/master/my_web/static/my_web/css/main_page.css**
+
+****

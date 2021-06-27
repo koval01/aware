@@ -1,14 +1,17 @@
+import logging
+import re
+import requests_cache
+import traceback
 from json import loads
-from .covid.config import USER_AGENT
-from urllib.parse import urlparse, parse_qs
-from django.conf import settings
 from random import shuffle
-from bs4 import BeautifulSoup
 from string import punctuation
-from .models import BlackWord
+from urllib.parse import urlparse, parse_qs
+
+from django.conf import settings
+
 from .common_functions import similarity
-import logging, requests_cache, \
-    re, traceback
+from .covid.config import USER_AGENT
+from .models import BlackWord
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
@@ -41,7 +44,8 @@ def get_result(question, index=1) -> dict:
             }
             r = session.get(u, headers=headers, params=params)
             if r.status_code != 200:
-                logger.error("%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
+                logger.error(
+                    "%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
             else:
                 return loads(r.text)
         except Exception as e:
@@ -175,6 +179,7 @@ def search(string) -> dict:
     :param string: Пошуковий запит
     :return: Список результатів
     """
+
     def search_error():
         return dict(data='', array=null_search_dict, error=True)
 

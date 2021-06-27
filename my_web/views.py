@@ -312,6 +312,7 @@ def image_generate_api(request):
     """
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
+
     try:
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
     except Exception as e:
@@ -319,16 +320,20 @@ def image_generate_api(request):
         logger.error(e)
 
     if original_address == received_address:
+
         token = request.GET['token']
         salt = Fernet(image_proxy_key)
+
         token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
         control_time = round(time())
+
         if token_get > control_time:
             try:
                 text = request.GET['text']
                 author = request.GET['author']
                 if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
-                    logger.info('IMAGE GENERATOR: Check sentences')
+                    logger.warning('IMAGE GENERATOR: Check sentences')
+
                     if not sentence_check(text):
                         return JsonResponse(
                             {
@@ -336,9 +341,11 @@ def image_generate_api(request):
                                 'error': 'This text does not seem to have any value.',
                             }
                         )
+
                     logger.info('IMAGE GENERATOR: Generating image')
+
                     img = text_to_image_api(text, author)
-                    logger.info('IMAGE GENERATOR: Sending image to user')
+
                     return HttpResponse(
                         img['img'],
                         content_type=img['headers'],
@@ -348,7 +355,8 @@ def image_generate_api(request):
                 return JsonResponse(
                     {
                         'code': 411, 'code_name': 'Length Required',
-                        'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname cannot be shorter than 2 characters and longer than 64 characters.',
+                        'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname \
+                        cannot be shorter than 2 characters and longer than 64 characters.',
                     }
                 )
             except Exception as e:
@@ -695,6 +703,7 @@ def load_more(request):
     """
     c_token = request.POST.get('c_t___kk_', '')
     sign_data = request.POST.get('sign', '')
+
     try:
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')

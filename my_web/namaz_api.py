@@ -43,7 +43,7 @@ def get_namaz_data(city) -> list:
     data = get_result(city)
     d = int(datetime.now().strftime("%d"))
     return [dict(
-        timings=["%s: %s" % (key, value) for key, value in i['timings'].items()],
+        timings=["%s: %s" % (key, value) for key, value in i['timings'].items() if key != 'Sunset'],
         time=convert_short(i['date']['readable']),
         hijri_year=i['date']['hijri']['year'],
         hijri_month=i['date']['hijri']['month']['en'],

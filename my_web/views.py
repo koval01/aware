@@ -844,7 +844,6 @@ def load_more(request):
                         'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                         'search_api_full_dict': search_api,
                         'check_bot_request_search': check_bot_request_search(search),
-                        'check_info_request_search': check_info_request_search(search),
                     })
 
     return error_400(request)

@@ -19,6 +19,14 @@
 
 ## **The following is an example of code design:**
 
+**For convenience, you can use Google Chrome Dev - https://www.google.com/intl/en/chrome/dev/**
+
+**Also Microsoft Visual Studio Code - https://code.visualstudio.com/**
+
+****
+
+**Example of JS code:**
+
 ```javascript
 function example(string) {
     /*

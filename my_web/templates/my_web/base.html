@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 
 <html lang="en" style="scroll-behavior: smooth;">
     <head>
@@ -19,12 +20,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
         {# JavaScripts load #}
-        <script src="{% static 'my_web/js/jquery.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'my_web/bootstrap/js/bootstrap.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'my_web/js/notify.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'my_web/js/aos.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'my_web/fontawesome/js/all.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'my_web/js/bluebird.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% compress js %}
+            <script src="{% static 'my_web/js/jquery.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'my_web/bootstrap/js/bootstrap.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'my_web/js/notify.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'my_web/js/aos.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'my_web/fontawesome/js/all.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="{% static 'my_web/js/bluebird.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% endcompress %}
 
         <link rel="search" type="application/opensearchdescription+xml" title="AWARE" href="/opensearch.xml">
 

@@ -30,6 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+LOCAL_DATABASE = False
 
 # USE_SRI = True
 
@@ -38,11 +39,21 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
     LOG_HANDLERS = ['console']
     append_gunicorn_config = False
-    DB_HOST = 'localhost'
-    DB_PASS = 'Piramida13'
-    DB_USER = 'postgres'
-    DB_NAME = 'postgres'
-    ssl_mode = None
+
+    if LOCAL_DATABASE:
+        # Local database
+        DB_HOST = 'localhost'
+        DB_PASS = 'Piramida13'
+        DB_USER = 'postgres'
+        DB_NAME = 'postgres'
+        ssl_mode = None
+
+    else:
+        DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
+        DB_USER = 'hhsqjxbatavscv'
+        DB_NAME = 'dfcsnien868r9s'
+        DB_PASS = os.environ['DB_PASS']
+        ssl_mode = 'require'
 
 else:
     from dotenv import load_dotenv

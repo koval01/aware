@@ -719,6 +719,7 @@ def load_more(request):
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
+    logger.info('User address decrypted.')
 
     try:
         original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
@@ -727,6 +728,7 @@ def load_more(request):
         logger.error(e)
 
     if check_request__(c_token) and original_address == received_address:
+        logger.info('Parameters parsing...')
 
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
@@ -738,19 +740,18 @@ def load_more(request):
         mobile = request.POST.get('mobile', '')
         videos = request.POST.get('videos', '')
 
+        logger.info('Parameters parsed.')
+
         if len(search) <= max_search_len:
+            logger.info('Check search length and continue.')
+
             if not videos:
                 # If the variable does not exist, then set its value - 0
                 videos = 0
 
-            try:
-                user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
-            except Exception as e:
-                user_address = '127.0.0.1'
-                logger.error(e)
-
             user_agent = request.headers['User-Agent']
             user_request_method = request.method
+            user_address = original_address
 
             try:
                 user_referer = request.headers['HTTP_REFERER']
@@ -770,6 +771,8 @@ def load_more(request):
                 videos = tiktok_data_get()
 
             if token and typeload and len(search) == int(len_c):
+                logger.info('Check token and continue.')
+
                 if typeload == 'newsession' and covid_stat_append:
                     covid_stat_ua = covid_stat('UA')
                     covid_stat_ru = covid_stat('RU')
@@ -786,6 +789,8 @@ def load_more(request):
                     logging.error(e)
 
                 if token_get and (token_get + 72000) > round(time()):
+                    logger.info('Check "token_get" and continue.')
+
                     # data collect
                     news = newsfeed(news_append)
 

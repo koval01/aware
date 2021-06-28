@@ -631,11 +631,17 @@ def index(request):
         user_address = '127.0.0.1'
         logger.error(e)
 
+    try:
+        search_q = request.GET['q']
+    except Exception as e:
+        search_q = None
+        logger.debug(e)
+
     logger.info(f'function index: request {request}')
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
-        'r_type': r_type, 'news_rand': news_rand,
+        'r_type': r_type, 'news_rand': news_rand, 'search_q': search_q,
         'user_address': user_address, 'max_search_len': max_search_len,
     })
 

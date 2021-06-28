@@ -9,11 +9,19 @@ AWARE
 {% endblock %}
 
 {% block og_desc %}
+{% if search_q %}
+{{ search_q }}
+{% else %}
 Удобная и красивая поисковая система
+{% endif %}
 {% endblock %}
 
 {% block twitter_desc %}
+{% if search_q %}
+{{ search_q }}
+{% else %}
 Удобная и красивая поисковая система
+{% endif %}
 {% endblock %}
 
 {% block public_re %}

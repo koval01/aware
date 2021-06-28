@@ -692,7 +692,7 @@ def my_ip_key(group, request):
         logger.error(e)
 
     if namaz:
-        user_address = '%d.%d.%d.%d' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        user_address = '.'.join([str(random.randint(0, 255)) for i in range(4)])
 
     return user_address
 

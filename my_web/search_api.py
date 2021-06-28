@@ -47,7 +47,10 @@ def get_result(question, index=1) -> dict:
                 logger.error(
                     "%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
             else:
+                logger.warning("%s..." % (r.text[:256]))
+
                 return loads(r.text)
+
         except Exception as e:
             logger.error(e)
 

@@ -305,7 +305,7 @@ def video_proxy_view(request):
 @cache_page(60 * 180)
 def image_generate_api(request):
     """
-    Image to text api
+    Text to image api
     :param request: body request
     :return: raw image
     """

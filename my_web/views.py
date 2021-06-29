@@ -202,6 +202,25 @@ def sign_address_encrypt(address) -> str:
         logger.error(e)
 
 
+def my_ip_key(group, request):
+    try:
+        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
+    except Exception as e:
+        user_address = '127.0.0.1'
+        logger.error(e)
+
+    try:
+        namaz = request.POST.get('namaz', '')
+    except Exception as e:
+        namaz = None
+        logger.error(e)
+
+    if namaz:
+        user_address = '.'.join([str(random.randint(0, 255)) for i in range(4)])
+
+    return user_address
+
+
 @require_GET
 def image_proxy_view(request):
     """
@@ -366,6 +385,8 @@ def image_generate_api(request):
 
 @require_GET
 @cache_page(60 * 180)
+@ratelimit(key=my_ip_key, rate='10/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def search_suggestions_get(request):
     """
     We receive search suggestions
@@ -515,6 +536,8 @@ def get_banner(request):
 
 
 @require_POST
+@ratelimit(key=my_ip_key, rate='6/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def get_video_yt(request):
     """
     Get video from YouTube
@@ -602,6 +625,8 @@ def aware_api(request):
 
 
 @require_GET
+@ratelimit(key=my_ip_key, rate='2/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def index(request):
     """
     Index page view
@@ -675,25 +700,6 @@ def awareview(request, awareid):
     except Exception as e:
         logger.error(e)
         return error_404(request, str(e))
-
-
-def my_ip_key(group, request):
-    try:
-        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
-    except Exception as e:
-        user_address = '127.0.0.1'
-        logger.error(e)
-
-    try:
-        namaz = request.POST.get('namaz', '')
-    except Exception as e:
-        namaz = None
-        logger.error(e)
-
-    if namaz:
-        user_address = '.'.join([str(random.randint(0, 255)) for i in range(4)])
-
-    return user_address
 
 
 @require_POST
@@ -900,15 +906,9 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    if not settings.DEBUG:
-        exception = 'Appears in debug mode only.'
-
-    return JsonResponse({
-        'code': 400,
-        'description': 'Bad Request',
-        'exception': str(exception),
-        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': my_ip_key('ip', request),
+    return render(request, 'my_web/error.html', {
+        'error_code': 400,
+        'description': 'We cannot accept this request. I don\'t know why, we just can\'t..'
     }, status=400)
 
 
@@ -919,15 +919,9 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    if not settings.DEBUG:
-        exception = 'Appears in debug mode only.'
-
-    return JsonResponse({
-        'code': 403,
-        'description': 'Forbidden',
-        'exception': str(exception),
-        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': my_ip_key('ip', request),
+    return render(request, 'my_web/error.html', {
+        'error_code': 403,
+        'description': 'We cannot accept this request. This page is restricted.'
     }, status=403)
 
 
@@ -938,15 +932,9 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    if not settings.DEBUG:
-        exception = 'Appears in debug mode only.'
-
-    return JsonResponse({
-        'code': 404,
-        'description': 'Not Found',
-        'exception': str(exception),
-        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': my_ip_key('ip', request),
+    return render(request, 'my_web/error.html', {
+        'error_code': 404,
+        'description': 'This page was not found on this server'
     }, status=404)
 
 
@@ -957,13 +945,7 @@ def error_500(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    if not settings.DEBUG:
-        exception = 'Appears in debug mode only.'
-
-    return JsonResponse({
-        'code': 500,
-        'description': 'Internal Server Error',
-        'exception': str(exception),
-        'time': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        'x-forwarded-for': my_ip_key('ip', request),
+    return render(request, 'my_web/error.html', {
+        'error_code': 500,
+        'description': 'The server was unable to process this request. What did those programmers do there again...'
     }, status=500)

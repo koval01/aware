@@ -407,8 +407,10 @@ function load_ajax_end_page(o, type_loading) {
 
             comment = document.createComment($(".icon_search_load_aware_one").get(0).outerHTML);
             $(".icon_search_load_aware_one").replaceWith(comment);
+
             e.css("top", "-5px");
             e.css("right", "10px");
+
             $('.spinner_search_load_aware').replaceWith(comment_spin_global);
             $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
 
@@ -431,6 +433,7 @@ function load_ajax_end_page(o, type_loading) {
             e.removeAttr("style");
             $('.spinner_search_load_aware').replaceWith(comment_spin_global);
             load_continue_footer.css('visibility', 'visible');
+            load_continue_footer.css('display', 'block');
 
             if (o.replace(/[^+\w]/g, '').length < 10) {
                 load_continue_footer.css('visibility', 'hidden');
@@ -487,6 +490,7 @@ function load_ajax_end_page(o, type_loading) {
 
             init_video_search_in_results();
             is_search_now = true;
+
             get_ad('con');
         },
         error: function() {
@@ -501,6 +505,7 @@ function load_ajax_end_page(o, type_loading) {
             $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
             // move_error_block();
             e.attr("disabled", !1), n.removeClass("d-inline-block");
+
             get_ad('new');
         },
         statusCode: {
@@ -559,11 +564,13 @@ function load_continue_ajax_end_page(o, type_loading) {
             n.css('visibility', 'hidden');
             n.css('display', 'none');
             search_index = search_index + 10;
+
             if (search_index > 100) {
                 e.css('visibility', 'hidden');
                 text_no.css('visibility', 'visible');
                 text_no.css('display', '');
             }
+
             e.attr("disabled", !1),
                 n.removeClass("d-inline-block"),
                 "Ошибка валидации!" == o ? $.notify("Ошибка. Перезагрузите страницу.", {
@@ -574,13 +581,16 @@ function load_continue_ajax_end_page(o, type_loading) {
                 $(document).ready(function() {
                     $('[data-toggle="tooltip"]').tooltip();
                 });
+
             if ((o).length < 10) {
                 e.css('visibility', 'hidden'), e.attr("disabled", !1), n.css('visibility', 'hidden'), n.css('display', 'none');
                 n.removeClass("d-inline-block"), text_no.css('visibility', 'visible');
                 e.css('display', 'none');
+
                 text_no.css('margin-bottom', '3em');
                 text_no.css('display', '');
             }
+
             init_video_search_in_results();
             setTimeout(hide_hint_text_video, 10000);
         },
@@ -588,6 +598,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             e.css('visibility', 'hidden'), e.attr("disabled", !1), n.css('visibility', 'hidden'), n.css('display', 'none');
             n.removeClass("d-inline-block"), text_no.css('visibility', 'visible');
             e.css('display', 'none');
+
             text_no.css('margin-bottom', '3em');
             text_no.css('display', '');
         },
@@ -617,7 +628,7 @@ function load_continue_ajax_end_page(o, type_loading) {
 function onMenuClicked() {
     $(".menu_box").is(":hidden") ?
         ($(".menu_box").show(), $(".float_bg").show(), $(".search-input").attr("disabled", !1), $(".search-input").css("z-index", 1)) :
-        ($(".menu_box").hide(), $(".float_bg").hide(), $(".search-input").css("z-index", 106), $(".search-input").attr("disabled", !0));
+        ($(".menu_box").hide(), $(".float_bg").hide(), $(".search-input").attr("disabled", !0), $(".search-input").css("z-index", 106));
 }
 
 function get_from_history_suggestions(search_text) {
@@ -710,14 +721,18 @@ $('.search-input-aware').on('input', function() {
         $('.clear_aware_search_string').css('visibility', 'hidden');
         $(".search-input-aware").css("padding", "0 60px 0 20px");
         setTimeout(run_remove_active, 200);
+
     } else {
         $('.clear_aware_search_string').css('visibility', 'visible');
         $(".search-input-aware").css("padding", "0 70px 0 20px");
+
         document.querySelector(".search-input").classList.add("active");
         $(".search-input").css("z-index", 106);
         $(".float_bg").removeAttr("style");
+
         AOS.refresh();
         let throttle_get_suggestions = throttle(get_suggestions, 150);
+
         throttle_get_suggestions(search_text);
     }
 });
@@ -789,6 +804,7 @@ function error_search_no_text(mode) {
         clearInterval(timerId_global);
         clearInterval(timer_clear_update);
         $('.search-input-aware').attr("placeholder", "Это поле не может быть пустым");
+
     } else {
         $('.search-input-aware').attr("placeholder", search_template__);
     }
@@ -818,7 +834,6 @@ function ready_news_search_button() {
 }
 
 function append_ad_block(data) {
-
     var append_advertise_html_code_index_page_ad = '<div class="col-12 col-lg-12 padding-block-center-box ad_index_el"><div class="user box aos-init aos-animate" \
     data-aos="fade-up"><div style="float: left;"><label class="city" style="font-size: calc(14px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));"\
     >' + String(data['text']).replace('\n', '<br>') + '</label></div></div></div>';
@@ -829,7 +844,6 @@ function append_ad_block(data) {
 }
 
 function prepend_ad_block_to_search_results(data, ready = true) {
-
     var append_advertise_html_code_search_ad = '<div class="col-12 col-lg-12 padding-block-center-box ad_index_el"><div class="user box aos-init aos-animate" \
     data-aos="fade-up"><div style="float: left;"><label class="city" style="font-size: calc(14px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));\
     ">' + String(data['text']).replace('\n', '<br>') + '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;\
@@ -879,6 +893,19 @@ function get_footer_html() {
         data: {},
         success: function(o) {
             $(".footer-aware").append(o);
+
+            let build_info = $(".build_info_footer").text();
+            let user_agent = window.navigator.userAgent;
+
+            if (user_agent.indexOf("AWARE Android ") != -1) {
+                build_info = build_info.replace('awse-', 'awse_android-');
+            } else if (!mob()) {
+                build_info = build_info.replace('awse-', 'awse_mobile-');
+            } else {
+                build_info = build_info.replace('awse-', 'awse_web-');
+            }
+
+            $(".build_info_footer").text(build_info);
         },
         async: true,
         timeout: 5000,
@@ -906,30 +933,39 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
         $.cookie('hide_block_index', 'yes', {
             expires: 365
         });
+
         $(".ad_index_el").remove();
         $(".aware_hide_blocks_on_index_page_text").text('Показать');
         $(".aware_hide_blocks_on_index_page").css('margin-bottom', '-5%');
+
         $(".row-posts-end").css("display", "none");
         // $(".row-posts-end").css("visibility", "hidden");
         temp_html_index_page = $(".row-posts-end").html();
+
         $(".row-posts-end").empty();
         $(".wrapper").css("margin-top", "");
         AOS.refresh();
         AOS_update_timer(500);
+
     } else if (action_type == 'no') {
         $.cookie('hide_block_index', 'no', {
             expires: 365
         });
+
         if (action_by_user) {
             $(".ad_index_el").remove();
             get_ad('new');
         }
+
         $(".aware_hide_blocks_on_index_page_text").text('Скрыть');
         $(".aware_hide_blocks_on_index_page").css('margin-bottom', '5%');
+
         $(".row-posts-end").css("display", "block");
         $(".row-posts-end").append(temp_html_index_page);
+
         ready_news_search_button();
         $(".wrapper").css("margin-top", "10px");
+
         AOS.refresh();
         AOS_update_timer(500);
     }
@@ -967,6 +1003,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false) {
         banner_el.attr('alt', title);
         banner_el.attr('title', title);
         banner_el.attr('done', 'yes');
+
         banner_el.css('display', 'inline-block');
         banner_el.css('width', '80%');
 

@@ -102,6 +102,9 @@ ADVERTISE_BOT_KEY = os.environ['ADVERTISE_BOT_KEY']
 
 WEATHER_API_KEYS = os.environ['WEATHER_API_KEYS']
 
+HEROKU_API_KEY = os.environ['HEROKU_API_KEY']
+HEROKU_APP_NAME = os.environ['HEROKU_APP_NAME']
+
 TIKTOK_PAGE_ENABLED = False
 
 # Application definition

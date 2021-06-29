@@ -1,16 +1,15 @@
 import logging
 import os
 import random
-import pafy
 from datetime import timedelta, datetime
 from multiprocessing import Process
 from random import randint, randrange
 from time import time
 from urllib.parse import urlunsplit, urlencode
 
-from cryptography.fernet import Fernet
-from ratelimit.decorators import ratelimit
+import pafy
 from blacklist.ratelimit import blacklist_ratelimited
+from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
@@ -18,18 +17,19 @@ from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
+from ratelimit.decorators import ratelimit
 from requests import get
 
 from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
+from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
-from .common_functions import check_bot_request_search, check_info_request_search, check_request__
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .deepl import translate_simple
+from .heroku_api import get_last_build_id as heroku_get_last_build_id
 from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
-from .load_text import get_text as loading_button_text
 from .models import AWARE_Page, Info, Banner
 from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
@@ -873,12 +873,14 @@ def footer_html(request):
     lines = [
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
         'Contact <a href="https://t.me/Jomahmadov2002" style="color: #636363;">Jomahmadov Najibullo</a>',
-        '</p><br>',
+        '</p><br/>',
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
         'Developed by <a href="https://t.me/koval_yaroslav" style="color: #636363;">Koval Yaroslav</a>',
-        '</p>',
+        '</p><br/>',
+        '<p style="color: #424242;font-size:12px;margin-bottom:-5%;text-align: center;">',
+        'Build ID: awse-%s' % heroku_get_last_build_id(),
     ]
-    return HttpResponse("\n".join(lines), content_type="text/plain")
+    return HttpResponse("".join(lines), content_type="text/html; charset=utf-8")
 
 
 @require_GET

@@ -1,7 +1,7 @@
 {% extends 'my_web/base.html' %}
 
 {% block title %}
-AWARE - Поиск
+AWARE - Search
 {% endblock %}
 
 {% block title_header %}
@@ -12,7 +12,7 @@ AWARE
 {% if search_q %}
 {{ search_q }}
 {% else %}
-Удобная и красивая поисковая система
+Convenient and beautiful search engine
 {% endif %}
 {% endblock %}
 
@@ -20,7 +20,7 @@ AWARE
 {% if search_q %}
 {{ search_q }}
 {% else %}
-Удобная и красивая поисковая система
+Convenient and beautiful search engine
 {% endif %}
 {% endblock %}
 
@@ -45,10 +45,10 @@ AWARE
                     <div class="autocom-box disable-track-aware"></div>
                     <div class="load-more-end-butt icon">
                         <i class="spinner-border spinner_search_load_aware" style="visibility: hidden;"></i>
-                        <i class="fas fa-search icon_search_load_aware_one" style="visibility: hidden;" title="Поиск"></i>
+                        <i class="fas fa-search icon_search_load_aware_one" style="visibility: hidden;" title="Search"></i>
                     </div>
                     <div class="clear_aware_search_string" style="visibility: hidden;transition: margin-right 0.6s;margin-right: 2.3em;top: 0.8em;position: absolute;right: 0px;text-align: center;line-height: 55px;font-size: 20px;color: #202124;cursor: pointer;">
-                        <i class="fas fa-times" style="color: #000000ad;" title="Очистить строку"></i>
+                        <i class="fas fa-times" style="color: #000000ad;" title="Clear string"></i>
                     </div>
                 </div>
             </div>
@@ -77,58 +77,34 @@ AWARE
                 text-align: center;
                 color: #e2e2e2;
                 margin: 5px;
-            " class="aware_hide_blocks_on_index_page_text">Скрыть</p>
+            " class="aware_hide_blocks_on_index_page_text">Hide</p>
         </div>
         <div class="row-posts-end-ad"></div>
         <div class="row-posts-end" style="visibility: hidden;transition: margin-top 1s;margin-top: 1em;">
-            {% if not news_rand %}
-                {% if add_.text %}
-                    {% if r_type %}
-                        <div class="col-12 col-lg-12 padding-block-center-box">
-                            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                                <div style="float: left;">
-                                    <label class="username">Случайная цитата</label><br>
-                                    <label class="city"><i>„{{ add_.text }}“</i><br><br><b>{{ add_.author }}</b></label>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="col-12 col-lg-12 padding-block-center-box">
-                            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                                <div style="float: left;">
-                                    <label class="username">Случайный факт</label><br>
-                                    <label class="city"><i>{{ add_.text }}</i><br></label>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endif %}
-            {% else %}
-                <div class="col-12 col-lg-12 padding-block-center-box">
-                    <div class="user box aos-init aos-animate" data-aos="fade-up">
-                        <div style="float: left;">
-                            <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
-                            <label class="city">
-                                <u
-                                        style="color: #a0a0a0;font-weight: 600;"
-                                        class="news_search_button_aware_index_block"
-                                >Искать новость</u>
-                                <br/><br/>
-                                <i>{{ add_.1 }}</i>
-                                <br/><br/>
-                                <b>Источник - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
-                                <br/>
-                                <i><u>Опубликовано {{ add_.3 }} (UTC)</u></i>
-                            </label>
-                        </div>
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
+                        <label class="city">
+                            <u
+                                    style="color: #a0a0a0;font-weight: 600;"
+                                    class="news_search_button_aware_index_block"
+                            >Search this news</u>
+                            <br/><br/>
+                            <i>{{ add_.1 }}</i>
+                            <br/><br/>
+                            <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
+                            <br/>
+                            <i><u>Published at {{ add_.3 }} (UTC)</u></i>
+                        </label>
                     </div>
                 </div>
-            {% endif %}
+            </div>
         </div>
         <div style="margin: auto;">
-            <p class="no-more-results-text" style="color: #828282;transition: margin-bottom 1s;font-size: 14px;visibility: hidden;text-align: center;">Больше результатов нет</p>
+            <p class="no-more-results-text" style="color: #828282;transition: margin-bottom 1s;font-size: 14px;visibility: hidden;text-align: center;">No more results</p>
         </div>
-        <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">Загрузить еще&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
+        <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">Load more&nbsp;<span class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
     </div>
 {% endblock %}
 

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
 from ..common_functions import num_formatter
+from ..months import en_month, ua_month, ru_month
 import logging, re, requests_cache
 
 session = requests_cache.CachedSession('covid_cache', expire_after=7200)
@@ -43,18 +44,14 @@ def __main__(country='UA') -> str:
 
             def ukr_month_to_russian(string) -> str:
                 """local function mont translate"""
-                ua_month = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня',
-                            'вересня', 'жовтня', 'листопада', 'грудня']
-                ru_month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
-                            'октября', 'ноября', 'декабря']
                 for i, e in enumerate(ua_month):
                     if e in string:
-                        return string.replace(e, ru_month[i])
+                        return string.replace(e, en_month[i])
 
             date = soup.find('span', {'style': 'color: #999999;'}).text
             date = ukr_month_to_russian(date)
             array.append(date.replace(
-                'Інформація станом на', 'По состоянию на'
+                'Інформація станом на', 'As of'
             ))
 
             if len(array) != 6:
@@ -85,7 +82,7 @@ def __main__(country='UA') -> str:
                     x = soup_local.find('div', {"class": "cv-countdown__item-value"}).text
                     x = x.replace(' ', '')
                     if not enu:
-                        x = re.sub(r'[","].*', '000000', x.replace('>', '').replace('млн', '000000'))
+                        x = re.sub(r'[","].*', '000000', x.replace('>', '').replace('m', '000000'))
                     if enu != 5:
                         x = num_formatter(int(x))
                     array.append(x)
@@ -95,7 +92,12 @@ def __main__(country='UA') -> str:
 
             date = soup.find('div', {'class': 'cv-banner__description'}).text
             x_d = 'По состоянию на '
-            date = x_d + date.replace(x_d, '').lstrip('0')
+            date = 'As of ' + date.replace(x_d, '').lstrip('0')
+
+            date = [re.sub(ru_month[i], en_month[i], date)
+                    for i, _ in enumerate(zip(ru_month, en_month))
+                    if ru_month[i] in date][0]
+
             array.append(re.sub(r'\d\d[:]\d\d', '', date))
 
             if len(array) != 6:
@@ -110,7 +112,7 @@ def __main__(country='UA') -> str:
 
 def covid_api(country) -> str:
     """
-    Функція для виклику Covid Info API
-    :return: Строка з даними
+    Function to call the Covid Info API
+    :return: Deadline with data
     """
     return __main__(country)

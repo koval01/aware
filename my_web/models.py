@@ -14,71 +14,71 @@ def random_string():
 class Info(models.Model):
     # Choice lists
     SELECT_LANGUAGE = [
-        ('ua', 'Украинский'),
-        ('ru', 'Русский'),
-        ('en', 'Английский'),
+        ('ua', 'Ukrainian'),
+        ('ru', 'Russian'),
+        ('en', 'English'),
     ]
     SELECT_ACTIVE_MODE = [
-        ('yes', 'Да'),
-        ('no', 'Нет'),
+        ('yes', 'Yes'),
+        ('no', 'No'),
     ]
 
-    i_text = models.TextField('Текст')
-    i_language = models.CharField('Язык', choices=SELECT_LANGUAGE, default='ru', max_length=2)
-    i_active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
-    i_chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
-    i_views = models.PositiveIntegerField('Просмотры', default=0, editable=False)
-    i_time_active = models.DateTimeField('Активно до', default=timezone.now())
+    i_text = models.TextField('Text')
+    i_language = models.CharField('Language', choices=SELECT_LANGUAGE, default='ru', max_length=2)
+    i_active = models.CharField('Actively', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
+    i_chance = models.IntegerField('Display chance (1 to 100)', max_length=3)
+    i_views = models.PositiveIntegerField('Views', default=0, editable=False)
+    i_time_active = models.DateTimeField('Active until', default=timezone.now())
 
     def __str__(self):
         title = BeautifulSoup(self.i_text, 'lxml').text
         views = self.i_views
         if len(title) > 30:
             title = "%s..." % str(title[:30]).rstrip()
-        return "%s (Просмотров: %s)" % (title, num_formatter(views))
+        return "%s (Views: %s)" % (title, num_formatter(views))
 
     class Meta:
-        verbose_name = 'Рекламная запись'
-        verbose_name_plural = 'Рекламные записи'
+        verbose_name = 'Advertising record'
+        verbose_name_plural = 'Advertising records'
 
 
 class Banner(models.Model):
     # Choice lists
     SELECT_ACTIVE_MODE = [
-        ('yes', 'Да'),
-        ('no', 'Нет'),
+        ('yes', 'Yes'),
+        ('no', 'No'),
     ]
 
-    text = models.CharField('Текст', max_length=255)
-    active = models.CharField('Активно', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
-    chance = models.IntegerField('Шанс отображения (от 1 до 100)', max_length=3)
-    link_image = models.TextField('Ссылка на изображение')
-    link_site = models.CharField('Домен сайта (Пример - awse.us или awse.us/page/second_page)', max_length=255)
+    text = models.CharField('Text', max_length=255)
+    active = models.CharField('Actively', choices=SELECT_ACTIVE_MODE, default='yes', max_length=3)
+    chance = models.IntegerField('Display chance (1 to 100)', max_length=3)
+    link_image = models.TextField('Image link')
+    link_site = models.CharField('Site domain (Example - awse.us or awse.us/page/second_page)', max_length=255)
     utm_source = models.CharField('UTM Source', max_length=255, default='null')
     utm_medium = models.CharField('UTM Medium', max_length=255, default='null')
     utm_campaign = models.CharField('UTM Campaign', max_length=255, default='null')
     utm_content = models.CharField('UTM Content', max_length=255, default='null')
     utm_term = models.CharField('UTM Term', max_length=255, default='null')
-    views = models.PositiveIntegerField('Просмотры', default=0, editable=False)
-    time_active = models.DateTimeField('Активно до', default=timezone.now())
+    views = models.PositiveIntegerField('Views', default=0, editable=False)
+    time_active = models.DateTimeField('Active until', default=timezone.now())
 
     def __str__(self):
         title = BeautifulSoup(self.text, 'lxml').text
         views = self.views
         if len(title) > 30:
             title = "%s..." % str(title[:30]).rstrip()
-        return "%s (Просмотров: %s)" % (title, num_formatter(views))
+        return "%s (Views: %s)" % (title, num_formatter(views))
 
     class Meta:
-        verbose_name = 'Баннер'
-        verbose_name_plural = 'Баннеры'
+        verbose_name = 'Banner'
+        verbose_name_plural = 'Banners'
 
 
 class AWARE_Page(models.Model):
-    title = models.CharField('Название страницы', max_length=255, default='Не удалось получить заголовок страницы')
-    page_html_code = models.TextField('HTML код страницы', default='<p>Ошибка парсинга страницы...</p>')
-    unique_id = models.CharField('Уникальный ID', max_length=255, unique=True, default=random_string)
-    time = models.DateTimeField('Время создания', default=timezone.now())
+    title = models.CharField('Page title', max_length=255, default='Failed to get page title')
+    page_html_code = models.TextField('HTML code of the page', default='<p>Page parsing error ...</p>')
+    unique_id = models.CharField('Unique ID', max_length=255, unique=True, default=random_string)
+    time = models.DateTimeField('Time of creation', default=timezone.now())
 
     def __str__(self):
         return self.title
@@ -87,18 +87,18 @@ class AWARE_Page(models.Model):
         return "/aware/%s/" % self.unique_id
 
     class Meta:
-        verbose_name = 'Страница AWARE'
-        verbose_name_plural = 'Страницы AWARE'
+        verbose_name = 'AWARE page'
+        verbose_name_plural = 'AWARE Pages'
 
 
 class BlackWord(models.Model):
     SELECT_MODE = [
-        ('yes', 'Да'),
-        ('no', 'Нет'),
+        ('yes', 'Yes'),
+        ('no', 'No'),
     ]
 
-    word = models.CharField('Слово', max_length=255, unique=True)
-    ano_mode = models.CharField('Анаграмма', choices=SELECT_MODE, default='yes', max_length=3)
+    word = models.CharField('Word', max_length=255, unique=True)
+    ano_mode = models.CharField('Anagram', choices=SELECT_MODE, default='yes', max_length=3)
 
     def __str__(self):
         return self.word
@@ -111,18 +111,18 @@ class BlackWord(models.Model):
         super(BlackWord, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'Черное слово'
-        verbose_name_plural = 'Черные слова'
+        verbose_name = 'Black word'
+        verbose_name_plural = 'Black words'
 
 
 class Statistic(models.Model):
-    u_stat = models.IntegerField('Стастика пользователей')
-    b_stat = models.IntegerField('Статистика бота')
-    st_time = models.DateTimeField('Время обновления', default=timezone.now())
+    u_stat = models.IntegerField('User statistics')
+    b_stat = models.IntegerField('Bot statistics')
+    st_time = models.DateTimeField('Update time', default=timezone.now())
 
     def __str__(self):
         return str(int(self.u_stat) + int(self.b_stat))
 
     class Meta:
-        verbose_name = 'Статистика бота'
-        verbose_name_plural = 'Статистика бота'
+        verbose_name = 'Bot statistics'
+        verbose_name_plural = 'Bot statistics'

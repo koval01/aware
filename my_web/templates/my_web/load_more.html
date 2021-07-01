@@ -8,15 +8,30 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
-                    <label class="username">Статистика COVID-19 в Украине</label><br>
+                    <label class="username">COVID-19 statistics in Ukraine</label><br>
                     <label class="city"><br/>
-                        <h6>😷Больных Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
-                        <h6>❤️Выздоровели: <b>{{ covid_ua.2 }}</b></h6>
-                        <h6>💔Летальных исходов: <b>{{ covid_ua.3 }}</b></h6>
-                        <h6>📝Протестировано: <b>{{ covid_ua.4 }}</b></h6>
+                        <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
+                        <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
+                        <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
+                        <h6>📝Tested: <b>{{ covid_ua.4 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ua.5 }}</b></h6>
                     </label>
+                    <br/>
+                    <div style="
+                        background: #fff;
+                        border-radius: 0.5em;
+                        font-weight: 600;
+                        font-size: 0.9em;
+                        margin-top: 1em;
+                        display: inline-block;
+                    ">
+                        <span style="
+                            margin: 0.5em;
+                        ">COVID-19&nbsp;
+                            <i class="fas fa-calculator"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,15 +40,30 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
-                    <label class="username">Статистика COVID-19 в России</label><br>
+                    <label class="username">COVID-19 statistics in Russia</label><br>
                     <label class="city"><br/>
-                        <h6>😷Больных Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
-                        <h6>❤️Выздоровели: <b>{{ covid_ru.3 }}</b></h6>
-                        <h6>💔Летальных исходов: <b>{{ covid_ru.4 }}</b></h6>
-                        <h6>📝Протестировано: <b>{{ covid_ru.0 }}</b></h6>
+                        <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
+                        <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
+                        <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
+                        <h6>📝Tested: <b>{{ covid_ru.0 }}</b></h6>
                         <br/>
                         <h6>📅<b>{{ covid_ru.5 }}</b></h6>
                     </label>
+                    <br/>
+                    <div style="
+                        background: #fff;
+                        border-radius: 0.5em;
+                        font-weight: 600;
+                        font-size: 0.9em;
+                        margin-top: 1em;
+                        display: inline-block;
+                    ">
+                        <span style="
+                            margin: 0.5em;
+                        ">COVID-19&nbsp;
+                            <i class="fas fa-calculator"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +91,7 @@
                     ">
                         <span style="
                             margin: 0.5em;
-                        ">Калькулятор&nbsp;
+                        ">Calculator&nbsp;
                             <i class="fas fa-calculator"></i>
                         </span>
                     </div>
@@ -93,7 +123,7 @@
                     ">
                         <span style="
                             margin: 0.5em;
-                        ">Переводчик&nbsp;
+                        ">Translator&nbsp;
                             <i class="fas fa-language"></i>
                         </span>
                     </div>
@@ -106,11 +136,11 @@
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <label class="username">
-                        Новости от AWARE
+                        News from AWARE
                     </label><br>
                     <label class="city">
                         <i>
-                            Эта функция сейчас недоступна, простите.
+                            This feature is currently unavailable, sorry.
                         </i>
                     </label>
                 </div>
@@ -136,11 +166,11 @@
                                 </p>
                                 <p>
                                     <i class="fas fa-temperature-low"></i>
-                                    Ощущается как {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
+                                    Feels like {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
                                 </p>
                                 <p>
                                     <i class="fas fa-wind"></i>
-                                    {{ weather.now_weather.wind.speed }} м/сек
+                                    {{ weather.now_weather.wind.speed }} m\sec
                                 </p>
                             </div>
                             <div class="col-xs-6 text-center">
@@ -149,7 +179,7 @@
                                     <br>
                                     {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
                                         <small style="color: inherit;font-size: 50%;">
-                                            От {{ weather.now_weather.main.temp_min|floatformat:"0" }}° до {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
+                                            From {{ weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
                                         </small>
                                     {% endif %}
                                 </div>
@@ -189,7 +219,7 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username">Намаз на {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
+                    <label class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
                     <label class="city">
                         <p>
                             <br/>
@@ -197,11 +227,11 @@
                             {{ i }}<br/>
                         {% endfor %}
                             <br/>
-                            Методика расчета: Всемирная исламская лига
+                            Calculation Method: Islamic World League
                             <br/><br/>
-                            Временная зона: {{ el.timezone }}
+                            Time zone: {{ el.timezone }}
                             <br/>
-                            Обновлено: {{ el.update_time }} (Время на сервере)
+                            Updated: {{ el.update_time }} (Server time)
                         </p>
                     </label>
                 </div>
@@ -224,7 +254,7 @@
                     </div>
                     <div class="load_next_video_block_button">
                         <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
-                            Cледующее видео&nbsp;
+                            Next video&nbsp;
                             <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -262,15 +292,15 @@
                     </label><br>
                     <label class="city">
                         <i class="fas fa-user"></i>
-                        <span title="Автор">&nbsp;{{ videos.0.music.authorName }}</span>
+                        <span title="Author">&nbsp;{{ videos.0.music.authorName }}</span>
                         <br/>
                         <i class="fas fa-record-vinyl"></i>
-                        <span title="Альбом">&nbsp;{{ videos.0.music.album }}</span>
+                        <span title="Album">&nbsp;{{ videos.0.music.album }}</span>
                         <br/>
                         <i class="far fa-clock"></i>
-                        <span title="Длительность">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
+                        <span title="Duration">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
                         <br/><br/>
-                        <a href="{{ videos.0.music.playUrl }}" target="_blank">Перейти к треку</a>
+                        <a href="{{ videos.0.music.playUrl }}" target="_blank">Go to track</a>
                     </label>
                 </div>
             </div>
@@ -304,9 +334,9 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label class="username">Бот AWARE в Telegram</label><br>
+                        <label class="username">AWARE bot in Telegram</label><br>
                         <label class="city">
-                            Удобная поисковая система прямо в Telegram. Чтобы перейти к боту - нажмите на его псевдоним <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
+                            Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
                         </label>
                     </div>
                 </div>
@@ -324,7 +354,7 @@
                                 {# paste news image or text if this is a mobile device #}
                                 {% if mobile == '1' %}
                                     <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"
-                                             class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="Обложка новостного блока">
+                                             class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="News block cover">
                                 {% else %}
                                     <br/>
                                     <i>
@@ -333,11 +363,11 @@
                                 {% endif %}
                                 <br/><br/>
                                 <b>
-                                    Источник - <a href="{{ el.0.4 }}" target="_blank">{{ el.0.2 }}</a>
+                                    A source - <a href="{{ el.0.4 }}" target="_blank">{{ el.0.2 }}</a>
                                 </b>
                                 <br>
                                 <i>
-                                    <u>Опубликовано {{ el.0.3 }} (UTC)</u>
+                                    <u>Published at {{ el.0.3 }} (UTC)</u>
                                 </i>
                             </label>
                         </div>
@@ -363,7 +393,7 @@
                                                 src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
                                                 onerror="imgError(this);"
                                                 style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                                alt="Изображения предварительного просмотра"
+                                                alt="Preview image"
                                         >
                                     </a>
                                 {% elif el.1.youtube_id %}
@@ -374,7 +404,7 @@
                                                 onerror="imgError(this);"
                                                 style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
                                                 class="video_youtube_preview_image_aware"
-                                                alt="Изображения предварительного просмотра"
+                                                alt="Preview image"
                                                 data-youtube-id="{{ el.1.youtube_id }}"
                                         >
                                     </div>
@@ -391,7 +421,7 @@
                                         class="hint_text_video_play_yt"
                                 >
                                     <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
-                                        Для просмотра видео - нажмите на картинку
+                                        To view the video - click on the picture
                                     </b>
                                 </div>
                                 <div
@@ -405,7 +435,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "
-                                        title="Для просмотра видео - нажмите на картинку"
+                                        title="To view the video - click on the picture"
                                 >
                                     <span id="{{ 32|get_random_string }}" style="
                                         margin: 0.5em;
@@ -455,11 +485,11 @@
                         <div class="box_aware_error__description">
                             <div class="box_aware_error__description-container">
                                 <div class="box_aware_error__description-title">
-                                    Ой!
+                                    Oh!
                                 </div>
                                 <div class="box_aware_error__description-text" id="{{ 32|get_random_string }}">
-                                    Похоже, что в твоем поисковом запросе есть слово которое запретил администратор. Обратитесь к
-                                    <a href="https://t.me/Jomahmadov2002">Администратору</a>, если считаете это ошибкой.
+                                    It looks like your search query contains a word that the administrator has banned. Talk to
+                                    <a href="https://t.me/Jomahmadov2002">Administrator</a> if you think this is a mistake.
                                 </div>
                             </div>
                         </div>

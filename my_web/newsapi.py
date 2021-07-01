@@ -17,7 +17,7 @@ def __main__(news_append, get_one=False) -> list:
         error_json = False
         url = 'https://newsapi.org/v2/top-headlines'
         params = {
-            'country': 'ru',
+            'country': 'us',
             'category': 'general',
             'apiKey': choice(token),
         }
@@ -40,11 +40,11 @@ def __main__(news_append, get_one=False) -> list:
                 if not error_json:
                     for el in json_response['articles']:
                         time_field = datetime.fromisoformat(str(el['publishedAt'])[:-1])
-                        d_ = time_field.strftime("%d %B %Y г. %H:%M")
+                        d_ = time_field.strftime("%d %B %Y at %H:%M")
                         time_field = month_convert(d_)
                         description = filter_news(el['description'])
                         if description == 'None' or not description:
-                            description = 'Новость не содержит описания'
+                            description = 'The news does not contain a description'
                         title = filter_news(el['title'])
                         data_array_pre = [
                             title,
@@ -76,9 +76,9 @@ def __test__():
 
 def news_search(string) -> bool:
     """
-    Пропонуємо новини AWARE
-    :param string: Пошуковий запит
-    :return: булентний результат
+    We offer AWARE news
+    :param string: Search query
+    :return: bulent result
     """
     words = [
         'новость', 'новости', 'новостей', 'новостью', 'новостям', 'новостями', 'новостях',

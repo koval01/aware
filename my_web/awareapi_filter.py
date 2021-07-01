@@ -25,16 +25,17 @@ def get_html_code_page(link) -> str:
 
 def get_body_el_page(page_html) -> dict:
     """
-    Отримуємо тіло сторінки, знаходимо текстові теги і повертаємо це в строці, також ця функція передаю заголовок
-    :param page_html: HTML код сторінки яку потрібно проаналізувати
-    :return: Всі потрібні теги в строці
+    We receive a body of the page, we find text tags and we return
+    it in a line, also this function I transfer a title
+    :param page_html: HTML code of the page to be analyzed
+    :return: All the necessary tags in the line
     """
     soup = BeautifulSoup(page_html, 'lxml')
     try:
         title_page = soup.title.string
     except Exception as e:
         logger.error(e)
-        title_page = 'Не удалось получить заголовок страницы'
+        title_page = 'Failed to get page title'
 
     text_tags = [
         'p', 'i', 'b', 'code', 'em', 'strong',
@@ -63,9 +64,9 @@ def get_body_el_page(page_html) -> dict:
 
 def get_youtube_link(link) -> str:
     """
-    Якщо посилання на ютуб, то обробляємо його, якщо ні, то повертаємо None
-    :param link: Посилання на сайт
-    :return: Результат у форматі строки
+    If the link to YouTube, then process it, if not, then return None
+    :param link: Link to the site
+    :return: Result in time format
     """
     yt = False
     if 'youtube.com/watch?v=' in link:
@@ -95,8 +96,8 @@ def html_code_prepare(html, domain) -> str:
 
 def get_instant_page(link) -> dict:
     """
-    Функція для зручного отримання посилання на Instant View сторінку
-    :param link: Посилання яке потрібно обробити
+    Function for easy retrieval of a link to the Instant View page
+    :param link: Link to process
     :return: Title, html code, template id
     """
     page = get_html_code_page(link)
@@ -116,7 +117,7 @@ def get_instant_page(link) -> dict:
     if bool(BeautifulSoup(html, "html.parser").find()):
         html = html
     else:
-        html = '<p>Не удалось проанализировать эту страницу ... Простите.</p>'
+        html = '<p>This page could not be parsed... Sorry.</p>'
     title = data['title']
     template = '8eb77d3141107a'  # Telegram Instant View template hash
     return dict(

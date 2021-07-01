@@ -7,8 +7,8 @@ def get_text() -> str:
     :return: text
     """
     list_text = [
-        'Загрузка',
-        'Обновление',
-        'Подготовка',
+        'Loading',
+        'Updating',
+        'Preparing',
     ]
     return choice(list_text)+'...'

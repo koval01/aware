@@ -53,7 +53,7 @@ def weather_get(string) -> dict:
                         params = {
                             'q': city_local,
                             'appid': key,
-                            'lang': 'ru',
+                            'lang': 'en',
                             'units': 'metric',
                         }
 

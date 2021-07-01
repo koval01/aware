@@ -68,9 +68,9 @@ def get_range(value) -> int:
 @register.filter
 def get_weather_ico(value) -> str:
     """
-    Отримання піктограми погоди
-    :param value: Код погоди
-    :return: HTML код
+    Getting the weather icon
+    :param value: Weather code
+    :return: HTML code
     """
     return get_weather_icon(value)
 
@@ -78,9 +78,9 @@ def get_weather_ico(value) -> str:
 @register.filter
 def add_days_by_timestamp(value=1) -> object:
     """
-    Функція яка додає до поточного часу дні
-    :param value: Кількість днів
-    :return: Результат (об'єкт часу)
+    A function that adds days to the current time
+    :param value: Number of days
+    :return: Result (time object)
     """
     s = (value * 86400) + round(time())
     return datetime.fromtimestamp(s)
@@ -89,9 +89,9 @@ def add_days_by_timestamp(value=1) -> object:
 @register.filter
 def pop_convert_weather(value) -> str:
     """
-    Функція, що переводить float значення pop в відсотки
-    :param value:
-    :return:
+    A function that converts the float value of a pop to a percentage
+    :param value: full proc
+    :return: edited proc
     """
     return str(value)[-2:] + '%'
 
@@ -237,6 +237,8 @@ def image_proxy_view(request):
             original_address = '127.0.0.1'
             logger.error(e)
 
+        logger.info('image_proxy_view: check address...')
+
         if original_address == received_address:
             try:
                 video = request.GET['video_mode']
@@ -247,6 +249,9 @@ def image_proxy_view(request):
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+
+            logger.info('image_proxy_view: check image link...')
+
             if img_link_check(link_get, video=video):
                 token = request.GET['token']
                 salt = Fernet(image_proxy_key)
@@ -415,9 +420,9 @@ def sync_time_server(request):
 
 def global_ad_function(lang) -> dict:
     """
-    Глобальна функція для отримання реклами всередині viws.py
-    :param lang: Мова (мовний код)
-    :return: Словник з даними
+    Global feature for getting advertising inside viws.py
+    :param lang: Language (language code)
+    :return: Dictionary with data
     """
     valid_codes_lang = ['ua', 'ru', 'en']
 
@@ -475,8 +480,8 @@ def get_ad(request):
 
 def global_banner_function() -> dict:
     """
-    Глобальна функція для отримання банерів всередині viws.py
-    :return: Словник з даними
+    Global function for getting banners inside viws.py
+    :return: Dictionary with data
     """
     obj = Banner.objects
     all_data = obj.all().filter(active='yes')
@@ -639,15 +644,9 @@ def index(request):
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
-    search_example_get = "Что нужно найти?"
+    search_example_get = "What do you need to find?"
 
-    news_rand = random.randint(0, 1)
-    if not news_rand:
-        r_type = random.randint(0, 1)
-        add_ = rand_fact_or_quote(r_type)
-    else:
-        r_type = 0
-        add_ = newsfeed(True, True)
+    add_ = newsfeed(True, True)
 
     try:
         user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[-1:][0]
@@ -665,8 +664,8 @@ def index(request):
     return render(request, 'my_web/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
-        'r_type': r_type, 'news_rand': news_rand, 'search_q': search_q,
-        'user_address': user_address, 'max_search_len': max_search_len,
+        'search_q': search_q, 'user_address': user_address,
+        'max_search_len': max_search_len,
     })
 
 
@@ -817,11 +816,16 @@ def load_more(request):
                         else:
                             search_type_data = 'search request'
 
+                        if settings.DEBUG:
+                            user_address_local = user_agent_local = 'development_test'
+                        else:
+                            user_address_local = user_address; user_agent_local = user_agent
+
                         Process(
                             target=infobot_send_data,
                             args=(
-                                user_agent,
-                                user_address,
+                                user_agent_local,
+                                user_address_local,
                                 search,
                                 search_type_data,
                                 user_request_method,
@@ -843,7 +847,8 @@ def load_more(request):
                     weather = weather_get(search)
 
                     # DeepL API
-                    translate_result = translate_simple(search)
+                    # translate_result = translate_simple(search)
+                    translate_result = None
 
                     # data pack
                     data = zip(news, search_array)

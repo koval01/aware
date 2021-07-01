@@ -30,8 +30,6 @@
 ```javascript
 function example(string) {
     /*
-    Ця функція є прикладом для README.md
-    ---
     This function is an example for README.md
     */
     

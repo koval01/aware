@@ -26,9 +26,9 @@ def similarity(string_one, string_two):
 
 def check_bot_request_search(string) -> bool:
     """
-    Перевірка чи пов'язаний запит з ботом
-    :param string: Строка в якій виконується пошук
-    :return: Результат перевірки
+    Check if the query is related to the bot
+    :param string: The period in which the search is performed
+    :return: The result of the inspection
     """
     words_get = string.lower().split()
     words_list = [
@@ -44,9 +44,9 @@ def check_bot_request_search(string) -> bool:
 
 def check_info_request_search(string) -> bool:
     """
-    Перевірка чи пов'язаний запит з інформацією (описом проекту)
-    :param string: Строка в якій виконується пошук
-    :return: Результат перевірки
+    Checking whether the request is related to the information (project description)
+    :param string: The period in which the search is performed
+    :return: The result of the inspection
     """
     words_get = string.lower().split()
     words_list = [
@@ -61,9 +61,9 @@ def check_info_request_search(string) -> bool:
 
 def check_link(link) -> str:
     """
-    Перевірка чи є переадресації в посиланні
-    :param link: Посилання для перевірки
-    :return: Отримане посилання
+    Check for redirects in the link
+    :param link: Link to check
+    :return: Received link
     """
     return get(link, timeout=1).url
 
@@ -78,8 +78,8 @@ def num_formatter(num):
 
 def check_request__(data) -> bool:
     """
-    Перевірка запиту
-    :param data: Отримана інформація (str)
+    Check request
+    :param data: Received information (str)
     :return: bool result
     """
     try:

@@ -1,7 +1,7 @@
 {% extends 'my_web/base.html' %}
 
 {% block title %}
-AWARE - Статус и история доступности AWARE
+AWARE - AWARE status and availability history
 {% endblock %}
 
 {% block title_header %}
@@ -9,11 +9,11 @@ AWARE
 {% endblock %}
 
 {% block og_desc %}
-Небольшая история из жизни проекта AWARE
+A short story from the life of the AWARE project
 {% endblock %}
 
 {% block twitter_desc %}
-Небольшая история из жизни проекта AWARE
+A short story from the life of the AWARE project
 {% endblock %}
 
 {% block url_path %}
@@ -26,16 +26,16 @@ AWARE
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
 
-                    <label class="username">Доступность AWARE</label><br>
+                    <label class="username">AWARE availability</label><br>
                     <label class="city">
-                        <i>За последние сутки: <b>{{ status.days1 }}%</b></i><br/>
-                        <i>За последние 7 дней: <b>{{ status.days7 }}%</b></i><br/>
-                        <i>За последние 30 дней: <b>{{ status.days30 }}%</b></i><br/>
-                        <i>За последние 90 дней: <b>{{ status.days90 }}%</b></i><br/><br/>
+                        <i>For the last 24 hours: <b>{{ status.days1 }}%</b></i><br/>
+                        <i>Last 7 days: <b>{{ status.days7 }}%</b></i><br/>
+                        <i>Last 30 days: <b>{{ status.days30 }}%</b></i><br/>
+                        <i>For the last 90 days: <b>{{ status.days90 }}%</b></i><br/><br/>
                         {# Index 1, because when the site is available, the last event will be successful #}
-                        <i>Последнее событие: <b>{{ status.logs.1.dateGMT }}</b></i><br/>
-                        <i>Продолжительность события: <b>{{ status.logs.1.duration }}</b></i><br/>
-                        <i>Ответ сервера: <b>
+                        <i>Last event: <b>{{ status.logs.1.dateGMT }}</b></i><br/>
+                        <i>Duration of the event: <b>{{ status.logs.1.duration }}</b></i><br/>
+                        <i>Server response: <b>
                             {{ status.logs.1.reason.code }}&nbsp;
                             {{ status.logs.1.reason.detail.short }}
                         </b></i><br/>

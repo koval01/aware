@@ -1,7 +1,7 @@
 /*
-|----------------------------------|
-| Цей файл - оригінальний код ядра |
-|----------------------------------|
+|---------------------------------------|
+| This file is the original kernel code |
+|---------------------------------------|
 */
 
 function imgError(o) {
@@ -10,7 +10,7 @@ function imgError(o) {
 
 function VideoError(o) {
     o.remove();
-    $.notify("Ошибка загрузки видео.", {
+    $.notify("Video upload error.", {
         position: "bottom right",
         autoHideDelay: 3000
     });
@@ -160,7 +160,7 @@ function get__(enc_key_by_function) {
             }
         },
         error: function() {
-            $.notify("Ошибка на стороне сервера.", {
+            $.notify("Server side error.", {
                 position: "bottom right",
                 autoHideDelay: 3000
             });
@@ -189,7 +189,7 @@ function getParameterByName(name, url = window.location.href) {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     } catch {
-        $.notify("Ошибка анализа адресной строки.", {
+        $.notify("Address bar parsing error.", {
             position: "bottom right",
             autoHideDelay: 3000
         });
@@ -241,8 +241,8 @@ var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-cente
     '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">'+
     '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>'+
     '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">'+
-    'Ой!</div><div class="box_aware_error__description-text">'+
-    'Мы не смогли ничего найти по вашему запросу... Повторите попытку, или переформулируйте вопрос.</div></div></div></div></div></div>';
+    'Oh!</div><div class="box_aware_error__description-text">'+
+    'We could not find anything for your request... Please try again, or reformulate the question.</div></div></div></div></div></div>';
 
 var pageX = $(document).width();
 var pageY = $(document).height();
@@ -272,7 +272,7 @@ function hide_hint_text_video() {
 
 function covid_anal(string) {
     /*
-    Функція для перевірки - чи пов'язаний запит з коронавірусом
+    Function to check whether the request is related to the coronavirus
     */
     const words = [
         'covid', 'covid-19', 'коронавирус', 'коронавірус',
@@ -289,7 +289,7 @@ function covid_anal(string) {
 
 function namaz_anal(string) {
     /*
-    Функція для перевірки - чи пов'язаний запит з Намазом
+    Function to check whether the request is related to the Prayer
     */
     const words = [
         'намаз', 'намаза', 'намазом', 'намазов',
@@ -305,10 +305,10 @@ function namaz_anal(string) {
 
 function get_namaz(string) {
     /*
-    Функція для отримання інформації про Намаз
+    Function for obtaining information about Prayer
     */
     if (namaz_anal(string)) {
-        // Переконуємося ще раз, що цю функцію потрібно активувати
+        // We make sure once again that this feature needs to be activated
         const string_split = string.split();
         var result = null;
 
@@ -417,7 +417,7 @@ function load_ajax_end_page(o, type_loading) {
             $(".row-posts-end").css("display", "");
         },
         success: function(o) {
-            his.remove(search_data_text); // Якщо вже було, то видаляємо, після чого ставимо заново
+            his.remove(search_data_text); // If it was already, then remove, then put again
             his.add(search_data_text);
 
             $(".clear_aware_search_string").css("margin-right", "2em");
@@ -454,7 +454,7 @@ function load_ajax_end_page(o, type_loading) {
 
             e.attr("disabled", !1),
                 n.removeClass("d-inline-block"),
-                "Ошибка валидации!" == o ? $.notify("Ошибка. Перезагрузите страницу.", {
+                "Ошибка валидации!" == o ? $.notify("Error. Reload the page.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 }) : $(".row-posts-end").append(o),
@@ -510,19 +510,19 @@ function load_ajax_end_page(o, type_loading) {
         },
         statusCode: {
             400: function() {
-                $.notify("Что-то пошло не так...", {
+                $.notify("Something went wrong...", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
             403: function() {
-                $.notify("Слишком много запросов.", {
+                $.notify("Too many requests.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
             500: function() {
-                $.notify("Ошибка на стороне сервера.", {
+                $.notify("Server side error.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
@@ -573,7 +573,7 @@ function load_continue_ajax_end_page(o, type_loading) {
 
             e.attr("disabled", !1),
                 n.removeClass("d-inline-block"),
-                "Ошибка валидации!" == o ? $.notify("Ошибка. Перезагрузите страницу.", {
+                "Ошибка валидации!" == o ? $.notify("Error. Reload the page.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 }) : $(".row-posts-end").append(o),
@@ -604,19 +604,19 @@ function load_continue_ajax_end_page(o, type_loading) {
         },
         statusCode: {
             400: function() {
-                $.notify("Что-то пошло не так...", {
+                $.notify("Something went wrong...", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
             403: function() {
-                $.notify("Слишком много запросов.", {
+                $.notify("Too many requests.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
             500: function() {
-                $.notify("Ошибка на стороне сервера.", {
+                $.notify("Server side error.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
@@ -777,7 +777,7 @@ $(".clear_aware_search_string").on("click", function() {
         let i = 0;
 
         function update_text_search_place() {
-            var x_text = 'Ок...';
+            var x_text = 'Ok...';
             i = i + 1;
             // console.log(i);
             $('.search-input-aware').attr("placeholder", x_text.slice(0, i));
@@ -803,7 +803,7 @@ function error_search_no_text(mode) {
     if (mode == 'error') {
         clearInterval(timerId_global);
         clearInterval(timer_clear_update);
-        $('.search-input-aware').attr("placeholder", "Это поле не может быть пустым");
+        $('.search-input-aware').attr("placeholder", "This field cannot be empty!");
 
     } else {
         $('.search-input-aware').attr("placeholder", search_template__);
@@ -847,7 +847,7 @@ function prepend_ad_block_to_search_results(data, ready = true) {
     var append_advertise_html_code_search_ad = '<div class="col-12 col-lg-12 padding-block-center-box ad_index_el"><div class="user box aos-init aos-animate" \
     data-aos="fade-up"><div style="float: left;"><label class="city" style="font-size: calc(14px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));\
     ">' + String(data['text']).replace('\n', '<br>') + '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;\
-    margin-top: 1em;display: inline-block;"><span style="margin: 0.5em;">Реклама&nbsp;<i class="fas fa-ad"></i></span></div></div></div></div>';
+    margin-top: 1em;display: inline-block;"><span style="margin: 0.5em;">Advertising&nbsp;<i class="fas fa-ad"></i></span></div></div></div></div>';
 
     // $(".advertise-aware-block").empty();
     // $(".row-posts-end-ad").empty();
@@ -935,7 +935,7 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
         });
 
         $(".ad_index_el").remove();
-        $(".aware_hide_blocks_on_index_page_text").text('Показать');
+        $(".aware_hide_blocks_on_index_page_text").text('Show');
         $(".aware_hide_blocks_on_index_page").css('margin-bottom', '-5%');
 
         $(".row-posts-end").css("display", "none");
@@ -957,7 +957,7 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
             get_ad('new');
         }
 
-        $(".aware_hide_blocks_on_index_page_text").text('Скрыть');
+        $(".aware_hide_blocks_on_index_page_text").text('Hide');
         $(".aware_hide_blocks_on_index_page").css('margin-bottom', '5%');
 
         $(".row-posts-end").css("display", "block");
@@ -990,7 +990,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false) {
         var link_el = banner_el.parent('a');
 
         if (!title) {
-            title = 'Рекламный баннер';
+            title = 'Advertising banner';
         }
 
         link = imageproxy__ + "?data=" + link + "&video_mode=1&token=" + token_valid__ + '&sign=' + user_address__;
@@ -1080,7 +1080,7 @@ function init_video_search_in_results() {
                         detect_volume_change_by_user(video_loaded_yt_aware.attr("id"));
                     } else {
                         video_load_spin.css("display", "none");
-                        $.notify("Ошибка. Не удалось загрузить видео.", {
+                        $.notify("Error. Failed to load video.", {
                             position: "bottom right",
                             autoHideDelay: 3000
                         });
@@ -1089,7 +1089,7 @@ function init_video_search_in_results() {
                 error: function() {
                     // Error connection or not valid response
                     video_load_spin.css("display", "none");
-                    $.notify("Ошибка. Не удалось загрузить видео.", {
+                    $.notify("Error. Failed to load video.", {
                         position: "bottom right",
                         autoHideDelay: 3000
                     });

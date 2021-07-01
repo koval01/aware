@@ -23,9 +23,9 @@ def get_result(question) -> str:
                 "client": "gws-wiz",
                 "xssi": "t",
                 "gs_ri": "gws-wiz",
-                "hl": "ru-RU",
+                "hl": "en-US",
             }
-            r = session.get("https://www.google.com.ua/complete/search", headers=headers, params=params)
+            r = session.get("https://www.google.com/complete/search", headers=headers, params=params)
             if r.status_code == 200:
                 return r.text
         except Exception as e:
@@ -34,9 +34,9 @@ def get_result(question) -> str:
 
 def data_prepare(data) -> list:
     """
-    Підготовка даних
-    :param data: Вхідні дані
-    :return: Вихідні дані
+    Data preparation
+    :param data: Incoming data
+    :return: Output data
     """
     x = data.replace(")]}'", '')
     return eval(x)
@@ -44,9 +44,9 @@ def data_prepare(data) -> list:
 
 def get_result_data(question) -> str:
     """
-    Отримання фінального результату
-    :param question: Пошукова стрічка
-    :return: Результат в форматі строки
+    Getting the final result
+    :param question: Search bar
+    :return: Result in time format
     """
     d = get_result(question)
     r = data_prepare(d)

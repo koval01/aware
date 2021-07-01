@@ -57,8 +57,8 @@ def get_result(question, index=1) -> dict:
 
 def search_youtube(link) -> dict:
     """
-    Перевірка чи веде посилання на YouTube
-    :return: ID відео або None, якщо не веде на YouTube
+    Check whether the link is on YouTube
+    :return: Video ID or None if not hosted on YouTube
     """
     domains = [
         'youtube.com', 'youtu.be',
@@ -88,10 +88,10 @@ def search_youtube(link) -> dict:
 
 def search_words_in_result(search_text, result_text) -> str:
     """
-    Пошук слів у результатах із запиту користувача
-    :param search_text: Текст пошукового запиту
-    :param result_text: Текст результату пошуку
-    :return: Відредагований текст для результату
+    Search for words in the results of a user query
+    :param search_text: Search query text
+    :param result_text: Search result text
+    :return: Edited text for the result
     """
     tag_template = '<b class="text_select_in_results">%s</b>'
 
@@ -118,10 +118,10 @@ def search_words_in_result(search_text, result_text) -> str:
 
 def data_prepare(data, search_text) -> dict:
     """
-    Обробка і підготовка даних
-    :param data: Масив з даними
-    :param search_text: Пошуковий запит
-    :return: Сформований масив даних
+    Data processing and preparation
+    :param data: Data array
+    :param search_text: Search query
+    :return: An array of data is formed
     """
     try:
         if data['searchInformation']['totalResults']:
@@ -158,9 +158,9 @@ def data_prepare(data, search_text) -> dict:
 
 def check_words_in_search_string(search_string) -> bool:
     """
-    Функція яка перевіряє пошукову стрічку на наявність заборонених слів
-    :param search_string: Пошукова строка
-    :return: Результат перевірки (bool)
+    A function that checks the search bar for banned words
+    :param search_string: Search term
+    :return: Bool result
     """
     for i in search_string.split():
         alpha = ''.join(filter(str.isalpha, i)).capitalize()
@@ -178,9 +178,9 @@ def check_words_in_search_string(search_string) -> bool:
 
 def search(string) -> dict:
     """
-    Функція пошуку
-    :param string: Пошуковий запит
-    :return: Список результатів
+    Search function
+    :param string: Search query
+    :return: List of results
     """
 
     def search_error():
@@ -209,10 +209,10 @@ def search(string) -> dict:
 
 def search_custom_index(string, index) -> dict:
     """
-    Функція пошуку
-    :param string: Пошуковий запит
-    :param index: Пошуковий індекс
-    :return: Список результатів
+    Search function
+    :param string: Search query
+    :param index: Search index
+    :return: List of results
     """
     x = get_result(string, index)
     d = data_prepare(x, string)
@@ -221,10 +221,10 @@ def search_custom_index(string, index) -> dict:
 
 def select_type(string, index) -> dict:
     """
-    Функція для зручного вибору режиму
-    :param string: Пошукова строка
-    :param index: Індекс
-    :return: результат пошуку
+    Function for easy mode selection
+    :param string: Search term
+    :param index: Index
+    :return: search result
     """
     x = check_words_in_search_string(string)
 

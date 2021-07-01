@@ -1,5 +1,4 @@
 from json import loads
-from .months import convert_short
 from datetime import datetime
 import logging, requests_cache
 
@@ -44,7 +43,7 @@ def get_namaz_data(city) -> list:
     d = int(datetime.now().strftime("%d"))
     return [dict(
         timings=["%s: %s" % (key, value) for key, value in i['timings'].items() if key != 'Sunset'],
-        time=convert_short(i['date']['readable']),
+        time=i['date']['readable'],
         hijri_year=i['date']['hijri']['year'],
         hijri_month=i['date']['hijri']['month']['en'],
         hijri_day=i['date']['hijri']['day'],

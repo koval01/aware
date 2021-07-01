@@ -21,4 +21,4 @@ def get_result() -> str:
         return loads(r)['question']['text'].replace('"', '”')
     except Exception as e:
         logger.error(e)
-        return 'Введите поисковый запрос...'
+        return 'Enter your search term ...'

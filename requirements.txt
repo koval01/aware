@@ -6,7 +6,7 @@ django-ratelimit
 django-blacklist
 django-allauth
 gunicorn
-pip
+pip>1.0
 six
 youtube-dl
 pafy

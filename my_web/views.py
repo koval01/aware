@@ -564,7 +564,6 @@ def get_video_yt(request):
 
     return error_400(request)
 
-
 @require_POST
 @csrf_exempt
 def aware_api(request):

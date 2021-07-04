@@ -811,6 +811,8 @@ def load_more(request):
 
                     # Send data to InfoBot
                     if search:
+                        search_local = 'hidden'
+
                         if namaz:
                             search_type_data = 'namaz'
                         else:
@@ -826,7 +828,7 @@ def load_more(request):
                             args=(
                                 user_agent_local,
                                 user_address_local,
-                                search,
+                                search_local,
                                 search_type_data,
                                 user_request_method,
                                 user_referer,

@@ -8,8 +8,8 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
-                    <label class="username">COVID-19 statistics in Ukraine</label><br>
-                    <label class="city"><br/>
+                    <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Ukraine</label><br>
+                    <label id="{{ 32|get_random_string }}" class="city"><br/>
                         <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
                         <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
                         <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
@@ -40,8 +40,8 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left; ">
-                    <label class="username">COVID-19 statistics in Russia</label><br>
-                    <label class="city"><br/>
+                    <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Russia</label><br>
+                    <label id="{{ 32|get_random_string }}" class="city"><br/>
                         <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
                         <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
                         <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
@@ -75,7 +75,7 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="city">
+                    <label id="{{ 32|get_random_string }}" class="city">
                         <i>
                             {{ c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ c_result }}</b>
                         </i>
@@ -103,7 +103,7 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="city">
+                    <label id="{{ 32|get_random_string }}" class="city">
                         <i>
                             {{ search }}
                         </i>
@@ -135,10 +135,10 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username">
+                    <label id="{{ 32|get_random_string }}" class="username">
                         News from AWARE
                     </label><br>
-                    <label class="city">
+                    <label id="{{ 32|get_random_string }}" class="city">
                         <i>
                             This feature is currently unavailable, sorry.
                         </i>
@@ -167,7 +167,7 @@
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <div class="col-xs-12">
-                        <div class="weather-panel col-xs-12 col-sm-12"
+                        <div id="{{ 32|get_random_string }}" class="weather-panel col-xs-12 col-sm-12"
                         style="color: #efeff1;">
                             <div class="col-xs-6">
                                 <h2>{{ weather.now_weather.name }}<br>
@@ -234,8 +234,8 @@
         <div class="col-12 col-lg-12 padding-block-center-box">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
-                    <label class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
-                    <label class="city">
+                    <label id="{{ 32|get_random_string }}" class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
+                    <label id="{{ 32|get_random_string }}" class="city">
                         <p>
                             <br/>
                         {% for i in el.timings %}
@@ -274,8 +274,8 @@
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <div style="float: left;">
-                <label style="margin-bottom: 10%;" class="username"></label><br>
-                <label class="city">
+                <label id="{{ 32|get_random_string }}" style="margin-bottom: 10%;" class="username"></label><br>
+                <label id="{{ 32|get_random_string }}" class="city">
                     <div clas="video_view_block_aware" style="margin-right: 20px;min-width: 100%;float: left;max-width: 100%;">
                         <video width="100%" controls="controls" class="aware_video_feed_el photohub_item" id="video_player_block_aware"
                                autoplay="true" loop="loop" style="display: block;margin: 0 auto;width: min-content;max-width: 100%;max-height: 80vh;margin-bottom: 40px;">
@@ -317,10 +317,10 @@
                     <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1">
                         <i class="fas fa-compact-disc"></i>
                     </label>
-                    <label class="username">
+                    <label id="{{ 32|get_random_string }}" class="username">
                         &nbsp;{{ videos.0.music.title }}
                     </label><br>
-                    <label class="city">
+                    <label id="{{ 32|get_random_string }}" class="city">
                         <i class="fas fa-user"></i>
                         <span title="Author">&nbsp;{{ videos.0.music.authorName }}</span>
                         <br/>
@@ -351,7 +351,7 @@
                         <i class="fas fa-check"></i>
                     {% endif %}
                 </label><br>
-                <label class="city">
+                <label id="{{ 32|get_random_string }}" class="city">
                     {# User profile description (bio) #}
                     {{ videos.0.author.signature }}
                 </label>
@@ -365,7 +365,7 @@
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
                         <label class="username">AWARE bot in Telegram</label><br>
-                        <label class="city">
+                        <label id="{{ 32|get_random_string }}" class="city">
                             Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
                         </label>
                         <br/>
@@ -395,7 +395,7 @@
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
                             <label class="username">{{ el.0.0 }}</label><br>
-                            <label class="city">
+                            <label id="{{ 32|get_random_string }}" class="city">
                                 {# paste news image or text if this is a mobile device #}
                                 {% if mobile == '1' %}
                                     <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"

@@ -871,13 +871,12 @@ function get_ad(mode) {
             },
             success: function(o) {
                 $(".autocom-box").empty();
-                // if (mode == 'con') {
-                //     append_ad_block(o);
-                // }
-                if (mode == 'new') {
-                    prepend_ad_block_to_search_results(o);
-                } else {
-                    prepend_ad_block_to_search_results(o, false);
+                if(o['text']){
+                    if (mode == 'new') {
+                        prepend_ad_block_to_search_results(o);
+                    } else {
+                        prepend_ad_block_to_search_results(o, false);
+                    }
                 }
             },
             async: true,

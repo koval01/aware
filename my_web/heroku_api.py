@@ -22,7 +22,7 @@ def get_last_build_id() -> str:
         data = session.get(url, headers=headers).json()
 
         if len(data) > 1 and not settings.DEBUG:
-            return str(data[0]['id'])[0:7]
+            return str(data[0]['id'])[0:12]
 
         else:
             return 'DEV_BUILD'

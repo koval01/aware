@@ -1194,6 +1194,11 @@ $(window).scroll(function() {
         $(o.target).hasClass("float_bg") && ($(".menu_box").hide(), $(".float_bg").hide());
     });
 
+/*
+
+JQuery Cookies
+
+*/
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);

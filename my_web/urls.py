@@ -10,9 +10,7 @@ sitemaps_aware_pages = {
 
 urlpatterns = [
     path('', views.index, name='index_page'),
-    path('status/', views.status, name='status_page'),
     path('load_more/', views.load_more, name='load_more'),
-    path('bot_gateway/<str:token>/', views.bot_gateway, name='bot_gateway'),
     path('aware/', views.error_404, name='awareaddr'),
     path('aware/<str:awareid>/', views.awareview),
     path('robots.txt', views.robots_txt, name='robots_txt'),

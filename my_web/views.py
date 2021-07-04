@@ -26,7 +26,6 @@ from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
-from .deepl import translate_simple
 from .heroku_api import get_last_build_id as heroku_get_last_build_id
 from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
@@ -34,10 +33,8 @@ from .models import AWARE_Page, Info, Banner
 from .namaz_api import get_namaz_data
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
-from .randstuff_api import get_result as rand_fact_or_quote
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
-from .status_api.api import status_api as status_data_api
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
 from .tiktok_static import get_data as tiktok_data_get
@@ -570,26 +567,6 @@ def get_video_yt(request):
 
 @require_POST
 @csrf_exempt
-def bot_gateway(request, token):
-    """
-    Telegram bot gateway view
-    :param request: request body
-    :param token: Secret token
-    :return: response body
-    """
-    # token: request.GET.get('token', '')
-    # try:
-    #     logger.info('Get webhook request from Telegram API')
-    #     telegram_bot(request.read().decode("utf-8"), token)
-    #     return HttpResponse('True')
-    # except Exception as e:
-    #     logger.error(e)
-
-    return error_400(request)
-
-
-@require_POST
-@csrf_exempt
 def aware_api(request):
     """
     API for AWARE
@@ -667,18 +644,6 @@ def index(request):
         'search_q': search_q, 'user_address': user_address,
         'max_search_len': max_search_len,
     })
-
-
-@require_GET
-def status(request):
-    """
-    Status page view
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function index: request {request}')
-    status_data = status_data_api()
-    return render(request, 'my_web/status.html', {'status': status_data})
 
 
 @require_GET

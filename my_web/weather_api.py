@@ -44,7 +44,7 @@ def weather_get(string) -> dict:
                         """
                         city_in_func = city_in_func.lower()
                         words = {
-                            'кака', 'по',
+                            'кака', 'по', 'город',
                         }
                         return set(city_in_func.split()) & words
 

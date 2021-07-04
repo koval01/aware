@@ -204,7 +204,7 @@ def sign_address_encrypt(address) -> str:
 
 def my_ip_key(group, request):
     try:
-        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        user_address = request.headers['CF-Connecting-IP']
     except Exception as e:
         user_address = '127.0.0.1'
         logger.error(e)
@@ -232,7 +232,7 @@ def image_proxy_view(request):
         salt = Fernet(sign_key)
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         try:
-            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            original_address = request.headers['CF-Connecting-IP']
         except Exception as e:
             original_address = '127.0.0.1'
             logger.error(e)
@@ -287,7 +287,7 @@ def video_proxy_view(request):
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
 
         try:
-            original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+            original_address = request.headers['CF-Connecting-IP']
         except Exception as e:
             original_address = '127.0.0.1'
             logger.error(e)
@@ -337,7 +337,7 @@ def image_generate_api(request):
     received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
 
     try:
-        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        original_address = request.headers['CF-Connecting-IP']
     except Exception as e:
         original_address = '127.0.0.1'
         logger.error(e)
@@ -649,7 +649,7 @@ def index(request):
     add_ = newsfeed(True, True)
 
     try:
-        user_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        user_address = request.headers['CF-Connecting-IP']
     except Exception as e:
         user_address = '127.0.0.1'
         logger.error(e)
@@ -726,7 +726,7 @@ def load_more(request):
     logger.info('User address decrypted.')
 
     try:
-        original_address = request.headers['X-Forwarded-For'].replace(' ', '').split(',')[0]
+        original_address = request.headers['CF-Connecting-IP']
     except Exception as e:
         original_address = '127.0.0.1'
         logger.error(e)

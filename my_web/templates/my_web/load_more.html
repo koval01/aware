@@ -403,7 +403,7 @@
                                                 src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
                                             </a>
                                         </div>
-                                        <div style="background: #313131;padding: 3px;border-radius: 0.5em;box-shadow: 0px 8px 20px 0 rgb(0 0 0 / 25%);">
+                                        <div style="background: #313131;padding: 3px;border-radius: 0.5em">
                                             <b style="color: #efeff1;margin: 0px;">
                                                 <a href="{{ el_images.image.contextLink }}" target="_blank">{{ el_images.htmlTitle|safe }}</a>
                                                 <br/><br/>

@@ -37,12 +37,12 @@ $(document).ready(function() {
     }
     function hide_hint_block_photos_aware() {
         $(".hint_text_images_scroll_aware").css(
-        {'visibility': 'hidden', 'margin-bottom': '-4em'}
+        {'visibility': 'hidden', 'margin-bottom': '-3em'}
         );
     }
     $(window).resize(function() {
         update_block_photos_aware();
     });
-    setInterval(update_block_photos_aware, 300);
+    setInterval(update_block_photos_aware, 1000);
     setTimeout(hide_hint_block_photos_aware, 5000);
 });

@@ -43,6 +43,6 @@ $(document).ready(function() {
     $(window).resize(function() {
         update_block_photos_aware();
     });
-    setInterval(update_block_photos_aware, 1000);
+    setInterval(update_block_photos_aware, 10);
     setTimeout(hide_hint_block_photos_aware, 5000);
 });

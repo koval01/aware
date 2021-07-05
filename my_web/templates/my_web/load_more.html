@@ -389,6 +389,64 @@
         {% endif %}
     {% endif %}
     {% for el in data %}
+        {% if forloop.counter == 1 and not search_index %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label id="{{ 32|get_random_string }}" class="city images_search_layer_aware_edit">
+                            <div class="photos-slider-aware select_disable_text">
+                                {% for el_images in images_search %}
+                                    <div>
+                                        <div>
+                                            <a href="{{ el_images.image.contextLink }}" target="_blank">
+                                                <img id="{{ 32|get_random_string }}" onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 100%;margin-right: 5px;-webkit-appearance: none;padding: 0;box-shadow: 0px 6px 16px 0 rgb(0 0 0 / 70%);"
+                                                src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
+                                            </a>
+                                        </div>
+                                        <div style="background: #313131;padding: 3px;border-radius: 0.5em;box-shadow: 0px 8px 20px 0 rgb(0 0 0 / 25%);">
+                                            <b style="color: #efeff1;margin: 0px;">
+                                                <a href="{{ el_images.image.contextLink }}" target="_blank">{{ el_images.htmlTitle|safe }}</a>
+                                                <br/><br/>
+                                                <a href="{{ el_images.link }}" style="background: #fff;margin-bottom: 3px;color: #212529;padding: 3px;border-radius: 6px;" target="_blank">
+                                                    View original
+                                                </a>
+                                            </b>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </label>
+                        <div
+                                id="{{ 32|get_random_string }}"
+                                style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;"
+                                class="hint_text_images_scroll_aware"
+                        >
+                            <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                                To scroll through images, drag them from right to left
+                            </b>
+                        </div>
+                        <br/>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">Images&nbsp;
+                                <i class="far fa-image"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,300),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-4em"})},10e3)});
+            </script>
+        {% endif %}
         {% if not additions and news_append %}
             {% if el.0.0 %}
                 <div class="col-12 col-lg-12 padding-block-center-box">

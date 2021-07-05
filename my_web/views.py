@@ -788,32 +788,32 @@ def load_more(request):
                         else:
                             search_type_data = 'search request'
 
-                        if settings.DEBUG:
-                            user_address_local = user_agent_local = 'development_test'
-                        else:
-                            user_address_local = user_address; user_agent_local = user_agent
-
-                        Process(
-                            target=infobot_send_data,
-                            args=(
-                                user_agent_local,
-                                user_address_local,
-                                search_local,
-                                search_type_data,
-                                user_request_method,
-                                user_referer,
-                                search_index,
-                            )
-                        ).start()
+                        if not settings.DEBUG:
+                            Process(
+                                target=infobot_send_data,
+                                args=(
+                                    user_agent,
+                                    user_address,
+                                    search_local,
+                                    search_type_data,
+                                    user_request_method,
+                                    user_referer,
+                                    search_index,
+                                )
+                            ).start()
 
                     # Search API
                     search_send = search
                     if namaz:
                         search_send = ''
 
+                    # default search
                     search_api = search_execute(search_send, search_index)
                     search_data = search_api['data']
                     search_array = search_api['array']
+
+                    # image search
+                    images_search = search_execute(search_send, 0, 'image')['items']
 
                     # Weather
                     weather = weather_get(search)
@@ -835,7 +835,7 @@ def load_more(request):
                         'news_search_in_str': news_link_add, 'search_data': search_data,
                         'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
                         'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                        'search_api_full_dict': search_api,
+                        'search_api_full_dict': search_api, 'images_search': images_search,
                         'check_bot_request_search': check_bot_request_search(search),
                     })
 

@@ -18,11 +18,12 @@ session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
 null_search_dict = [['' for _ in range(6)] for y in range(100)]
 
 
-def get_result(question, index=1) -> dict:
+def get_result(question, index=1, search_type='searchTypeUndefined') -> dict:
     """
     Get search data
     :param question: Search string
     :param index: search index element
+    :param search_type: search type
     :return: response dict
     """
     u = settings.SEARCH_API_HOST
@@ -30,6 +31,9 @@ def get_result(question, index=1) -> dict:
     cx = settings.SEARCH_CX
     shuffle(keys)
     for i, e in enumerate(keys):
+        queries = 10
+        if search_type == 'image':
+            queries = queries * 2
         try:
             headers = {
                 "User-Agent": USER_AGENT,
@@ -37,10 +41,12 @@ def get_result(question, index=1) -> dict:
             params = {
                 "key": keys[i],
                 "cx": cx,
+                "hl": "en",
                 "q": question,
-                "queries": 10,
+                "queries": queries,
                 "safe": 'active',
                 "start": index,
+                "searchType": search_type,
             }
             r = session.get(u, headers=headers, params=params)
             if r.status_code != 200:
@@ -219,20 +225,26 @@ def search_custom_index(string, index) -> dict:
     return dict(data=d['s_info'], array=d['array'])
 
 
-def select_type(string, index) -> dict:
+def select_type(string, index, search_type='searchTypeUndefined') -> dict:
     """
     Function for easy mode selection
     :param string: Search term
     :param index: Index
+    :param search_type: search type
     :return: search result
     """
     x = check_words_in_search_string(string)
 
-    if x and not index:
-        return dict(data=[], array=null_search_dict, error=True)
-    elif x and index:
-        return dict(data=[], array=null_search_dict, error=True)
+    if search_type == 'searchTypeUndefined':
+        if x and not index:
+            return dict(data=[], array=null_search_dict, error=True)
+        elif x and index:
+            return dict(data=[], array=null_search_dict, error=True)
 
-    if index:
-        return search_custom_index(string, index)
-    return search(string)
+        if index:
+            return search_custom_index(string, index)
+
+        return search(string)
+
+    else:
+        return get_result(string, 0, search_type)

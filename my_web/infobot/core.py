@@ -1,9 +1,10 @@
 from requests_cache import CachedSession
 from time import time
+from django.conf import settings
 
 
 session = CachedSession('infobot_cache')
-TOKEN = '1696588778:AAHlQf34MS54HP9QU9O6JIK8Lw-YBuqxs3Y'
+TOKEN = settings.INFOBOT_TOKEN
 HOST = f'https://api.telegram.org/bot{TOKEN}/SendMessage'
 admins = [
     '542956255',

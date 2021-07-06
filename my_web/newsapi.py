@@ -2,7 +2,6 @@ from django.conf import settings
 from datetime import datetime
 from random import choice
 from json import loads
-from .months import convert as month_convert
 from .newsfilter import text_news_filter as filter_news
 import logging, requests_cache
 
@@ -40,8 +39,7 @@ def __main__(news_append, get_one=False) -> list:
                 if not error_json:
                     for el in json_response['articles']:
                         time_field = datetime.fromisoformat(str(el['publishedAt'])[:-1])
-                        d_ = time_field.strftime("%d %B %Y at %H:%M")
-                        time_field = month_convert(d_)
+                        time_field = time_field.strftime("%d %B %Y at %H:%M")
                         description = filter_news(el['description'])
                         if description == 'None' or not description:
                             description = 'The news does not contain a description'

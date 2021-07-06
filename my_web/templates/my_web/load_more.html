@@ -405,7 +405,13 @@
                                         </div>
                                         <div style="background: #313131;padding: 3px;border-radius: 0.5em">
                                             <b style="color: #efeff1;margin: 0px;">
-                                                <a href="{{ el_images.image.contextLink }}" target="_blank">{{ el_images.htmlTitle|safe }}</a>
+                                                <a href="{{ el_images.image.contextLink }}" target="_blank">
+                                                    {% if el_images.title|length > 3 %}
+                                                        {{ el_images.htmlTitle|safe }}
+                                                    {% else %}
+                                                        {{ search }}
+                                                    {% endif %}
+                                                </a>
                                             </b>
                                         </div>
                                     </div>

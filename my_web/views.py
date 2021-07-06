@@ -127,6 +127,17 @@ def cut_text(string) -> str:
 
 
 @register.filter
+def cut_long_words(string) -> str:
+    """
+    A function that finds words too long and shortens them
+    :param string: String for cut
+    :return: Cut string result
+    """
+    logger.info(f'function cut_long_words: {string}')
+    return ' '.join([i[:32] for i in string.split()])
+
+
+@register.filter
 def seconds_to_time(val) -> str:
     """
     Convert seconds to time XX:XX:XX

@@ -418,7 +418,18 @@ function load_ajax_end_page(o, type_loading) {
         },
         success: function(o) {
             his.remove(search_data_text); // If it was already, then remove, then put again
-            if (search_data_text.length < 40) {
+            let long_word_search = false;
+
+            splited_search_string = search_data_text.split(' ')
+
+            for (let i = 0; i < splited_search_string.length; i++) {
+                if (splited_search_string[i].length > 32) {
+                    long_word_search = true;
+                    break;
+                }
+            }
+
+            if (!long_word_search) {
                 his.add(search_data_text);
             }
 

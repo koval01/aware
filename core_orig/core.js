@@ -418,7 +418,9 @@ function load_ajax_end_page(o, type_loading) {
         },
         success: function(o) {
             his.remove(search_data_text); // If it was already, then remove, then put again
-            his.add(search_data_text);
+            if (search_data_text.length < 40) {
+                his.add(search_data_text);
+            }
 
             $(".clear_aware_search_string").css("margin-right", "2em");
             $(".search-aware-block-global").css("margin-bottom", "1em");

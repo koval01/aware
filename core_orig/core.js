@@ -519,10 +519,15 @@ function load_ajax_end_page(o, type_loading) {
 
             if (user_agent_anal(search_data_text)) {
                 let user_agent_data_block = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" '+
-                'data-aos="fade-up"><div style="float: left;"><label id="" class="username" style="margin-top: -0.5em;">'+
-                'What\'s my user agent?</label><br><br><label id="" class="city user_agent_disp" style="font-weight: 900;">'+
+                'data-aos="fade-up"><div style="float: left;"><label id="'+
+                makeid(32)+
+                '" class="username" style="margin-top: -0.5em;">'+
+                'What\'s my user agent?</label><br><br><label id="'+
+                makeid(32)+
+                '" class="city user_agent_disp" style="font-weight: 900;">'+
                 window.navigator.userAgent+
-                '</label></div></div></div>';
+                '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;margin-top: 1em;display: inline-block;">'+
+                '<span style="margin: 0.5em;">Special&nbsp;<i class="fas fa-hashtag"></i></span></div></div></div></div>';
 
                 $(".row-posts-end").prepend(user_agent_data_block);
                 AOS.refresh();

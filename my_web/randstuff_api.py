@@ -1,9 +1,10 @@
 from requests import post
-from .covid.config import USER_AGENT
+from django.conf import settings
 from json import loads
 import logging
 
 logger = logging.getLogger(__name__)
+USER_AGENT = settings.REQ_USER_AGENT
 
 
 def get_result(type_) -> str:

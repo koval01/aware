@@ -1,7 +1,8 @@
-from .covid.config import USER_AGENT
+from django.conf import settings
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
+USER_AGENT = settings.REQ_USER_AGENT
 session = requests_cache.CachedSession('search_complete_cache')
 
 

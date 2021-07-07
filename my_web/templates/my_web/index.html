@@ -82,24 +82,29 @@ Convenient and beautiful search engine
         <div class="row-posts-end-ad"></div>
         <div class="row-posts-end" style="visibility: hidden;transition: margin-top 1s;margin-top: 1em;">
             <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
-                        <label class="city">
-                            <u
-                                    style="color: #a0a0a0;font-weight: 600;"
-                                    class="news_search_button_aware_index_block"
-                            >Search this news</u>
-                            <br/><br/>
-                            <i>{{ add_.1 }}</i>
-                            <br/><br/>
-                            <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
-                            <br/>
-                            <i><u>Published at {{ add_.3 }} (UTC)</u></i>
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <div style="float: left;">
+            {% if select_news_or_quote and quote %}
+                <label class="city">
+                    <i>„{{ quote.q }}“</i>
+                    <br/><br/>
+                    <b>&nbsp;&mdash;&nbsp;{{ quote.a }}</b>
+                </label>
+            {% else %}
+                <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
+                <label class="city">
+                    <u style="color: #a0a0a0;font-weight: 600;" class="news_search_button_aware_index_block">
+                        Search this news
+                    </u>
+                    <br/><br/>
+                    <i>{{ add_.1 }}</i>
+                    <br/><br/>
+                    <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
+                    <br/>
+                    <i><u>Published at {{ add_.3 }} (UTC)</u></i>
+                </label>
+            {% endif %}
+            </div></div></div>
         </div>
         <div style="margin: auto;">
             <p class="no-more-results-text" style="color: #828282;transition: margin-bottom 1s;font-size: 14px;visibility: hidden;text-align: center;">No more results</p>

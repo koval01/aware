@@ -3,7 +3,7 @@ import os
 import random
 from datetime import timedelta, datetime
 from multiprocessing import Process
-from random import randint, randrange
+from random import randint, randrange, choice
 from time import time
 from urllib.parse import urlunsplit, urlencode
 
@@ -31,6 +31,7 @@ from .infobot.core import send_data as infobot_send_data
 from .link_analyze import link_image as img_link_check
 from .models import AWARE_Page, Info, Banner
 from .namaz_api import get_namaz_data
+from .quote_get import get_result as get_quote_list
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
 from .search_api import select_type as search_execute
@@ -640,6 +641,8 @@ def index(request):
     search_example_get = "What do you need to find?"
 
     add_ = newsfeed(True, True)
+    quote = choice(get_quote_list())
+    select_news_or_quote = randint(0, 1)  # if true - quote
 
     try:
         user_address = request.headers['CF-Connecting-IP']
@@ -658,7 +661,8 @@ def index(request):
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'search_q': search_q, 'user_address': user_address,
-        'max_search_len': max_search_len,
+        'max_search_len': max_search_len, 'quote': quote,
+        'select_news_or_quote': select_news_or_quote
     })
 
 

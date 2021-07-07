@@ -10,10 +10,11 @@ from urllib.parse import urlparse, parse_qs
 from django.conf import settings
 
 from .common_functions import similarity
-from .covid.config import USER_AGENT
+from django.conf import settings
 from .models import BlackWord
 
 logger = logging.getLogger(__name__)
+USER_AGENT = settings.REQ_USER_AGENT
 session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
 null_search_dict = [['' for _ in range(6)] for y in range(100)]
 

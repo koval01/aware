@@ -3,604 +3,606 @@
 {# Template for generating a tape of records on the main page of the site. #}
 {# Imagine that this code was not written by me. I don't really like him. #}
 
-{% if typeload == 'newsession' and covid_stat_append %}
-    {% if covid_ua.0 %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left; ">
-                    <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Ukraine</label><br>
-                    <label id="{{ 32|get_random_string }}" class="city"><br/>
-                        <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
-                        <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
-                        <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
-                        <h6>📝Tested: <b>{{ covid_ua.4 }}</b></h6>
+{% spaceless %}
+    {% if typeload == 'newsession' and covid_stat_append %}
+        {% if covid_ua.0 %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left; ">
+                        <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Ukraine</label><br>
+                        <label id="{{ 32|get_random_string }}" class="city"><br/>
+                            <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
+                            <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
+                            <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
+                            <h6>📝Tested: <b>{{ covid_ua.4 }}</b></h6>
+                            <br/>
+                            <h6>📅<b>{{ covid_ua.5 }}</b></h6>
+                        </label>
                         <br/>
-                        <h6>📅<b>{{ covid_ua.5 }}</b></h6>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">COVID-19&nbsp;
-                            <i class="fas fa-viruses"></i>
-                        </span>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">COVID-19&nbsp;
+                                <i class="fas fa-viruses"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% if covid_ru.0 %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left; ">
-                    <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Russia</label><br>
-                    <label id="{{ 32|get_random_string }}" class="city"><br/>
-                        <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
-                        <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
-                        <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
-                        <h6>📝Tested: <b>{{ covid_ru.0 }}</b></h6>
+        {% endif %}
+        {% if covid_ru.0 %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left; ">
+                        <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Russia</label><br>
+                        <label id="{{ 32|get_random_string }}" class="city"><br/>
+                            <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
+                            <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
+                            <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
+                            <h6>📝Tested: <b>{{ covid_ru.0 }}</b></h6>
+                            <br/>
+                            <h6>📅<b>{{ covid_ru.5 }}</b></h6>
+                        </label>
                         <br/>
-                        <h6>📅<b>{{ covid_ru.5 }}</b></h6>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">COVID-19&nbsp;
-                            <i class="fas fa-viruses"></i>
-                        </span>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">COVID-19&nbsp;
+                                <i class="fas fa-viruses"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endif %}
-{% endif %}
 
-{% if typeload == "newsession" %}
-    {% if c_result %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <label id="{{ 32|get_random_string }}" class="city">
-                        <i>
-                            {{ c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ c_result }}</b>
-                        </i>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">Calculator&nbsp;
-                            <i class="fas fa-calculator"></i>
-                        </span>
+    {% if typeload == "newsession" %}
+        {% if c_result %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label id="{{ 32|get_random_string }}" class="city">
+                            <i>
+                                {{ c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ c_result }}</b>
+                            </i>
+                        </label>
+                        <br/>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">Calculator&nbsp;
+                                <i class="fas fa-calculator"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% if translate_result %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <label id="{{ 32|get_random_string }}" class="city">
-                        <i>
-                            {{ search }}
-                        </i>
-                        <br/><br/>
-                        <b>
-                            {{ translate_result }}
-                        </b>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">Translator&nbsp;
-                            <i class="fas fa-language"></i>
-                        </span>
+        {% endif %}
+        {% if translate_result %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label id="{{ 32|get_random_string }}" class="city">
+                            <i>
+                                {{ search }}
+                            </i>
+                            <br/><br/>
+                            <b>
+                                {{ translate_result }}
+                            </b>
+                        </label>
+                        <br/>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">Translator&nbsp;
+                                <i class="fas fa-language"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% if news_search_in_str %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <label id="{{ 32|get_random_string }}" class="username">
-                        News from AWARE
-                    </label><br>
-                    <label id="{{ 32|get_random_string }}" class="city">
-                        <i>
-                            This feature is currently unavailable, sorry.
-                        </i>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">Special&nbsp;
-                            <i class="fas fa-hashtag"></i>
-                        </span>
+        {% endif %}
+        {% if news_search_in_str %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label id="{{ 32|get_random_string }}" class="username">
+                            News from AWARE
+                        </label><br>
+                        <label id="{{ 32|get_random_string }}" class="city">
+                            <i>
+                                This feature is currently unavailable, sorry.
+                            </i>
+                        </label>
+                        <br/>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">Special&nbsp;
+                                <i class="fas fa-hashtag"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% if weather %}
-        <div class="col-12 col-lg-12 padding-block-center-box" style="margin: auto;">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <div class="col-xs-12">
-                        <div id="{{ 32|get_random_string }}" class="weather-panel col-xs-12 col-sm-12"
-                        style="color: #efeff1;">
-                            <div class="col-xs-6">
-                                <h2>{{ weather.now_weather.name }}<br>
-                                    <small style="color: inherit;font-size: 50%;">
-                                        {% now "l, j E" %}
-                                    </small>
-                                </h2>
-                                <p class="h3">
-                                    {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
-                                    &nbsp;{{ weather.now_weather.weather.0.description|capfirst }}
-                                </p>
-                                <p>
-                                    <i class="fas fa-temperature-low"></i>
-                                    Feels like {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
-                                </p>
-                                <p>
-                                    <i class="fas fa-wind"></i>
-                                    {{ weather.now_weather.wind.speed }} m\sec
-                                </p>
-                            </div>
-                            <div class="col-xs-6 text-center">
-                                <div class="h1 temperature">
-                                    <span style="font-size: 2em;">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
-                                    <br>
-                                    {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
+        {% endif %}
+        {% if weather %}
+            <div class="col-12 col-lg-12 padding-block-center-box" style="margin: auto;">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <div class="col-xs-12">
+                            <div id="{{ 32|get_random_string }}" class="weather-panel col-xs-12 col-sm-12"
+                            style="color: #efeff1;">
+                                <div class="col-xs-6">
+                                    <h2>{{ weather.now_weather.name }}<br>
                                         <small style="color: inherit;font-size: 50%;">
-                                            From {{ weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
+                                            {% now "l, j E" %}
                                         </small>
-                                    {% endif %}
+                                    </h2>
+                                    <p class="h3">
+                                        {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
+                                        &nbsp;{{ weather.now_weather.weather.0.description|capfirst }}
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-temperature-low"></i>
+                                        Feels like {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-wind"></i>
+                                        {{ weather.now_weather.wind.speed }} m\sec
+                                    </p>
                                 </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <ul class="list-inline row forecast">
-                                    <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                        <h3 class="h5">{% now "D, j E" %}</h3>
-                                        <p>
-                                            {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
-                                            <br>
-                                            {{ weather.now_weather.main.temp|floatformat:"0" }}°
-                                        </p>
-                                    </li>
-                                    {% for weather_el in weather.future_weather %}
+                                <div class="col-xs-6 text-center">
+                                    <div class="h1 temperature">
+                                        <span style="font-size: 2em;">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
+                                        <br>
+                                        {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
+                                            <small style="color: inherit;font-size: 50%;">
+                                                From {{ weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
+                                            </small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <ul class="list-inline row forecast">
                                         <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
-                                            <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D, j E" }}</h3>
+                                            <h3 class="h5">{% now "D, j E" %}</h3>
                                             <p>
-                                                {{ weather_el.weather.0.icon|get_weather_ico|safe }}
+                                                {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
                                                 <br>
-                                                {{ weather_el.main.temp|floatformat:"0" }}°
+                                                {{ weather.now_weather.main.temp|floatformat:"0" }}°
                                             </p>
                                         </li>
-                                    {% endfor %}
-                                </ul>
+                                        {% for weather_el in weather.future_weather %}
+                                            <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
+                                                <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D, j E" }}</h3>
+                                                <p>
+                                                    {{ weather_el.weather.0.icon|get_weather_ico|safe }}
+                                                    <br>
+                                                    {{ weather_el.main.temp|floatformat:"0" }}°
+                                                </p>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endif %}
-{% endif %}
 
-{% if namaz_data %}
-    {% for el in namaz_data %}
-        <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-                <div style="float: left;">
-                    <label id="{{ 32|get_random_string }}" class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
-                    <label id="{{ 32|get_random_string }}" class="city">
-                        <p>
-                            <br/>
-                        {% for i in el.timings %}
-                            {{ i }}<br/>
-                        {% endfor %}
-                            <br/>
-                            Calculation Method: Islamic World League
-                            <br/><br/>
-                            Time zone: {{ el.timezone }}
-                            <br/>
-                            Updated: {{ el.update_time }} (Server time)
-                        </p>
-                    </label>
-                    <br/>
-                    <div style="
-                        background: #fff;
-                        border-radius: 0.5em;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        margin-top: 1em;
-                        display: inline-block;
-                    ">
-                        <span style="
-                            margin: 0.5em;
-                        ">Namaz&nbsp;
-                            <i class="fas fa-quran"></i>
-                        </span>
+    {% if namaz_data %}
+        {% for el in namaz_data %}
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div style="float: left;">
+                        <label id="{{ 32|get_random_string }}" class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
+                        <label id="{{ 32|get_random_string }}" class="city">
+                            <p>
+                                <br/>
+                            {% for i in el.timings %}
+                                {{ i }}<br/>
+                            {% endfor %}
+                                <br/>
+                                Calculation Method: Islamic World League
+                                <br/><br/>
+                                Time zone: {{ el.timezone }}
+                                <br/>
+                                Updated: {{ el.update_time }} (Server time)
+                            </p>
+                        </label>
+                        <br/>
+                        <div style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        ">
+                            <span style="
+                                margin: 0.5em;
+                            ">Namaz&nbsp;
+                                <i class="fas fa-quran"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-{% endif %}
+        {% endfor %}
+    {% endif %}
 
-{% if videos %}
-    <div class="col-12 col-lg-12 padding-block-center-box">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left;">
-                <label id="{{ 32|get_random_string }}" style="margin-bottom: 10%;" class="username"></label><br>
-                <label id="{{ 32|get_random_string }}" class="city">
-                    <div clas="video_view_block_aware" style="margin-right: 20px;min-width: 100%;float: left;max-width: 100%;">
-                        <video width="100%" controls="controls" class="aware_video_feed_el photohub_item" id="video_player_block_aware"
-                               autoplay="true" loop="loop" style="display: block;margin: 0 auto;width: min-content;max-width: 100%;max-height: 80vh;margin-bottom: 40px;">
-                            <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1&sign={{ user_address_original|sign_address_encrypt }}" type="video/mp4;">
-                        </video>
-                    </div>
-                    <div class="load_next_video_block_button">
-                        <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
-                            Next video&nbsp;
-                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <p>
-                        <i class="far fa-eye"></i>
-                        {{ videos.0.stats.playCount|num_rounder_custom }}
-                        <br/>
-                        <i class="fas fa-heart"></i>
-                        {{ videos.0.stats.diggCount|num_rounder_custom }}
-                        <br/>
-                        <i class="far fa-comments"></i>
-                        {{ videos.0.stats.commentCount|num_rounder_custom }}
-                        <br/>
-                        <i class="fas fa-share-alt"></i>
-                        {{ videos.0.stats.shareCount|num_rounder_custom }}
-                        <br/><br/>
-                        {{ videos.0.desc }}
-                    </p>
-                </label>
+    {% if videos %}
+        <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label id="{{ 32|get_random_string }}" style="margin-bottom: 10%;" class="username"></label><br>
+                    <label id="{{ 32|get_random_string }}" class="city">
+                        <div clas="video_view_block_aware" style="margin-right: 20px;min-width: 100%;float: left;max-width: 100%;">
+                            <video width="100%" controls="controls" class="aware_video_feed_el photohub_item" id="video_player_block_aware"
+                                   autoplay="true" loop="loop" style="display: block;margin: 0 auto;width: min-content;max-width: 100%;max-height: 80vh;margin-bottom: 40px;">
+                                <source src="{% url 'imageproxy' %}?data={{ videos.0.video.playAddr|link_encrypt_img }}&token={{ token_image_proxy }}&video_mode=1&sign={{ user_address_original|sign_address_encrypt }}" type="video/mp4;">
+                            </video>
+                        </div>
+                        <div class="load_next_video_block_button">
+                            <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">
+                                Next video&nbsp;
+                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <p>
+                            <i class="far fa-eye"></i>
+                            {{ videos.0.stats.playCount|num_rounder_custom }}
+                            <br/>
+                            <i class="fas fa-heart"></i>
+                            {{ videos.0.stats.diggCount|num_rounder_custom }}
+                            <br/>
+                            <i class="far fa-comments"></i>
+                            {{ videos.0.stats.commentCount|num_rounder_custom }}
+                            <br/>
+                            <i class="fas fa-share-alt"></i>
+                            {{ videos.0.stats.shareCount|num_rounder_custom }}
+                            <br/><br/>
+                            {{ videos.0.desc }}
+                        </p>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    {% if not videos.0.music.original %}
+        {% if not videos.0.music.original %}
+            <div class="col-12 col-lg-12">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <img style="image-rendering: pixelated;width: 60px;height: 60px;border-radius: 50%;" class="lazyloaded"
+                         data-src="{% url 'imageproxy' %}?data={{ videos.0.music.coverMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                         src="{% url 'imageproxy' %}?data={{ videos.0.music.coverMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
+                    <div style="width: calc(100% - 90px); float: left; ">
+                        <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1">
+                            <i class="fas fa-compact-disc"></i>
+                        </label>
+                        <label id="{{ 32|get_random_string }}" class="username">
+                            &nbsp;{{ videos.0.music.title }}
+                        </label><br>
+                        <label id="{{ 32|get_random_string }}" class="city">
+                            <i class="fas fa-user"></i>
+                            <span title="Author">&nbsp;{{ videos.0.music.authorName }}</span>
+                            <br/>
+                            <i class="fas fa-record-vinyl"></i>
+                            <span title="Album">&nbsp;{{ videos.0.music.album }}</span>
+                            <br/>
+                            <i class="far fa-clock"></i>
+                            <span title="Duration">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
+                            <br/><br/>
+                            <a href="{{ videos.0.music.playUrl }}" target="_blank">Go to track</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="col-12 col-lg-12">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <img style="image-rendering: pixelated;width: 60px;height: 60px;border-radius: 50%;" class="lazyloaded"
-                     data-src="{% url 'imageproxy' %}?data={{ videos.0.music.coverMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                     src="{% url 'imageproxy' %}?data={{ videos.0.music.coverMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
+                     data-src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                     src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
                 <div style="width: calc(100% - 90px); float: left; ">
-                    <label class="status" data-toggle="tooltip" data-placement="top" data-original-title="1">
-                        <i class="fas fa-compact-disc"></i>
-                    </label>
-                    <label id="{{ 32|get_random_string }}" class="username">
-                        &nbsp;{{ videos.0.music.title }}
+                    <label class="username">
+                        {{ videos.0.author.nickname }}
+                        {% if videos.0.author.uniqueId %}
+                            (<a href="https://www.tiktok.com/@{{ videos.0.author.uniqueId }}">@{{ videos.0.author.uniqueId }}</a>)
+                        {% endif %}
+                        {% if videos.0.author.verified %}
+                            <i class="fas fa-check"></i>
+                        {% endif %}
                     </label><br>
                     <label id="{{ 32|get_random_string }}" class="city">
-                        <i class="fas fa-user"></i>
-                        <span title="Author">&nbsp;{{ videos.0.music.authorName }}</span>
-                        <br/>
-                        <i class="fas fa-record-vinyl"></i>
-                        <span title="Album">&nbsp;{{ videos.0.music.album }}</span>
-                        <br/>
-                        <i class="far fa-clock"></i>
-                        <span title="Duration">&nbsp;{{ videos.0.music.duration|seconds_to_time }}</span>
-                        <br/><br/>
-                        <a href="{{ videos.0.music.playUrl }}" target="_blank">Go to track</a>
+                        {# User profile description (bio) #}
+                        {{ videos.0.author.signature }}
                     </label>
                 </div>
             </div>
         </div>
-    {% endif %}
-    <div class="col-12 col-lg-12">
-        <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <img style="image-rendering: pixelated;width: 60px;height: 60px;border-radius: 50%;" class="lazyloaded"
-                 data-src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                 src="{% url 'imageproxy' %}?data={{ videos.0.author.avatarMedium|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}">
-            <div style="width: calc(100% - 90px); float: left; ">
-                <label class="username">
-                    {{ videos.0.author.nickname }}
-                    {% if videos.0.author.uniqueId %}
-                        (<a href="https://www.tiktok.com/@{{ videos.0.author.uniqueId }}">@{{ videos.0.author.uniqueId }}</a>)
-                    {% endif %}
-                    {% if videos.0.author.verified %}
-                        <i class="fas fa-check"></i>
-                    {% endif %}
-                </label><br>
-                <label id="{{ 32|get_random_string }}" class="city">
-                    {# User profile description (bio) #}
-                    {{ videos.0.author.signature }}
-                </label>
-            </div>
-        </div>
-    </div>
-{% else %}
-    {% if not search_index %}
-        {% if check_bot_request_search %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username">AWARE bot in Telegram</label><br>
-                        <label id="{{ 32|get_random_string }}" class="city">
-                            Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
-                        </label>
-                        <br/>
-                        <div style="
-                            background: #fff;
-                            border-radius: 0.5em;
-                            font-weight: 600;
-                            font-size: 0.9em;
-                            margin-top: 1em;
-                            display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Telegram&nbsp;
-                                <i class="fab fa-telegram-plane"></i>
-                            </span>
+    {% else %}
+        {% if not search_index %}
+            {% if check_bot_request_search %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label class="username">AWARE bot in Telegram</label><br>
+                            <label id="{{ 32|get_random_string }}" class="city">
+                                Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
+                            </label>
+                            <br/>
+                            <div style="
+                                background: #fff;
+                                border-radius: 0.5em;
+                                font-weight: 600;
+                                font-size: 0.9em;
+                                margin-top: 1em;
+                                display: inline-block;
+                            ">
+                                <span style="
+                                    margin: 0.5em;
+                                ">Telegram&nbsp;
+                                    <i class="fab fa-telegram-plane"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    {% for el in data %}
-        {% if forloop.counter == 1 and not search_index and images_search %}
-            <div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
-                <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label id="{{ 32|get_random_string }}" class="city images_search_layer_aware_edit">
-                            <div class="photos-slider-aware select_disable_text">
-                                {% for el_images in images_search %}
-                                    <div>
+        {% for el in data %}
+            {% if forloop.counter == 1 and not search_index and images_search %}
+                <div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
+                    <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
+                        <div style="float: left;">
+                            <label id="{{ 32|get_random_string }}" class="city images_search_layer_aware_edit">
+                                <div class="photos-slider-aware select_disable_text">
+                                    {% for el_images in images_search %}
                                         <div>
-                                            <a href="{{ el_images.image.contextLink }}" target="_blank">
-                                                <img id="{{ 32|get_random_string }}" onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
-                                                src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
-                                            </a>
-                                        </div>
-                                        <div style="background: #313131;padding: 3px;border-radius: 0.5em">
-                                            <b style="color: #efeff1;margin: 0px;">
+                                            <div>
                                                 <a href="{{ el_images.image.contextLink }}" target="_blank">
-                                                    {% if el_images.title|length > 3 %}
-                                                        {{ el_images.htmlTitle|safe }}
-                                                    {% else %}
-                                                        {{ search }}
-                                                    {% endif %}
+                                                    <img id="{{ 32|get_random_string }}" onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
+                                                    src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
                                                 </a>
-                                            </b>
+                                            </div>
+                                            <div style="background: #313131;padding: 3px;border-radius: 0.5em">
+                                                <b style="color: #efeff1;margin: 0px;">
+                                                    <a href="{{ el_images.image.contextLink }}" target="_blank">
+                                                        {% if el_images.title|length > 3 %}
+                                                            {{ el_images.htmlTitle|safe }}
+                                                        {% else %}
+                                                            {{ search }}
+                                                        {% endif %}
+                                                    </a>
+                                                </b>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </label>
-                        <div
-                                id="{{ 32|get_random_string }}"
-                                style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;"
-                                class="hint_text_images_scroll_aware"
-                        >
-                            <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
-                                To scroll through images, drag them from right to left
-                            </b>
-                        </div>
-                        <br/>
-                        <div style="
-                            background: #fff;
-                            border-radius: 0.5em;
-                            font-weight: 600;
-                            font-size: 0.9em;
-                            margin-top: 1em;
-                            display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Images&nbsp;
-                                <i class="far fa-image"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)});
-            </script>
-        {% endif %}
-        {% if not additions and news_append %}
-            {% if el.0.0 %}
-                <div class="col-12 col-lg-12 padding-block-center-box">
-                    <div class="user box aos-init aos-animate" data-aos="fade-up">
-                        <div style="float: left;">
-                            <label class="username">{{ el.0.0 }}</label><br>
-                            <label id="{{ 32|get_random_string }}" class="city">
-                                {# paste news image or text if this is a mobile device #}
-                                {% if mobile == '1' %}
-                                    <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"
-                                             class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="News block cover">
-                                {% else %}
-                                    <br/>
-                                    <i>
-                                        {{ el.0.1 }}
-                                    </i>
-                                {% endif %}
-                                <br/><br/>
-                                <b>
-                                    A source - <a href="{{ el.0.4 }}" target="_blank">{{ el.0.2 }}</a>
+                                    {% endfor %}
+                                </div>
+                            </label>
+                            <div
+                                    id="{{ 32|get_random_string }}"
+                                    style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;"
+                                    class="hint_text_images_scroll_aware"
+                            >
+                                <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                                    To scroll through images, drag them from right to left
                                 </b>
-                                <br>
-                                <i>
-                                    <u>Published at {{ el.0.3 }} (UTC)</u>
-                                </i>
-                            </label>
+                            </div>
+                            <br/>
+                            <div style="
+                                background: #fff;
+                                border-radius: 0.5em;
+                                font-weight: 600;
+                                font-size: 0.9em;
+                                margin-top: 1em;
+                                display: inline-block;
+                            ">
+                                <span style="
+                                    margin: 0.5em;
+                                ">Images&nbsp;
+                                    <i class="far fa-image"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <script>
+                    var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)});
+                </script>
             {% endif %}
-        {% endif %}
-        {% if not search_api_full_dict.error %}
-            {% if el.1.title %}
-                <div class="col-12 col-lg-12 padding-block-center-box">
-                    <div class="user box aos-init aos-animate" data-aos="fade-up">
-                        <div style="float: left;">
-                            <label id="{{ 32|get_random_string }}" class="username" style="margin-top: -0.5em;">
-                                <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}" style="word-break: break-word">
-                                    {{ el.1.title }}
-                                </a>
-                            </label><br>
-                            <label id="{{ 32|get_random_string }}" class="city">
-                                {% if el.1.thumb and not el.1.youtube_id %}
-                                    <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}">
-                                        <img
-                                                id="{{ 32|get_random_string }}"
-                                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                                                onerror="imgError(this);"
-                                                style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                                alt="Preview image"
-                                        >
+            {% if not additions and news_append %}
+                {% if el.0.0 %}
+                    <div class="col-12 col-lg-12 padding-block-center-box">
+                        <div class="user box aos-init aos-animate" data-aos="fade-up">
+                            <div style="float: left;">
+                                <label class="username">{{ el.0.0 }}</label><br>
+                                <label id="{{ 32|get_random_string }}" class="city">
+                                    {# paste news image or text if this is a mobile device #}
+                                    {% if mobile == '1' %}
+                                        <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"
+                                                 class="photohub_item" onerror="imgError(this);" style="width:100%;margin-top: 3%;" alt="News block cover">
+                                    {% else %}
+                                        <br/>
+                                        <i>
+                                            {{ el.0.1 }}
+                                        </i>
+                                    {% endif %}
+                                    <br/><br/>
+                                    <b>
+                                        A source - <a href="{{ el.0.4 }}" target="_blank">{{ el.0.2 }}</a>
+                                    </b>
+                                    <br>
+                                    <i>
+                                        <u>Published at {{ el.0.3 }} (UTC)</u>
+                                    </i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if not search_api_full_dict.error %}
+                {% if el.1.title %}
+                    <div class="col-12 col-lg-12 padding-block-center-box">
+                        <div class="user box aos-init aos-animate" data-aos="fade-up">
+                            <div style="float: left;">
+                                <label id="{{ 32|get_random_string }}" class="username" style="margin-top: -0.5em;">
+                                    <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}" style="word-break: break-word">
+                                        {{ el.1.title }}
                                     </a>
-                                {% elif el.1.youtube_id %}
-                                    <div class="view-container-youtube-video-aware" id="{{ 32|get_random_string }}">
-                                        <img
-                                                id="{{ 32|get_random_string }}"
-                                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
-                                                onerror="imgError(this);"
-                                                style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
-                                                class="video_youtube_preview_image_aware"
-                                                alt="Preview image"
-                                                data-youtube-id="{{ el.1.youtube_id }}"
-                                        >
+                                </label><br>
+                                <label id="{{ 32|get_random_string }}" class="city">
+                                    {% if el.1.thumb and not el.1.youtube_id %}
+                                        <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}">
+                                            <img
+                                                    id="{{ 32|get_random_string }}"
+                                                    src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                                    onerror="imgError(this);"
+                                                    style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                                    alt="Preview image"
+                                            >
+                                        </a>
+                                    {% elif el.1.youtube_id %}
+                                        <div class="view-container-youtube-video-aware" id="{{ 32|get_random_string }}">
+                                            <img
+                                                    id="{{ 32|get_random_string }}"
+                                                    src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                                    onerror="imgError(this);"
+                                                    style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                                    class="video_youtube_preview_image_aware"
+                                                    alt="Preview image"
+                                                    data-youtube-id="{{ el.1.youtube_id }}"
+                                            >
+                                        </div>
+                                    {% endif %}
+                                    <p id="{{ 32|get_random_string }}">
+                                        {{ el.1.displayLink }}
+                                    </p>
+                                    {{ el.1.snippet|safe }}
+                                </label>
+                                {% if el.1.youtube_id %}
+                                    <div
+                                            id="{{ 32|get_random_string }}"
+                                            style="margin-top: 1em;transition: margin-top 1s;"
+                                            class="hint_text_video_play_yt"
+                                    >
+                                        <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                                            To view the video - click on the picture
+                                        </b>
+                                    </div>
+                                    <div
+                                            id="{{ 32|get_random_string }}"
+                                            class="youtube_video_info_div"
+                                            style="
+                                background: #fff;
+                                border-radius: 0.5em;
+                                font-weight: 600;
+                                font-size: 0.9em;
+                                margin-top: 1em;
+                                display: inline-block;
+                            "
+                                            title="To view the video - click on the picture"
+                                    >
+                                        <span id="{{ 32|get_random_string }}" style="
+                                            margin: 0.5em;
+                                        ">YouTube&nbsp;
+                                            <i id="{{ 32|get_random_string }}" class="fab fa-youtube"></i>
+                                            <i id="{{ 32|get_random_string }}" class="spinner-border youtube_video_load_wait_aware" style="
+                                                width: 20px !important;
+                                                height: 20px !important;
+                                                display: none;
+                                                margin-left: 5px;
+                                                position: relative;
+                                                top: 0.1em;
+                                            "></i>
+                                        </span>
                                     </div>
                                 {% endif %}
-                                <p id="{{ 32|get_random_string }}">
-                                    {{ el.1.displayLink }}
-                                </p>
-                                {{ el.1.snippet|safe }}
-                            </label>
-                            {% if el.1.youtube_id %}
-                                <div
-                                        id="{{ 32|get_random_string }}"
-                                        style="margin-top: 1em;transition: margin-top 1s;"
-                                        class="hint_text_video_play_yt"
-                                >
-                                    <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
-                                        To view the video - click on the picture
-                                    </b>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% elif search_api_full_dict.error and forloop.counter == 1 and not namaz_data %}
+                <div class="col-12 col-lg-12 padding-block-center-box">
+                    <div class="user box aos-init aos-animate" data-aos="fade-up">
+                        <div class="box_aware_error">
+                            <div class="box_aware_error__ghost" id="{{ 32|get_random_string }}">
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="symbol"></div>
+                                <div class="box_aware_error__ghost-container">
+                                    <div class="box_aware_error__ghost-eyes">
+                                        <div class="box_aware_error__eye-left"></div>
+                                        <div class="box_aware_error__eye-right"></div>
+                                    </div>
+                                    <div class="box_aware_error__ghost-bottom">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
                                 </div>
-                                <div
-                                        id="{{ 32|get_random_string }}"
-                                        class="youtube_video_info_div"
-                                        style="
-                            background: #fff;
-                            border-radius: 0.5em;
-                            font-weight: 600;
-                            font-size: 0.9em;
-                            margin-top: 1em;
-                            display: inline-block;
-                        "
-                                        title="To view the video - click on the picture"
-                                >
-                                    <span id="{{ 32|get_random_string }}" style="
-                                        margin: 0.5em;
-                                    ">YouTube&nbsp;
-                                        <i id="{{ 32|get_random_string }}" class="fab fa-youtube"></i>
-                                        <i id="{{ 32|get_random_string }}" class="spinner-border youtube_video_load_wait_aware" style="
-                                            width: 20px !important;
-                                            height: 20px !important;
-                                            display: none;
-                                            margin-left: 5px;
-                                            position: relative;
-                                            top: 0.1em;
-                                        "></i>
-                                    </span>
+                                <div class="box_aware_error__ghost-shadow" id="{{ 32|get_random_string }}"></div>
+                            </div>
+                            <div class="box_aware_error__description">
+                                <div class="box_aware_error__description-container">
+                                    <div class="box_aware_error__description-title">
+                                        Oh!
+                                    </div>
+                                    <div class="box_aware_error__description-text" id="{{ 32|get_random_string }}">
+                                        It looks like your search query contains a word that the administrator has banned. Talk to
+                                        <a href="https://t.me/Jomahmadov2002">Administrator</a> if you think this is a mistake.
+                                    </div>
                                 </div>
-                            {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             {% endif %}
-        {% elif search_api_full_dict.error and forloop.counter == 1 and not namaz_data %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div class="box_aware_error">
-                        <div class="box_aware_error__ghost" id="{{ 32|get_random_string }}">
-                            <div class="symbol"></div>
-                            <div class="symbol"></div>
-                            <div class="symbol"></div>
-                            <div class="symbol"></div>
-                            <div class="symbol"></div>
-                            <div class="symbol"></div>
-                            <div class="box_aware_error__ghost-container">
-                                <div class="box_aware_error__ghost-eyes">
-                                    <div class="box_aware_error__eye-left"></div>
-                                    <div class="box_aware_error__eye-right"></div>
-                                </div>
-                                <div class="box_aware_error__ghost-bottom">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            </div>
-                            <div class="box_aware_error__ghost-shadow" id="{{ 32|get_random_string }}"></div>
-                        </div>
-                        <div class="box_aware_error__description">
-                            <div class="box_aware_error__description-container">
-                                <div class="box_aware_error__description-title">
-                                    Oh!
-                                </div>
-                                <div class="box_aware_error__description-text" id="{{ 32|get_random_string }}">
-                                    It looks like your search query contains a word that the administrator has banned. Talk to
-                                    <a href="https://t.me/Jomahmadov2002">Administrator</a> if you think this is a mistake.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}

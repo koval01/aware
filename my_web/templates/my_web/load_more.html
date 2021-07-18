@@ -390,7 +390,7 @@
     {% endif %}
     {% for el in data %}
         {% if forloop.counter == 1 and not search_index and images_search %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
+            <div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
                 <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
                     <div style="float: left;">
                         <label id="{{ 32|get_random_string }}" class="city images_search_layer_aware_edit">

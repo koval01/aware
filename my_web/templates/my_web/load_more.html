@@ -191,10 +191,10 @@
                                 </div>
                                 <div class="col-xs-6 text-center">
                                     <div class="h1 temperature">
-                                        <span style="font-size: 2em;">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
+                                        <span style="font-size:2em">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
                                         <br>
                                         {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
-                                            <small style="color: inherit;font-size: 50%;">
+                                            <small style="color:inherit;font-size:50%">
                                                 From {{ weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
                                             </small>
                                         {% endif %}
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <ul class="list-inline row forecast">
-                                        <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
+                                        <li id="{{ 24|get_random_string }}" style="border-top:1px solid #fff" class="col-xs-4 col-sm-2 text-center">
                                             <h3 class="h5">{% now "D, j E" %}</h3>
                                             <p>
                                                 {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}

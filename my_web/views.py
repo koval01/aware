@@ -38,7 +38,6 @@ from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
 from .text_to_image_api import get_result as text_to_image_api
 from .text_to_image_api import sentence_check
-from .tiktok_static import get_data as tiktok_data_get
 from .weather_api import weather_get, get_weather_icon
 
 logger = logging.getLogger(__name__)

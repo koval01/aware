@@ -828,7 +828,10 @@ def load_more(request):
                     search_array = search_api['array']
 
                     # image search
-                    images_search = search_execute(search_send, 0, 'image')['items']
+                    if settings.IMAGES_SEARCH_ENABLED:
+                        images_search = search_execute(search_send, 0, 'image')['items']
+                    else:
+                        images_search = None
 
                     # Weather
                     weather = weather_get(search)

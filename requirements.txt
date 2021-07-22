@@ -4,8 +4,8 @@ django-robots
 django_compressor
 django-ratelimit
 django-blacklist
-django-allauth
 gunicorn
+regex
 pip
 six
 youtube-dl
@@ -13,15 +13,12 @@ pafy
 setuptools
 wheel
 lxml
-regex
 requests
 requests-cache
-sentry_sdk
 django-cors-headers
 beautifulsoup4
 whitenoise
 python-dotenv
-pydantic
 cryptography
 pymysql[rsa]
 Pillow

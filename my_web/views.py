@@ -17,20 +17,21 @@ from django.views.decorators.http import require_GET, require_POST
 from ratelimit.decorators import ratelimit
 from requests import get
 
-from .calculate import calculator
+from my_web.search_utils.calculate import calculator
+from my_web.search_utils.namaz_api import get_namaz_data
+from my_web.search_utils.search_api import select_type as search_execute
+from my_web.search_utils.search_complete_api import get_result_data as search_complete
+from my_web.search_utils.weather_api import weather_get, get_weather_icon
+from news_utils.newsapi import __main__ as newsfeed
+from news_utils.newsapi import news_search as news_search_in_str
+
 from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .heroku_api import get_last_build_id as heroku_get_last_build_id
 from .models import Info, Banner
-from .namaz_api import get_namaz_data
 from .quote_get import get_result as get_quote_list
-from .newsapi import __main__ as newsfeed
-from .newsapi import news_search as news_search_in_str
-from .search_api import select_type as search_execute
-from .search_complete_api import get_result_data as search_complete
-from .weather_api import weather_get, get_weather_icon
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -118,7 +119,8 @@ def sign_address_encrypt(address) -> str:
 
 def my_ip_key(group, request):
     try:
-        user_address = request.headers['CF-Connecting-IP']
+        head = request.headers['X-Forwarded-For']
+        user_address = (head.split(',')[-1:][0]).strip()
     except Exception as e:
         user_address = '127.0.0.1'
         logger.error(e)
@@ -145,21 +147,11 @@ def image_proxy_view(request):
     try:
         salt = Fernet(sign_key)
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
-        try:
-            original_address = request.headers['CF-Connecting-IP']
-        except Exception as e:
-            original_address = '127.0.0.1'
-            logger.error(e)
+        original_address = my_ip_key(None, request)
 
         logger.debug('image_proxy_view: check address...')
 
         if original_address == received_address:
-            try:
-                video = request.GET['video_mode']
-            except Exception as e:
-                video = False
-                logger.warning(e)
-
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
@@ -170,6 +162,7 @@ def image_proxy_view(request):
             salt = Fernet(image_proxy_key)
             token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
             control_time = round(time())
+
             if token_get > control_time:
                 response = get(
                     link_get, stream=True,
@@ -203,7 +196,7 @@ def search_suggestions_get(request):
         if q and len(q) <= 100:
             return JsonResponse({"data": search_complete(q)})
     except Exception as e:
-        logger.error(e)
+        logger.warning(e)
 
     return error_400(request)
 
@@ -395,11 +388,7 @@ def index(request):
     quote = choice(get_quote_list())
     select_news_or_quote = randint(0, 1)  # if true - quote
 
-    try:
-        user_address = request.headers['CF-Connecting-IP']
-    except Exception as e:
-        user_address = '127.0.0.1'
-        logger.error(e)
+    user_address = my_ip_key(None, request)
 
     try:
         search_q = request.GET['q']
@@ -439,17 +428,9 @@ def load_more(request):
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
-    logger.debug('User address decrypted.')
-
-    try:
-        original_address = request.headers['CF-Connecting-IP']
-    except Exception as e:
-        original_address = '127.0.0.1'
-        logger.error(e)
+    original_address = my_ip_key(None, request)
 
     if check_request__(c_token) and original_address == received_address:
-        logger.debug('Parameters parsing...')
-
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
         covid_stat_append = int(request.POST.get('covid_stat', ''))

@@ -9,9 +9,9 @@ from urllib.parse import urlparse, parse_qs
 
 from django.conf import settings
 
-from .common_functions import similarity
+from my_web.common_functions import similarity
 from django.conf import settings
-from .models import BlackWord
+from my_web.models import BlackWord
 
 logger = logging.getLogger(__name__)
 USER_AGENT = settings.REQ_USER_AGENT

@@ -14,6 +14,7 @@ from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.csrf import csrf_exempt
 from ratelimit.decorators import ratelimit
 from requests import get
 
@@ -241,6 +242,7 @@ def global_ad_function(lang: str) -> dict:
 
 
 @require_POST
+@csrf_exempt
 def get_ad(request):
     """
     Get advertise

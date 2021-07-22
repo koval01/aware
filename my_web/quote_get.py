@@ -2,7 +2,7 @@ from django.conf import settings
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('quote_get_cache')
+session = requests_cache.CachedSession(backend='memory', cache_name='quote_get_cache')
 
 
 def get_result() -> dict:

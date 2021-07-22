@@ -7,7 +7,7 @@ import logging, requests_cache
 
 token = settings.NEWSAPI_TOKEN
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('news_api_cache', expire_after=3600)
+session = requests_cache.CachedSession(backend='memory', cache_name='news_api_cache', expire_after=3600)
 
 
 def __main__(news_append, get_one=False) -> list:

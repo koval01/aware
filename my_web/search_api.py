@@ -15,7 +15,7 @@ from .models import BlackWord
 
 logger = logging.getLogger(__name__)
 USER_AGENT = settings.REQ_USER_AGENT
-session = requests_cache.CachedSession('search_api_cache', expire_after=259200)
+session = requests_cache.CachedSession(backend='memory', cache_name='search_api_cache', expire_after=259200)
 null_search_dict = [['' for _ in range(6)] for y in range(100)]
 
 

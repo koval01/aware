@@ -9,8 +9,8 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left; ">
-                        <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Ukraine</label><br>
-                        <label id="{{ 32|get_random_string }}" class="city"><br/>
+                        <label class="username">COVID-19 statistics in Ukraine</label><br>
+                        <label class="city"><br/>
                             <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
                             <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
                             <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
@@ -41,8 +41,8 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left; ">
-                        <label id="{{ 32|get_random_string }}" class="username">COVID-19 statistics in Russia</label><br>
-                        <label id="{{ 32|get_random_string }}" class="city"><br/>
+                        <label class="username">COVID-19 statistics in Russia</label><br>
+                        <label class="city"><br/>
                             <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
                             <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
                             <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
@@ -76,7 +76,7 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label id="{{ 32|get_random_string }}" class="city">
+                        <label class="city">
                             <i>
                                 {{ c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ c_result }}</b>
                             </i>
@@ -104,7 +104,7 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label id="{{ 32|get_random_string }}" class="city">
+                        <label class="city">
                             <i>
                                 {{ search }}
                             </i>
@@ -136,10 +136,10 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label id="{{ 32|get_random_string }}" class="username">
+                        <label class="username">
                             News from AWARE
                         </label><br>
-                        <label id="{{ 32|get_random_string }}" class="city">
+                        <label class="city">
                             <i>
                                 This feature is currently unavailable, sorry.
                             </i>
@@ -168,7 +168,7 @@
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
                         <div class="col-xs-12">
-                            <div id="{{ 32|get_random_string }}" class="weather-panel col-xs-12 col-sm-12"
+                            <div class="weather-panel col-xs-12 col-sm-12"
                             style="color: #efeff1;">
                                 <div class="col-xs-6">
                                     <h2>{{ weather.now_weather.name }}<br>
@@ -211,7 +211,7 @@
                                             </p>
                                         </li>
                                         {% for weather_el in weather.future_weather %}
-                                            <li id="{{ 24|get_random_string }}" style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
+                                            <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                                 <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D, j E" }}</h3>
                                                 <p>
                                                     {{ weather_el.weather.0.icon|get_weather_ico|safe }}
@@ -235,8 +235,8 @@
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
                     <div style="float: left;">
-                        <label id="{{ 32|get_random_string }}" class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
-                        <label id="{{ 32|get_random_string }}" class="city">
+                        <label class="username">Muslim prayers for {{ el.time }}, {{ el.hijri_day }} {{ el.hijri_month }} {{ el.hijri_year }}</label><br>
+                        <label class="city">
                             <p>
                                 <br/>
                             {% for i in el.timings %}
@@ -280,7 +280,7 @@
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div style="float: left;">
                             <label class="username">AWARE bot in Telegram</label><br>
-                            <label id="{{ 32|get_random_string }}" class="city">
+                            <label class="city">
                                 Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
                             </label>
                             <br/>
@@ -308,13 +308,13 @@
                 <div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
                     <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
                         <div style="float: left;">
-                            <label id="{{ 32|get_random_string }}" class="city images_search_layer_aware_edit">
+                            <label class="city images_search_layer_aware_edit">
                                 <div class="photos-slider-aware select_disable_text">
                                     {% for el_images in images_search %}
                                         <div>
                                             <div>
                                                 <a href="{{ el_images.image.contextLink }}" target="_blank">
-                                                    <img id="{{ 32|get_random_string }}" onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
+                                                    <img onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
                                                     src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
                                                 </a>
                                             </div>
@@ -333,12 +333,8 @@
                                     {% endfor %}
                                 </div>
                             </label>
-                            <div
-                                    id="{{ 32|get_random_string }}"
-                                    style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;"
-                                    class="hint_text_images_scroll_aware"
-                            >
-                                <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                            <div style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;" class="hint_text_images_scroll_aware">
+                                <b style="color: #808080;font-size: 0.7em;">
                                     To scroll through images, drag them from right to left
                                 </b>
                             </div>
@@ -370,7 +366,7 @@
                         <div class="user box aos-init aos-animate" data-aos="fade-up">
                             <div style="float: left;">
                                 <label class="username">{{ el.0.0 }}</label><br>
-                                <label id="{{ 32|get_random_string }}" class="city">
+                                <label class="city">
                                     {# paste news image or text if this is a mobile device #}
                                     {% if mobile == '1' %}
                                         <img src="{% url 'image_generate_api' %}?text={{ el.0.1 }}&author={{ el.0.2 }}&sign={{ user_address_original|sign_address_encrypt }}&token={{ token_image_proxy }}"
@@ -400,16 +396,15 @@
                     <div class="col-12 col-lg-12 padding-block-center-box">
                         <div class="user box aos-init aos-animate" data-aos="fade-up">
                             <div style="float: left;">
-                                <label id="{{ 32|get_random_string }}" class="username" style="margin-top: -0.5em;">
-                                    <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}" style="word-break: break-word">
+                                <label class="username" style="margin-top: -0.5em;">
+                                    <a target="_blank" href="{{ el.1.link }}" style="word-break: break-word">
                                         {{ el.1.title }}
                                     </a>
                                 </label><br>
-                                <label id="{{ 32|get_random_string }}" class="city">
+                                <label class="city">
                                     {% if el.1.thumb and not el.1.youtube_id %}
-                                        <a id="{{ 32|get_random_string }}" target="_blank" href="{{ el.1.link }}">
+                                        <a target="_blank" href="{{ el.1.link }}">
                                             <img
-                                                    id="{{ 32|get_random_string }}"
                                                     src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
                                                     onerror="imgError(this);"
                                                     style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
@@ -417,51 +412,47 @@
                                             >
                                         </a>
                                     {% elif el.1.youtube_id %}
-                                        <div class="view-container-youtube-video-aware" id="{{ 32|get_random_string }}">
+                                        <div class="view-container-youtube-video-aware">
                                             <img
-                                                    id="{{ 32|get_random_string }}"
                                                     src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&video_mode=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
                                                     onerror="imgError(this);"
-                                                    style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                                    style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
                                                     class="video_youtube_preview_image_aware"
                                                     alt="Preview image"
-                                                    data-youtube-id="{{ el.1.youtube_id }}"
-                                            >
+                                                    data-youtube-id="{{ el.1.youtube_id }}">
                                         </div>
                                     {% endif %}
-                                    <p id="{{ 32|get_random_string }}">
+                                    <p>
                                         {{ el.1.displayLink }}
                                     </p>
                                     {{ el.1.snippet|safe }}
                                 </label>
                                 {% if el.1.youtube_id %}
                                     <div
-                                            id="{{ 32|get_random_string }}"
                                             style="margin-top: 1em;transition: margin-top 1s;"
                                             class="hint_text_video_play_yt"
                                     >
-                                        <b id="{{ 32|get_random_string }}" style="color: #808080;font-size: 0.7em;">
+                                        <b style="color: #808080;font-size: 0.7em;">
                                             To view the video - click on the picture
                                         </b>
                                     </div>
                                     <div
-                                            id="{{ 32|get_random_string }}"
                                             class="youtube_video_info_div"
                                             style="
-                                background: #fff;
-                                border-radius: 0.5em;
-                                font-weight: 600;
-                                font-size: 0.9em;
-                                margin-top: 1em;
-                                display: inline-block;
-                            "
+                                                background: #fff;
+                                                border-radius: 0.5em;
+                                                font-weight: 600;
+                                                font-size: 0.9em;
+                                                margin-top: 1em;
+                                                display: inline-block;
+                                            "
                                             title="To view the video - click on the picture"
                                     >
-                                        <span id="{{ 32|get_random_string }}" style="
+                                        <span style="
                                             margin: 0.5em;
                                         ">YouTube&nbsp;
-                                            <i id="{{ 32|get_random_string }}" class="fab fa-youtube"></i>
-                                            <i id="{{ 32|get_random_string }}" class="spinner-border youtube_video_load_wait_aware" style="
+                                            <i class="fab fa-youtube"></i>
+                                            <i class="spinner-border youtube_video_load_wait_aware" style="
                                                 width: 20px !important;
                                                 height: 20px !important;
                                                 display: none;
@@ -480,7 +471,7 @@
                 <div class="col-12 col-lg-12 padding-block-center-box">
                     <div class="user box aos-init aos-animate" data-aos="fade-up">
                         <div class="box_aware_error">
-                            <div class="box_aware_error__ghost" id="{{ 32|get_random_string }}">
+                            <div class="box_aware_error__ghost">
                                 <div class="symbol"></div>
                                 <div class="symbol"></div>
                                 <div class="symbol"></div>
@@ -500,14 +491,14 @@
                                         <div></div>
                                     </div>
                                 </div>
-                                <div class="box_aware_error__ghost-shadow" id="{{ 32|get_random_string }}"></div>
+                                <div class="box_aware_error__ghost-shadow"></div>
                             </div>
                             <div class="box_aware_error__description">
                                 <div class="box_aware_error__description-container">
                                     <div class="box_aware_error__description-title">
                                         Oh!
                                     </div>
-                                    <div class="box_aware_error__description-text" id="{{ 32|get_random_string }}">
+                                    <div class="box_aware_error__description-text">
                                         It looks like your search query contains a word that the administrator has banned. Talk to
                                         <a href="https://t.me/Jomahmadov2002">Administrator</a> if you think this is a mistake.
                                     </div>

@@ -2,10 +2,8 @@ import logging
 import os
 import random
 from datetime import timedelta, datetime
-from multiprocessing import Process
 from random import randint, randrange, choice
 from time import time
-from urllib.parse import urlunsplit, urlencode
 
 import pafy
 from blacklist.ratelimit import blacklist_ratelimited
@@ -15,29 +13,23 @@ from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from ratelimit.decorators import ratelimit
 from requests import get
 
-from .awareapi_filter import get_instant_page as instant_aware
 from .calculate import calculator
 from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
 from .heroku_api import get_last_build_id as heroku_get_last_build_id
-from .infobot.core import send_data as infobot_send_data
-from .link_analyze import link_image as img_link_check
-from .models import AWARE_Page, Info, Banner
+from .models import Info, Banner
 from .namaz_api import get_namaz_data
 from .quote_get import get_result as get_quote_list
 from .newsapi import __main__ as newsfeed
 from .newsapi import news_search as news_search_in_str
 from .search_api import select_type as search_execute
 from .search_complete_api import get_result_data as search_complete
-from .text_to_image_api import get_result as text_to_image_api
-from .text_to_image_api import sentence_check
 from .weather_api import weather_get, get_weather_icon
 
 logger = logging.getLogger(__name__)
@@ -53,128 +45,52 @@ max_search_len = settings.MAX_SEARCH_LENGTH
 
 @register.filter
 def get_range(value) -> int:
-    """
-    Random range value generator functiontion
-    :param value: Input max value
-    :return: Output random range value
-    """
-    logger.info(f'function get_range: {value}')
     return randrange(1, value)
 
 
 @register.filter
 def get_weather_ico(value) -> str:
-    """
-    Getting the weather icon
-    :param value: Weather code
-    :return: HTML code
-    """
     return get_weather_icon(value)
 
 
 @register.filter
 def add_days_by_timestamp(value=1) -> object:
-    """
-    A function that adds days to the current time
-    :param value: Number of days
-    :return: Result (time object)
-    """
     s = (value * 86400) + round(time())
     return datetime.fromtimestamp(s)
 
 
 @register.filter
 def pop_convert_weather(value) -> str:
-    """
-    A function that converts the float value of a pop to a percentage
-    :param value: full proc
-    :return: edited proc
-    """
     return str(value)[-2:] + '%'
 
 
 @register.filter
 def get_randint(value) -> int:
-    """
-    Random integer function
-    :param value: Input max random value
-    :return: Random value result
-    """
-    logger.info(f'function get_randint: {value}')
     return randint(1, value)
 
 
 @register.filter
 def get_range_list(value) -> range:
-    """
-    Set range value function
-    :param value: Some value set
-    :return: Output result
-    """
-    logger.info(f'function get_range_list: {value}')
     return range(value)
 
 
 @register.filter
-def cut_text(string) -> str:
-    """
-    String cut function (256 symbols)
-    :param string: String for cut
-    :return: Cut string result
-    """
-    logger.info(f'function cut_text: {string}')
-    return string[:256] + '...'
-
-
-@register.filter
 def cut_long_words(string) -> str:
-    """
-    A function that finds words too long and shortens them
-    :param string: String for cut
-    :return: Cut string result
-    """
-    logger.info(f'function cut_long_words: {string}')
     return ' '.join([i[:32] for i in string.split()])
 
 
 @register.filter
 def seconds_to_time(val) -> str:
-    """
-    Convert seconds to time XX:XX:XX
-    :param val: seconds int
-    :return: string time
-    """
     return str(timedelta(seconds=val))
 
 
 @register.filter
-def get_item(item) -> print:
-    """
-    Print data from template function
-    :param item: Input data
-    :return: return print data
-    """
-    print(item)
-    return item
-
-
-@register.filter
 def get_random_string(length=16) -> str:
-    """
-    Random string generator function
-    :param length: length string
-    :return: generated string
-    """
     return rand_str(length)
 
 
 @register.filter
 def link_encrypt_img(link) -> str:
-    """
-    Link encryptor
-    :param link: Link image / video
-    :return: Encrypted link
-    """
     try:
         salt_link = Fernet(img_link_proxy_key)
         data_link = str.encode(str(link))
@@ -186,21 +102,11 @@ def link_encrypt_img(link) -> str:
 
 @register.filter
 def num_rounder_custom(val) -> str:
-    """
-    Round value to K, M...
-    :param val: int value
-    :return: string rounded value
-    """
     return num_formatter(val)
 
 
 @register.filter
 def sign_address_encrypt(address) -> str:
-    """
-    Address encryptor
-    :param address: User address
-    :return: Encrypted address
-    """
     try:
         salt_sign = Fernet(sign_key)
         data_sign = str.encode(str(address))
@@ -245,7 +151,7 @@ def image_proxy_view(request):
             original_address = '127.0.0.1'
             logger.error(e)
 
-        logger.info('image_proxy_view: check address...')
+        logger.debug('image_proxy_view: check address...')
 
         if original_address == received_address:
             try:
@@ -258,140 +164,26 @@ def image_proxy_view(request):
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
 
-            logger.info('image_proxy_view: check image link...')
-
-            if img_link_check(link_get, video=video):
-                token = request.GET['token']
-                salt = Fernet(image_proxy_key)
-                token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
-                control_time = round(time())
-                if token_get > control_time:
-                    response = get(
-                        link_get, stream=True,
-                        headers={'user-agent': request.headers.get('user-agent')}
-                    )
-
-                    return StreamingHttpResponse(
-                        response.raw,
-                        content_type=response.headers.get('content-type'),
-                        status=response.status_code,
-                        reason=response.reason,
-                    )
-    except Exception as e:
-        logger.error(e)
-
-    return error_400(request)
-
-
-@require_GET
-def video_proxy_view(request):
-    """
-    Video proxy function
-    :param request: body request
-    :return: raw image
-    """
-    try:
-        salt = Fernet(sign_key)
-        received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
-
-        try:
-            original_address = request.headers['CF-Connecting-IP']
-        except Exception as e:
-            original_address = '127.0.0.1'
-            logger.error(e)
-
-        if original_address == received_address:
-            url = request.GET['data']
-            salt_link = Fernet(img_link_proxy_key)
-            link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
+            logger.debug('image_proxy_view: check image link...')
 
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 3600
-
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
             control_time = round(time())
-
             if token_get > control_time:
                 response = get(
                     link_get, stream=True,
                     headers={'user-agent': request.headers.get('user-agent')}
                 )
 
-                resp_obj = HttpResponse(
+                return StreamingHttpResponse(
                     response.raw,
                     content_type=response.headers.get('content-type'),
-                    status=200,
+                    status=response.status_code,
                     reason=response.reason,
                 )
-                resp_obj.headers['vary'] = 'Origin'
-                resp_obj.headers['accept-ranges'] = 'bytes'
-
-                return resp_obj
     except Exception as e:
         logger.error(e)
-
-    return error_400(request)
-
-
-@require_GET
-@cache_page(60 * 180)
-def image_generate_api(request):
-    """
-    Text to image api (Generator news background).
-    :param request: body request
-    :return: raw image
-    """
-    salt = Fernet(sign_key)
-    received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
-
-    try:
-        original_address = request.headers['CF-Connecting-IP']
-    except Exception as e:
-        original_address = '127.0.0.1'
-        logger.error(e)
-
-    if original_address == received_address:
-
-        token = request.GET['token']
-        salt = Fernet(image_proxy_key)
-
-        token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 15
-        control_time = round(time())
-
-        if token_get > control_time:
-            try:
-                text = request.GET['text']
-                author = request.GET['author']
-                if 5 < len(text) <= 1000 and 2 < len(author) <= 64:
-                    logger.warning('IMAGE GENERATOR: Check sentences')
-
-                    if not sentence_check(text):
-                        return JsonResponse(
-                            {
-                                'code': 409, 'code_name': 'Conflict',
-                                'error': 'This text does not seem to have any value.',
-                            }
-                        )
-
-                    logger.info('IMAGE GENERATOR: Generating image')
-
-                    img = text_to_image_api(text, author)
-
-                    return HttpResponse(
-                        img['img'],
-                        content_type=img['headers'],
-                        status=img['status_code'],
-                        reason=img['reason'],
-                    )
-                return JsonResponse(
-                    {
-                        'code': 411, 'code_name': 'Length Required',
-                        'error': 'Text length cannot be less than 5 characters or more than 1000. The author\'s name / nickname \
-                        cannot be shorter than 2 characters and longer than 64 characters.',
-                    }
-                )
-            except Exception as e:
-                logger.error(e)
 
     return error_400(request)
 
@@ -426,7 +218,7 @@ def sync_time_server(request):
     return JsonResponse({"time_unix": round(time())})
 
 
-def global_ad_function(lang) -> dict:
+def global_ad_function(lang: str) -> dict:
     """
     Global feature for getting advertising inside viws.py
     :param lang: Language (language code)
@@ -581,46 +373,6 @@ def get_video_yt(request):
 
     return error_400(request)
 
-@require_POST
-@csrf_exempt
-def aware_api(request):
-    """
-    API for AWARE
-    :param request: body request
-    :return: json answer
-    """
-    token_get = request.POST.get('api_key', '')
-    token = qwriter_api_for_aware
-    if token == token_get:
-        try:
-            link = str(request.POST.get('link', ''))
-            if link:
-                data = instant_aware(link)
-                a = AWARE_Page(title=data['title'], page_html_code=data['html'])
-                a.save()
-                page_id = AWARE_Page.objects.latest('id').unique_id
-                query = urlencode(dict(
-                    url='https://awse.us/aware/' + page_id,
-                    rhash=data['template'],
-                ))
-                link = urlunsplit(('https', 't.me', '/iv', query, ''))
-                return JsonResponse(
-                    {
-                        'done': True,
-                        'link': link,
-                    }
-                )
-        except Exception as e:
-            logger.error(e)
-            return JsonResponse(
-                {
-                    'done': False,
-                    'exception': e,
-                }, status=409
-            )
-
-    return error_400(request)
-
 
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
@@ -665,26 +417,6 @@ def index(request):
     })
 
 
-@require_GET
-def awareview(request, awareid):
-    """
-    Aware page view
-    :param awareid: searching fact id
-    :param request: request body
-    :return: render template page
-    """
-    logger.info(f'function awareview: request {request}; awareid {awareid}')
-    try:
-        awareid: request.GET.get('awareid', '')
-        aware_data = AWARE_Page.objects.get(unique_id=awareid)
-        return render(request, 'my_web/awareview.html', {
-            'aware': aware_data,
-        })
-    except Exception as e:
-        logger.error(e)
-        return error_404(request, str(e))
-
-
 @require_POST
 @cache_page(60 * 180)
 @ratelimit(key=my_ip_key, rate='1/3s', block=True)
@@ -707,7 +439,7 @@ def load_more(request):
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
-    logger.info('User address decrypted.')
+    logger.debug('User address decrypted.')
 
     try:
         original_address = request.headers['CF-Connecting-IP']
@@ -716,7 +448,7 @@ def load_more(request):
         logger.error(e)
 
     if check_request__(c_token) and original_address == received_address:
-        logger.info('Parameters parsing...')
+        logger.debug('Parameters parsing...')
 
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
@@ -726,26 +458,13 @@ def load_more(request):
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
-        videos = request.POST.get('videos', '')
 
-        logger.info('Parameters parsed.')
+        logger.debug('Parameters parsed.')
 
         if len(search) <= max_search_len:
-            logger.info('Check search length and continue.')
+            logger.debug('Check search length and continue.')
 
-            if not videos:
-                # If the variable does not exist, then set its value - 0
-                videos = 0
-
-            user_agent = request.headers['User-Agent']
-            user_request_method = request.method
             user_address = original_address
-
-            try:
-                user_referer = request.headers['HTTP_REFERER']
-            except Exception as e:
-                logger.warning(e)
-                user_referer = None
 
             if not search_index:
                 search_index = 0
@@ -755,11 +474,8 @@ def load_more(request):
             if namaz:
                 namaz = get_namaz_data(search)
 
-            if videos:
-                videos = tiktok_data_get()
-
             if token and typeload and len(search) == int(len_c):
-                logger.info('Check token and continue.')
+                logger.debug('Check token and continue.')
 
                 if typeload == 'newsession' and covid_stat_append:
                     covid_stat_ua = covid_stat('UA')
@@ -777,7 +493,7 @@ def load_more(request):
                     logging.error(e)
 
                 if token_get and (token_get + 72000) > round(time()):
-                    logger.info('Check "token_get" and continue.')
+                    logger.debug('Check "token_get" and continue.')
 
                     # data collect
                     news = newsfeed(news_append)
@@ -792,29 +508,6 @@ def load_more(request):
 
                     # news link append
                     news_link_add = news_search_in_str(search)
-
-                    # Send data to InfoBot
-                    if search:
-                        search_local = 'hidden'
-
-                        if namaz:
-                            search_type_data = 'namaz'
-                        else:
-                            search_type_data = 'search request'
-
-                        if not settings.DEBUG:
-                            Process(
-                                target=infobot_send_data,
-                                args=(
-                                    user_agent,
-                                    user_address,
-                                    search_local,
-                                    search_type_data,
-                                    user_request_method,
-                                    user_referer,
-                                    search_index,
-                                )
-                            ).start()
 
                     # Search API
                     search_send = search
@@ -842,7 +535,7 @@ def load_more(request):
                     # data pack
                     data = zip(news, search_array)
 
-                    logger.info(f'function load_more: request {request}')
+                    logger.debug(f'function load_more: request {request}')
 
                     return render(request, 'my_web/load_more.html', {
                         'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
@@ -850,7 +543,7 @@ def load_more(request):
                         'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
                         'c_result': c_result, 'search': search, 'c_input': c_input,
                         'news_search_in_str': news_link_add, 'search_data': search_data,
-                        'namaz_data': namaz, 'videos': videos, 'user_address_original': user_address,
+                        'namaz_data': namaz, 'user_address_original': user_address,
                         'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                         'search_api_full_dict': search_api, 'images_search': images_search,
                         'check_bot_request_search': check_bot_request_search(search),

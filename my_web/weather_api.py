@@ -5,7 +5,7 @@ from datetime import datetime
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('search_api_cache', expire_after=600)
+session = requests_cache.CachedSession(backend='memory', cache_name='search_api_cache', expire_after=600)
 api_keys = str(settings.WEATHER_API_KEYS).split()
 shuffle(api_keys)
 

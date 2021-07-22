@@ -3,7 +3,7 @@ from datetime import datetime
 import logging, requests_cache
 
 logger = logging.getLogger(__name__)
-session = requests_cache.CachedSession('namaz_get', expire_after=7200)
+session = requests_cache.CachedSession(backend='memory', cache_name='namaz_get', expire_after=7200)
 
 def get_result(city) -> dict:
     """

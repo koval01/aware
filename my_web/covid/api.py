@@ -4,7 +4,7 @@ from ..common_functions import num_formatter
 from ..months import en_month, ua_month, ru_month
 import logging, re, requests_cache
 
-session = requests_cache.CachedSession('covid_cache', expire_after=7200)
+session = requests_cache.CachedSession(backend='memory', cache_name='covid_cache', expire_after=7200)
 logger = logging.getLogger(__name__)
 
 

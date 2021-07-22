@@ -22,8 +22,8 @@ from my_web.search_utils.namaz_api import get_namaz_data
 from my_web.search_utils.search_api import select_type as search_execute
 from my_web.search_utils.search_complete_api import get_result_data as search_complete
 from my_web.search_utils.weather_api import weather_get, get_weather_icon
-from news_utils.newsapi import __main__ as newsfeed
-from news_utils.newsapi import news_search as news_search_in_str
+from my_web.news_utils.newsapi import __main__ as newsfeed
+from my_web.news_utils.newsapi import news_search as news_search_in_str
 
 from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str

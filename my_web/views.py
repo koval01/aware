@@ -23,7 +23,6 @@ from my_web.search_utils.search_api import select_type as search_execute
 from my_web.search_utils.search_complete_api import get_result_data as search_complete
 from my_web.search_utils.weather_api import weather_get, get_weather_icon
 from my_web.news_utils.newsapi import __main__ as newsfeed
-from my_web.news_utils.newsapi import news_search as news_search_in_str
 
 from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
@@ -487,9 +486,6 @@ def load_more(request):
                     # calculator
                     c_result, c_input = calculator(search)
 
-                    # news link append
-                    news_link_add = news_search_in_str(search)
-
                     # Search API
                     search_send = search
                     if namaz:
@@ -522,8 +518,7 @@ def load_more(request):
                         'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
                         'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
                         'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
-                        'c_result': c_result, 'search': search, 'c_input': c_input,
-                        'news_search_in_str': news_link_add, 'search_data': search_data,
+                        'c_result': c_result, 'search': search, 'c_input': c_input, 'search_data': search_data,
                         'namaz_data': namaz, 'user_address_original': user_address,
                         'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
                         'search_api_full_dict': search_api, 'images_search': images_search,

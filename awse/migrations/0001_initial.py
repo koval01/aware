@@ -3,7 +3,7 @@
 import datetime
 from django.db import migrations, models
 from django.utils.timezone import utc
-import my_web.models
+import awse.models
 
 
 class Migration(migrations.Migration):
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='Не удалось получить заголовок страницы', max_length=255, verbose_name='Название страницы')),
                 ('page_html_code', models.TextField(default='<p>Ошибка парсинга страницы...</p>', verbose_name='HTML код страницы')),
-                ('unique_id', models.CharField(default=my_web.models.random_string, max_length=255, unique=True, verbose_name='Уникальный ID')),
+                ('unique_id', models.CharField(default=awse.models.random_string, max_length=255, unique=True, verbose_name='Уникальный ID')),
                 ('time', models.DateTimeField(default=datetime.datetime(2021, 5, 15, 18, 18, 28, 988968, tzinfo=utc), verbose_name='Время создания')),
             ],
             options={

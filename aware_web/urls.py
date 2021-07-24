@@ -19,10 +19,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('my_web.urls')),
+    path('', include('awse.urls')),
 ]
 
-handler404 = 'my_web.views.error_404'
-handler403 = 'my_web.views.error_403'
-handler400 = 'my_web.views.error_400'
-handler500 = 'my_web.views.error_500'
+handler404 = 'awse.views.error_404'
+handler403 = 'awse.views.error_403'
+handler400 = 'awse.views.error_400'
+handler500 = 'awse.views.error_500'

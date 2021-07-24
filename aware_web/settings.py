@@ -114,7 +114,7 @@ IMAGES_SEARCH_ENABLED = False
 # Application definition
 
 INSTALLED_APPS = [
-    'my_web',
+    'awse',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -141,7 +141,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'my_web.middleware.Compressor_AWARE',
+    'awse.middleware.Compressor_AWARE',
 ]
 
 ROOT_URLCONF = 'aware_web.urls'
@@ -297,8 +297,8 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
-#    # os.path.join(BASE_DIR, '../my_web/static'),
-#    '/home/code/aware_web/my_web/static',
+#    # os.path.join(BASE_DIR, '../awse/static'),
+#    '/home/code/aware_web/awse/static',
 # )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

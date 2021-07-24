@@ -3,13 +3,13 @@
 import datetime
 from django.db import migrations, models
 from django.utils.timezone import utc
-import my_web.models
+import awse.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('my_web', '0015_auto_20210611_1747'),
+        ('awse', '0015_auto_20210611_1747'),
     ]
 
     operations = [
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='aware_page',
             name='unique_id',
-            field=models.CharField(default=my_web.models.random_string, max_length=255, unique=True, verbose_name='Unique ID'),
+            field=models.CharField(default=awse.models.random_string, max_length=255, unique=True, verbose_name='Unique ID'),
         ),
         migrations.AlterField(
             model_name='banner',

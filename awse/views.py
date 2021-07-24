@@ -18,12 +18,12 @@ from django.views.decorators.csrf import csrf_exempt
 from ratelimit.decorators import ratelimit
 from requests import get
 
-from my_web.search_utils.calculate import calculator
-from my_web.search_utils.namaz_api import get_namaz_data
-from my_web.search_utils.search_api import select_type as search_execute
-from my_web.search_utils.search_complete_api import get_result_data as search_complete
-from my_web.search_utils.weather_api import weather_get, get_weather_icon
-from my_web.news_utils.newsapi import __main__ as newsfeed
+from awse.search_utils.calculate import calculator
+from awse.search_utils.namaz_api import get_namaz_data
+from awse.search_utils.search_api import select_type as search_execute
+from awse.search_utils.search_complete_api import get_result_data as search_complete
+from awse.search_utils.weather_api import weather_get, get_weather_icon
+from awse.news_utils.newsapi import __main__ as newsfeed
 
 from .common_functions import check_bot_request_search, check_request__
 from .common_functions import get_random_string as rand_str
@@ -398,7 +398,7 @@ def index(request):
         logger.debug(e)
 
     logger.info(f'function index: request {request}')
-    return render(request, 'my_web/index.html', {
+    return render(request, 'awse/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
         'search_q': search_q, 'user_address': user_address,
@@ -516,7 +516,7 @@ def load_more(request):
 
                     logger.debug(f'function load_more: request {request}')
 
-                    return render(request, 'my_web/load_more.html', {
+                    return render(request, 'awse/load_more.html', {
                         'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
                         'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
                         'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
@@ -561,7 +561,7 @@ def search_config(request):
     :param request: request body
     :return: render template page
     """
-    return render(request, 'my_web/search.xml', content_type='text/xml')
+    return render(request, 'awse/search.xml', content_type='text/xml')
 
 
 def error_400(request, exception='Unknown'):
@@ -571,7 +571,7 @@ def error_400(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {
+    return render(request, 'awse/error.html', {
         'error_code': 400,
         'description': 'We cannot accept this request. I don\'t know why, we just can\'t..'
     }, status=400)
@@ -584,7 +584,7 @@ def error_403(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {
+    return render(request, 'awse/error.html', {
         'error_code': 403,
         'description': 'We cannot accept this request. This page is restricted.'
     }, status=403)
@@ -597,7 +597,7 @@ def error_404(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {
+    return render(request, 'awse/error.html', {
         'error_code': 404,
         'description': 'This page was not found on this server'
     }, status=404)
@@ -610,7 +610,7 @@ def error_500(request, exception='Unknown'):
     :param exception: exception request error
     :return: render template page
     """
-    return render(request, 'my_web/error.html', {
+    return render(request, 'awse/error.html', {
         'error_code': 500,
         'description': 'The server was unable to process this request. What did those programmers do there again...'
     }, status=500)

@@ -273,7 +273,7 @@ def load_more(request):
 
                     logger.info(f'function load_more: request {request}')
 
-                    return render(request, 'my_web/load_more.html', {
+                    return render(request, 'awse/load_more.html', {
                         'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
                         'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
                         'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,

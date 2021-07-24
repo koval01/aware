@@ -49,9 +49,9 @@ function example(string) {
 }
 ```
 
-**Templates posted at this address - https://github.com/koval01/aware_site/tree/master/my_web/templates/my_web**
+**Templates posted at this address - https://github.com/koval01/aware_site/tree/master/awse/templates/awse**
 
-**The CSS code of this site is located here - https://github.com/koval01/aware_site/blob/master/my_web/static/my_web/css/main_page.css**
+**The CSS code of this site is located here - https://github.com/koval01/aware_site/blob/master/awse/static/awse/css/main_page.css**
 
 ## **Server code and structure queue::**
 

@@ -123,6 +123,8 @@ def my_ip_key(group, request):
 
 
 @require_GET
+@ratelimit(key=my_ip_key, rate='30/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def image_proxy_view(request):
     """
     Image proxy function
@@ -187,6 +189,8 @@ def search_suggestions_get(request):
 
 
 @require_GET
+@ratelimit(key=my_ip_key, rate='10/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def sync_time_server(request):
     """
     Get server time
@@ -227,6 +231,8 @@ def global_ad_function(lang: str) -> dict:
 
 @require_POST
 @csrf_exempt
+@ratelimit(key=my_ip_key, rate='3/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def get_ad(request):
     """
     Get advertise
@@ -286,6 +292,8 @@ def global_banner_function() -> dict:
 
 
 @require_POST
+@ratelimit(key=my_ip_key, rate='3/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def get_banner(request):
     """
     Get banner ad
@@ -326,7 +334,7 @@ def get_banner(request):
 
 
 @require_POST
-@ratelimit(key=my_ip_key, rate='6/s', block=True)
+@ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def get_video_yt(request):
     """

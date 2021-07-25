@@ -141,7 +141,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'awse.middleware.Compressor_AWARE',
 ]
 
 ROOT_URLCONF = 'aware_web.urls'

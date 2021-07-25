@@ -45,11 +45,6 @@ max_search_len = settings.MAX_SEARCH_LENGTH
 
 
 @register.filter
-def get_range(value) -> int:
-    return randrange(1, value)
-
-
-@register.filter
 def get_weather_ico(value) -> str:
     return get_weather_icon(value)
 
@@ -63,16 +58,6 @@ def add_days_by_timestamp(value=1) -> object:
 @register.filter
 def pop_convert_weather(value) -> str:
     return str(value)[-2:] + '%'
-
-
-@register.filter
-def get_randint(value) -> int:
-    return randint(1, value)
-
-
-@register.filter
-def get_range_list(value) -> range:
-    return range(value)
 
 
 @register.filter

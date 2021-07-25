@@ -107,8 +107,13 @@ def sign_address_encrypt(address) -> str:
 
 def my_ip_key(group, request):
     try:
-        head = request.headers['X-Forwarded-For']
-        user_address = (head.split(',')[-1:][0]).strip()
+        if settings.CLOUDFLARE:
+            user_address = request.headers['CF-Connecting-IP']
+
+        else:
+            head = request.headers['X-Forwarded-For']
+            user_address = (head.split(',')[-1:][0]).strip()
+
 
     except Exception as e:
         user_address = '127.0.0.1'

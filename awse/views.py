@@ -2,7 +2,7 @@ import logging
 import os
 import random
 from datetime import timedelta, datetime
-from random import randint, randrange, choice
+from random import randint, choice
 from time import time
 
 import pafy
@@ -81,9 +81,11 @@ def link_encrypt_img(link) -> str:
         salt_link = Fernet(img_link_proxy_key)
         data_link = str.encode(str(link))
         result = salt_link.encrypt(data_link).decode("utf-8")
+
         return result
+
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (link_encrypt_img.__name__, e))
 
 
 @register.filter
@@ -98,26 +100,29 @@ def sign_address_encrypt(address) -> str:
         data_sign = str.encode(str(address))
         result = salt_sign.encrypt(data_sign).decode("utf-8")
         return result
+
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (sign_address_encrypt.__name__, e))
 
 
 def my_ip_key(group, request):
     try:
         head = request.headers['X-Forwarded-For']
         user_address = (head.split(',')[-1:][0]).strip()
+
     except Exception as e:
         user_address = '127.0.0.1'
-        logger.error(e)
+        logger.error("%s: %s" % (my_ip_key.__name__, e))
 
     try:
         namaz = request.POST.get('namaz', '')
+
     except Exception as e:
         namaz = None
         logger.error(e)
 
     if namaz:
-        user_address = '.'.join([str(random.randint(0, 255)) for i in range(4)])
+        user_address = '.'.join([str(random.randint(0, 255)) for _ in range(4)])
 
     return user_address
 
@@ -136,14 +141,14 @@ def image_proxy_view(request):
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         original_address = my_ip_key(None, request)
 
-        logger.debug('image_proxy_view: check address...')
+        logger.debug('%s: check address...' % image_proxy_view.__name__)
 
         if original_address == received_address:
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
 
-            logger.debug('image_proxy_view: check image link...')
+            logger.debug('%s: check image link...' % image_proxy_view.__name__)
 
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
@@ -162,8 +167,9 @@ def image_proxy_view(request):
                     status=response.status_code,
                     reason=response.reason,
                 )
+
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (image_proxy_view.__name__, e))
 
     return error_400(request)
 
@@ -182,8 +188,9 @@ def search_suggestions_get(request):
         q = request.GET['q']
         if q and len(q) <= 100:
             return JsonResponse({"data": search_complete(q)})
+
     except Exception as e:
-        logger.warning(e)
+        logger.warning("%s: %s" % (search_suggestions_get.__name__, e))
 
     return error_400(request)
 
@@ -192,11 +199,6 @@ def search_suggestions_get(request):
 @ratelimit(key=my_ip_key, rate='10/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def sync_time_server(request):
-    """
-    Get server time
-    :param request: request body
-    :return: json resp
-    """
     return JsonResponse({"time_unix": round(time())})
 
 
@@ -213,10 +215,14 @@ def global_ad_function(lang: str) -> dict:
 
     obj = Info.objects
     all_data = obj.all().filter(i_language=lang, i_active='yes')
+
     if all_data.count():
+        logger.debug("%s: data count - %d" % (global_ad_function.__name__, all_data.count()))
+
         max_retry = round(200 / (obj.count() / 4))
         done_get = False
         n = 0
+
         while max_retry >= n:
             n += 1  # Add cycle to counter
             if not done_get and obj.exists():
@@ -226,6 +232,7 @@ def global_ad_function(lang: str) -> dict:
                                 and round(time()) < round(i.i_time_active.timestamp()):
                             done_get = True
                             obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
+
                             return i
 
 
@@ -246,22 +253,24 @@ def get_ad(request):
 
             try:
                 index_block_mode = request.GET['index_block_mode']
+
             except Exception as e:
                 index_block_mode = False
-                logger.debug(e)
+                logger.debug("%s: %s" % (get_ad.__name__, e))
 
             if index_block_mode:
                 return JsonResponse({'data': newsfeed(True, True)})
 
             else:
                 data = global_ad_function(lang)
+
                 if not data:
                     return JsonResponse({"error": "no ads available"})
 
                 return JsonResponse({"text": data.i_text})
 
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (get_ad.__name__, e))
 
     return error_400(request)
 
@@ -273,12 +282,16 @@ def global_banner_function() -> dict:
     """
     obj = Banner.objects
     all_data = obj.all().filter(active='yes')
+
     if all_data.count():
+        logger.debug("%s: data count - %d" % (global_banner_function.__name__, all_data.count()))
+
         max_retry = round(200 / (obj.count() / 4))
         if max_retry < 1:
             max_retry = 1
         done_get = False
         n = 0
+
         while max_retry >= n:
             n += 1  # Add cycle to counter
             if not done_get and obj.exists():
@@ -288,6 +301,7 @@ def global_banner_function() -> dict:
                                 and round(time()) < round(i.time_active.timestamp()):
                             done_get = True
                             obj.filter(id=i.id).update(views=i.views + 1)  # Add one view
+
                             return i
 
 
@@ -303,8 +317,10 @@ def get_banner(request):
     try:
         s = time()
         key = request.POST.get('c_t___kk_', '')
+
         if check_request__(key):
             data = global_banner_function()
+
             if not data:
                 return JsonResponse({"error": "no ads available"})
 
@@ -328,7 +344,7 @@ def get_banner(request):
             })
 
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (get_banner.__name__, e))
 
     return error_400(request)
 
@@ -346,6 +362,7 @@ def get_video_yt(request):
         s = time()
         key = request.POST.get('c_t___kk_', '')
         video_id = request.POST.get('video_id', '')
+
         if check_request__(key):
             v = pafy.new(video_id)
             link = v.streams[0].url_https
@@ -356,7 +373,7 @@ def get_video_yt(request):
             })
 
     except Exception as e:
-        logger.error(e)
+        logger.error("%s: %s" % (get_video_yt.__name__, e))
 
     return error_400(request)
 
@@ -386,11 +403,13 @@ def index(request):
 
     try:
         search_q = request.GET['q']
+
     except Exception as e:
         search_q = None
-        logger.debug(e)
+        logger.debug("%s: %s" % (index.__name__, e))
 
-    logger.info(f'function index: request {request}')
+    logger.debug('%s: request - %s' % (index.__name__, request))
+
     return render(request, 'awse/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get, 'add_': add_,
@@ -416,9 +435,10 @@ def load_more(request):
     try:
         token = request.POST.get('validtoken', '')
         typeload = request.POST.get('typeload', '')
+
     except Exception as e:
         token = typeload = 0
-        logging.error(e)
+        logging.error("%s: %s" % (load_more.__name__, e))
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
@@ -434,10 +454,10 @@ def load_more(request):
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
 
-        logger.debug('Parameters parsed.')
+        logger.debug('%s: Parameters parsed.' % load_more.__name__)
 
         if len(search) <= max_search_len:
-            logger.debug('Check search length and continue.')
+            logger.debug('%s: Check search length and continue.' % load_more.__name__)
 
             user_address = original_address
 
@@ -450,7 +470,7 @@ def load_more(request):
                 namaz = get_namaz_data(search)
 
             if token and typeload and len(search) == int(len_c):
-                logger.debug('Check token and continue.')
+                logger.debug('%s: Check token and continue.' % load_more.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:
                     covid_stat_ua = covid_stat('UA')
@@ -468,7 +488,7 @@ def load_more(request):
                     logging.error(e)
 
                 if token_get and (token_get + 72000) > round(time()):
-                    logger.debug('Check "token_get" and continue.')
+                    logger.debug('%s: Check "token_get" and continue.' % load_more.__name__)
 
                     # data collect
                     news = newsfeed(news_append)
@@ -507,7 +527,7 @@ def load_more(request):
                     # data pack
                     data = zip(news, search_array)
 
-                    logger.debug(f'function load_more: request {request}')
+                    logger.debug('%s: request - %s' % (load_more.__name__, request))
 
                     return render(request, 'awse/load_more.html', {
                         'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,

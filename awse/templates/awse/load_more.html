@@ -130,20 +130,21 @@
                             </i>
                         </label>
                         <br/>
-                        <div style="
+                        {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                        <div id="{{ badge_block }}" style="
                             background: #fff;
                             border-radius: 0.5em;
                             font-weight: 600;
                             font-size: 0.9em;
                             margin-top: 1em;
                             display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Calculator&nbsp;
-                                <i class="fas fa-calculator"></i>
-                            </span>
-                        </div>
+                        "></div>
+                        <script id="{{ script_id }}">
+                            let x{{ title_badge }} = "Calculator&nbsp;";
+                            let x{{ icon_badge }} = "fas fa-calculator";
+                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
                     </div>
                 </div>
             </div>
@@ -162,54 +163,27 @@
                             </b>
                         </label>
                         <br/>
-                        <div style="
+                        {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                        <div id="{{ badge_block }}" style="
                             background: #fff;
                             border-radius: 0.5em;
                             font-weight: 600;
                             font-size: 0.9em;
                             margin-top: 1em;
                             display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Translator&nbsp;
-                                <i class="fas fa-language"></i>
-                            </span>
-                        </div>
+                        "></div>
+                        <script id="{{ script_id }}">
+                            let x{{ title_badge }} = "Translator&nbsp;";
+                            let x{{ icon_badge }} = "fas fa-language";
+                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
                     </div>
                 </div>
             </div>
         {% endif %}
         {% if news_search_in_str %}
-            <div class="col-12 col-lg-12 padding-block-center-box">
-                <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left;">
-                        <label class="username">
-                            News from AWARE
-                        </label><br>
-                        <label class="city">
-                            <i>
-                                This feature is currently unavailable, sorry.
-                            </i>
-                        </label>
-                        <br/>
-                        <div style="
-                            background: #fff;
-                            border-radius: 0.5em;
-                            font-weight: 600;
-                            font-size: 0.9em;
-                            margin-top: 1em;
-                            display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Special&nbsp;
-                                <i class="fas fa-hashtag"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- News block place -->
         {% endif %}
         {% if weather %}
             <div class="col-12 col-lg-12 padding-block-center-box" style="margin: auto;">
@@ -277,7 +251,6 @@
             </div>
         {% endif %}
     {% endif %}
-
     {% if namaz_data %}
         {% for el in namaz_data %}
             <div class="col-12 col-lg-12 padding-block-center-box">
@@ -299,20 +272,21 @@
                             </p>
                         </label>
                         <br/>
-                        <div style="
+                        {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                        <div id="{{ badge_block }}" style="
                             background: #fff;
                             border-radius: 0.5em;
                             font-weight: 600;
                             font-size: 0.9em;
                             margin-top: 1em;
                             display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">Namaz&nbsp;
-                                <i class="fas fa-quran"></i>
-                            </span>
-                        </div>
+                        "></div>
+                        <script id="{{ script_id }}">
+                            let x{{ title_badge }} = "Namaz&nbsp;";
+                            let x{{ icon_badge }} = "fas fa-quran";
+                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
                     </div>
                 </div>
             </div>
@@ -320,7 +294,7 @@
     {% endif %}
 
     {% if videos %}
-        <!-- Skip -->
+        <!-- Videos block place -->
     {% else %}
         {% if not search_index %}
             {% if check_bot_request_search %}
@@ -332,20 +306,21 @@
                                 Convenient search engine directly in Telegram. To go to the bot - click on its alias <a href="https://t.me/AwareSearchBot">@AwareSearchBot</a>.
                             </label>
                             <br/>
-                            <div style="
+                            {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                            <div id="{{ badge_block }}" style="
                                 background: #fff;
                                 border-radius: 0.5em;
                                 font-weight: 600;
                                 font-size: 0.9em;
                                 margin-top: 1em;
                                 display: inline-block;
-                            ">
-                                <span style="
-                                    margin: 0.5em;
-                                ">Telegram&nbsp;
-                                    <i class="fab fa-telegram-plane"></i>
-                                </span>
-                            </div>
+                            "></div>
+                            <script id="{{ script_id }}">
+                                let x{{ title_badge }} = "Telegram&nbsp;";
+                                let x{{ icon_badge }} = "fab fa-telegram-plane";
+                                $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                            </script>
+                            {% endwith %}
                         </div>
                     </div>
                 </div>
@@ -387,20 +362,21 @@
                                 </b>
                             </div>
                             <br/>
-                            <div style="
+                            {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                            <div id="{{ badge_block }}" style="
                                 background: #fff;
                                 border-radius: 0.5em;
                                 font-weight: 600;
                                 font-size: 0.9em;
                                 margin-top: 1em;
                                 display: inline-block;
-                            ">
-                                <span style="
-                                    margin: 0.5em;
-                                ">Images&nbsp;
-                                    <i class="far fa-image"></i>
-                                </span>
-                            </div>
+                            "></div>
+                            <script id="{{ script_id }}">
+                                let x{{ title_badge }} = "Images&nbsp;";
+                                let x{{ icon_badge }} = "far fa-image";
+                                $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                            </script>
+                            {% endwith %}
                         </div>
                     </div>
                 </div>

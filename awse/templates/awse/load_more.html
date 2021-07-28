@@ -8,64 +8,112 @@
         {% if covid_ua.0 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left; ">
-                        <label class="username">COVID-19 statistics in Ukraine</label><br>
-                        <label class="city"><br/>
-                            <h6>😷Patients with Covid-19: <b>{{ covid_ua.0 }} (+{{ covid_ua.1 }})</b></h6>
-                            <h6>❤️Recovered: <b>{{ covid_ua.2 }}</b></h6>
-                            <h6>💔Lethal outcomes: <b>{{ covid_ua.3 }}</b></h6>
-                            <h6>📝Tested: <b>{{ covid_ua.4 }}</b></h6>
-                            <br/>
-                            <h6>📅<b>{{ covid_ua.5 }}</b></h6>
-                        </label>
+                    {% with covid_block_ukraine=48|get_random_string %}
+                    <div id="{{ covid_block_ukraine }}" style="float: left; ">
+                        {% with script_id=64|get_random_string title=64|get_random_string %}
+                        <label id="{{ title }}" class="username"></label><br>
+                        <script id="{{ script_id }}">$("#{{ title }}").text("COVID-19 statistics in Ukraine");$("#{{ script_id }}").remove()</script>
+                        {% endwith %}
+                        {% with covid_block=48|get_random_string %}
+                        <label id="{{ covid_block }}" class="city"><br/></label>
+                            {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
+                            <script id="{{ script_id }}">
+                                let x{{ patients }} = "{{ covid_ua.0 }} (+{{ covid_ua.1 }})";
+                                let x{{ recovered }} = "{{ covid_ua.2 }}";
+                                let x{{ lethal }} = "{{ covid_ua.3 }}";
+                                let x{{ tested }} = "{{ covid_ua.4 }}";
+                                let x{{ data_date }} = "{{ covid_ua.5 }}";
+
+                                $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6>\n" +
+                                    "                            <h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6>\n" +
+                                    "                            <h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6>\n" +
+                                    "                            <h6>📝Tested: <b>"+x{{ tested }}+"</b></h6>\n" +
+                                    "                            <br/>\n" +
+                                    "                            <h6>📅<b>"+x{{ data_date }}+"</b></h6>");
+                                $("#{{ script_id }}").remove()
+                            </script>
+                            {% endwith %}
+                        {% endwith %}
                         <br/>
-                        <div style="
+                        {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                        <div id="{{ badge_block }}" style="
                             background: #fff;
                             border-radius: 0.5em;
                             font-weight: 600;
                             font-size: 0.9em;
                             margin-top: 1em;
                             display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">COVID-19&nbsp;
-                                <i class="fas fa-viruses"></i>
-                            </span>
-                        </div>
+                        "></div>
+                        <script id="{{ script_id }}">
+                            let x{{ title_badge }} = "COVID-19&nbsp;";
+                            let x{{ icon_badge }} = "fas fa-viruses";
+                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
+                        {% with script_id=64|get_random_string telegram_share_link=48|get_random_string let_id=12|get_random_string %}
+                        <a id="{{ telegram_share_link }}" href="" class="telegram_share select_disable_text" target="_blank" title="Share in Telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                        Share </a>
+                        <script id="{{ script_id }}">let x{{ let_id }}="{{ 16|get_random_string }}";$("#{{ telegram_share_link }}").attr("href", `tg://msg_url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent("\n"+$("#{{ covid_block_ukraine }}").children(".city").text().replaceAll('\n', '%0A'))}&id=`+x{{ let_id }});$("#{{ script_id }}").remove()</script>
+                        {% endwith %}
                     </div>
+                    {% endwith %}
                 </div>
             </div>
         {% endif %}
         {% if covid_ru.0 %}
             <div class="col-12 col-lg-12 padding-block-center-box">
                 <div class="user box aos-init aos-animate" data-aos="fade-up">
-                    <div style="float: left; ">
-                        <label class="username">COVID-19 statistics in Russia</label><br>
-                        <label class="city"><br/>
-                            <h6>😷Patients with Covid-19: <b>{{ covid_ru.1 }} (+{{ covid_ru.2 }})</b></h6>
-                            <h6>❤️Recovered: <b>{{ covid_ru.3 }}</b></h6>
-                            <h6>💔Lethal outcomes: <b>{{ covid_ru.4 }}</b></h6>
-                            <h6>📝Tested: <b>{{ covid_ru.0 }}</b></h6>
-                            <br/>
-                            <h6>📅<b>{{ covid_ru.5 }}</b></h6>
-                        </label>
+                    {% with covid_block_russia=48|get_random_string %}
+                    <div id="{{ covid_block_russia }}" style="float: left; ">
+                        {% with script_id=64|get_random_string title=64|get_random_string %}
+                        <label id="{{ title }}" class="username"></label><br>
+                        <script id="{{ script_id }}">$("#{{ title }}").text("COVID-19 statistics in Russia");$("#{{ script_id }}").remove()</script>
+                        {% endwith %}
+                        {% with covid_block=48|get_random_string %}
+                        <label id="{{ covid_block }}" class="city"></label>
+                            {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
+                            <script id="{{ script_id }}">
+                                let x{{ patients }} = "{{ covid_ru.1 }} (+{{ covid_ru.2 }})";
+                                let x{{ recovered }} = "{{ covid_ru.3 }}";
+                                let x{{ lethal }} = "{{ covid_ru.4 }}";
+                                let x{{ tested }} = "{{ covid_ru.0 }}";
+                                let x{{ data_date }} = "{{ covid_ru.5 }}";
+
+                                $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6>\n" +
+                                    "                            <h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6>\n" +
+                                    "                            <h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6>\n" +
+                                    "                            <h6>📝Tested: <b>"+x{{ tested }}+"</b></h6>\n" +
+                                    "                            <br/>\n" +
+                                    "                            <h6>📅<b>"+x{{ data_date }}+"</b></h6>");
+                                $("#{{ script_id }}").remove()
+                            </script>
+                            {% endwith %}
+                        {% endwith %}
                         <br/>
-                        <div style="
+                        {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+                        <div id="{{ badge_block }}" style="
                             background: #fff;
                             border-radius: 0.5em;
                             font-weight: 600;
                             font-size: 0.9em;
                             margin-top: 1em;
                             display: inline-block;
-                        ">
-                            <span style="
-                                margin: 0.5em;
-                            ">COVID-19&nbsp;
-                                <i class="fas fa-viruses"></i>
-                            </span>
-                        </div>
+                        "></div>
+                        <script id="{{ script_id }}">
+                            let x{{ title_badge }} = "COVID-19&nbsp;";
+                            let x{{ icon_badge }} = "fas fa-viruses";
+                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
+                        {% with script_id=64|get_random_string telegram_share_link=48|get_random_string let_id=12|get_random_string %}
+                        <a id="{{ telegram_share_link }}" href="" class="telegram_share select_disable_text" target="_blank" title="Share in Telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                        Share </a>
+                        <script id="{{ script_id }}">let x{{ let_id }}="{{ 16|get_random_string }}";$("#{{ telegram_share_link }}").attr("href", `tg://msg_url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent("\n"+$("#{{ covid_block_russia }}").children(".city").text().replaceAll('\n', '%0A'))}&id=`+x{{ let_id }});$("#{{ script_id }}").remove()</script>
+                        {% endwith %}
                     </div>
+                    {% endwith %}
                 </div>
             </div>
         {% endif %}

@@ -46,9 +46,9 @@ if DEBUG:
     if LOCAL_DATABASE:
         # Local database
         DB_HOST = 'localhost'
-        DB_PASS = 'Piramida13'
-        DB_USER = 'postgres'
-        DB_NAME = 'postgres'
+        DB_PASS = ''
+        DB_USER = 'template1'
+        DB_NAME = 'template1'
         ssl_mode = None
 
     else:
@@ -62,11 +62,11 @@ else:
     from dotenv import load_dotenv
     load_dotenv()
     SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-    ALLOWED_HOSTS = ['awse.us', 'www.awse.us']
+    ALLOWED_HOSTS = ['awse.us']
     LOG_HANDLERS = ['console']
     append_gunicorn_config = False  # Heroku mode
     SECURE_SSL_REDIRECT = True
-    PREPEND_WWW = True
+    PREPEND_WWW = False
     DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
     DB_USER = 'hhsqjxbatavscv'
     DB_NAME = 'dfcsnien868r9s'

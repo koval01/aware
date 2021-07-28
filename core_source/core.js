@@ -48,6 +48,19 @@ function search_title_set(title_text) {
     document.title = 'AWARE - ' + title_text;
 }
 
+function BEncode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+
+function BDecode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
+
 function throttle(func, ms) {
 
     let isThrottled = false,
@@ -1104,10 +1117,10 @@ function init_video_search_in_results() {
                     if (video_link) {
                         clickedEl.empty();
 
-                        clickedEl.append('<video id="yt_player" style="margin-top: 0%;margin-bottom: -2%;opacity: 1;width: 100%;transition: opacity\
-                        0.5s linear, margin-bottom 1s, margin-top 1s;margin-right: 10px;max-height: 70vh;height: auto;-webkit-appearance: none;border-radius: \
-                        2vh;padding: 0px;text-align:left;padding-bottom: 0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);" controls="controls" \
-                        class="youtube_video_aware_search" data-youtube-id="' + video_id + '" src="' + video_link + '" onerror="VideoError(this);"></video>');
+                        clickedEl.append('<video id="yt_player" style="margin-top: 0%;margin-bottom: -2%;opacity: 1;width: 100%;transition: opacity'+
+                        '0.5s linear, margin-bottom 1s, margin-top 1s;margin-right: 10px;max-height: 70vh;height: auto;-webkit-appearance: none;border-radius:'+
+                        '2vh;padding: 0px;text-align:left;padding-bottom:0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);" controls="controls"'+
+                        'class="youtube_video_aware_search" data-youtube-id="' + video_id + '" src="' + video_link + '" onerror="VideoError(this);"></video>');
 
                         var video_loaded_yt_aware = clickedEl.children('.youtube_video_aware_search');
 

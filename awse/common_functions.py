@@ -14,7 +14,7 @@ def get_random_string(length=16) -> str:
     :param length: length string
     :return: generated string
     """
-    return ''.join(choice(ascii_letters + digits + '_-') for i in range(length))
+    return ''.join(choice(ascii_letters + digits + '_') for i in range(length))
 
 
 def similarity(string_one, string_two):

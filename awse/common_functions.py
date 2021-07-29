@@ -17,6 +17,19 @@ def get_random_string(length=16) -> str:
     return ''.join(choice(ascii_letters + digits + '_') for i in range(length))
 
 
+def create_dict_by_string(text: str) -> dict:
+    array = "{"
+
+    for i, e in enumerate(text):
+        el = "%d: \"%s\", " % (i, e)
+        array += el
+
+    array += " "
+    array = array.replace(",  ", "}")
+
+    return eval(array)
+
+
 def similarity(string_one, string_two):
     matcher = difflib.SequenceMatcher(
         None, string_one.lower(), string_two.lower()

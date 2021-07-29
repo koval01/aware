@@ -17,21 +17,7 @@
                         {% with covid_block=48|get_random_string %}
                         <label id="{{ covid_block }}" class="city"><br/></label>
                             {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
-                            <script id="{{ script_id }}">
-                                let x{{ patients }} = "{{ covid_ua.0 }} (+{{ covid_ua.1 }})";
-                                let x{{ recovered }} = "{{ covid_ua.2 }}";
-                                let x{{ lethal }} = "{{ covid_ua.3 }}";
-                                let x{{ tested }} = "{{ covid_ua.4 }}";
-                                let x{{ data_date }} = "{{ covid_ua.5 }}";
-
-                                $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6>\n" +
-                                    "                            <h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6>\n" +
-                                    "                            <h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6>\n" +
-                                    "                            <h6>📝Tested: <b>"+x{{ tested }}+"</b></h6>\n" +
-                                    "                            <br/>\n" +
-                                    "                            <h6>📅<b>"+x{{ data_date }}+"</b></h6>");
-                                $("#{{ script_id }}").remove()
-                            </script>
+                            <script id="{{ script_id }}">let x{{ patients }}="{{ covid_ua.0 }} (+{{ covid_ua.1 }})";let x{{ recovered }}="{{ covid_ua.2 }}";let x{{ lethal }}="{{ covid_ua.3 }}";let x{{ tested }}="{{ covid_ua.4 }}";let x{{ data_date }}="{{ covid_ua.5 }}";$("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6><h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6><h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6><h6>📝Tested: <b>"+x{{ tested }}+"</b></h6><br/><h6>📅<b>"+x{{ data_date }}+"</b></h6>");$("#{{ script_id }}").remove()</script>
                             {% endwith %}
                         {% endwith %}
                         <br/>
@@ -44,11 +30,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "></div>
-                        <script id="{{ script_id }}">
-                            let x{{ title_badge }} = "COVID-19&nbsp;";
-                            let x{{ icon_badge }} = "fas fa-viruses";
-                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                        </script>
+                        <script id="{{ script_id }}">let x{{ title_badge }}="COVID-19&nbsp;";let x{{ icon_badge }}="fas fa-viruses";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                         {% endwith %}
                         {% with script_id=64|get_random_string telegram_share_link=48|get_random_string let_id=12|get_random_string %}
                         <a id="{{ telegram_share_link }}" href="" class="telegram_share select_disable_text" target="_blank" title="Share in Telegram">
@@ -73,21 +55,7 @@
                         {% with covid_block=48|get_random_string %}
                         <label id="{{ covid_block }}" class="city"></label>
                             {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
-                            <script id="{{ script_id }}">
-                                let x{{ patients }} = "{{ covid_ru.1 }} (+{{ covid_ru.2 }})";
-                                let x{{ recovered }} = "{{ covid_ru.3 }}";
-                                let x{{ lethal }} = "{{ covid_ru.4 }}";
-                                let x{{ tested }} = "{{ covid_ru.0 }}";
-                                let x{{ data_date }} = "{{ covid_ru.5 }}";
-
-                                $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6>\n" +
-                                    "                            <h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6>\n" +
-                                    "                            <h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6>\n" +
-                                    "                            <h6>📝Tested: <b>"+x{{ tested }}+"</b></h6>\n" +
-                                    "                            <br/>\n" +
-                                    "                            <h6>📅<b>"+x{{ data_date }}+"</b></h6>");
-                                $("#{{ script_id }}").remove()
-                            </script>
+                            <script id="{{ script_id }}">let x{{ patients }}="{{ covid_ru.1 }} (+{{ covid_ru.2 }})";let x{{ recovered }}="{{ covid_ru.3 }}";let x{{ lethal }}="{{ covid_ru.4 }}";let x{{ tested }}="{{ covid_ru.0 }}";let x{{ data_date }}="{{ covid_ru.5 }}";$("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+x{{ patients }}+"</b></h6><h6>❤️Recovered: <b>"+x{{ recovered }}+"</b></h6><h6>💔Lethal outcomes: <b>"+x{{ lethal }}+"</b></h6><h6>📝Tested: <b>"+x{{ tested }}+"</b></h6><br/><h6>📅<b>"+x{{ data_date }}+"</b></h6>");$("#{{ script_id }}").remove()</script>
                             {% endwith %}
                         {% endwith %}
                         <br/>
@@ -100,11 +68,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "></div>
-                        <script id="{{ script_id }}">
-                            let x{{ title_badge }} = "COVID-19&nbsp;";
-                            let x{{ icon_badge }} = "fas fa-viruses";
-                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                        </script>
+                        <script id="{{ script_id }}">let x{{ title_badge }}="COVID-19&nbsp;";let x{{ icon_badge }}="fas fa-viruses";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                         {% endwith %}
                         {% with script_id=64|get_random_string telegram_share_link=48|get_random_string let_id=12|get_random_string %}
                         <a id="{{ telegram_share_link }}" href="" class="telegram_share select_disable_text" target="_blank" title="Share in Telegram">
@@ -139,11 +103,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "></div>
-                        <script id="{{ script_id }}">
-                            let x{{ title_badge }} = "Calculator&nbsp;";
-                            let x{{ icon_badge }} = "fas fa-calculator";
-                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                        </script>
+                        <script id="{{ script_id }}">let x{{ title_badge }}="Calculator&nbsp;";let x{{ icon_badge }}="fas fa-calculator";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                         {% endwith %}
                     </div>
                 </div>
@@ -172,11 +132,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "></div>
-                        <script id="{{ script_id }}">
-                            let x{{ title_badge }} = "Translator&nbsp;";
-                            let x{{ icon_badge }} = "fas fa-language";
-                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                        </script>
+                        <script id="{{ script_id }}">let x{{ title_badge }}="Translator&nbsp;";let x{{ icon_badge }}="fas fa-language";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                         {% endwith %}
                     </div>
                 </div>
@@ -281,11 +237,7 @@
                             margin-top: 1em;
                             display: inline-block;
                         "></div>
-                        <script id="{{ script_id }}">
-                            let x{{ title_badge }} = "Namaz&nbsp;";
-                            let x{{ icon_badge }} = "fas fa-quran";
-                            $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                        </script>
+                        <script id="{{ script_id }}">let x{{ title_badge }}="Namaz&nbsp;";let x{{ icon_badge }}="fas fa-quran";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                         {% endwith %}
                     </div>
                 </div>
@@ -315,11 +267,7 @@
                                 margin-top: 1em;
                                 display: inline-block;
                             "></div>
-                            <script id="{{ script_id }}">
-                                let x{{ title_badge }} = "Telegram&nbsp;";
-                                let x{{ icon_badge }} = "fab fa-telegram-plane";
-                                $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                            </script>
+                            <script id="{{ script_id }}">let x{{ title_badge }}="Telegram&nbsp;";let x{{ icon_badge }}="fab fa-telegram-plane";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                             {% endwith %}
                         </div>
                     </div>
@@ -371,18 +319,12 @@
                                 margin-top: 1em;
                                 display: inline-block;
                             "></div>
-                            <script id="{{ script_id }}">
-                                let x{{ title_badge }} = "Images&nbsp;";
-                                let x{{ icon_badge }} = "far fa-image";
-                                $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()
-                            </script>
+                            <script id="{{ script_id }}">let x{{ title_badge }}="Images&nbsp;";let x{{ icon_badge }}="far fa-image";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
                             {% endwith %}
                         </div>
                     </div>
                 </div>
-                <script>
-                    var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)});
-                </script>
+                <script>var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)})</script>
             {% endif %}
             {% if not additions and news_append %}
                 {% if el.0.0 %}
@@ -420,11 +362,10 @@
                     <div class="col-12 col-lg-12 padding-block-center-box">
                         <div class="user box aos-init aos-animate" data-aos="fade-up">
                             <div style="float: left;">
-                                <label class="username" style="margin-top: -0.5em;">
-                                    <a target="_blank" href="{{ el.1.link }}" style="word-break: break-word">
-                                        {{ el.1.title }}
-                                    </a>
-                                </label><br>
+                                {% with script_id=64|get_random_string title_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
+                                <label id="{{ title_el }}" class="username" style="margin-top: -0.5em;"></label><br/>
+                                <script id="{{ script_id }}">let x{{ title_text }}="{{ el.1.title }}";let x{{ title_link }}="{{ el.1.link }}";$("#{{ title_el }}").html("<a target=\"_blank\" href=\""+x{{ title_link }}+"\" style=\"word-break: break-word\">"+x{{ title_text }}+"</a>");$("#{{ script_id }}").remove()</script>
+                                {% endwith %}
                                 <label class="city">
                                     {% if el.1.thumb and not el.1.youtube_id %}
                                         <a target="_blank" href="{{ el.1.link }}">
@@ -449,7 +390,10 @@
                                     <p>
                                         {{ el.1.displayLink }}
                                     </p>
-                                    {{ el.1.snippet|safe }}
+                                    {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
+                                    <description-aware id="{{ desc_el }}"></description-aware>
+                                    <script id="{{ script_id }}">let x{{ desc_el }}="{{ el.1.snippet|safe }}";$("#{{ desc_el }}").html(x{{ desc_el }});$("#{{ script_id }}").remove()</script>
+                                    {% endwith %}
                                 </label>
                                 {% if el.1.youtube_id %}
                                     <div

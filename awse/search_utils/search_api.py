@@ -152,7 +152,7 @@ def data_prepare(data, search_text) -> dict:
                     link=i['link'],
                     displayLink=i['displayLink'],
                     snippet=i['htmlSnippet'].replace('<br>', '').replace(
-                        '<b>', '<b class="text_select_in_results">'),
+                        '<b>', '<b class="text_select_in_results">').replace("'", "\'"),
                     thumb=thumb,
                     youtube=yt['link'],
                     youtube_id=yt['id'],

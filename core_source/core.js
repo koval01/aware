@@ -339,6 +339,7 @@ function get_namaz(string) {
     if (namaz_anal(string)) {
         // We make sure once again that this feature needs to be activated
         const string_split = string.split();
+        const unix_n = Math.floor(Date.now() / 1000);
         var result = null;
 
         for (let i = 0; i < string_split.length; i++) {
@@ -355,6 +356,7 @@ function get_namaz(string) {
                     news: 0,
                     sign: user_address__,
                     c: c_b,
+                    u: unix_n,
                     gr_token: null,
                     covid_stat: 0,
                     search: string_split[i],
@@ -380,6 +382,8 @@ function load_ajax_end_page(o, type_loading) {
 
     const load_continue_footer = $(".load-more-end-butt-search-array"),
         n_con = load_continue_footer.find("span");
+    
+    const unix_n = Math.floor(Date.now() / 1000);
 
     var t = jQuery("[name=csrfmiddlewaretoken]").val();
     var search_data_text = o;
@@ -412,6 +416,7 @@ function load_ajax_end_page(o, type_loading) {
             news: 0,
             sign: user_address__,
             c: geted_c,
+            u: unix_n,
             gr_token: null,
             covid_stat: covid_anal(o),
             search: o,
@@ -591,10 +596,15 @@ function load_ajax_end_page(o, type_loading) {
 
 function load_continue_ajax_end_page(o, type_loading) {
     const text_no = $(".no-more-results-text");
+    
     const e = $(".load-more-end-butt-search-array"),
         n = e.find("span");
+    
+    const unix_n = Math.floor(Date.now() / 1000);
+    
     var t = jQuery("[name=csrfmiddlewaretoken]").val();
     var geted_c = o.length;
+    
     $.ajax({
         url: load_more__,
         type: "POST",
@@ -605,6 +615,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             additions: 0,
             news: 0,
             c: geted_c,
+            u: unix_n,
             sign: user_address__,
             c_t___kk_: get__(true),
             gr_token: null,
@@ -794,6 +805,7 @@ $('.search-input-aware').on('input', function() {
         throttle_get_suggestions(search_text);
     }
 });
+
 $('.search-input-aware').on('focus', function() {
     var search_text = $('.search-input-aware').val();
     if (search_text.length > 0) {
@@ -803,6 +815,7 @@ $('.search-input-aware').on('focus', function() {
         AOS.refresh();
     }
 });
+
 $('.search-input-aware').on('focusout', function() {
     function run_remove_active() {
         document.querySelector(".search-input").classList.remove("active");
@@ -811,6 +824,7 @@ $('.search-input-aware').on('focusout', function() {
     }
     setTimeout(run_remove_active, 200);
 });
+
 $(".load-more-end-butt").on("click", function() {
     var search_text = $('.search-input-aware').val();
     if (search_text.length == 0) {
@@ -820,6 +834,7 @@ $(".load-more-end-butt").on("click", function() {
         load_ajax_end_page(search_text, 'newsession');
     }
 });
+
 $(".clear_aware_search_string").on("click", function() {
     var search_text_in_clear_func = $('.search-input-aware').val();
 
@@ -851,6 +866,7 @@ $(".clear_aware_search_string").on("click", function() {
         }
     }
 });
+
 $(".autocom-box").on("click", ".search-el-a", function(e) {
     var search_text = $(this).children(".text_s_el").text();
     $(".search-input-aware").val(search_text);
@@ -867,6 +883,7 @@ function error_search_no_text(mode) {
         $('.search-input-aware').attr("placeholder", search_template__);
     }
 }
+
 $(".load-more-end-butt-search-array").on("click", function() {
     // var search_text = $('.search-input-aware').val();
     var search_text = updated_search_text;
@@ -1213,18 +1230,23 @@ $(window).scroll(function() {
             get_ad('new');
             // console.log('Ad load...');
         }
+    
         if (!question) {
             check_banner_index();
         } else {
             // add to search results page
             check_banner_index(true);
         }
+    
         my_element_jq = $('.spinner_search_load_aware');
         elemnt_icon_aware = $(".icon_search_load_aware_one");
+    
         my_element_jq.removeAttr("style");
         elemnt_icon_aware.removeAttr("style");
+    
         comment_spin_global = document.createComment(my_element_jq.get(0).outerHTML);
         my_element_jq.replaceWith(comment_spin_global);
+    
         if (question) {
             $('.row-posts-end').empty();
             $(".wrapper").css("margin", "15px auto");
@@ -1233,21 +1255,26 @@ $(window).scroll(function() {
             $('.clear_aware_search_string').css('visibility', 'visible');
             load_ajax_end_page(question, 'newsession');
         }
+    
         $("#notify-bootstrap").empty();
 
         function local_AOS_upd() {
             AOS.refresh();
         }
+    
         setInterval(local_AOS_upd, 1000); // update AOS per one second
     }),
+    
     $("a.scroll-to").on("click", function() {
         scrollToTop();
         AOS.refresh();
     }),
+    
     $(window).scroll(function() {
         (home_button = document.getElementById("h_butt")), 1e3 < $(window).scrollTop() ? (home_button.style.visibility = "visible") :
             (home_button.style.visibility = "hidden");
     }),
+    
     $(document).on("click", function(o) {
         $(o.target).hasClass("float_bg") && ($(".menu_box").hide(), $(".float_bg").hide());
     });

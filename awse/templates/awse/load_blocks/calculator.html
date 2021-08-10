@@ -1,0 +1,18 @@
+{% spaceless %}
+<div class="col-12 col-lg-12 padding-block-center-box">
+    <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div style="float: left;">
+            <label class="city">
+                <i>
+                    {{ c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ c_result }}</b>
+                </i>
+            </label>
+            <br/>
+            {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+            <div id="{{ badge_block }}" class="badge_block_info"></div>
+            <script id="{{ script_id }}">let x{{ title_badge }}="Calculator&nbsp;";let x{{ icon_badge }}="fas fa-calculator";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endspaceless %}

@@ -1,0 +1,70 @@
+{% spaceless %}
+<div class="col-12 col-lg-12 padding-block-center-box">
+    <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div style="float: left;">
+            {% with script_id=64|get_random_string title_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
+            <label id="{{ title_el }}" class="username" style="margin-top: -0.5em;"></label><br/>
+            <script id="{{ script_id }}">let x{{ title_text }}="{{ el.1.title }}";let x{{ title_link }}="{{ el.1.link }}";$("#{{ title_el }}").html("<a target=\"_blank\" href=\""+x{{ title_link }}+"\" style=\"word-break: break-word\">"+x{{ title_text }}+"</a>");$("#{{ script_id }}").remove()</script>
+            {% endwith %}
+            <label class="city">
+                {% if el.1.thumb and not el.1.youtube_id %}
+                    <a target="_blank" href="{{ el.1.link }}">
+                        <img
+                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                onerror="imgError(this);"
+                                style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
+                                alt="Preview image">
+                    </a>
+                {% elif el.1.youtube_id %}
+                    <div class="view-container-youtube-video-aware">
+                        <img
+                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                onerror="imgError(this);"
+                                style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
+                                class="video_youtube_preview_image_aware"
+                                alt="Preview image"
+                                data-youtube-id="{{ el.1.youtube_id }}">
+                    </div>
+                {% endif %}
+                <p>{{ el.1.displayLink }}</p>
+
+                {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
+                <description-aware id="{{ desc_el }}"></description-aware>
+                <script id="{{ script_id }}">let x{{ desc_el }}='{{ el.1.snippet|safe }}';$("#{{ desc_el }}").html(x{{ desc_el }});$("#{{ script_id }}").remove()</script>
+                {% endwith %}
+            </label>
+            {% if el.1.youtube_id %}
+                <div style="margin-top: 1em;transition: margin-top 1s;" class="hint_text_video_play_yt">
+                    <b style="color: #808080;font-size: 0.7em;">
+                        To view the video - click on the picture
+                    </b>
+                </div>
+                <div class="youtube_video_info_div"
+                        style="
+                            background: #fff;
+                            border-radius: 0.5em;
+                            font-weight: 600;
+                            font-size: 0.9em;
+                            margin-top: 1em;
+                            display: inline-block;
+                        "
+                        title="To view the video - click on the picture">
+                    <span style="
+                        margin: 0.5em;
+                    ">YouTube&nbsp;
+                        <i class="fab fa-youtube"></i>
+                        <i class="spinner-border youtube_video_load_wait_aware" style="
+                            width: 20px !important;
+                            height: 20px !important;
+                            display: none;
+                            margin-left: 5px;
+                            position: relative;
+                            top: 0.1em;
+                        "></i>
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endspaceless %}

@@ -712,12 +712,12 @@ function get_from_history_suggestions(search_text) {
         var string = reversed_array[i].toLowerCase();
 
         if (string.indexOf(search_text.toLowerCase()) !== -1) {
-            result_array.push('\
-            <li class="search-el-a">\
-            <span class="ico_s_el" style="margin-right: 0.25em;">\
-            <i style="color: #9a9a9a;" class="far fa-clock"></i>\
-            </span><span class="text_s_el">' + string + '</span></li>\
-            ');
+            result_array.push(`
+                <li class="search-el-a">
+                <span class="ico_s_el" style="margin-right: 0.25em;">
+                <i style="color: #9a9a9a;" class="far fa-clock"></i>
+                </span><span class="text_s_el">${string}</span></li>
+            `);
             naked_data.push(string);
         }
 

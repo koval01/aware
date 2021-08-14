@@ -4,91 +4,40 @@
 <html lang="en" style="scroll-behavior: smooth;">
     <head>
         {# Meta tags #}
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="og:description" content="{% block og_desc %}{% endblock %}">
-        <meta name="og:url" content="https://www.awse.us{% block url_path %}{% endblock %}">
-        <meta name="og:site_name" content="AWARE">
-        <meta name="og:locale" content="en_US">
-        <meta name="theme-color" content="#0e0e10">
-        <meta name="og:type" content="website">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:description" content="{% block twitter_desc %}{% endblock %}">
-        <meta name="keywords" content="website, website, word, history, text, freedom, social network, network, social, social network, post, posts, story, fantasy, publications, search, news, new, education, free, free, free">
-        <meta name="author" content="Koval Yaroslav">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        {% include 'awse/global/head_meta.html' %}
 
         {# JavaScripts load #}
-        <script src="{% static 'awse/js/jquery.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/bootstrap/js/bootstrap.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/js/notify.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/js/aos.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/fontawesome/js/all.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/js/bluebird.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'awse/js/tiny-slider.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% include 'awse/global/head_scripts.html' %}
 
-        <link rel="search" type="application/opensearchdescription+xml" title="AWARE" href="/opensearch.xml">
-
-        <link rel="stylesheet" href="{% static 'awse/bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{% static 'awse/fontawesome/css/all.min.css' %}" crossorigin="anonymous" />
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'awse/images/favicon.ico' %}" />
-        <link rel="icon" type="image/x-icon" href="{% static 'awse/images/favicon.ico' %}" />
-        <link rel="stylesheet" href="{% static 'awse/css/aos.min.css' %}" crossorigin="anonymous" />
-        <link rel="stylesheet" href="{% static 'awse/css/tiny-slider.min.css' %}" crossorigin="anonymous" />
-        <link href="{% static 'awse/css/main_page.min.css' %}" rel="stylesheet" crossorigin="anonymous" />
-
-        {# Fonts #}
-        <link href="{% static 'awse/css/fonts_settings.min.css' %}" rel="stylesheet" crossorigin="anonymous" />
+        {% CSS files, search config, fonts %}
+        {% include 'awse/global/head_links.html' %}
 
         <title>{% block title %}{% endblock %}</title>
 
-        {# Style scrollbar #}
-        <style>
-            ::-webkit-scrollbar {
-                width: 15px;
-            }
-            .disable-track-aware::-webkit-scrollbar {
-                width: 0px;
-                background: transparent;
-            }
-            ::-webkit-scrollbar-track {
-                background: transparent;
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #939393;
-                border-radius: 8px;
-                border: 4px solid #0e0e10;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #7c7c7c;
-            }
-        </style>
+        {# Other #}
+        {% include 'awse/global/base_style.html' %}
     </head>
-    <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0" style="background: #0e0e10;transition: width 1s, height 1s;">
+
+    <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0" style="background:#0e0e10;transition: width 1s, height 1s">
     <div class="container">
-    <div class="map_search_box">
-        <a href="#topSite" class="scroll-to menu_home" id="h_butt">
-            <i class="fas fa-home"></i>
-        </a>
-        <div class="header_content">
-            <a href="{% url 'index_page' %}">
-                <label class="header_title select_disable_text" style="font-family: 'Pacifico', cursive;user-select: none;">{% block title_header %}{% endblock %}</label>
-            </a>
-        </div>
-    </div>
+
+    {% include 'awse/global/header.html' %}
+
     <div class="float_bg" style="display: none"></div>
-    <br><br>
+
+    <br/><br/>
+
     <div class="row" id="row-box-1">
             {% block content %}
             {% endblock %}
-            <br>
+            <br/>
         <div class="footer-aware" style="margin: auto;"></div>
     </div>
-    <br><br><br>
+
+    <br/><br/><br/>
 </div>
+
 </body>
-    {% block js_module %}
-    {% endblock %}
+    {% include 'awse/global/js.html' %}
 </html>
 {% endspaceless %}

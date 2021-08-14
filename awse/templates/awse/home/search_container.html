@@ -1,0 +1,46 @@
+{% spaceless %}
+<div class="search-aware-block-global" style="margin-bottom: -8em;transition: margin-bottom 0.8s;">
+    <div class="wrapper">
+        <div class="search-input" style="z-index: 106;">
+            <a href="" target="_blank" hidden></a>
+            <input type="text" maxlength="{{ max_search_len }}" class="search-input-aware" size="100"
+                   style="transition: padding 0.5s;" placeholder="{{ search_template }}">
+            <div class="autocom-box disable-track-aware"></div>
+            <div class="load-more-end-butt icon">
+                <i class="spinner-border spinner_search_load_aware" style="visibility: hidden;"></i>
+                <i class="fas fa-search icon_search_load_aware_one" style="visibility: hidden;" title="Search"></i>
+            </div>
+            <div class="clear_aware_search_string"
+                 style="visibility: hidden;transition: margin-right 0.6s;margin-right: 2.3em;top: 0.8em;position: absolute;right: 0px;text-align: center;line-height: 55px;font-size: 20px;color: #202124;cursor: pointer;">
+                <i class="fas fa-times" style="color: #000000ad;" title="Clear string"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="
+            border-color: #717171!important;
+            border: 2px;
+            border-style: solid;
+            border-radius: 5px;
+            margin: auto;
+            justify-content: center;
+            margin-bottom: 5%;
+            width: auto;
+            max-width: 35%;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            -khtml-user-select: none;
+            transition: width 0.6s, margin-bottom 1s;
+            min-width: 20%;
+        " class="aware_hide_blocks_on_index_page">
+    <p style="
+                text-align: center;
+                color: #e2e2e2;
+                margin: 5px;
+            " class="aware_hide_blocks_on_index_page_text">Hide</p>
+</div>
+{% endspaceless %}

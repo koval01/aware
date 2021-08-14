@@ -1,0 +1,11 @@
+{% spaceless %}
+<div class="col-12 col-lg-12 padding-block-center-box">
+<div class="user box aos-init aos-animate" data-aos="fade-up">
+<div style="float: left;">
+{% if select_news_or_quote and quote %}
+    {% include './quotes.html' %}
+{% else %}
+    {% include './news.html' %}
+{% endif %}
+</div></div></div>
+{% endspaceless %}

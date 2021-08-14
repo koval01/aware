@@ -5,131 +5,20 @@
 AWARE - Search
 {% endblock %}
 
-{% block title_header %}
-AWARE
-{% endblock %}
-
-{% block og_desc %}
-{% if search_q %}
-{{ search_q }}
-{% else %}
-Convenient and beautiful search engine
-{% endif %}
-{% endblock %}
-
-{% block twitter_desc %}
-{% if search_q %}
-{{ search_q }}
-{% else %}
-Convenient and beautiful search engine
-{% endif %}
-{% endblock %}
-
-{% block public_re %}
-{{ token_re }}
-{% endblock %}
-
 {% block content %}
 {% load static %}
     <div style="display:block;margin-left:auto;margin-right:auto;border-radius:20%">
-        <div class="advertise-aware-block" style="width:auto;text-align:center;padding:15px;transition:margin-top 1s">
-            <a href="">
-                <img class="banner_ad_aware" done="no" onerror="BannerError(this);"
-                     style="transition: width 1s;width: 95%;display: none;margin-top: 1%;max-width: 95%;min-width: 40%;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);">
-            </a>
-        </div>
-        <div class="search-aware-block-global" style="margin-bottom: -8em;transition: margin-bottom 0.8s;">
-            <div class="wrapper">
-                <div class="search-input" style="z-index: 106;">
-                    <a href="" target="_blank" hidden></a>
-                    <input type="text" maxlength="{{ max_search_len }}" class="search-input-aware" size="100" style="transition: padding 0.5s;" placeholder="{{ search_template }}">
-                    <div class="autocom-box disable-track-aware"></div>
-                    <div class="load-more-end-butt icon">
-                        <i class="spinner-border spinner_search_load_aware" style="visibility: hidden;"></i>
-                        <i class="fas fa-search icon_search_load_aware_one" style="visibility: hidden;" title="Search"></i>
-                    </div>
-                    <div class="clear_aware_search_string" style="visibility: hidden;transition: margin-right 0.6s;margin-right: 2.3em;top: 0.8em;position: absolute;right: 0px;text-align: center;line-height: 55px;font-size: 20px;color: #202124;cursor: pointer;">
-                        <i class="fas fa-times" style="color: #000000ad;" title="Clear string"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="
-            border-color: #717171!important;
-            border: 2px;
-            border-style: solid;
-            border-radius: 5px;
-            margin: auto;
-            justify-content: center;
-            margin-bottom: 5%;
-            width: auto;
-            max-width: 35%;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            -ms-user-select: none;
-            -o-user-select: none;
-            user-select: none;
-            -khtml-user-select: none;
-            transition: width 0.6s, margin-bottom 1s;
-            min-width: 20%;
-        " class="aware_hide_blocks_on_index_page">
-            <p style="
-                text-align: center;
-                color: #e2e2e2;
-                margin: 5px;
-            " class="aware_hide_blocks_on_index_page_text">Hide</p>
-        </div>
-        <div class="row-posts-end-ad"></div>
-        <div class="row-posts-end" style="visibility: hidden;transition: margin-top 1s;margin-top: 1em;">
-            <div class="col-12 col-lg-12 padding-block-center-box">
-            <div class="user box aos-init aos-animate" data-aos="fade-up">
-            <div style="float: left;">
-            {% if select_news_or_quote and quote %}
-                <label class="city">
-                    <i>„{{ quote.q }}“</i>
-                    <br/><br/>
-                    <b>&nbsp;&mdash;&nbsp;{{ quote.a }}</b>
-                </label>
-                <br/>
-                {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
-                <div id="{{ badge_block }}" class="badge_block_info"></div>
-                <script id="{{ script_id }}">let x{{ title_badge }}="Quote&nbsp;";let x{{ icon_badge }}="fas fa-quote-right";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
-                {% endwith %}
-            {% else %}
-                <label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
-                <label class="city">
-                    <u style="color: #a0a0a0;font-weight: 600;" class="news_search_button_aware_index_block">
-                        Search this news
-                    </u>
-                    <br/><br/>
-                    <i>{{ add_.1 }}</i>
-                    <br/><br/>
-                    <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
-                    <br/>
-                    <i><u>Published at {{ add_.3 }} (UTC)</u></i>
-                </label>
-                <br/>
-                {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
-                <div id="{{ badge_block }}" class="badge_block_info"></div>
-                <script id="{{ script_id }}">let x{{ title_badge }}="News&nbsp;";let x{{ icon_badge }}="far fa-newspaper";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
-                {% endwith %}
-            {% endif %}
-            </div></div></div>
-        </div>
-        <div style="margin: auto;">
-            <p class="no-more-results-text" style="color: #828282;transition: margin-bottom 1s;font-size: 14px;visibility: hidden;text-align: center;">No more results</p>
-        </div>
-        <button style="margin:0 auto;display:block;background-color:#121213;visibility: hidden;margin-bottom: 5%;" class="btn btn-dark load-more-end-butt-search-array">Load more<span style="margin-left:5px;vertical-align:-3px" class="spinner-border spinner-border-sm" aria-hidden="true"></span></button>
-    </div>
-{% endblock %}
+        {% include 'awse/home/advertise/banner_head.html' %}
 
-{% block js_module %}
-    {% csrf_token %}
-    <script type="text/javascript">
-        const load_more__='{% url "load_more" %}',sync_time__by_server__='{% url "sync_time_server" %}',enc_key_glb__='{{ enc_generated }}',background_static__='{% static "awse/images/background.png" %}',token_valid__="{{ token_valid }}",imageproxy__='{% url "imageproxy" %}',user_address__="{{ user_address|sign_address_encrypt }}",get_video_yt__='{% url "get_video_yt" %}',search_template__="{{ search_template }}",get_banner__='{% url "get_banner" %}',search_suggestions_get__='{% url "search_suggestions_get" %}',get_ad__='{% url "get_ad" %}',footer_load__='{% url "footer_load" %}',token_re__="{{ token_re }}";
-    </script>
-    <script defer src="{% static 'awse/js/core.min.js' %}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {% include 'awse/home/search_container.html' %}
+
+        {% include 'awse/home/advertise/bottom_ad_block.html' %}
+
+        <div class="row-posts-end" style="visibility: hidden;transition: margin-top 1s;margin-top: 1em;">
+            {% include 'awse/home/additionals/base.html' %}
+        </div>
+        {% include 'awse/home/search_els.html' %}
+    </div>
 {% endblock %}
 {% endspaceless %}
 

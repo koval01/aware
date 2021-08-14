@@ -1,0 +1,12 @@
+{% spaceless %}
+<label class="city">
+    <i>„{{ quote.q }}“</i>
+    <br/><br/>
+    <b>&nbsp;&mdash;&nbsp;{{ quote.a }}</b>
+</label>
+<br/>
+{% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+<div id="{{ badge_block }}" class="badge_block_info"></div>
+<script id="{{ script_id }}">let x{{ title_badge }}="Quote&nbsp;";let x{{ icon_badge }}="fas fa-quote-right";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
+{% endwith %}
+{% endspaceless %}

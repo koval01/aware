@@ -28,7 +28,10 @@ def calculator(string) -> str:
             'for', '').replace(
             'while', '').replace(
             'exit', '').replace(
-            'from', ''
+            'from', '').replace(
+            'lambda', '').replace(
+            'os', '').replace(
+            '_', ''
         )
         
         if any(word in s for word in ['+', '-', '*', '/']):

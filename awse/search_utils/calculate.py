@@ -34,6 +34,11 @@ def calculator(string) -> str:
             'os', '').replace(
             '_', ''
         )
+
+        patterns = ["random", "randint", "randrange"]
+
+        for i in patterns:
+            s = re.sub(r"%s(.*?)" % i, "%s()" % i, s)
         
         if any(word in s for word in ['+', '-', '*', '/']):
             return eval(s), s

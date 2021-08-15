@@ -566,7 +566,7 @@ def load_more(request):
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
 
-                    vars_ = vars(Variables)
+                    vars_ = vars(Variables())
 
                     logger.debug('%s: request - %s' % (load_more.__name__, request))
 

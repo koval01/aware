@@ -34,6 +34,8 @@ function edit_query_string_q(data) {
 function search_surprise(string_) {
     if (string_ == "askew") {
         $(".container").css("transform", "rotate(1.5deg)");
+    } else {
+        $(".container").attr("style", null);
     }
 }
 
@@ -58,11 +60,11 @@ function BEncode(str) {
     return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
         function toSolidBytes(match, p1) {
             return String.fromCharCode('0x' + p1);
-    }));
+        }));
 }
 
 function BDecode(str) {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 }
@@ -85,7 +87,7 @@ function throttle(func, ms) {
 
         isThrottled = true;
 
-        setTimeout(function() {
+        setTimeout(function () {
             isThrottled = false;
             if (savedArgs) {
                 wrapper.apply(savedThis, savedArgs);
@@ -103,7 +105,7 @@ function get__(enc_key_by_function) {
         url: sync_time__by_server__,
         type: "GET",
         data: {},
-        success: function(o) {
+        success: function (o) {
             // obfuscate this function before deploy
             var time_unix = new Date().getTime();
             var time_unix_string = time_unix.toString();
@@ -183,11 +185,10 @@ function get__(enc_key_by_function) {
                     ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}
                 `;
 
-                data = data.replace(/\n/g, "");
-                data = data.replace(" ", "");
+                data = data.replace(/\n/g, "").replace(" ", "");
             }
         },
-        error: function() {
+        error: function () {
             $.notify("Server side error.", {
                 position: "bottom right",
                 autoHideDelay: 3000
@@ -205,6 +206,7 @@ function AOS_update_timer(time) {
     function upd() {
         AOS.refresh();
     }
+
     setTimeout(upd, time);
 }
 
@@ -230,13 +232,13 @@ function etdd() {
     return (
         (a = navigator.userAgent || navigator.vendor || window.opera),
         (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(
-                a
+            a
             ) ||
             /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
                 a.substr(0, 4)
             )) &&
         (i = !0),
-        i
+            i
     );
 };
 
@@ -262,14 +264,14 @@ var temp_html_index_page = '';
 
 // var hide_index_page_blocks = $.cookie('hide_block_index');
 
-var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box">'+
-    '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_aware_error">'+
-    '<div class="box_aware_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>'+
-    '<div class="symbol"></div><div class="symbol"></div><div class="box_aware_error__ghost-container"><div class="box_aware_error__ghost-eyes">'+
-    '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">'+
-    '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>'+
-    '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">'+
-    'Oh!</div><div class="box_aware_error__description-text">'+
+var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box">' +
+    '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_aware_error">' +
+    '<div class="box_aware_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>' +
+    '<div class="symbol"></div><div class="symbol"></div><div class="box_aware_error__ghost-container"><div class="box_aware_error__ghost-eyes">' +
+    '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">' +
+    '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>' +
+    '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">' +
+    'Oh!</div><div class="box_aware_error__description-text">' +
     'We could not find anything for your request... Please try again, or reformulate the question.</div></div></div></div></div></div>';
 
 var pageX = $(document).width();
@@ -277,7 +279,7 @@ var pageY = $(document).height();
 var mouseY = 0;
 var mouseX = 0;
 
-$(document).mousemove(function(event) {
+$(document).mousemove(function (event) {
     mouseY = event.pageY;
     yAxis = ((pageY / 2 - mouseY) / pageY) * 300;
 
@@ -378,7 +380,7 @@ function get_namaz(string) {
                     namaz: 1,
                     mobile: mob()
                 },
-                success: function(o) {
+                success: function (o) {
                     result = o;
                 },
                 async: false,
@@ -397,7 +399,7 @@ function load_ajax_end_page(o, type_loading) {
 
     const load_continue_footer = $(".load-more-end-butt-search-array"),
         n_con = load_continue_footer.find("span");
-    
+
     const unix_n = Math.floor(Date.now() / 1000);
 
     var t = jQuery("[name=csrfmiddlewaretoken]").val();
@@ -437,7 +439,7 @@ function load_ajax_end_page(o, type_loading) {
             search: o,
             mobile: mob()
         },
-        beforeSend: function() {
+        beforeSend: function () {
             if ($.cookie('hide_block_index') == 'no') {
                 $('.row-posts-end').css('margin-top', '-3em');
             }
@@ -465,7 +467,7 @@ function load_ajax_end_page(o, type_loading) {
 
             $(".row-posts-end").css("display", "");
         },
-        success: function(o) {
+        success: function (o) {
             his.remove(search_data_text); // If it was already, then remove, then put again
             let long_word_search = false;
 
@@ -521,7 +523,7 @@ function load_ajax_end_page(o, type_loading) {
                     autoHideDelay: 3000
                 }) : $(".row-posts-end").append(o),
                 AOS.refresh(),
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('[data-toggle="tooltip"]').tooltip();
                 });
 
@@ -551,16 +553,16 @@ function load_ajax_end_page(o, type_loading) {
             }
 
             if (user_agent_anal(search_data_text)) {
-                let user_agent_data_block = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" '+
-                'data-aos="fade-up"><div style="float: left;"><label id="'+
-                makeid(32)+
-                '" class="username" style="margin-top: -0.5em;">'+
-                'What\'s my user agent?</label><br><br><label id="'+
-                makeid(32)+
-                '" class="city user_agent_disp" style="font-weight: 900;">'+
-                window.navigator.userAgent+
-                '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;margin-top: 1em;display: inline-block;">'+
-                '<span style="margin: 0.5em;">Special&nbsp;<i class="fas fa-hashtag"></i></span></div></div></div></div>';
+                let user_agent_data_block = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" ' +
+                    'data-aos="fade-up"><div style="float: left;"><label id="' +
+                    makeid(32) +
+                    '" class="username" style="margin-top: -0.5em;">' +
+                    'What\'s my user agent?</label><br><br><label id="' +
+                    makeid(32) +
+                    '" class="city user_agent_disp" style="font-weight: 900;">' +
+                    window.navigator.userAgent +
+                    '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;margin-top: 1em;display: inline-block;">' +
+                    '<span style="margin: 0.5em;">Special&nbsp;<i class="fas fa-hashtag"></i></span></div></div></div></div>';
 
                 $(".row-posts-end").prepend(user_agent_data_block);
                 AOS.refresh();
@@ -573,7 +575,7 @@ function load_ajax_end_page(o, type_loading) {
 
             get_ad('con');
         },
-        error: function() {
+        error: function () {
             $(".clear_aware_search_string").css("margin-right", "2em");
             $(".search-aware-block-global").css("margin-bottom", "1em");
 
@@ -589,19 +591,19 @@ function load_ajax_end_page(o, type_loading) {
             get_ad('new');
         },
         statusCode: {
-            400: function() {
+            400: function () {
                 $.notify("Something went wrong...", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
-            403: function() {
+            403: function () {
                 $.notify("Too many requests.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
-            500: function() {
+            500: function () {
                 $.notify("Server side error.", {
                     position: "bottom right",
                     autoHideDelay: 3000
@@ -613,16 +615,16 @@ function load_ajax_end_page(o, type_loading) {
 
 function load_continue_ajax_end_page(o, type_loading) {
     const text_no = $(".no-more-results-text");
-    
+
     const e = $(".load-more-end-butt-search-array"),
         n = e.find("span");
-    
+
     const unix_n = Math.floor(Date.now() / 1000);
-    
+
     const t = jQuery("[name=csrfmiddlewaretoken]").val();
     const geted_c = o.length;
     const text_ = o;
-    
+
     $.ajax({
         url: load_more__,
         type: "POST",
@@ -642,12 +644,12 @@ function load_continue_ajax_end_page(o, type_loading) {
             mobile: mob(),
             search_index_: search_index
         },
-        beforeSend: function() {
+        beforeSend: function () {
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block");
             text_no.css('display', 'none');
             error_search_no_text('ok'), n.css('visibility', 'visible'), n.css('display', 'inline-flex'), AOS.refresh();
         },
-        success: function(o) {
+        success: function (o) {
             n.css('visibility', 'hidden');
             n.css('display', 'none');
             search_index = search_index + 10;
@@ -665,7 +667,7 @@ function load_continue_ajax_end_page(o, type_loading) {
                     autoHideDelay: 3000
                 }) : $(".row-posts-end").append(o),
                 AOS.refresh(),
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('[data-toggle="tooltip"]').tooltip();
                 });
 
@@ -683,7 +685,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             init_video_search_in_results();
             setTimeout(hide_hint_text_video, 10000);
         },
-        error: function() {
+        error: function () {
             e.css('visibility', 'hidden'), e.attr("disabled", !1), n.css('visibility', 'hidden'), n.css('display', 'none');
             n.removeClass("d-inline-block"), text_no.css('visibility', 'visible');
             e.css('display', 'none');
@@ -692,19 +694,19 @@ function load_continue_ajax_end_page(o, type_loading) {
             text_no.css('display', '');
         },
         statusCode: {
-            400: function() {
+            400: function () {
                 $.notify("Something went wrong...", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
-            403: function() {
+            403: function () {
                 $.notify("Too many requests.", {
                     position: "bottom right",
                     autoHideDelay: 3000
                 });
             },
-            500: function() {
+            500: function () {
                 $.notify("Server side error.", {
                     position: "bottom right",
                     autoHideDelay: 3000
@@ -775,7 +777,7 @@ function get_suggestions() {
         data: {
             "q": text
         },
-        success: function(o) {
+        success: function (o) {
             var his_data = get_from_history_suggestions(text);
             $(".autocom-box").empty()
             $(".autocom-box").append(his_data[0]);
@@ -785,7 +787,8 @@ function get_suggestions() {
         timeout: 3000,
     });
 }
-$(".search-input-aware").on('keyup', function(e) {
+
+$(".search-input-aware").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
         var search_text = $('.search-input-aware').val();
         if (search_text.length == 0) {
@@ -803,7 +806,8 @@ function run_remove_active() {
     AOS.refresh();
     get_suggestions($('.search-input-aware').val());
 }
-$('.search-input-aware').on('input', function() {
+
+$('.search-input-aware').on('input', function () {
     var search_text = $('.search-input-aware').val();
     edit_query_string_q(search_text);
     if (search_text.length == 0) {
@@ -826,7 +830,7 @@ $('.search-input-aware').on('input', function() {
     }
 });
 
-$('.search-input-aware').on('focus', function() {
+$('.search-input-aware').on('focus', function () {
     var search_text = $('.search-input-aware').val();
     if (search_text.length > 0) {
         document.querySelector(".search-input").classList.add("active");
@@ -836,16 +840,17 @@ $('.search-input-aware').on('focus', function() {
     }
 });
 
-$('.search-input-aware').on('focusout', function() {
+$('.search-input-aware').on('focusout', function () {
     function run_remove_active() {
         document.querySelector(".search-input").classList.remove("active");
         $(".float_bg").css("display", "none");
         AOS.refresh();
     }
+
     setTimeout(run_remove_active, 200);
 });
 
-$(".load-more-end-butt").on("click", function() {
+$(".load-more-end-butt").on("click", function () {
     var search_text = $('.search-input-aware').val();
     if (search_text.length == 0) {
         error_search_no_text('error');
@@ -855,12 +860,13 @@ $(".load-more-end-butt").on("click", function() {
     }
 });
 
-$(".clear_aware_search_string").on("click", function() {
+$(".clear_aware_search_string").on("click", function () {
     var search_text_in_clear_func = $('.search-input-aware').val();
 
     function local_update_search_string() {
         $('.search-input-aware').attr("placeholder", search_template__);
     }
+
     // console.log('Text: ' + search_text_in_clear_func);
 
     if (search_text_in_clear_func.length > 0) {
@@ -875,6 +881,7 @@ $(".clear_aware_search_string").on("click", function() {
             // console.log(i);
             $('.search-input-aware').attr("placeholder", x_text.slice(0, i));
         }
+
         let timerId = setInterval(() => update_text_search_place(), 150);
         timerId_global = timerId;
         setTimeout(() => {
@@ -887,7 +894,7 @@ $(".clear_aware_search_string").on("click", function() {
     }
 });
 
-$(".autocom-box").on("click", ".search-el-a", function(e) {
+$(".autocom-box").on("click", ".search-el-a", function (e) {
     var search_text = $(this).children(".text_s_el").text();
     $(".search-input-aware").val(search_text);
     load_ajax_end_page(search_text, 'newsession');
@@ -904,7 +911,7 @@ function error_search_no_text(mode) {
     }
 }
 
-$(".load-more-end-butt-search-array").on("click", function() {
+$(".load-more-end-butt-search-array").on("click", function () {
     // var search_text = $('.search-input-aware').val();
     var search_text = updated_search_text;
     if (search_text.length == 0) {
@@ -915,7 +922,7 @@ $(".load-more-end-butt-search-array").on("click", function() {
 });
 
 function ready_news_search_button() {
-    $(".news_search_button_aware_index_block").on("click", function() {
+    $(".news_search_button_aware_index_block").on("click", function () {
         var search_text = $(".aware_news_index_page_title").text();
         if (search_text.length > 0) {
             $('.row-posts-end').empty();
@@ -964,9 +971,9 @@ function get_ad(mode) {
                 c_t___kk_: get__(true),
                 lang: "ru",
             },
-            success: function(o) {
+            success: function (o) {
                 $(".autocom-box").empty();
-                if(o['text']){
+                if (o['text']) {
                     if (mode == 'new') {
                         prepend_ad_block_to_search_results(o);
                     } else {
@@ -985,7 +992,7 @@ function get_footer_html() {
         url: footer_load__,
         type: "GET",
         data: {},
-        success: function(o) {
+        success: function (o) {
             $(".footer-aware").append(o);
 
             let build_info = $(".build_info_footer").text();
@@ -1014,7 +1021,7 @@ function check_banner_index(ready = false) {
             csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
             c_t___kk_: get__(true),
         },
-        success: function(o) {
+        success: function (o) {
             init_banner(o['link'], o['ad_site'], o['title'], o['id'], results_ready = ready);
         },
         async: true,
@@ -1064,7 +1071,8 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
         AOS_update_timer(500);
     }
 }
-$(".aware_hide_blocks_on_index_page").on("click", function() {
+
+$(".aware_hide_blocks_on_index_page").on("click", function () {
     if ($.cookie('hide_block_index') == 'no') {
         hide_blocks_on_index_page_func('yes', true);
     } else {
@@ -1109,6 +1117,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false) {
             AOS.refresh();
             scrollToTop();
         }
+
         setTimeout(init, 1000);
     }
 }
@@ -1120,7 +1129,7 @@ function set_video_volume_by_cookie(el_this) {
 
 function detect_volume_change_by_user(id_el_this) {
     var vid = document.getElementById(id_el_this);
-    vid.onvolumechange = function() {
+    vid.onvolumechange = function () {
         $.cookie('video_volume', vid.volume, {
             expires: 365
         });
@@ -1128,7 +1137,7 @@ function detect_volume_change_by_user(id_el_this) {
 }
 
 function init_video_search_in_results() {
-    $(".view-container-youtube-video-aware").on("click", function() {
+    $(".view-container-youtube-video-aware").on("click", function () {
         var clickedEl = $(this);
         var video_id = clickedEl.children('.video_youtube_preview_image_aware').attr('data-youtube-id');
         var video_link = null;
@@ -1145,19 +1154,24 @@ function init_video_search_in_results() {
                     c_t___kk_: get__(true),
                     video_id: video_id
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     video_load_spin.css("display", "inline-block");
                 },
-                success: function(o) {
+                success: function (o) {
                     video_link = o['link'];
 
                     if (video_link) {
                         clickedEl.empty();
 
-                        clickedEl.append('<video id="yt_player" style="margin-top: 0%;margin-bottom: -2%;opacity: 1;width: 100%;transition: opacity'+
-                        '0.5s linear, margin-bottom 1s, margin-top 1s;margin-right: 10px;max-height: 70vh;height: auto;-webkit-appearance: none;border-radius:'+
-                        '2vh;padding: 0px;text-align:left;padding-bottom:0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);" controls="controls"'+
-                        'class="youtube_video_aware_search" data-youtube-id="' + video_id + '" src="' + video_link + '" onerror="VideoError(this);"></video>');
+                        let video_template_ = `
+                        <video id="yt_player" style="margin-top:0%;margin-bottom:-2%;opacity:1;width:100%;transition: opacity
+                            0.5s linear, margin-bottom 1s, margin-top 1s;margin-right:10px;max-height:70vh;height:auto;-webkit-appearance:none;border-radius:
+                            2vh;padding:0px;text-align:left;padding-bottom:0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)" controls="controls"
+                            class="youtube_video_aware_search" data-youtube-id="${video_id}" src="${video_link}" onerror="VideoError(this)"></video>
+                        `;
+                        video_template_ = video_template_.replace(/\n/g, "").replace(" ", "")
+
+                        clickedEl.append(video_template_);
 
                         var video_loaded_yt_aware = clickedEl.children('.youtube_video_aware_search');
 
@@ -1180,7 +1194,7 @@ function init_video_search_in_results() {
                         });
                     }
                 },
-                error: function() {
+                error: function () {
                     // Error connection or not valid response
                     video_load_spin.css("display", "none");
                     $.notify("Error. Failed to load video.", {
@@ -1195,43 +1209,44 @@ function init_video_search_in_results() {
         // console.log(video_link);
     });
 }
-var search_history_data = function() {
+
+var search_history_data = function () {
     var cookieName = 'search_history';
     var cookie = $.cookie(cookieName);
     var items = cookie ? cookie.split(/⊉/) : new Array();
     return {
-        "add": function(val) {
+        "add": function (val) {
             items.push(val);
             $.cookie(cookieName, items.join('⊉'), {
                 expires: 365
             });
         },
-        "remove": function(val) {
+        "remove": function (val) {
             indx = items.indexOf(val);
             if (indx != -1) items.splice(indx, 1);
             $.cookie(cookieName, items.join('⊉'), {
                 expires: 365
             });
         },
-        "clear": function() {
+        "clear": function () {
             items = null;
             $.cookie(cookieName, null, {
                 expires: 365
             });
         },
-        "items": function() {
+        "items": function () {
             return items;
         }
     }
 }
-$(window).scroll(function() {
-        $(window).scrollTop() == $(document).height() - $(window).height() &&
-            setTimeout(function() {
-                $(window).scrollTop() == $(document).height() - $(window).height();
-            }, 150);
-    }),
+$(window).scroll(function () {
+    $(window).scrollTop() == $(document).height() - $(window).height() &&
+    setTimeout(function () {
+        $(window).scrollTop() == $(document).height() - $(window).height();
+    }, 150);
+}),
     AOS.init(),
-    $(document).ready(function() {
+    $(document).ready(function () {
         var hide_blocks_index = $.cookie('hide_block_index');
         get_footer_html();
         ready_news_search_button();
@@ -1250,23 +1265,23 @@ $(window).scroll(function() {
             get_ad('new');
             // console.log('Ad load...');
         }
-    
+
         if (!question) {
             check_banner_index();
         } else {
             // add to search results page
             check_banner_index(true);
         }
-    
+
         my_element_jq = $('.spinner_search_load_aware');
         elemnt_icon_aware = $(".icon_search_load_aware_one");
-    
+
         my_element_jq.removeAttr("style");
         elemnt_icon_aware.removeAttr("style");
-    
+
         comment_spin_global = document.createComment(my_element_jq.get(0).outerHTML);
         my_element_jq.replaceWith(comment_spin_global);
-    
+
         if (question) {
             $('.row-posts-end').empty();
             $(".wrapper").css("margin", "15px auto");
@@ -1275,27 +1290,27 @@ $(window).scroll(function() {
             $('.clear_aware_search_string').css('visibility', 'visible');
             load_ajax_end_page(question, 'newsession');
         }
-    
+
         $("#notify-bootstrap").empty();
 
         function local_AOS_upd() {
             AOS.refresh();
         }
-    
+
         setInterval(local_AOS_upd, 1000); // update AOS per one second
     }),
-    
-    $("a.scroll-to").on("click", function() {
+
+    $("a.scroll-to").on("click", function () {
         scrollToTop();
         AOS.refresh();
     }),
-    
-    $(window).scroll(function() {
+
+    $(window).scroll(function () {
         (home_button = document.getElementById("h_butt")), 1e3 < $(window).scrollTop() ? (home_button.style.visibility = "visible") :
             (home_button.style.visibility = "hidden");
     }),
-    
-    $(document).on("click", function(o) {
+
+    $(document).on("click", function (o) {
         $(o.target).hasClass("float_bg") && ($(".menu_box").hide(), $(".float_bg").hide());
     });
 
@@ -1304,7 +1319,7 @@ $(window).scroll(function() {
 JQuery Cookies
 
 */
-(function(factory) {
+(function (factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
@@ -1312,7 +1327,7 @@ JQuery Cookies
     } else {
         factory(jQuery);
     }
-}(function($) {
+}(function ($) {
 
     var pluses = /\+/g;
 
@@ -1335,7 +1350,8 @@ JQuery Cookies
         try {
             s = decodeURIComponent(s.replace(pluses, ' '));
             return config.json ? JSON.parse(s) : s;
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     function read(s, converter) {
@@ -1343,7 +1359,7 @@ JQuery Cookies
         return $.isFunction(converter) ? converter(value) : value;
     }
 
-    var config = $.cookie = function(key, value, options) {
+    var config = $.cookie = function (key, value, options) {
         if (value !== undefined && !$.isFunction(value)) {
             options = $.extend({}, config.defaults, options);
 
@@ -1382,7 +1398,7 @@ JQuery Cookies
 
     config.defaults = {};
 
-    $.removeCookie = function(key, options) {
+    $.removeCookie = function (key, options) {
         if ($.cookie(key) === undefined) {
             return false;
         }

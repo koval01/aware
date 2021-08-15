@@ -8,7 +8,7 @@
         {% include "awse/load_blocks/covid.html" %}
     {% endif %}
 
-    {% if typeload == "newsession" %}
+    {% if vars.typeload == "newsession" %}
         {% if vars.c_result %}
             {% include "awse/load_blocks/calculator.html" %}
         {% endif %}

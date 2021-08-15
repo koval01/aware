@@ -49,9 +49,9 @@
                                 <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                     <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D, j E" }}</h3>
                                     <p>
-                                        {{ vars.weather_el.weather.0.icon|get_weather_ico|safe }}
+                                        {{ weather_el.weather.0.icon|get_weather_ico|safe }}
                                         <br>
-                                        {{ vars.weather_el.main.temp|floatformat:"0" }}°
+                                        {{ weather_el.main.temp|floatformat:"0" }}°
                                     </p>
                                 </li>
                             {% endfor %}
@@ -62,4 +62,4 @@
         </div>
     </div>
 </div>
-{% spaceless %}
+{% endspaceless %}

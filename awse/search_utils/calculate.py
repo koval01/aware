@@ -1,4 +1,5 @@
 from math import *
+from random import randint, randrange, random
 import regex as re
 import logging
 

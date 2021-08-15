@@ -46,6 +46,7 @@ def weather_get(string) -> dict:
                         words = {
                             'кака', 'по', 'город',
                         }
+
                         return set(city_in_func.split()) & words
 
                     if not check_word(city_local):
@@ -66,6 +67,7 @@ def weather_get(string) -> dict:
                                         now_weather=result,
                                         future_weather=weather_by_days_get(city_local),
                                     )
+
                             except Exception as e:
                                 logger.error(e)
 
@@ -90,7 +92,10 @@ def weather_by_days_get(city) -> list:
                 r = session.get(u, params=params).text
                 result = loads(r)
                 if result['cod'] == "200":
-                    return [b for b in result['list'] if '09:00:00' in b['dt_txt'] and datetime.fromtimestamp(b['dt']).day != datetime.now().day]
+                    return [b for b in result['list'] if '09:00:00' in b['dt_txt'] and
+                        datetime.fromtimestamp(b['dt']).day != datetime.now().day
+                    ]
+
             except Exception as e:
                 logger.error(e)
 
@@ -103,20 +108,28 @@ def get_weather_icon(code) -> str:
     """
     if code == '01d' or code == '01n':
         return '<i class="fas fa-sun"></i>'
+
     elif code == '02d' or code == '02n':
         return '<i class="fas fa-cloud-sun"></i>'
+
     elif code == '03d' or code == '03n':
         return '<i class="fas fa-cloud"></i>'
+
     elif code == '04d' or code == '04n':
         return '<i class="fas fa-cloud"></i>'
+
     elif code == '09d' or code == '09n':
         return '<i class="fas fa-cloud-showers-heavy"></i>'
+
     elif code == '10d' or code == '10n':
         return '<i class="fas fa-cloud-sun-rain"></i>'
+
     elif code == '11d' or code == '11n':
         return '<i class="fas fa-poo-storm"></i>'
+
     elif code == '13d' or code == '13n':
         return '<i class="far fa-snowflake"></i>'
+
     elif code == '50d' or code == '50n':
         return '<i class="fas fa-smog"></i>'
 
@@ -131,6 +144,7 @@ def weather_words(string) -> list:
         'погода', 'погоды', 'погоде', 'погоду', 'погодой', 'погодою', 'погодах', 'погодами', 'погодам',
         'weather',
     }
+
     string = string.lower()
     in_data = set(string.split()) & words
 

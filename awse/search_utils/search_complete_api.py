@@ -18,6 +18,7 @@ def get_result(question) -> str:
                 "referer": "https://www.google.com/",
                 "User-Agent": USER_AGENT,
             }
+
             params = {
                 "q": question,
                 "cp": len(question),
@@ -26,9 +27,12 @@ def get_result(question) -> str:
                 "gs_ri": "gws-wiz",
                 "hl": "en-US",
             }
+
             r = session.get("https://www.google.com/complete/search", headers=headers, params=params)
+
             if r.status_code == 200:
                 return r.text
+
         except Exception as e:
             logger.error(e)
 
@@ -40,6 +44,7 @@ def data_prepare(data) -> list:
     :return: Output data
     """
     x = data.replace(")]}'", '')
+
     return eval(x)
 
 
@@ -51,4 +56,5 @@ def get_result_data(question) -> str:
     """
     d = get_result(question)
     r = data_prepare(d)
+
     return ''.join(['<li class="search-el-a"><span class="ico_s_el" style="margin-right: 0.5em;"><i style="color: #9a9a9a;" class="fas fa-search"></i></span><span class="text_s_el">%s</span></li>' % i[0].replace('\\', '') for i in r[0]])

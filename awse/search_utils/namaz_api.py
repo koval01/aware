@@ -18,8 +18,10 @@ def get_result(city) -> dict:
     for i in range(5):
         try:
             r = session.get(u, params=params)
+
             if r.status_code == 200:
                 return loads(r.text)['data']
+
         except Exception as e:
             logger.error(e)
 
@@ -41,12 +43,16 @@ def get_namaz_data(city) -> list:
     """
     data = get_result(city)
     d = int(datetime.now().strftime("%d"))
-    return [dict(
-        timings=["%s: %s" % (key, value) for key, value in i['timings'].items() if key != 'Sunset'],
-        time=i['date']['readable'],
-        hijri_year=i['date']['hijri']['year'],
-        hijri_month=i['date']['hijri']['month']['en'],
-        hijri_day=i['date']['hijri']['day'],
-        timezone=i['meta']['timezone'],
-        update_time=datetime.today().replace(microsecond=0),
-    ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or d+1 == unix_time_to_day(i['date']['timestamp'])]
+
+    return [
+        dict(
+            timings=["%s: %s" % (key, value) for key, value in i['timings'].items() if key != 'Sunset'],
+            time=i['date']['readable'],
+            hijri_year=i['date']['hijri']['year'],
+            hijri_month=i['date']['hijri']['month']['en'],
+            hijri_day=i['date']['hijri']['day'],
+            timezone=i['meta']['timezone'],
+            update_time=datetime.today().replace(microsecond=0),
+        ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or
+                       d+1 == unix_time_to_day(i['date']['timestamp'])
+    ]

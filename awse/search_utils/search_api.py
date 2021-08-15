@@ -7,8 +7,6 @@ from random import shuffle
 from string import punctuation
 from urllib.parse import urlparse, parse_qs
 
-from django.conf import settings
-
 from awse.common_functions import similarity
 from django.conf import settings
 from awse.models import BlackWord
@@ -31,14 +29,18 @@ def get_result(question, index=1, search_type='searchTypeUndefined') -> dict:
     keys = settings.SEARCH_API_KEYS.split()
     cx = settings.SEARCH_CX
     shuffle(keys)
+
     for i, e in enumerate(keys):
         queries = 10
+
         if search_type == 'image':
             queries = queries * 2
+
         try:
             headers = {
                 "User-Agent": USER_AGENT,
             }
+
             params = {
                 "key": keys[i],
                 "cx": cx,
@@ -49,10 +51,13 @@ def get_result(question, index=1, search_type='searchTypeUndefined') -> dict:
                 "start": index,
                 "searchType": search_type,
             }
+
             r = session.get(u, headers=headers, params=params)
+
             if r.status_code != 200:
                 logger.error(
                     "%s (LEN:%s) %s %s" % (keys[i], len(keys), r.status_code, loads(r.text)['error']['message']))
+
             else:
                 logger.warning("%s..." % (r.text[:256]))
 
@@ -134,13 +139,16 @@ def data_prepare(data, search_text) -> dict:
         if data['searchInformation']['totalResults']:
             array = []
             s = data['searchInformation']
+
             s_info = dict(
                 formattedSearchTime=s['formattedSearchTime'],
                 formattedTotalResults=s['formattedTotalResults'],
             )
+
             for i in data['items']:
                 try:
                     thumb = i['pagemap']['cse_thumbnail'][0]['src']
+
                 except Exception as e:
                     thumb = None
                     logger.warning(e)
@@ -157,6 +165,7 @@ def data_prepare(data, search_text) -> dict:
                     youtube=yt['link'],
                     youtube_id=yt['id'],
                 ))
+
     except Exception as e:
         logger.error(traceback.print_tb(e.__traceback__))
 
@@ -209,6 +218,7 @@ def search(string) -> dict:
                 data = d['s_info']
             array = array + d['array']
         return dict(data=data, array=array, error=False)
+
     except Exception as e:
         logger.warning(e)
         return search_error()
@@ -223,6 +233,7 @@ def search_custom_index(string, index) -> dict:
     """
     x = get_result(string, index)
     d = data_prepare(x, string)
+
     return dict(data=d['s_info'], array=d['array'])
 
 
@@ -239,6 +250,7 @@ def select_type(string, index, search_type='searchTypeUndefined') -> dict:
     if search_type == 'searchTypeUndefined':
         if x and not index:
             return dict(data=[], array=null_search_dict, error=True)
+
         elif x and index:
             return dict(data=[], array=null_search_dict, error=True)
 

@@ -10,7 +10,7 @@
                 {% if el.1.thumb and not el.1.youtube_id %}
                     <a target="_blank" href="{{ el.1.link }}">
                         <img
-                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}"
                                 onerror="imgError(this);"
                                 style="margin-top: 1%;max-width: 32%;min-width: 25%;margin-right: 0.9em;height: auto;-webkit-appearance: none;border-radius: 0.5em;padding: 0;text-align: left;padding-bottom: 1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%);"
                                 alt="Preview image">
@@ -18,7 +18,7 @@
                 {% elif el.1.youtube_id %}
                     <div class="view-container-youtube-video-aware">
                         <img
-                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}"
+                                src="{% url 'imageproxy' %}?data={{ el.1.thumb|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}"
                                 onerror="imgError(this);"
                                 style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
                                 class="video_youtube_preview_image_aware"

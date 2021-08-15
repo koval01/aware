@@ -4,52 +4,52 @@
 {# Imagine that this code was not written by me. I don't really like him. #}
 
 {% spaceless %}
-    {% if typeload == 'newsession' and covid_stat_append %}
+    {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
         {% include "awse/load_blocks/covid.html" %}
     {% endif %}
 
     {% if typeload == "newsession" %}
-        {% if c_result %}
+        {% if vars.c_result %}
             {% include "awse/load_blocks/calculator.html" %}
         {% endif %}
-        {% if translate_result %}
+        {% if vars.translate_result %}
             {% include "awse/load_blocks/translate.html" %}
         {% endif %}
-        {% if news_search_in_str %}
+        {% if vars.news_search_in_str %}
             {# News block place skip #}
         {% endif %}
-        {% if weather %}
+        {% if vars.weather %}
             {% include "awse/load_blocks/weather.html" %}
         {% endif %}
     {% endif %}
-    {% if namaz_data %}
-        {% for el in namaz_data %}
+    {% if vars.namaz_data %}
+        {% for el in vars.namaz_data %}
             {% include "awse/load_blocks/namaz.html" %}
         {% endfor %}
     {% endif %}
 
-    {% if videos %}
+    {% if vars.videos %}
         {# Videos block place skip #}
     {% else %}
-        {% if not search_index %}
-            {% if check_bot_request_search %}
+        {% if not vars.search_index %}
+            {% if vars.check_bot_request_search %}
                 {% include "awse/load_blocks/note.html" %}
             {% endif %}
         {% endif %}
         {% for el in data %}
-            {% if forloop.counter == 1 and not search_index and images_search %}
+            {% if forloop.counter == 1 and not vars.search_index and vars.images_search %}
                 {% include "awse/load_blocks/images.html" %}
             {% endif %}
-            {% if not additions and news_append %}
+            {% if not vars.additions and vars.news_append %}
                 {% if el.0.0 %}
                     {% include "awse/load_blocks/news.html" %}
                 {% endif %}
             {% endif %}
-            {% if not search_api_full_dict.error %}
+            {% if not vars.search_api_full_dict.error %}
                 {% if el.1.title %}
                     {% include "awse/load_blocks/result.html" %}
                 {% endif %}
-            {% elif search_api_full_dict.error and forloop.counter == 1 and not namaz_data %}
+            {% elif vars.search_api_full_dict.error and forloop.counter == 1 and not vars.namaz_data %}
                 {% include "awse/load_blocks/black.html" %}
             {% endif %}
         {% endfor %}

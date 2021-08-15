@@ -4,12 +4,12 @@
         <div style="float: left;">
             <label class="city images_search_layer_aware_edit">
                 <div class="photos-slider-aware select_disable_text">
-                    {% for el_images in images_search %}
+                    {% for el_images in vars.images_search %}
                         <div>
                             <div>
                                 <a href="{{ el_images.image.contextLink }}" target="_blank">
                                     <img onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
-                                    src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&v=1&token={{ token_image_proxy }}&sign={{ user_address_original|sign_address_encrypt }}" alt="Preview image">
+                                    src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}" alt="Preview image">
                                 </a>
                             </div>
                             <div style="background: #313131;padding: 3px;border-radius: 0.5em">
@@ -18,7 +18,7 @@
                                         {% if el_images.title|length > 3 %}
                                             {{ el_images.htmlTitle|safe }}
                                         {% else %}
-                                            {{ search }}
+                                            {{ vars.search }}
                                         {% endif %}
                                     </a>
                                 </b>

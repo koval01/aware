@@ -532,17 +532,46 @@ def load_more(request):
                     # data pack
                     data = zip(news, search_array)
 
+                    # all variables
+                    class Variables:
+                        def __init__(self):
+                            self.token_image_proxy = token_valid
+                            self.images_search = images_search
+
+                            self.mobile = mobile
+                            self.user_address_original = user_address
+
+                            self.search_index = search_index
+                            self.typeload = typeload
+
+                            self.covid_ru = covid_stat_ru
+                            self.covid_ua = covid_stat_ua
+
+                            self.additions = additions
+                            self.news_append = news_append
+                            self.covid_stat_append = covid_stat_append
+
+                            self.c_result = c_result
+                            self.c_input = c_input
+
+                            self.search = search
+                            self.search_data = search_data
+
+                            self.namaz_data = namaz
+
+                            self.translate_result = translate_result
+                            self.weather = weather
+                            self.search_api_full_dict = search_api
+
+                            # other
+                            self.check_bot_request_search = check_bot_request_search(search)
+
+                    vars_ = vars(Variables)
+
                     logger.debug('%s: request - %s' % (load_more.__name__, request))
 
                     return render(request, 'awse/load_more.html', {
-                        'data': data, 'token_image_proxy': token_valid, 'search_index': search_index,
-                        'typeload': typeload, 'covid_ru': covid_stat_ru, 'covid_ua': covid_stat_ua,
-                        'additions': additions, 'news_append': news_append, 'covid_stat_append': covid_stat_append,
-                        'c_result': c_result, 'search': search, 'c_input': c_input, 'search_data': search_data,
-                        'namaz_data': namaz, 'user_address_original': user_address,
-                        'translate_result': translate_result, 'mobile': mobile, 'weather': weather,
-                        'search_api_full_dict': search_api, 'images_search': images_search,
-                        'check_bot_request_search': check_bot_request_search(search),
+                        'data': data, 'vars': vars_,
                     })
 
     return error_400(request)

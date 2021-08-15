@@ -1,5 +1,5 @@
 {% spaceless %}
-{% if covid_ua.0 %}
+{% if vars.covid_ua.0 %}
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             {% with covid_block_ukraine=48|get_random_string %}
@@ -30,7 +30,7 @@
         </div>
     </div>
 {% endif %}
-{% if covid_ru.0 %}
+{% if vars.covid_ru.0 %}
     <div class="col-12 col-lg-12 padding-block-center-box">
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             {% with covid_block_russia=48|get_random_string %}

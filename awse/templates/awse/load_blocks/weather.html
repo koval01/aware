@@ -6,31 +6,31 @@
                 <div class="weather-panel col-xs-12 col-sm-12"
                 style="color: #efeff1;">
                     <div class="col-xs-6">
-                        <h2>{{ weather.now_weather.name }}<br>
+                        <h2>{{ vars.weather.now_weather.name }}<br>
                             <small style="color: inherit;font-size: 50%;">
                                 {% now "l, j E" %}
                             </small>
                         </h2>
                         <p class="h3">
-                            {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
-                            &nbsp;{{ weather.now_weather.weather.0.description|capfirst }}
+                            {{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe }}
+                            &nbsp;{{ vars.weather.now_weather.weather.0.description|capfirst }}
                         </p>
                         <p>
                             <i class="fas fa-temperature-low"></i>
-                            Feels like {{ weather.now_weather.main.feels_like|floatformat:"0" }}°
+                            Feels like {{ vars.weather.now_weather.main.feels_like|floatformat:"0" }}°
                         </p>
                         <p>
                             <i class="fas fa-wind"></i>
-                            {{ weather.now_weather.wind.speed }} m\sec
+                            {{ vars.weather.now_weather.wind.speed }} m\sec
                         </p>
                     </div>
                     <div class="col-xs-6 text-center">
                         <div class="h1 temperature">
-                            <span style="font-size:2em">{{ weather.now_weather.main.temp|floatformat:"0" }}°</span>
+                            <span style="font-size:2em">{{ vars.weather.now_weather.main.temp|floatformat:"0" }}°</span>
                             <br>
-                            {% if weather.now_weather.main.temp_min|floatformat:"0" != weather.now_weather.main.temp_max|floatformat:"0" %}
+                            {% if vars.weather.now_weather.main.temp_min|floatformat:"0" != vars.weather.now_weather.main.temp_max|floatformat:"0" %}
                                 <small style="color:inherit;font-size:50%">
-                                    From {{ weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ weather.now_weather.main.temp_max|floatformat:"0" }}°
+                                    From {{ vars.weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ vars.weather.now_weather.main.temp_max|floatformat:"0" }}°
                                 </small>
                             {% endif %}
                         </div>
@@ -40,18 +40,18 @@
                             <li id="{{ 24|get_random_string }}" style="border-top:1px solid #fff" class="col-xs-4 col-sm-2 text-center">
                                 <h3 class="h5">{% now "D, j E" %}</h3>
                                 <p>
-                                    {{ weather.now_weather.weather.0.icon|get_weather_ico|safe }}
+                                    {{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe }}
                                     <br>
-                                    {{ weather.now_weather.main.temp|floatformat:"0" }}°
+                                    {{ vars.weather.now_weather.main.temp|floatformat:"0" }}°
                                 </p>
                             </li>
-                            {% for weather_el in weather.future_weather %}
+                            {% for weather_el in vars.weather.future_weather %}
                                 <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                     <h3 class="h5">{{ forloop.counter|add_days_by_timestamp|date:"D, j E" }}</h3>
                                     <p>
-                                        {{ weather_el.weather.0.icon|get_weather_ico|safe }}
+                                        {{ vars.weather_el.weather.0.icon|get_weather_ico|safe }}
                                         <br>
-                                        {{ weather_el.main.temp|floatformat:"0" }}°
+                                        {{ vars.weather_el.main.temp|floatformat:"0" }}°
                                     </p>
                                 </li>
                             {% endfor %}

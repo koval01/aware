@@ -31,6 +31,12 @@ function edit_query_string_q(data) {
     history.replaceState(null, null, "?" + queryParams.toString());
 }
 
+function search_surprise(string_) {
+    if (string_ == "askew") {
+        $(".container").css("transform", "rotate(1.5deg)");
+    }
+}
+
 function makeid(length = 64) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -164,12 +170,21 @@ function get__(enc_key_by_function) {
                     ' + array_server_time[x] + generator_local_get__(getRandomInt_local_get__(48) + 32, false);
                 }
 
-                data = "\
-                " + generator_local_get__(getRandomInt_local_get__(256) + 256, true) + "_\
-                " + f_string + "_\
-                " + generator_local_get__(getRandomInt_local_get__(256) + 256, true) + "_\
-                " + b_string + "_\
-                " + generator_local_get__(getRandomInt_local_get__(256) + 256, true);
+                data = `
+                    ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
+                        ${f_string}_
+                    
+                    ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
+                        ${b_string}_
+                    
+                    ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
+                        ${generator_local_get__(getRandomInt_local_get__(70) + 20, true)}_
+                    
+                    ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}
+                `;
+
+                data = data.replace(/\n/g, "");
+                data = data.replace(" ", "");
             }
         },
         error: function() {
@@ -554,6 +569,8 @@ function load_ajax_end_page(o, type_loading) {
             init_video_search_in_results();
             is_search_now = true;
 
+            search_surprise(search_data_text);
+
             get_ad('con');
         },
         error: function() {
@@ -602,8 +619,9 @@ function load_continue_ajax_end_page(o, type_loading) {
     
     const unix_n = Math.floor(Date.now() / 1000);
     
-    var t = jQuery("[name=csrfmiddlewaretoken]").val();
-    var geted_c = o.length;
+    const t = jQuery("[name=csrfmiddlewaretoken]").val();
+    const geted_c = o.length;
+    const text_ = o;
     
     $.ajax({
         url: load_more__,
@@ -620,7 +638,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             c_t___kk_: get__(true),
             gr_token: null,
             covid_stat: 0,
-            search: o,
+            search: text_,
             mobile: mob(),
             search_index_: search_index
         },
@@ -659,6 +677,8 @@ function load_continue_ajax_end_page(o, type_loading) {
                 text_no.css('margin-bottom', '3em');
                 text_no.css('display', '');
             }
+
+            search_surprise(text_);
 
             init_video_search_in_results();
             setTimeout(hide_hint_text_video, 10000);

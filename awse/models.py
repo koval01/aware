@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from bs4 import BeautifulSoup
-from .common_functions import num_formatter
+from awse.other.common_functions import num_formatter
 import string, random
 
 

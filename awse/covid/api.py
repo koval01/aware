@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from .config import USER_AGENT, API_URL, API_URL_RU
-from ..common_functions import num_formatter
+from awse.other.common_functions import num_formatter
 from awse.news_utils.months import en_month, ua_month, ru_month
 import logging, re, requests_cache
 

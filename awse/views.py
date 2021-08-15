@@ -25,13 +25,13 @@ from awse.search_utils.search_complete_api import get_result_data as search_comp
 from awse.search_utils.weather_api import weather_get, get_weather_icon
 from awse.news_utils.newsapi import __main__ as newsfeed
 
-from .common_functions import check_bot_request_search, check_request__
-from .common_functions import get_random_string as rand_str
+from awse.other.common_functions import check_bot_request_search, check_request__
+from awse.other.common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
-from .heroku_api import get_last_build_id as heroku_get_last_build_id
+from awse.other.heroku_api import get_last_build_id as heroku_get_last_build_id
 from .models import Info, Banner
-from .quote_get import get_result as get_quote_list
+from awse.other.quote_get import get_result as get_quote_list
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY

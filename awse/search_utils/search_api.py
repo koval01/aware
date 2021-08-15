@@ -7,7 +7,7 @@ from random import shuffle
 from string import punctuation
 from urllib.parse import urlparse, parse_qs
 
-from awse.common_functions import similarity
+from awse.other.common_functions import similarity
 from django.conf import settings
 from awse.models import BlackWord
 

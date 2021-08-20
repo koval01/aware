@@ -1,15 +1,15 @@
 {% spaceless %}
-<label class="username aware_news_index_page_title">{{ add_.0 }}</label><br>
+<label class="username aware_news_index_page_title">{{ vars.add_.0 }}</label><br>
 <label class="city">
     <u style="color: #a0a0a0;font-weight: 600;" class="news_search_button_aware_index_block">
         Search this news
     </u>
     <br/><br/>
-    <i>{{ add_.1 }}</i>
+    <i>{{ vars.add_.1 }}</i>
     <br/><br/>
-    <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
+    <b>A source - <a href="{{ vars.add_.4 }}" target="_blank">{{ vars.add_.2 }}</a></b>
     <br/>
-    <i><u>Published at {{ add_.3 }} (UTC)</u></i>
+    <i><u>Published at {{ vars.add_.3 }} (UTC)</u></i>
 </label>
 <br/>
 {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}

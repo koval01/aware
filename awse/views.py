@@ -402,7 +402,9 @@ def index(request):
 
     add_ = newsfeed(True, True)
     quote = choice(get_quote_list())
-    select_news_or_quote = randint(0, 1)  # if true - quote
+    
+    # select_news_or_quote = randint(0, 1)  # if true - quote
+    select_news_or_quote = 1  # Only quote
 
     user_address = my_ip_key(None, request)
 

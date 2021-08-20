@@ -1,8 +1,8 @@
 {% spaceless %}
 <label class="city">
-    <i>„{{ quote.q }}“</i>
+    <i>„{{ vars.quote.q }}“</i>
     <br/><br/>
-    <b>&nbsp;&mdash;&nbsp;{{ quote.a }}</b>
+    <b>&nbsp;&mdash;&nbsp;{{ vars.quote.a }}</b>
 </label>
 <br/>
 {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}

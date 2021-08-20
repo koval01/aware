@@ -4,9 +4,8 @@
 <div style="float: left;">
 {% if select_news_or_quote and quote %}
     {% include './quotes.html' %}
+{% else %}
+    {% include './news.html' %}
 {% endif %}
-{# {% else %} #}
-    {# {% include './news.html' %} #}
-{# {% endif %} #}
 </div></div></div>
 {% endspaceless %}

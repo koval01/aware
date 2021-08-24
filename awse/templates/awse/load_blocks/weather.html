@@ -40,7 +40,7 @@
                             <li id="{{ 24|get_random_string }}" style="border-top:1px solid #fff" class="col-xs-4 col-sm-2 text-center">
                                 {% with script_id=64|get_random_string elem_id=64|get_random_string el_=24|get_random_string %}
                                 <h3 class="h5" id="{{ elem_id }}"></h3>
-                                <script id="{{ script_id }}">let x{{ el_ }}='{{ now "D, j E"|encode_eng }}';$("#{{ elem_id }}").html(UpBDecode(x{{ el_ }}));$("#{{ script_id }}").remove()</script>
+                                <script id="{{ script_id }}">let x{{ el_ }}='{{ now "D, j E" }}';$("#{{ elem_id }}").html(UpBDecode(x{{ el_ }}));$("#{{ script_id }}").remove()</script>
                                 {% endwith %}
 
                                 {% with script_id=64|get_random_string weather_up=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}

@@ -25,6 +25,24 @@ function BannerError(o) {
     }
 }
 
+function LoadNewsNeed_(string) {
+    list_ = [
+        "новости", "новость", "новостях",
+        "новостями", "новостей", "новостям",
+        "новини", "новинами", "новин",
+        "новиною", "news", "new",
+        "newspaper", "feed", "paper",
+    ];
+
+    for (let i = 0; i < list_.length; i++) {
+        if (string.toLowerCase().search(list_[i]) != -1) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 function edit_query_string_q(data) {
     var queryParams = new URLSearchParams(window.location.search);
     queryParams.set("q", data);
@@ -409,14 +427,13 @@ function load_ajax_end_page(o, type_loading) {
 
     const unix_n = Math.floor(Date.now() / 1000);
 
-    const nd_new = 0;
-
-    var t = jQuery("[name=csrfmiddlewaretoken]").val();
-    var search_data_text = o;
-    var get = get__(true);
-    var geted_c = o.length;
+    const t = jQuery("[name=csrfmiddlewaretoken]").val();
+    const search_data_text = o;
+    const get = get__(true);
+    const geted_c = o.length;
     var his = new search_history_data();
     var namaz_data = '';
+    const nd_new = LoadNewsNeed_(search_data_text);
 
     function move_error_block() {
         if (is_search_now) {
@@ -634,7 +651,7 @@ function load_continue_ajax_end_page(o, type_loading) {
     const t = jQuery("[name=csrfmiddlewaretoken]").val();
     const geted_c = o.length;
     const text_ = o;
-    const nd_new = 0;
+    const nd_new = LoadNewsNeed_(o);;
 
     $.ajax({
         url: load_more__,

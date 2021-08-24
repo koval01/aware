@@ -362,6 +362,7 @@ function get_namaz(string) {
         // We make sure once again that this feature needs to be activated
         const string_split = string.split();
         const unix_n = Math.floor(Date.now() / 1000);
+        const nd_new = 0;
         var result = null;
 
         for (let i = 0; i < string_split.length; i++) {
@@ -383,7 +384,8 @@ function get_namaz(string) {
                     covid_stat: 0,
                     search: string_split[i],
                     namaz: 1,
-                    mobile: mob()
+                    mobile: mob(),
+                    news_need: nd_new,
                 },
                 success: function (o) {
                     result = o;
@@ -406,6 +408,8 @@ function load_ajax_end_page(o, type_loading) {
         n_con = load_continue_footer.find("span");
 
     const unix_n = Math.floor(Date.now() / 1000);
+
+    const nd_new = 0;
 
     var t = jQuery("[name=csrfmiddlewaretoken]").val();
     var search_data_text = o;
@@ -442,7 +446,8 @@ function load_ajax_end_page(o, type_loading) {
             gr_token: null,
             covid_stat: covid_anal(o),
             search: o,
-            mobile: mob()
+            mobile: mob(),
+            news_need: nd_new,
         },
         beforeSend: function () {
             if ($.cookie('hide_block_index') == 'no') {
@@ -629,6 +634,7 @@ function load_continue_ajax_end_page(o, type_loading) {
     const t = jQuery("[name=csrfmiddlewaretoken]").val();
     const geted_c = o.length;
     const text_ = o;
+    const nd_new = 0;
 
     $.ajax({
         url: load_more__,
@@ -647,7 +653,8 @@ function load_continue_ajax_end_page(o, type_loading) {
             covid_stat: 0,
             search: text_,
             mobile: mob(),
-            search_index_: search_index
+            search_index_: search_index,
+            news_need: nd_new,
         },
         beforeSend: function () {
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block");

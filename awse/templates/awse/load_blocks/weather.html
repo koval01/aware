@@ -39,11 +39,10 @@
                         <ul class="list-inline row forecast">
                             <li id="{{ 24|get_random_string }}" style="border-top:1px solid #fff" class="col-xs-4 col-sm-2 text-center">
                                 <h3 class="h5">{% now "D, j E" %}</h3>
-                                <p>
-                                    {{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe }}
-                                    <br>
-                                    {{ vars.weather.now_weather.main.temp|floatformat:"0" }}°
-                                </p>
+                                {% with script_id=64|get_random_string weather_up=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
+                                <p id="{{ weather_up }}"></p>
+                                <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe|encode_eng }}';let x{{ el_2 }}='{{ vars.weather.now_weather.main.temp|floatformat:"0"|encode_eng }}';$("#{{ weather_up }}").html(`${UpBDecode(x{{ el_ }})}<br/>${UpBDecode(x{{ el_2 }})}°`);$("#{{ script_id }}").remove()</script>
+                                {% endwith %}
                             </li>
                             {% for weather_el in vars.weather.future_weather %}
                                 <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">

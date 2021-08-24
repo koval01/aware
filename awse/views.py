@@ -13,25 +13,26 @@ from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
-from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_POST
 from ratelimit.decorators import ratelimit
 from requests import get
 
+from awse.other.common_functions import check_bot_request_search, check_request__
+from awse.other.common_functions import get_random_string as rand_str
+from awse.other.heroku_api import get_last_build_id as heroku_get_last_build_id
+from awse.other.quote_get import get_result as get_quote_list
 from awse.search_utils.calculate import calculator
 from awse.search_utils.namaz_api import get_namaz_data
 from awse.search_utils.search_api import select_type as search_execute
 from awse.search_utils.search_complete_api import get_result_data as search_complete
 from awse.search_utils.weather_api import weather_get, get_weather_icon
-from awse.news_utils.newsapi import __main__ as newsfeed
-
-from awse.other.common_functions import check_bot_request_search, check_request__
-from awse.other.common_functions import get_random_string as rand_str
 from .covid.api import covid_api as covid_stat
 from .covid.api import num_formatter
-from awse.other.heroku_api import get_last_build_id as heroku_get_last_build_id
 from .models import Info, Banner
-from awse.other.quote_get import get_result as get_quote_list
+from .news_rev.newsapi import __main__ as newsfeed
+from .news_rev.newsapi_ai import __main__ as newsapiai_get
+from .news_rev.twitterget import __main__ as twitter_news
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -263,8 +264,8 @@ def get_ad(request):
                 index_block_mode = False
                 logger.debug("%s: %s" % (get_ad.__name__, e))
 
-            if index_block_mode:
-                return JsonResponse({'data': newsfeed(True, True)})
+            # if index_block_mode:
+            #     return JsonResponse({'data': newsfeed(True, True)})
 
             else:
                 data = global_ad_function(lang)
@@ -400,9 +401,9 @@ def index(request):
 
     search_example_get = "What do you need to find?"
 
-    add_ = newsfeed(True, True)
+    # add_ = newsfeed(True, True)
     quote = choice(get_quote_list())
-    
+
     # select_news_or_quote = randint(0, 1)  # if true - quote
     select_news_or_quote = 1  # Only quote
 
@@ -419,7 +420,7 @@ def index(request):
 
     return render(request, 'awse/index.html', {
         'token_valid': token_valid, 'token_re': token_re,
-        'search_template': search_example_get, 'add_': add_,
+        'search_template': search_example_get,
         'search_q': search_q, 'user_address': user_address,
         'max_search_len': max_search_len, 'quote': quote,
         'select_news_or_quote': select_news_or_quote
@@ -460,8 +461,15 @@ def load_more(request):
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
+        news_need_load = request.POST.get('news_need', '')
 
         logger.debug('%s: Parameters parsed.' % load_more.__name__)
+
+        try:
+            last_time_key = int(request.POST.get('l', ''))
+        except Exception as e:
+            last_time_key = 9999999 * 9999999
+            logger.debug(e)
 
         if len(search) <= max_search_len:
             logger.debug('%s: Check search length and continue.' % load_more.__name__)
@@ -498,7 +506,7 @@ def load_more(request):
                     logger.debug('%s: Check "token_get" and continue.' % load_more.__name__)
 
                     # data collect
-                    news = newsfeed(news_append)
+                    # news = newsfeed(news_append)
 
                     # image proxy encrypt data
                     salt = Fernet(image_proxy_key)
@@ -532,7 +540,21 @@ def load_more(request):
                     translate_result = None
 
                     # data pack
-                    data = zip(news, search_array)
+                    data = zip(search_array)  # only search data remains
+
+                    # news data load
+                    country = "ua"
+
+                    if news_need_load:
+                        tweets = twitter_news(country)
+                        ai_news = newsapiai_get(country)
+                        news_ = newsfeed(country)
+
+                    # data prepare
+                    news_data_list = sorted(
+                        [el for el in (ai_news + news_ + tweets) if el['time'] < last_time_key],
+                        key=lambda x: x['time'], reverse=True
+                    )[:50]
 
                     # all variables
                     class Variables:
@@ -550,6 +572,7 @@ def load_more(request):
                             self.covid_ua = covid_stat_ua
 
                             self.additions = additions
+                            self.news_data_list = news_data_list
                             self.news_append = news_append
                             self.covid_stat_append = covid_stat_append
 

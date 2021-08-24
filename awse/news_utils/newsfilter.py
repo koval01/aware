@@ -1,13 +1,19 @@
 from bs4 import BeautifulSoup
-import logging
 
 
 def text_news_filter(string):
-    """
-    Remove other elements from text
-    :param string: string
-    :return: edited string
-    """
+    # Remove the protocol from the links
     string = str(string).replace('https://', '').replace('http://', '')
-    logging.debug('News feed successfully filtered.')
-    return BeautifulSoup(string, 'lxml').text
+    # Remove the markup.
+    string = BeautifulSoup(string, 'lxml').text
+    string = string.replace('\n', '<br/>').replace('\'', '\\\'')
+    if string == 'None':
+        return 'The news has no description.'
+    return string
+
+
+def parse_text(string):
+    if string:
+        return BeautifulSoup(string, 'lxml').text.replace('\n', '%0A')
+    else:
+        return ""

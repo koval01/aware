@@ -30,6 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
 LOCAL_DATABASE = False
 CACHE_IN_MEMORY_SERVER = True
 
@@ -43,21 +44,6 @@ if DEBUG:
     LOG_HANDLERS = ['console']
     append_gunicorn_config = False
 
-    if LOCAL_DATABASE:
-        # Local database
-        DB_HOST = 'localhost'
-        DB_PASS = ''
-        DB_USER = 'template1'
-        DB_NAME = 'template1'
-        ssl_mode = None
-
-    else:
-        DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
-        DB_USER = 'hhsqjxbatavscv'
-        DB_NAME = 'dfcsnien868r9s'
-        DB_PASS = os.environ['DB_PASS']
-        ssl_mode = 'require'
-
 else:
     from dotenv import load_dotenv
     load_dotenv()
@@ -67,9 +53,20 @@ else:
     append_gunicorn_config = False  # Heroku mode
     SECURE_SSL_REDIRECT = True
     PREPEND_WWW = False
-    DB_HOST = 'ec2-3-233-7-12.compute-1.amazonaws.com'
-    DB_USER = 'hhsqjxbatavscv'
-    DB_NAME = 'dfcsnien868r9s'
+
+
+if LOCAL_DATABASE:
+    # Local database
+    DB_HOST = 'localhost'
+    DB_PASS = ''
+    DB_USER = 'template1'
+    DB_NAME = 'template1'
+    ssl_mode = None
+
+else:
+    DB_HOST = os.environ['DB_HOST']
+    DB_USER = os.environ['DB_USER']
+    DB_NAME = os.environ['DB_NAME']
     DB_PASS = os.environ['DB_PASS']
     ssl_mode = 'require'
 
@@ -111,6 +108,9 @@ WEATHER_API_KEYS = os.environ['WEATHER_API_KEYS']
 
 HEROKU_API_KEY = os.environ['HEROKU_API_KEY']
 HEROKU_APP_NAME = os.environ['HEROKU_APP_NAME']
+
+TWITTER_BEARER = os.environ['TWITTER_BEARER']
+NEWSAPI_AI = os.environ['NEWSAPI_AI']
 
 IMAGES_SEARCH_ENABLED = False
 

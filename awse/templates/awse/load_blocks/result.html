@@ -4,7 +4,7 @@
         <div style="float: left;">
             {% with script_id=64|get_random_string title_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
             <label id="{{ title_el }}" class="username" style="margin-top: -0.5em;"></label><br/>
-            <script id="{{ script_id }}">let x{{ title_text }}="{{ el.0.title }}";let x{{ title_link }}="{{ el.0.link }}";$("#{{ title_el }}").html("<a target=\"_blank\" href=\""+x{{ title_link }}+"\" style=\"word-break: break-word\">"+x{{ title_text }}+"</a>");$("#{{ script_id }}").remove()</script>
+            <script id="{{ script_id }}">let x{{ title_text }}="{{ el.0.title|encode_eng }}";let x{{ title_link }}="{{ el.0.link|encode_eng }}";$("#{{ title_el }}").html("<a target=\"_blank\" href=\""+UpBDecode(x{{ title_link }})+"\" style=\"word-break: break-word\">"+UpBDecode(x{{ title_text }})+"</a>");$("#{{ script_id }}").remove()</script>
             {% endwith %}
             <label class="city">
                 {% if el.0.thumb and not el.0.youtube_id %}
@@ -26,7 +26,11 @@
                                 data-youtube-id="{{ el.0.youtube_id }}">
                     </div>
                 {% endif %}
-                <p>{{ el.0.displayLink }}</p>
+
+                {% with script_id=64|get_random_string r_link_el=64|get_random_string %}
+                <aware-result-link id="{{ r_link_el }}">{{ el.0.displayLink }}</aware-result-link>
+                <script id="{{ script_id }}">let x{{ r_link_el }}='{{ el.0.displayLink|encode_eng }}';$("#{{ r_link_el }}").html(UpBDecode(x{{ r_link_el }}));$("#{{ script_id }}").remove()</script>
+                {% endwith %}
 
                 {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
                 <description-aware id="{{ desc_el }}"></description-aware>

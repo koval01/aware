@@ -28,8 +28,8 @@
                 {% endif %}
 
                 {% with script_id=64|get_random_string r_link_el=64|get_random_string %}
-                <aware-result-link id="{{ r_link_el }}">{{ el.0.displayLink }}</aware-result-link>
-                <script id="{{ script_id }}">let x{{ r_link_el }}='{{ el.0.displayLink|encode_eng }}';$("#{{ r_link_el }}").html(UpBDecode(x{{ r_link_el }}));$("#{{ script_id }}").remove()</script>
+                <aware-result-link id="{{ r_link_el }}"></aware-result-link>
+                <script id="{{ script_id }}">let x{{ r_link_el }}='{{ el.0.displayLink|encode_eng }}';$("#{{ r_link_el }}").html(`<p>${UpBDecode(x{{ r_link_el }})}</p>`);$("#{{ script_id }}").remove()</script>
                 {% endwith %}
 
                 {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}

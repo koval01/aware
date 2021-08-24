@@ -30,7 +30,7 @@
 
                 {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
                 <description-aware id="{{ desc_el }}"></description-aware>
-                <script id="{{ script_id }}">let x{{ desc_el }}='{{ el.0.snippet|safe }}';$("#{{ desc_el }}").html(x{{ desc_el }});$("#{{ script_id }}").remove()</script>
+                <script id="{{ script_id }}">let x{{ desc_el }}='{{ el.0.snippet|safe|encode_eng }}';$("#{{ desc_el }}").html(UpBDecode(x{{ desc_el }}));$("#{{ script_id }}").remove()</script>
                 {% endwith %}
             </label>
             {% if el.0.youtube_id %}

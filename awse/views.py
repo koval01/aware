@@ -33,6 +33,7 @@ from .models import Info, Banner
 from .news_rev.newsapi import __main__ as newsfeed
 from .news_rev.newsapi_ai import __main__ as newsapiai_get
 from .news_rev.twitterget import __main__ as twitter_news
+from .other.text_encoder import encode as encoder_eng
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -48,6 +49,11 @@ max_search_len = settings.MAX_SEARCH_LENGTH
 @register.filter
 def get_weather_ico(value) -> str:
     return get_weather_icon(value)
+
+
+@register.filter
+def encode_eng(value) -> str:
+    return encoder_eng(value)
 
 
 @register.filter

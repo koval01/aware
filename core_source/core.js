@@ -69,6 +69,11 @@ function BDecode(str) {
     }).join(''));
 }
 
+function UpBDecode(str) {
+  str = str.slice(1); // Remove first pseudo letter
+  return BDecode(str.slice(0, 4) + str.slice(4+24));
+}
+
 function throttle(func, ms) {
 
     let isThrottled = false,
@@ -1298,6 +1303,8 @@ $(window).scroll(function () {
         }
 
         setInterval(local_AOS_upd, 1000); // update AOS per one second
+
+        // core is ready
     }),
 
     $("a.scroll-to").on("click", function () {

@@ -8,10 +8,9 @@ def generate_(length=24) -> str:
 
 
 def encode(text: str) -> str:
-    pos_ = randint(2, 4) + 1
-    rln_ = randint(12, 32)
+    pos_ = 3 + 1
     str_ = choice(ascii_letters)
-    rnd_ = generate_(rln_)
+    rnd_ = generate_()
     enc_ = encoder(bytes(text, 'utf-8')).decode("utf-8")
 
     return str_ + enc_[:pos_] + rnd_ + enc_[pos_:]

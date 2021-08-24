@@ -543,7 +543,7 @@ def load_more(request):
                     data = zip(search_array)  # only search data remains
 
                     # news data load
-                    country = "ua"
+                    country = settings.AVAILABLE_COUNTRY[0]
 
                     if news_need_load:
                         tweets = twitter_news(country)

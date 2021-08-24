@@ -555,6 +555,8 @@ def load_more(request):
                         tweets = twitter_news(country)
                         ai_news = newsapiai_get(country)
                         news_ = newsfeed(country)
+                    else:
+                        tweets, ai_news, news_ = []
 
                     # data prepare
                     news_data_list = sorted(

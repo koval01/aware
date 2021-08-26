@@ -20,6 +20,6 @@ urlpatterns = [
     path('get_ad/', views.get_ad, name='get_ad'),
     path('get_banner/', views.get_banner, name='get_banner'),
     path('yt/', views.get_video_yt, name='get_video_yt'),
-    path('sitemap_aware_pages.xml/', cache_page(7200)(sitemap), {'sitemaps': sitemaps_aware_pages},
+    path('sitemap_aware_pages.xml/', cache_page(16000)(sitemap), {'sitemaps': sitemaps_aware_pages},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

@@ -153,3 +153,5 @@ def sync_time_server(request):
 ```
 
 ****
+
+Licensing Adjustment. If you want to use the design or all the code of this project, you must specify that your project is based on AWARE. And provide a link to this repository.

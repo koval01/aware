@@ -5,6 +5,14 @@
     <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 </p>
 
+****
+
+<p align="center">
+    <b>Stay in your private space</b>
+</p>
+
+****
+
 **This is a closed repository in which the project / site is being developed - awse.us**
 
 ###### **Get started**

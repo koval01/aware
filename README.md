@@ -5,6 +5,14 @@
     <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 </p>
 
+****
+
+<p align="center">
+    <b>Stay in your private space</b>
+</p>
+
+****
+
 **This is a closed repository in which the project / site is being developed - awse.us**
 
 ###### **Get started**
@@ -153,3 +161,5 @@ def sync_time_server(request):
 ```
 
 ****
+
+Licensing Adjustment. If you want to use the design or all the code of this project, you must specify that your project is based on AWARE. And provide a link to this repository.

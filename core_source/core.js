@@ -72,6 +72,7 @@ function makeid(length = 64) {
 
 function search_title_set(title_text) {
     document.title = 'AWARE - ' + title_text;
+    // document.
 }
 
 function BEncode(str) {

@@ -77,7 +77,7 @@ class Banner(models.Model):
         verbose_name_plural = 'Banners'
 
 
-class AWARE_Page(models.Model):
+class AWSE_Page(models.Model):
     title = models.CharField('Page title', max_length=255, default='Failed to get page title')
     page_html_code = models.TextField('HTML code of the page', default='<p>Page parsing error ...</p>')
     unique_id = models.CharField('Unique ID', max_length=255, unique=True, default=random_string)
@@ -87,11 +87,11 @@ class AWARE_Page(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/aware/%s/" % self.unique_id
+        return "/awse/%s/" % self.unique_id
 
     class Meta:
-        verbose_name = 'AWARE page'
-        verbose_name_plural = 'AWARE Pages'
+        verbose_name = 'AWSE page'
+        verbose_name_plural = 'AWSE Pages'
 
 
 class BlackWord(models.Model):

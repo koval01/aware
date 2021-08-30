@@ -3,10 +3,10 @@ from django.urls import path
 from django.views.decorators.cache import cache_page
 
 from . import views
-from .sitemaps import AWARE_Pages_Sitemap
+from .sitemaps import AWSE_Pages_Sitemap
 
-sitemaps_aware_pages = {
-    'aware_pages': AWARE_Pages_Sitemap,
+sitemaps_awse_pages = {
+    'awse_pages': AWSE_Pages_Sitemap,
 }
 
 urlpatterns = [
@@ -21,6 +21,6 @@ urlpatterns = [
     path('get_ad/', views.get_ad, name='get_ad'),
     path('get_banner/', views.get_banner, name='get_banner'),
     path('yt/', views.get_video_yt, name='get_video_yt'),
-    path('sitemap_aware_pages.xml/', cache_page(16000)(sitemap), {'sitemaps': sitemaps_aware_pages},
+    path('sitemap_awse_pages.xml/', cache_page(16000)(sitemap), {'sitemaps': sitemaps_awse_pages},
          name='django.contrib.sitemaps.views.sitemap'),
 ]

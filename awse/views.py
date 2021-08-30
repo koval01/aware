@@ -42,7 +42,7 @@ load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
 ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY
-qwriter_api_for_aware = os.environ['AWARE_KEY']
+qwriter_api_for_awse = os.environ['AWSE_KEY']
 max_search_len = settings.MAX_SEARCH_LENGTH
 
 

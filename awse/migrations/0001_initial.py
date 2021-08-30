@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='AWARE_Page',
+            name='AWSE_Page',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='Не удалось получить заголовок страницы', max_length=255, verbose_name='Название страницы')),
@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('time', models.DateTimeField(default=datetime.datetime(2021, 5, 15, 18, 18, 28, 988968, tzinfo=utc), verbose_name='Время создания')),
             ],
             options={
-                'verbose_name': 'Страница AWARE',
-                'verbose_name_plural': 'Страницы AWARE',
+                'verbose_name': 'Страница AWSE',
+                'verbose_name_plural': 'Страницы AWSE',
             },
         ),
         migrations.CreateModel(

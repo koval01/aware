@@ -1,9 +1,9 @@
 {% spaceless %}
 <div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
-    <div class="user box aos-init aos-animate images_search_layer_aware" data-aos="fade-up">
+    <div class="user box aos-init aos-animate images_search_layer_awse" data-aos="fade-up">
         <div style="float: left;">
-            <label class="city images_search_layer_aware_edit">
-                <div class="photos-slider-aware select_disable_text">
+            <label class="city images_search_layer_awse_edit">
+                <div class="photos-slider-awse select_disable_text">
                     {% for el_images in vars.images_search %}
                         <div>
                             <div>
@@ -27,7 +27,7 @@
                     {% endfor %}
                 </div>
             </label>
-            <div style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;" class="hint_text_images_scroll_aware">
+            <div style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;" class="hint_text_images_scroll_awse">
                 <b style="color: #808080;font-size: 0.7em;">
                     To scroll through images, drag them from right to left
                 </b>
@@ -40,5 +40,5 @@
         </div>
     </div>
 </div>
-<script>var slider=tns({container:".photos-slider-aware",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_aware_edit").css("max-width",document.getElementsByClassName("images_search_layer_aware")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_aware").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)})</script>
+<script>var slider=tns({container:".photos-slider-awse",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_awse_edit").css("max-width",document.getElementsByClassName("images_search_layer_awse")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_awse").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)})</script>
 {% endspaceless %}

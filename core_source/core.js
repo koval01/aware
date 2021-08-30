@@ -75,7 +75,7 @@ function makeid(length = 64, password_mode = false) {
 }
 
 function search_title_set(title_text) {
-    document.title = 'AWARE - ' + title_text;
+    document.title = 'AWSE - ' + title_text;
     console.log("Update page title");
 }
 
@@ -293,9 +293,9 @@ var temp_html_index_page = '';
 // var hide_index_page_blocks = $.cookie('hide_block_index');
 
 var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-center-box">' +
-    '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_aware_error">' +
-    '<div class="box_aware_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>' +
-    '<div class="symbol"></div><div class="symbol"></div><div class="box_aware_error__ghost-container"><div class="box_aware_error__ghost-eyes">' +
+    '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_awse_error">' +
+    '<div class="box_awse_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>' +
+    '<div class="symbol"></div><div class="symbol"></div><div class="box_awse_error__ghost-container"><div class="box_awse_error__ghost-eyes">' +
     '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">' +
     '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>' +
     '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">' +

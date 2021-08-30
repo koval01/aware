@@ -16,24 +16,24 @@
                                 alt="Preview image">
                     </a>
                 {% elif el.0.youtube_id %}
-                    <div class="view-container-youtube-video-aware">
+                    <div class="view-container-youtube-video-awse">
                         <img
                                 src="{% url 'imageproxy' %}?data={{ el.0.thumb|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}"
                                 onerror="imgError(this);"
                                 style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
-                                class="video_youtube_preview_image_aware"
+                                class="video_youtube_preview_image_awse"
                                 alt="Preview image"
                                 data-youtube-id="{{ el.0.youtube_id }}">
                     </div>
                 {% endif %}
 
                 {% with script_id=64|get_random_string r_link_el=64|get_random_string %}
-                <aware-result-link id="{{ r_link_el }}"></aware-result-link>
+                <awse-result-link id="{{ r_link_el }}"></awse-result-link>
                 <script id="{{ script_id }}">let x{{ r_link_el }}='{{ el.0.displayLink|encode_eng }}';$("#{{ r_link_el }}").html(`<p>${UpBDecode(x{{ r_link_el }})}</p>`);$("#{{ script_id }}").remove()</script>
                 {% endwith %}
 
                 {% with script_id=64|get_random_string desc_el=64|get_random_string title_link=12|get_random_string title_text=12|get_random_string %}
-                <description-aware id="{{ desc_el }}"></description-aware>
+                <description-awse id="{{ desc_el }}"></description-awse>
                 <script id="{{ script_id }}">let x{{ desc_el }}='{{ el.0.snippet|safe|encode_eng }}';$("#{{ desc_el }}").html(UpBDecode(x{{ desc_el }}));$("#{{ script_id }}").remove()</script>
                 {% endwith %}
             </label>
@@ -57,7 +57,7 @@
                         margin: 0.5em;
                     ">YouTube&nbsp;
                         <i class="fab fa-youtube"></i>
-                        <i class="spinner-border youtube_video_load_wait_aware" style="
+                        <i class="spinner-border youtube_video_load_wait_awse" style="
                             width: 20px !important;
                             height: 20px !important;
                             display: none;

@@ -50,7 +50,7 @@ def check_bot_request_search(string) -> bool:
     words_get = string.lower().split()
     words_list = [
         'бот', 'bot', 'телеграм', 'telegram', 'aware', 'поисковик', 'аваре',
-        'авар', 'awar', 'телеграмм',
+        'авар', 'awar', 'телеграмм', 'awse', 'авсе', 'авс'
     ]
     for i in words_get:
         a = ''.join(filter(str.isalpha, i))

@@ -1,9 +1,13 @@
+import calendar
+import difflib
+import logging
+import re
+from datetime import datetime
 from random import choice
 from string import ascii_letters, digits
-from requests import get
-from datetime import datetime
 from time import time
-import difflib, re, logging, calendar
+
+from requests import get
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +107,7 @@ def check_request__(data) -> bool:
         d = datetime.utcnow()
         unixtime = calendar.timegm(d.utctimetuple())
 
-        if int(x)+8 > round(unixtime) and int(y)+12 > round(time()):
+        if int(x) + 8 > round(unixtime) and int(y) + 12 > round(time()):
             # check user UTC time and server time
             return True
     except Exception as e:

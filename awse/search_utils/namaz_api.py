@@ -1,9 +1,11 @@
-from json import loads
+import logging
+import requests_cache
 from datetime import datetime
-import logging, requests_cache
+from json import loads
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession(backend='memory', cache_name='namaz_get', expire_after=7200)
+
 
 def get_result(city) -> dict:
     """
@@ -54,5 +56,5 @@ def get_namaz_data(city) -> list:
             timezone=i['meta']['timezone'],
             update_time=datetime.today().replace(microsecond=0),
         ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or
-                       d+1 == unix_time_to_day(i['date']['timestamp'])
+                           d + 1 == unix_time_to_day(i['date']['timestamp'])
     ]

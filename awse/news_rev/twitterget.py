@@ -1,8 +1,12 @@
-import logging, re, requests_cache
+import logging
+import re
+import requests_cache
 from datetime import datetime
-from django.conf import settings
-from ..news_utils.newsfilter import parse_text
 from random import shuffle
+
+from django.conf import settings
+
+from ..news_utils.newsfilter import parse_text
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession(backend="memory", namespace='twitter_api_cache', expire_after=1800)
@@ -21,7 +25,7 @@ def replace_url_to_tag(string: str) -> str:
 
     for el in url:
         string = string.replace(el[0], '<a href="%s" target="_blank" style="color:#9c9c9c">%s&nbsp;</a>' % (
-        el[0], el[0].replace('https://', '')))
+            el[0], el[0].replace('https://', '')))
 
     return string
 

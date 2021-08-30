@@ -1,8 +1,9 @@
 from django.contrib.sitemaps.views import sitemap
-from django.views.decorators.cache import cache_page
 from django.urls import path
-from .sitemaps import AWARE_Pages_Sitemap
+from django.views.decorators.cache import cache_page
+
 from . import views
+from .sitemaps import AWARE_Pages_Sitemap
 
 sitemaps_aware_pages = {
     'aware_pages': AWARE_Pages_Sitemap,

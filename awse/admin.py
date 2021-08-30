@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Info, AWARE_Page, BlackWord, Banner
 
 admin.site.register(Info)

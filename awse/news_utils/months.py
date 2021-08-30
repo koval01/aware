@@ -1,12 +1,12 @@
 import logging
 
-
 ua_month = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня',
             'вересня', 'жовтня', 'листопада', 'грудня']
 ru_month = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
             'октября', 'ноября', 'декабря']
 en_month = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
             'august', 'september', 'october', 'november', 'december']
+
 
 def convert(string) -> str:
     """

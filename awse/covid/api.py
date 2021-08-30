@@ -1,8 +1,12 @@
+import logging
+import re
+import requests_cache
+
 from bs4 import BeautifulSoup
-from .config import USER_AGENT, API_URL, API_URL_RU
-from awse.other.common_functions import num_formatter
+
 from awse.news_utils.months import en_month, ua_month, ru_month
-import logging, re, requests_cache
+from awse.other.common_functions import num_formatter
+from .config import USER_AGENT, API_URL, API_URL_RU
 
 session = requests_cache.CachedSession(backend='memory', cache_name='covid_cache', expire_after=7200)
 logger = logging.getLogger(__name__)

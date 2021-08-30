@@ -1,5 +1,7 @@
+import logging
+import requests_cache
+
 from django.conf import settings
-import logging, requests_cache
 
 logger = logging.getLogger(__name__)
 USER_AGENT = settings.REQ_USER_AGENT
@@ -57,4 +59,6 @@ def get_result_data(question) -> str:
     d = get_result(question)
     r = data_prepare(d)
 
-    return ''.join(['<li class="search-el-a"><span class="ico_s_el" style="margin-right: 0.5em;"><i style="color: #9a9a9a;" class="fas fa-search"></i></span><span class="text_s_el">%s</span></li>' % i[0].replace('\\', '') for i in r[0]])
+    return ''.join([
+                       '<li class="search-el-a"><span class="ico_s_el" style="margin-right: 0.5em;"><i style="color: #9a9a9a;" class="fas fa-search"></i></span><span class="text_s_el">%s</span></li>' %
+                       i[0].replace('\\', '') for i in r[0]])

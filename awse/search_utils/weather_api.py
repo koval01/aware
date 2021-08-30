@@ -1,8 +1,10 @@
-from django.conf import settings
-from random import shuffle
-from json import loads
+import logging
+import requests_cache
 from datetime import datetime
-import logging, requests_cache
+from json import loads
+from random import shuffle
+
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession(backend='memory', cache_name='search_api_cache', expire_after=600)
@@ -93,8 +95,8 @@ def weather_by_days_get(city) -> list:
                 result = loads(r)
                 if result['cod'] == "200":
                     return [b for b in result['list'] if '09:00:00' in b['dt_txt'] and
-                        datetime.fromtimestamp(b['dt']).day != datetime.now().day
-                    ]
+                            datetime.fromtimestamp(b['dt']).day != datetime.now().day
+                            ]
 
             except Exception as e:
                 logger.error(e)

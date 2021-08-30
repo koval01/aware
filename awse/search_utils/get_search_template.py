@@ -1,7 +1,8 @@
-from requests import post
-from json import loads
-from django.conf import settings
 import logging
+from json import loads
+
+from django.conf import settings
+from requests import post
 
 logger = logging.getLogger(__name__)
 USER_AGENT = settings.REQ_USER_AGENT

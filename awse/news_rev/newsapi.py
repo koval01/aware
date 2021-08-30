@@ -1,9 +1,12 @@
-from django.conf import settings
+import logging
+import requests_cache
 from datetime import datetime
 from random import choice
-from ..news_utils.newsfilter import text_news_filter as filter_news
+
+from django.conf import settings
+
 from ..news_utils.newsfilter import parse_text
-import logging, requests_cache
+from ..news_utils.newsfilter import text_news_filter as filter_news
 
 token = settings.NEWSAPI_TOKEN
 logger = logging.getLogger(__name__)

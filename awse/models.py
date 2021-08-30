@@ -1,8 +1,11 @@
+import random
+import string
+
+from bs4 import BeautifulSoup
 from django.db import models
 from django.utils import timezone
-from bs4 import BeautifulSoup
+
 from awse.other.common_functions import num_formatter
-import string, random
 
 
 def random_string():

@@ -1,15 +1,16 @@
 import logging
 import re
-import requests_cache
 import traceback
 from json import loads
 from random import shuffle
 from string import punctuation
 from urllib.parse import urlparse, parse_qs
 
-from awse.other.common_functions import similarity
+import requests_cache
 from django.conf import settings
+
 from awse.models import BlackWord
+from awse.other.common_functions import similarity
 
 logger = logging.getLogger(__name__)
 USER_AGENT = settings.REQ_USER_AGENT

@@ -296,10 +296,10 @@ var error_block_space_design = '<div class="col-12 col-lg-12 padding-block-cente
     '<div class="user box aos-init aos-animate" data-aos="fade-up"><div class="box_awse_error">' +
     '<div class="box_awse_error__ghost"><div class="symbol"></div> <div class="symbol"></div> <div class="symbol"></div><div class="symbol"></div>' +
     '<div class="symbol"></div><div class="symbol"></div><div class="box_awse_error__ghost-container"><div class="box_awse_error__ghost-eyes">' +
-    '<div class="box_aware_error__eye-left"></div><div class="box_aware_error__eye-right"></div></div><div class="box_aware_error__ghost-bottom">' +
-    '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_aware_error__ghost-shadow"></div></div>' +
-    '<div class="box_aware_error__description"><div class="box_aware_error__description-container"><div class="box_aware_error__description-title">' +
-    'Oh!</div><div class="box_aware_error__description-text">' +
+    '<div class="box_awse_error__eye-left"></div><div class="box_awse_error__eye-right"></div></div><div class="box_awse_error__ghost-bottom">' +
+    '<div></div><div></div><div></div><div></div><div></div></div></div><div class="box_awse_error__ghost-shadow"></div></div>' +
+    '<div class="box_awse_error__description"><div class="box_awse_error__description-container"><div class="box_awse_error__description-title">' +
+    'Oh!</div><div class="box_awse_error__description-text">' +
     'We could not find anything for your request... Please try again, or reformulate the question.</div></div></div></div></div></div>';
 
 var pageX = $(document).width();
@@ -314,7 +314,7 @@ $(document).mousemove(function (event) {
     mouseX = event.pageX / -pageX;
     xAxis = -mouseX * 100 - 100;
 
-    $(".box_aware_error__ghost-eyes").css({
+    $(".box_awse_error__ghost-eyes").css({
         transform: "translate(" + xAxis + "%,-" + yAxis + "%)"
     });
 });
@@ -520,10 +520,10 @@ function load_ajax_end_page(o, type_loading) {
                 $('.row-posts-end').css('margin-top', '-3em');
             }
 
-            $(".banner_ad_aware").css('width', '50%');
-            $('.aware_hide_blocks_on_index_page').css('visibility', 'hidden');
-            $(".clear_aware_search_string").css("margin-right", "2.5em");
-            $(".search-input-aware").css("padding", "0 75px 0 20px");
+            $(".banner_ad_awse").css('width', '50%');
+            $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
+            $(".clear_awse_search_string").css("margin-right", "2.5em");
+            $(".search-input-awse").css("padding", "0 75px 0 20px");
 
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.refresh();
             text_no.css('display', 'none');
@@ -532,13 +532,13 @@ function load_ajax_end_page(o, type_loading) {
 
             error_search_no_text('ok');
 
-            comment = document.createComment($(".icon_search_load_aware_one").get(0).outerHTML);
-            $(".icon_search_load_aware_one").replaceWith(comment);
+            comment = document.createComment($(".icon_search_load_awse_one").get(0).outerHTML);
+            $(".icon_search_load_awse_one").replaceWith(comment);
 
             e.css("top", "-5px");
             e.css("right", "10px");
 
-            $('.spinner_search_load_aware').replaceWith(comment_spin_global);
+            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
             $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
 
             $(".row-posts-end").css("display", "");
@@ -560,9 +560,9 @@ function load_ajax_end_page(o, type_loading) {
                 his.add(search_data_text);
             }
 
-            $(".clear_aware_search_string").css("margin-right", "2em");
-            $(".search-aware-block-global").css("margin-bottom", "1em");
-            $(".search-input-aware").css("padding", "0 65px 0 20px");
+            $(".clear_awse_search_string").css("margin-right", "2em");
+            $(".search-awse-block-global").css("margin-bottom", "1em");
+            $(".search-input-awse").css("padding", "0 65px 0 20px");
 
             updated_search_text = search_data_text;
             $(comment).replaceWith(comment.nodeValue);
@@ -571,7 +571,7 @@ function load_ajax_end_page(o, type_loading) {
             edit_query_string_q(search_data_text);
 
             e.removeAttr("style");
-            $('.spinner_search_load_aware').replaceWith(comment_spin_global);
+            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
             load_continue_footer.css('visibility', 'visible');
             load_continue_footer.css('display', 'block');
 
@@ -605,7 +605,7 @@ function load_ajax_end_page(o, type_loading) {
 
             if ((o).length < 10) {
                 e.removeAttr("style");
-                $('.spinner_search_load_aware').replaceWith(comment_spin_global);
+                $('.spinner_search_load_awse').replaceWith(comment_spin_global);
                 $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
                 // move_error_block();
                 e.attr("disabled", !1), n.removeClass("d-inline-block");
@@ -658,14 +658,14 @@ function load_ajax_end_page(o, type_loading) {
             }
         },
         error: function () {
-            $(".clear_aware_search_string").css("margin-right", "2em");
-            $(".search-aware-block-global").css("margin-bottom", "1em");
+            $(".clear_awse_search_string").css("margin-right", "2em");
+            $(".search-awse-block-global").css("margin-bottom", "1em");
 
             $(".wrapper").css("margin", "15px auto");
-            $(".search-input-aware").css("padding", "0 65px 0 20px");
+            $(".search-input-awse").css("padding", "0 65px 0 20px");
             e.removeAttr("style");
 
-            $('.spinner_search_load_aware').replaceWith(comment_spin_global);
+            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
             $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
             // move_error_block();
             e.attr("disabled", !1), n.removeClass("d-inline-block");
@@ -854,7 +854,7 @@ function modify_suggestions_from_server(history_sug, server_sug) {
 }
 
 function get_suggestions() {
-    var text = $('.search-input-aware').val();
+    var text = $('.search-input-awse').val();
     $.ajax({
         url: search_suggestions_get__,
         type: "GET",
@@ -872,9 +872,9 @@ function get_suggestions() {
     });
 }
 
-$(".search-input-aware").on('keyup', function (e) {
+$(".search-input-awse").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
-        var search_text = $('.search-input-aware').val();
+        var search_text = $('.search-input-awse').val();
         if (search_text.length == 0) {
             error_search_no_text('error');
         } else {
@@ -888,20 +888,20 @@ function run_remove_active() {
     document.querySelector(".search-input").classList.remove("active");
     $(".float_bg").css("display", "none");
     AOS.refresh();
-    get_suggestions($('.search-input-aware').val());
+    get_suggestions($('.search-input-awse').val());
 }
 
-$('.search-input-aware').on('input', function () {
-    var search_text = $('.search-input-aware').val();
+$('.search-input-awse').on('input', function () {
+    var search_text = $('.search-input-awse').val();
     edit_query_string_q(search_text);
     if (search_text.length == 0) {
-        $('.clear_aware_search_string').css('visibility', 'hidden');
-        $(".search-input-aware").css("padding", "0 60px 0 20px");
+        $('.clear_awse_search_string').css('visibility', 'hidden');
+        $(".search-input-awse").css("padding", "0 60px 0 20px");
         setTimeout(run_remove_active, 200);
 
     } else {
-        $('.clear_aware_search_string').css('visibility', 'visible');
-        $(".search-input-aware").css("padding", "0 70px 0 20px");
+        $('.clear_awse_search_string').css('visibility', 'visible');
+        $(".search-input-awse").css("padding", "0 70px 0 20px");
 
         document.querySelector(".search-input").classList.add("active");
         $(".search-input").css("z-index", 106);
@@ -914,8 +914,8 @@ $('.search-input-aware').on('input', function () {
     }
 });
 
-$('.search-input-aware').on('focus', function () {
-    var search_text = $('.search-input-aware').val();
+$('.search-input-awse').on('focus', function () {
+    var search_text = $('.search-input-awse').val();
     if (search_text.length > 0) {
         document.querySelector(".search-input").classList.add("active");
         $(".search-input").css("z-index", 106);
@@ -924,7 +924,7 @@ $('.search-input-aware').on('focus', function () {
     }
 });
 
-$('.search-input-aware').on('focusout', function () {
+$('.search-input-awse').on('focusout', function () {
     function run_remove_active() {
         document.querySelector(".search-input").classList.remove("active");
         $(".float_bg").css("display", "none");
@@ -935,7 +935,7 @@ $('.search-input-aware').on('focusout', function () {
 });
 
 $(".load-more-end-butt").on("click", function () {
-    var search_text = $('.search-input-aware').val();
+    var search_text = $('.search-input-awse').val();
     if (search_text.length == 0) {
         error_search_no_text('error');
     } else {
@@ -944,26 +944,26 @@ $(".load-more-end-butt").on("click", function () {
     }
 });
 
-$(".clear_aware_search_string").on("click", function () {
-    var search_text_in_clear_func = $('.search-input-aware').val();
+$(".clear_awse_search_string").on("click", function () {
+    var search_text_in_clear_func = $('.search-input-awse').val();
 
     function local_update_search_string() {
-        $('.search-input-aware').attr("placeholder", search_template__);
+        $('.search-input-awse').attr("placeholder", search_template__);
     }
 
     // console.log('Text: ' + search_text_in_clear_func);
 
     if (search_text_in_clear_func.length > 0) {
         run_remove_active();
-        $('.search-input-aware').val("");
-        $('.clear_aware_search_string').css('visibility', 'hidden');
+        $('.search-input-awse').val("");
+        $('.clear_awse_search_string').css('visibility', 'hidden');
         let i = 0;
 
         function update_text_search_place() {
             var x_text = 'Ok...';
             i = i + 1;
             // console.log(i);
-            $('.search-input-aware').attr("placeholder", x_text.slice(0, i));
+            $('.search-input-awse').attr("placeholder", x_text.slice(0, i));
         }
 
         let timerId = setInterval(() => update_text_search_place(), 150);
@@ -980,7 +980,7 @@ $(".clear_aware_search_string").on("click", function () {
 
 $(".autocom-box").on("click", ".search-el-a", function (e) {
     var search_text = $(this).children(".text_s_el").text();
-    $(".search-input-aware").val(search_text);
+    $(".search-input-awse").val(search_text);
     load_ajax_end_page(search_text, 'newsession');
 });
 
@@ -988,15 +988,15 @@ function error_search_no_text(mode) {
     if (mode == 'error') {
         clearInterval(timerId_global);
         clearInterval(timer_clear_update);
-        $('.search-input-aware').attr("placeholder", "This field cannot be empty!");
+        $('.search-input-awse').attr("placeholder", "This field cannot be empty!");
 
     } else {
-        $('.search-input-aware').attr("placeholder", search_template__);
+        $('.search-input-awse').attr("placeholder", search_template__);
     }
 }
 
 $(".load-more-end-butt-search-array").on("click", function () {
-    // var search_text = $('.search-input-aware').val();
+    // var search_text = $('.search-input-awse').val();
     var search_text = updated_search_text;
     if (search_text.length == 0) {
         error_search_no_text('error');
@@ -1006,12 +1006,12 @@ $(".load-more-end-butt-search-array").on("click", function () {
 });
 
 function ready_news_search_button() {
-    $(".news_search_button_aware_index_block").on("click", function () {
-        var search_text = $(".aware_news_index_page_title").text();
+    $(".news_search_button_awse_index_block").on("click", function () {
+        var search_text = $(".awse_news_index_page_title").text();
         if (search_text.length > 0) {
             $('.row-posts-end').empty();
-            $('.clear_aware_search_string').css('visibility', 'visible');
-            $(".search-input-aware").val(search_text);
+            $('.clear_awse_search_string').css('visibility', 'visible');
+            $(".search-input-awse").val(search_text);
             load_ajax_end_page(search_text, 'newsession');
         } else {
             console.log('News search error!');
@@ -1025,7 +1025,7 @@ function append_ad_block(data) {
     >' + String(data['text']).replace('\n', '<br>') + '</label></div></div></div>';
 
     $(".row-posts-end-ad").empty();
-    $(".advertise-aware-block").append(append_advertise_html_code_index_page_ad);
+    $(".advertise-awse-block").append(append_advertise_html_code_index_page_ad);
     AOS.refresh();
 }
 
@@ -1035,7 +1035,7 @@ function prepend_ad_block_to_search_results(data, ready = true) {
     ">' + String(data['text']).replace('\n', '<br>') + '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;\
     margin-top: 1em;display: inline-block;"><span style="margin: 0.5em;">Advertising&nbsp;<i class="fas fa-ad"></i></span></div></div></div></div>';
 
-    // $(".advertise-aware-block").empty();
+    // $(".advertise-awse-block").empty();
     // $(".row-posts-end-ad").empty();
     if ($.cookie('hide_block_index') == 'no') {
         $(".row-posts-end").prepend(append_advertise_html_code_search_ad);
@@ -1077,12 +1077,12 @@ function get_footer_html() {
         type: "GET",
         data: {},
         success: function (o) {
-            $(".footer-aware").append(o);
+            $(".footer-awse").append(o);
 
             let build_info = $(".build_info_footer").text();
             let user_agent = window.navigator.userAgent;
 
-            if (user_agent.indexOf("AWARE Android ") != -1) {
+            if (user_agent.indexOf("awse Android ") != -1) {
                 build_info = build_info.replace('awse-', 'awse_android-');
             } else if (!mob()) {
                 build_info = build_info.replace('awse-', 'awse_mobile-');
@@ -1120,8 +1120,8 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
         });
 
         $(".ad_index_el").remove();
-        $(".aware_hide_blocks_on_index_page_text").text('Show');
-        $(".aware_hide_blocks_on_index_page").css('margin-bottom', '-5%');
+        $(".awse_hide_blocks_on_index_page_text").text('Show');
+        $(".awse_hide_blocks_on_index_page").css('margin-bottom', '-5%');
 
         $(".row-posts-end").css("display", "none");
         // $(".row-posts-end").css("visibility", "hidden");
@@ -1142,8 +1142,8 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
             get_ad('new');
         }
 
-        $(".aware_hide_blocks_on_index_page_text").text('Hide');
-        $(".aware_hide_blocks_on_index_page").css('margin-bottom', '5%');
+        $(".awse_hide_blocks_on_index_page_text").text('Hide');
+        $(".awse_hide_blocks_on_index_page").css('margin-bottom', '5%');
 
         $(".row-posts-end").css("display", "block");
         $(".row-posts-end").append(temp_html_index_page);
@@ -1156,7 +1156,7 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
     }
 }
 
-$(".aware_hide_blocks_on_index_page").on("click", function () {
+$(".awse_hide_blocks_on_index_page").on("click", function () {
     if ($.cookie('hide_block_index') == 'no') {
         hide_blocks_on_index_page_func('yes', true);
     } else {
@@ -1170,9 +1170,9 @@ function scrollToTop() {
 
 function init_banner(link, ad_link, title, id_ad, results_ready = false) {
     if (link) {
-        var banner_el = $(".banner_ad_aware");
-        var banner_div = $(".advertise-aware-block");
-        var aware_search_input = $(".wrapper");
+        var banner_el = $(".banner_ad_awse");
+        var banner_div = $(".advertise-awse-block");
+        var awse_search_input = $(".wrapper");
         var link_el = banner_el.parent('a');
 
         if (!title) {
@@ -1195,7 +1195,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false) {
 
         banner_div.css("margin-top", "-3em");
 
-        aware_search_input.css("margin-top", "10px");
+        awse_search_input.css("margin-top", "10px");
 
         function init() {
             AOS.refresh();
@@ -1221,13 +1221,13 @@ function detect_volume_change_by_user(id_el_this) {
 }
 
 function init_video_search_in_results() {
-    $(".view-container-youtube-video-aware").on("click", function () {
+    $(".view-container-youtube-video-awse").on("click", function () {
         var clickedEl = $(this);
-        var video_id = clickedEl.children('.video_youtube_preview_image_aware').attr('data-youtube-id');
+        var video_id = clickedEl.children('.video_youtube_preview_image_awse').attr('data-youtube-id');
         var video_link = null;
         var parent = clickedEl.parent(".city").parent();
         var video_hint = parent.children(".youtube_video_info_div");
-        var video_load_spin = video_hint.children("span").children(".youtube_video_load_wait_aware");
+        var video_load_spin = video_hint.children("span").children(".youtube_video_load_wait_awse");
 
         if (video_id) {
             $.ajax({
@@ -1251,25 +1251,25 @@ function init_video_search_in_results() {
                         <video id="yt_player" style="margin-top:0%;margin-bottom:-2%;opacity:1;width:100%;transition: opacity
                             0.5s linear, margin-bottom 1s, margin-top 1s;margin-right:10px;max-height:70vh;height:auto;-webkit-appearance:none;border-radius:
                             2vh;padding:0px;text-align:left;padding-bottom:0px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)" controls="controls"
-                            class="youtube_video_aware_search" data-youtube-id="${video_id}" src="${video_link}" onerror="VideoError(this)"></video>
+                            class="youtube_video_awse_search" data-youtube-id="${video_id}" src="${video_link}" onerror="VideoError(this)"></video>
                         `;
                         video_template_ = video_template_.replace(/\n/g, "").replace(" ", "")
 
                         clickedEl.append(video_template_);
 
-                        var video_loaded_yt_aware = clickedEl.children('.youtube_video_aware_search');
+                        var video_loaded_yt_awse = clickedEl.children('.youtube_video_awse_search');
 
-                        video_loaded_yt_aware.css('margin-top', '1%');
-                        video_loaded_yt_aware.css('margin-bottom', '2%');
+                        video_loaded_yt_awse.css('margin-top', '1%');
+                        video_loaded_yt_awse.css('margin-bottom', '2%');
 
-                        video_loaded_yt_aware.attr("id", makeid());
+                        video_loaded_yt_awse.attr("id", makeid());
 
                         video_load_spin.css("display", "none");
 
                         AOS.refresh();
 
-                        set_video_volume_by_cookie(video_loaded_yt_aware);
-                        detect_volume_change_by_user(video_loaded_yt_aware.attr("id"));
+                        set_video_volume_by_cookie(video_loaded_yt_awse);
+                        detect_volume_change_by_user(video_loaded_yt_awse.attr("id"));
                     } else {
                         video_load_spin.css("display", "none");
                         $.notify("Error. Failed to load video.", {
@@ -1357,11 +1357,11 @@ $(window).scroll(function () {
             check_banner_index(true);
         }
 
-        my_element_jq = $('.spinner_search_load_aware');
-        elemnt_icon_aware = $(".icon_search_load_aware_one");
+        my_element_jq = $('.spinner_search_load_awse');
+        elemnt_icon_awse = $(".icon_search_load_awse_one");
 
         my_element_jq.removeAttr("style");
-        elemnt_icon_aware.removeAttr("style");
+        elemnt_icon_awse.removeAttr("style");
 
         comment_spin_global = document.createComment(my_element_jq.get(0).outerHTML);
         my_element_jq.replaceWith(comment_spin_global);
@@ -1369,9 +1369,9 @@ $(window).scroll(function () {
         if (question) {
             $('.row-posts-end').empty();
             $(".wrapper").css("margin", "15px auto");
-            $(".search-aware-block-global").css("margin-bottom", "1em");
-            $('input.search-input-aware').val(question);
-            $('.clear_aware_search_string').css('visibility', 'visible');
+            $(".search-awse-block-global").css("margin-bottom", "1em");
+            $('input.search-input-awse').val(question);
+            $('.clear_awse_search_string').css('visibility', 'visible');
             load_ajax_end_page(question, 'newsession');
         }
 

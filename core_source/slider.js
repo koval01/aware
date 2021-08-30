@@ -1,5 +1,5 @@
     var slider = tns({
-    container: '.photos-slider-aware',
+    container: '.photos-slider-awse',
     items: 2,
     speed: 500,
     loop: false,
@@ -30,19 +30,19 @@
     }
 });
 $(document).ready(function() {
-    function update_block_photos_aware() {
-        $(".images_search_layer_aware_edit").css("max-width",
-            document.getElementsByClassName("images_search_layer_aware")[0].clientWidth - 40
+    function update_block_photos_awse() {
+        $(".images_search_layer_awse_edit").css("max-width",
+            document.getElementsByClassName("images_search_layer_awse")[0].clientWidth - 40
         );
     }
-    function hide_hint_block_photos_aware() {
-        $(".hint_text_images_scroll_aware").css(
+    function hide_hint_block_photos_awse() {
+        $(".hint_text_images_scroll_awse").css(
         {'visibility': 'hidden', 'margin-bottom': '-3em'}
         );
     }
     $(window).resize(function() {
-        update_block_photos_aware();
+        update_block_photos_awse();
     });
-    setInterval(update_block_photos_aware, 10);
-    setTimeout(hide_hint_block_photos_aware, 5000);
+    setInterval(update_block_photos_awse, 10);
+    setTimeout(hide_hint_block_photos_awse, 5000);
 });

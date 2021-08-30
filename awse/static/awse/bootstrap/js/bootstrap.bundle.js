@@ -2705,7 +2705,7 @@
   function applyStyle(data) {
     // any property present in `data.styles` will be applied to the popper,
     // in this way we can make the 3rd party modifiers add custom styles to it
-    // Be aware, modifiers could override the properties defined in the previous
+    // Be awse, modifiers could override the properties defined in the previous
     // lines of this modifier!
     setStyles(data.instance.popper, data.styles);
 
@@ -4047,7 +4047,7 @@
       // modifiers have the ability to execute arbitrary code when Popper.js get inited
       // such code is executed in the same order of its modifier
       // they could add new properties to their options configuration
-      // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+      // BE AWSE: don't add options to `options.modifiers.name` but to `modifierOptions`!
       this.modifiers.forEach(function (modifierOptions) {
         if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
           modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);

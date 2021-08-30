@@ -19,7 +19,7 @@
 
 **Link** - **https://www.jetbrains.com/pycharm/** or **https://code.visualstudio.com/docs/?dv=win**
 
-**Next you need to go to PyCharm, on the main page you will be prompted to create or download the project. You will need to select the download via git, you will need to log in via your GitHub account, then select this repository (_aware_site_), and wait until all the files are downloaded.**
+**Next you need to go to PyCharm, on the main page you will be prompted to create or download the project. You will need to select the download via git, you will need to log in via your GitHub account, then select this repository (_awse_site_), and wait until all the files are downloaded.**
 
 **After that PyCharm will offer to download all dependencies, for successful execution VS Build Tools 2014 or higher is required, 2019 is recommended.**
 
@@ -29,7 +29,7 @@
 
 **Everything seems ready, but not yet.**
 
-**If you are working on Frontend, here is the JS project code - https://github.com/koval01/aware_site/blob/master/core_orig/core.js**
+**If you are working on Frontend, here is the JS project code - https://github.com/koval01/awse_site/blob/master/core_orig/core.js**
 
 ## **The following is an example of code design:**
 
@@ -72,9 +72,9 @@ function get_from_history_suggestions(search_text) {
 }
 ```
 
-**Templates posted at this address - https://github.com/koval01/aware_site/tree/master/awse/templates/awse**
+**Templates posted at this address - https://github.com/koval01/awse_site/tree/master/awse/templates/awse**
 
-**The CSS code of this site is located here - https://github.com/koval01/aware_site/blob/master/awse/static/awse/css/main_page.css**
+**The CSS code of this site is located here - https://github.com/koval01/awse_site/blob/master/awse/static/awse/css/main_page.css**
 
 ## **Server code and structure queue::**
 
@@ -162,4 +162,4 @@ def sync_time_server(request):
 
 ****
 
-Licensing Adjustment. If you want to use the design or all the code of this project, you must specify that your project is based on AWARE. And provide a link to this repository.
+Licensing Adjustment. If you want to use the design or all the code of this project, you must specify that your project is based on awse. And provide a link to this repository.

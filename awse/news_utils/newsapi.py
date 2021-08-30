@@ -77,7 +77,7 @@ def __test__():
 
 def news_search(string) -> bool:
     """
-    We offer AWARE news
+    We offer AWSE news
     :param string: Search query
     :return: bulent result
     """

@@ -191,13 +191,13 @@ function get__(enc_key_by_function) {
                 var b_string = '';
 
                 for (let i = 0; i < time_unix_string.length; i++) {
-                    f_string = f_string + generator_local_get__(getRandomInt_local_get__(48) + 32, false) + '\
-                    ' + array_date[i] + generator_local_get__(getRandomInt_local_get__(48) + 32, false);
+                    f_string = f_string + generator_local_get__(getRandomInt_local_get__(48) + 32, false) +
+                    array_date[i] + generator_local_get__(getRandomInt_local_get__(48) + 32, false);
                 }
 
                 for (let x = 0; x < string_srv_time.length; x++) {
-                    b_string = b_string + generator_local_get__(getRandomInt_local_get__(48) + 32, false) + '\
-                    ' + array_server_time[x] + generator_local_get__(getRandomInt_local_get__(48) + 32, false);
+                    b_string = b_string + generator_local_get__(getRandomInt_local_get__(48) + 32, false) +
+                    array_server_time[x] + generator_local_get__(getRandomInt_local_get__(48) + 32, false);
                 }
 
                 data = `

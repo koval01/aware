@@ -6,11 +6,10 @@
                 <div class="weather-panel col-xs-12 col-sm-12"
                 style="color: #efeff1;">
                     <div class="col-xs-6">
-                        <h2>{{ vars.weather.now_weather.name }}<br>
-                            <small style="color: inherit;font-size: 50%;">
-                                {% now "l, j E" %}
-                            </small>
-                        </h2>
+                        {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
+                        <h2 id="{{ block_ }}"></h2>
+                        <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.weather.now_weather.name|encode_eng }}';let x{{ el_2 }}='{% now "l, j E" %}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}<br/><small style="color:inherit;font-size:50%">${UpBDecode(x{{ el_2 }})}</small>`);$("#{{ script_id }}").remove()</script>
+                        {% endwith %}
                         <p class="h3">
                             {{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe }}
                             &nbsp;{{ vars.weather.now_weather.weather.0.description|capfirst }}

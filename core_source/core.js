@@ -57,9 +57,13 @@ function search_surprise(string_) {
     }
 }
 
-function makeid(length = 64) {
+function makeid(length = 64, password_mode = false) {
     var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+    if (password_mode) {
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_()*&+=/.,:;%$#@!|`~[]{}\'"№';
+    } else {
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+    }
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
         result += characters.charAt(
@@ -72,7 +76,7 @@ function makeid(length = 64) {
 
 function search_title_set(title_text) {
     document.title = 'AWARE - ' + title_text;
-    // document.
+    console.log("Update page title");
 }
 
 function BEncode(str) {
@@ -199,13 +203,13 @@ function get__(enc_key_by_function) {
                 data = `
                     ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
                         ${f_string}_
-                    
+
                     ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
                         ${b_string}_
-                    
+
                     ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}_
                         ${generator_local_get__(getRandomInt_local_get__(70) + 20, true)}_
-                    
+
                     ${generator_local_get__(getRandomInt_local_get__(256) + 256, true)}
                 `;
 
@@ -324,6 +328,26 @@ function hide_hint_text_video() {
     AOS.refresh();
 }
 
+function password_gen_template(s_pass, m_pass) {
+    return `
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <div style="float: left;">
+                <label class="city">
+                    <i>Classic: </i><b>${s_pass}</b><br/>
+                    <i>Better: </i><b>${m_pass}</b><br/>
+                    <i>Use strong and different passwords and update them as often as possible.</i>
+                </label>
+                <br/>
+                <div class="badge_block_info">
+                    <span style="margin:0.5em">Password generator <i class="fas fa-random"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+}
+
 function covid_anal(string) {
     /*
     Function to check whether the request is related to the coronavirus
@@ -347,6 +371,23 @@ function user_agent_anal(string) {
     */
     const words = [
         'user agent', 'user-agent', 'user_agent', 'user+agent'
+    ];
+
+    for (let i = 0; i < words.length; i++) {
+        if (string.toLowerCase().indexOf(words[i]) !== -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+function generator_password_anal(string) {
+    /*
+    The function of activating the proposal of the generated password
+    */
+    const words = [
+        'password', 'pasword', 'pass word', 'pass', 'parol',
+        'paroll', 'пароль', 'код', 'пасс',
     ];
 
     for (let i = 0; i < words.length; i++) {
@@ -432,9 +473,16 @@ function load_ajax_end_page(o, type_loading) {
     const search_data_text = o;
     const get = get__(true);
     const geted_c = o.length;
+    const password_gen = generator_password_anal(o);
+    var standart_pass = "", most_sec_pass = "";
     var his = new search_history_data();
     var namaz_data = '';
     const nd_new = LoadNewsNeed_(search_data_text);
+
+    if (password_gen) {
+        standart_pass = makeid(16)
+        most_sec_pass = makeid(24, password_mode=true)
+    }
 
     function move_error_block() {
         if (is_search_now) {
@@ -602,6 +650,12 @@ function load_ajax_end_page(o, type_loading) {
             search_surprise(search_data_text);
 
             get_ad('con');
+
+            if (password_gen) {
+                $(".row-posts-end").prepend(password_gen_template(
+                    standart_pass, most_sec_pass
+                ));
+            }
         },
         error: function () {
             $(".clear_aware_search_string").css("margin-right", "2em");

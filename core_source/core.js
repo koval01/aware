@@ -348,6 +348,104 @@ function password_gen_template(s_pass, m_pass) {
     `
 }
 
+function whois_template_generator(json_response) {
+    try {
+        var data_dns = "";
+        var dns_json = json_response["Answer"];
+
+        for (let i = 0; i < dns_json.length; i++) {
+            data_dns = `
+                ${data_dns}
+                <i>Type:</i> <b>${dns_json[i].type}</b><br/>
+                <i>Host:</i> <b>${dns_json[i].name}</b><br/>
+                <i>TTL:</i> <b>${dns_json[i].TTL}</b><br/>
+                <i>Value:</i> <b>${dns_json[i].data}</b><br/>
+                <hr style="width:80%;text-align:left;margin-left:0;border-color:#fff">
+            `;
+        }
+
+        if (!json_response.Comment) {
+            json_response.Comment = "No comment";
+        }
+
+        return `
+        <div class="awse_hide_whois_in_search display_whois_button_awse" id="display_whois_block_"
+            style="transition:margin-bottom 1s;">
+            <p class="awse_hide_blocks_on_index_page_text hide_button_in_">Display whois</p>
+        </div>
+        <div class="col-12 col-lg-12 padding-block-center-box" style="display:none" id="whois_block_">
+            <div class="user box aos-init aos-animate" data-aos="fade-up">
+                <div style="float: left;">
+                    <label class="city">
+                        ${data_dns}
+                        <i>${json_response.Comment}</i>
+                    </label>
+                    <br/>
+                    <div class="badge_block_info">
+                        <span style="margin:0.5em">Whois <i class="fas fa-info"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    } catch (e) {
+        $("#display_whois_block_").empty();
+        console.log(`Error whois block display! Details: ${e}`)
+    }
+}
+
+function get_whois_data__server(callback, domain) {
+    /*
+    Get information from Google DNS
+    */
+    $.ajax({
+        url: whois_api_url,
+        type: "GET",
+        data: {
+            token: get__(true),
+            name: domain,
+        },
+        success: function (o) {
+            callback(o);
+        },
+        timeout: 3000,
+    });
+}
+
+function whois_display_button_js() {
+    $(".display_whois_button_awse").on("click", function () {
+        console.log("Clicked on whois block display button!");
+
+        const button_name = ".display_whois_button_awse";
+        const block_ = "#whois_block_";
+
+        $(block_).css({"display": null, "margin-bottom": "-50px"});
+        setTimeout(950, function() {
+            $(button_name).empty();
+        });
+    });
+}
+
+function find_domain__(search_string) {
+    const v_d = search_string.split(' ');
+    for (let i = 0; i < v_d.length; i++) {
+        try {
+            get_whois_data__server(function(data_) {
+                console.log("Check whois response data")
+                if (data_) {
+                    data = whois_template_generator(data_);
+                    console.log("Add whois block to search results");
+                    return $(".row-posts-end").prepend(data);
+                } else {
+                    throw "Parsing error";
+                }
+            }, v_d[i]);
+        } catch (e) {
+            console.log(`Error get whois data, skip! Details: ${e}`);
+        }
+    }
+}
+
 function covid_anal(string) {
     /*
     Function to check whether the request is related to the coronavirus
@@ -388,6 +486,22 @@ function generator_password_anal(string) {
     const words = [
         'password', 'pasword', 'pass word', 'pass', 'parol',
         'paroll', 'пароль', 'код', 'пасс',
+    ];
+
+    for (let i = 0; i < words.length; i++) {
+        if (string.toLowerCase().indexOf(words[i]) !== -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+function whois_anal(string) {
+    /*
+    Determine if the query belongs to whois
+    */
+    const words = [
+        'whois', 'вхоис', 'домен', 'domain', '.',
     ];
 
     for (let i = 0; i < words.length; i++) {
@@ -468,6 +582,8 @@ function load_ajax_end_page(o, type_loading) {
         n_con = load_continue_footer.find("span");
 
     const unix_n = Math.floor(Date.now() / 1000);
+
+    load_continue_footer.css("display", "none");
 
     const t = jQuery("[name=csrfmiddlewaretoken]").val();
     const search_data_text = o;
@@ -655,6 +771,11 @@ function load_ajax_end_page(o, type_loading) {
                 $(".row-posts-end").prepend(password_gen_template(
                     standart_pass, most_sec_pass
                 ));
+            }
+
+            if (whois_anal(search_data_text)) {
+                find_domain__(search_data_text);
+                setTimeout(150, whois_display_button_js());
             }
         },
         error: function () {

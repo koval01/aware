@@ -3,7 +3,6 @@ import os
 import random
 from datetime import timedelta, datetime
 from random import randint, choice
-from json import dumps
 from time import time
 
 import pafy
@@ -223,7 +222,7 @@ def whois_data(request):
     domain = request.GET['name']
     token = request.GET['token']
     if check_request__(token):
-        return JsonResponse(dumps(get_info_domain(domain)))
+        return JsonResponse(get_info_domain(domain))
     return error_400(request)
 
 
@@ -611,6 +610,7 @@ def load_more(request):
 
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
+                            self.settings = settings
 
                     vars_ = vars(Variables())
 

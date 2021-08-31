@@ -3,6 +3,7 @@ import os
 import random
 from datetime import timedelta, datetime
 from random import randint, choice
+from json import dumps
 from time import time
 
 import pafy
@@ -27,13 +28,14 @@ from awse.search_utils.namaz_api import get_namaz_data
 from awse.search_utils.search_api import select_type as search_execute
 from awse.search_utils.search_complete_api import get_result_data as search_complete
 from awse.search_utils.weather_api import weather_get, get_weather_icon
-from .covid.api import covid_api as covid_stat
-from .covid.api import num_formatter
+from awse.other.whois_api import get_info_domain
+from awse.covid.api import covid_api as covid_stat
+from awse.covid.api import num_formatter
 from .models import Info, Banner
-from .news_rev.newsapi import __main__ as newsfeed
-from .news_rev.newsapi_ai import __main__ as newsapiai_get
-from .news_rev.twitterget import __main__ as twitter_news
-from .other.text_encoder import encode as encoder_eng
+from awse.news_rev.newsapi import __main__ as newsfeed
+from awse.news_rev.newsapi_ai import __main__ as newsapiai_get
+from awse.news_rev.twitterget import __main__ as twitter_news
+from awse.other.text_encoder import encode as encoder_eng
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
@@ -212,6 +214,17 @@ def search_suggestions_get(request):
 @blacklist_ratelimited(timedelta(minutes=1))
 def sync_time_server(request):
     return JsonResponse({"time_unix": round(time())})
+
+
+@require_GET
+@ratelimit(key=my_ip_key, rate='10/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
+def whois_data(request):
+    domain = request.GET['name']
+    token = request.GET['token']
+    if check_request__(token):
+        return JsonResponse(dumps(get_info_domain(domain)))
+    return error_400(request)
 
 
 def global_ad_function(lang: str) -> dict:

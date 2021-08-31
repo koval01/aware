@@ -20,6 +20,7 @@ urlpatterns = [
     path('sync_time_server/', views.sync_time_server, name='sync_time_server'),
     path('get_ad/', views.get_ad, name='get_ad'),
     path('get_banner/', views.get_banner, name='get_banner'),
+    path('whois/', views.whois_data, name='whois_data'),
     path('yt/', views.get_video_yt, name='get_video_yt'),
     path('sitemap_awse_pages.xml/', cache_page(16000)(sitemap), {'sitemaps': sitemaps_awse_pages},
          name='django.contrib.sitemaps.views.sitemap'),

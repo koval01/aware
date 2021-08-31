@@ -34,7 +34,7 @@ DEBUG = False
 LOCAL_DATABASE = False
 CACHE_IN_MEMORY_SERVER = True
 
-CLOUDFLARE = False
+CLOUDFLARE = True
 
 # USE_SRI = True
 

@@ -373,11 +373,11 @@ function whois_template_generator(json_response) {
         }
 
         return `
-        <div class="awse_hide_whois_in_search display_whois_button_awse" id="display_whois_block_"
+        <!-- <div class="awse_hide_whois_in_search display_whois_button_awse" id="display_whois_block_"
             style="transition:margin-bottom 1s;">
             <p class="awse_hide_blocks_on_index_page_text hide_button_in_">Display whois</p>
-        </div>
-        <div class="col-12 col-lg-12 padding-block-center-box" style="display:none" id="whois_block_">
+        </div> -->
+        <div class="col-12 col-lg-12 padding-block-center-box" id="whois_block_">
             <div class="user box aos-init aos-animate" data-aos="fade-up">
                 <div style="float: left;">
                     <label class="city">
@@ -798,7 +798,7 @@ function load_ajax_end_page(o, type_loading) {
 
             if (whois_anal(search_data_text)) {
                 find_domain__(search_data_text);
-                setTimeout(150, whois_display_button_js());
+                // setTimeout(150, whois_display_button_js());
             }
         },
         error: function () {

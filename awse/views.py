@@ -479,7 +479,9 @@ def load_more(request):
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
+
         news_need_load = request.POST.get('news_need', '')
+        weather_need_load = request.POST.get('weather_need', '')
 
         logger.debug('%s: Parameters parsed.' % load_more.__name__)
 
@@ -551,7 +553,10 @@ def load_more(request):
                         images_search = None
 
                     # Weather
-                    weather = weather_get(search)
+                    if weather_need_load:
+                        weather = weather_get(search)
+                    else:
+                        weather = {}
 
                     # DeepL API
                     # translate_result = translate_simple(search)

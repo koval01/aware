@@ -512,6 +512,23 @@ function whois_anal(string) {
     return 0;
 }
 
+function weather_anal(string) {
+    /*
+    Determine if the query belongs to whois
+    */
+    const words = [
+        'погода', 'прогноз', 'weather', 'forecast', 'city',
+        'город', 'в', 'in', 'городе',
+    ];
+
+    for (let i = 0; i < words.length; i++) {
+        if (string.toLowerCase().indexOf(words[i]) !== -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 function namaz_anal(string) {
     /*
     Function to check whether the request is related to the Prayer
@@ -560,6 +577,7 @@ function get_namaz(string) {
                     namaz: 1,
                     mobile: mob(),
                     news_need: nd_new,
+                    weather_need: 0,
                 },
                 success: function (o) {
                     result = o;
@@ -630,6 +648,7 @@ function load_ajax_end_page(o, type_loading) {
             search: o,
             mobile: mob(),
             news_need: nd_new,
+            weather_need: weather_anal(search_data_text),
         },
         beforeSend: function () {
             if ($.cookie('hide_block_index') == 'no') {
@@ -848,6 +867,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             mobile: mob(),
             search_index_: search_index,
             news_need: nd_new,
+            weather_need: 0,
         },
         beforeSend: function () {
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block");

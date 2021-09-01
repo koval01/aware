@@ -238,6 +238,10 @@ function AOS_update_timer(time) {
     setTimeout(upd, time);
 }
 
+function capitalize(word) {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
 function getParameterByName(name, url = window.location.href) {
     try {
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -679,7 +683,7 @@ function load_ajax_end_page(o, type_loading) {
             $(".row-posts-end").css("display", "");
         },
         success: function (o) {
-            his.remove(search_data_text); // If it was already, then remove, then put again
+            his.remove(capitalize(search_data_text)); // If it was already, then remove, then put again
             let long_word_search = false;
 
             splited_search_string = search_data_text.split(' ')
@@ -692,7 +696,7 @@ function load_ajax_end_page(o, type_loading) {
             }
 
             if (!long_word_search) {
-                his.add(search_data_text);
+                his.add(capitalize(search_data_text));
             }
 
             $(".clear_awse_search_string").css("margin-right", "2em");

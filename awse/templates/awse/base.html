@@ -16,28 +16,27 @@
 
         {# Other #}
         {% include 'awse/global/base_style.html' %}
+        {% include 'awse/global/js.html' %}
     </head>
 
     <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0" style="background:#0e0e10;transition: width 1s, height 1s">
-    <div class="container">
+        <div class="container">
+            {% include 'awse/global/header.html' %}
 
-    {% include 'awse/global/header.html' %}
+            <div class="float_bg" style="display: none"></div>
 
-    <div class="float_bg" style="display: none"></div>
+            <br/><br/>
 
-    <br/><br/>
+            <div class="row" id="row-box-1">
+                    {% block content %}{% endblock %}
+                    <br/>
 
-    <div class="row" id="row-box-1">
-            {% block content %}{% endblock %}
-            <br/>
+                <div class="footer-awse" style="margin: auto;"></div>
+            </div>
 
-        <div class="footer-awse" style="margin: auto;"></div>
-    </div>
+            <br/><br/><br/>
+        </div>
 
-    <br/><br/><br/>
-</div>
-
-</body>
-    {% include 'awse/global/js.html' %}
+    </body>
 </html>
 {% endspaceless %}

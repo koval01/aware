@@ -2,7 +2,7 @@
 <label class="city">
     {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
     <aware-quote id="block_"></aware-quote>
-    <script id="{{ script_id }}">let x{{ el_ }}='{{ quote.q }}';let x{{ el_2 }}='{{ quote.a }}';$("#{{ block_ }}").html(`<i>„${UpBDecode(x{{ el_ }})}“</i><br/><br/>${x{{ el_2 }}}</b>`);$("#{{ script_id }}").remove()</script>
+    <script id="{{ script_id }}">let x{{ el_ }}='{{ quote.q|encode_eng }}';let x{{ el_2 }}='{{ quote.a|encode_eng }}';$("#{{ block_ }}").html(`<i>„${UpBDecode(x{{ el_ }})}“</i><br/><br/>${x{{ el_2 }}}</b>`);$("#{{ script_id }}").remove()</script>
     {% endwith %}
 </label>
 <br/>

@@ -715,6 +715,7 @@ function load_ajax_end_page(o, type_loading) {
             $(".row-posts-end").css("display", "");
         },
         success: function (o) {
+            console.log(`History len ${his.items().length}`)
             his.remove(capitalize(search_data_text)); // If it was already, then remove, then put again
             let long_word_search = false;
 
@@ -1294,7 +1295,7 @@ function check_banner_index(ready = false) {
 function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
     if (action_type == 'yes') {
         $.cookie('hide_block_index', 'yes', {
-            expires: 365
+            expires: 90
         });
 
         $(".ad_index_el").remove();
@@ -1312,7 +1313,7 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
 
     } else if (action_type == 'no') {
         $.cookie('hide_block_index', 'no', {
-            expires: 365
+            expires: 90
         });
 
         if (action_by_user) {
@@ -1393,7 +1394,7 @@ function detect_volume_change_by_user(id_el_this) {
     var vid = document.getElementById(id_el_this);
     vid.onvolumechange = function () {
         $.cookie('video_volume', vid.volume, {
-            expires: 365
+            expires: 90
         });
     };
 }
@@ -1480,20 +1481,20 @@ var search_history_data = function () {
         "add": function (val) {
             items.push(val);
             $.cookie(cookieName, items.join('⊉'), {
-                expires: 365
+                expires: 3
             });
         },
         "remove": function (val) {
             indx = items.indexOf(val);
             if (indx != -1) items.splice(indx, 1);
             $.cookie(cookieName, items.join('⊉'), {
-                expires: 365
+                expires: 3
             });
         },
         "clear": function () {
             items = null;
             $.cookie(cookieName, null, {
-                expires: 365
+                expires: 3
             });
         },
         "items": function () {
@@ -1514,7 +1515,7 @@ $(window).scroll(function () {
         ready_news_search_button();
         if (!hide_blocks_index) {
             $.cookie('hide_block_index', 'no', {
-                expires: 365
+                expires: 180
             });
             hide_blocks_on_index_page_func('no');
         } else {

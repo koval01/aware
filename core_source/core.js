@@ -230,6 +230,16 @@ function get__(enc_key_by_function) {
     return data;
 }
 
+function copy_text(selector_) {
+    var copyText = document.querySelector(selector_);
+    copyText.select();
+    document.execCommand("copy");
+    $.notify("Copied!", {
+        position: "bottom right",
+        autoHideDelay: 3000
+    });
+}
+
 function AOS_update_timer(time) {
     function upd() {
         AOS.refresh();
@@ -338,18 +348,41 @@ function password_gen_template(s_pass, m_pass) {
         <div class="user box aos-init aos-animate" data-aos="fade-up">
             <div style="float: left;">
                 <label class="city">
-                    <i>Classic: </i><b>${s_pass}</b><br/>
-                    <i>Better: </i><b>${m_pass}</b><br/>
+                    <i>Classic: </i>
+                        <b id="password_cls">${s_pass}</b>
+                        <div class="badge_block_info" title="Copy password" id="password_copy_cls">
+                            <span style="margin:0.5em;padding:0.5em;color:#000"><i class="fas fa-clone"></i></span>
+                        </div>
+                        <br/>
+                    <i>Better: </i>
+                        <b id="password_btr">${m_pass}</b>
+                        <div class="badge_block_info" title="Copy password" id="password_copy_btr">
+                            <span style="margin:0.5em;padding:0.5em;color:#000"><i class="fas fa-clone"></i></span>
+                        </div>
+                        <br/>
+                    <br/>
                     <i>Use strong and different passwords and update them as often as possible.</i>
                 </label>
                 <br/>
                 <div class="badge_block_info">
-                    <span style="margin:0.5em">Password generator <i class="fas fa-random"></i></span>
+                    <span style="margin:0.5em">Password generator <i class="fas fa-random"></i></span> 
+                </div>
+                <div class="badge_block_info" title="Re-generate passowrds" id="password_generator_refresh">
+                    <span style="margin:0.5em;padding:0.5em"><i class="fas fa-sync-alt"></i></span>
                 </div>
             </div>
         </div>
     </div>
     `
+}
+
+function init_passwords_copy_button() {
+    $("#password_copy_cls").click(function() {
+        copy_text("#password_copy_cls");
+    });
+    $("#password_copy_btr").click(function() {
+        copy_text("#password_copy_btr");
+    });
 }
 
 function whois_template_generator(json_response) {
@@ -358,12 +391,15 @@ function whois_template_generator(json_response) {
         var dns_json = json_response["Answer"];
 
         for (let i = 0; i < dns_json.length; i++) {
+            dns_json[i].name = dns_json[i].name + " ";
+            dns_json[i].name = dns_json[i].name.replace(". ", "").replace(" ", "");
+
             data_dns = `
                 ${data_dns}
-                <i>Type:</i> <b>${dns_json[i].type}</b><br/>
-                <i>Host:</i> <b>${dns_json[i].name}</b><br/>
-                <i>TTL:</i> <b>${dns_json[i].TTL}</b><br/>
-                <i>Value:</i> <b>${dns_json[i].data}</b><br/>
+                <i>Type:</i> <b>${dns_json[i].type}</b>,
+                <i>Host:</i> <b>${dns_json[i].name}</b>,
+                <i>TTL:</i> <b>${dns_json[i].TTL}</b>,
+                <i>Value:</i> <b>${dns_json[i].data}</b>
                 <hr style="width:80%;text-align:left;margin-left:0;border-color:#fff">
             `;
         }
@@ -790,6 +826,7 @@ function load_ajax_end_page(o, type_loading) {
                 $(".row-posts-end").prepend(password_gen_template(
                     standart_pass, most_sec_pass
                 ));
+                init_passwords_copy_button();
             }
 
             if (whois_anal(search_data_text)) {

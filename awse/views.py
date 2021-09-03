@@ -553,6 +553,7 @@ def load_more(request):
                         images_search = None
 
                     # Weather
+                    print(554)
                     if weather_need_load:
                         weather = weather_get(search)
                     else:

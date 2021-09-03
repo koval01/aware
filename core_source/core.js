@@ -582,6 +582,40 @@ function namaz_anal(string) {
     return 0;
 }
 
+function get_quote_(callback, string) {
+    /*
+    Function for load quote from server
+    */
+    $.ajax({
+        url: load__,
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
+            validtoken: token_valid__,
+            typeload: 'newsession',
+            additions: 0,
+            c_t___kk_: get__(true),
+            news: 0,
+            sign: user_address__,
+            c: c_b,
+            u: unix_n,
+            gr_token: null,
+            covid_stat: 0,
+            search: null,
+            namaz: 0,
+            mobile: mob(),
+            news_need: 0,
+            weather_need: 0,
+            quote_mode: 1,
+        },
+        success: function (o) {
+            callback(o);
+        },
+        async: true,
+        timeout: 3500,
+    });
+}
+
 function get_namaz(string) {
     /*
     Function for obtaining information about Prayer
@@ -1238,7 +1272,7 @@ function get_ad(mode) {
             data: {
                 csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
                 c_t___kk_: get__(true),
-                lang: "ru",
+                lang: "en",
             },
             success: function (o) {
                 $(".autocom-box").empty();

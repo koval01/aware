@@ -215,12 +215,13 @@ def sync_time_server(request):
     return JsonResponse({"time_unix": round(time())})
 
 
-@require_GET
+@require_POST
 @ratelimit(key=my_ip_key, rate='10/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
+@cache_page(60 * 240)
 def whois_data(request):
-    domain = request.GET['name']
-    token = request.GET['token']
+    domain = request.POST.get('name', '')
+    token = request.POST.get('token', '')
     if check_request__(token):
         return JsonResponse(get_info_domain(domain))
     return error_400(request)

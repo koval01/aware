@@ -436,8 +436,9 @@ function get_whois_data__server(callback, domain) {
     */
     $.ajax({
         url: whois_api_url,
-        type: "GET",
+        type: "POST",
         data: {
+            csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
             token: get__(true),
             name: domain,
         },

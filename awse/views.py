@@ -39,7 +39,7 @@ from awse.other.text_encoder import encode as encoder_eng
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
-load_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
+load_encrypt_key = settings.LOAD_ENCRYPT_KEY
 ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY

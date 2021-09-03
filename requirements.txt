@@ -13,6 +13,7 @@ pafy
 setuptools
 wheel
 lxml
+pydantic
 requests
 requests-cache
 django-cors-headers

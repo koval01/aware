@@ -478,7 +478,7 @@ def load(request):
         news_need_load = request.POST.get('news_need', '')
         weather_need_load = request.POST.get('weather_need', '')
 
-        if quote_mode:
+        if int(quote_mode):
             quote = choice(get_quote_list())
         else:
             quote = None

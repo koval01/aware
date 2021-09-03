@@ -666,6 +666,8 @@ function load_ajax_end_page(o, type_loading) {
         namaz_data = get_namaz(search_data_text);
     }
 
+    console.log("Start loading data...");
+
     $.ajax({
         url: load_more__,
         type: "POST",
@@ -715,7 +717,7 @@ function load_ajax_end_page(o, type_loading) {
             $(".row-posts-end").css("display", "");
         },
         success: function (o) {
-            console.log(`History len ${his.items().length}`)
+            console.log(`History len ${his.items().length}`);
             his.remove(capitalize(search_data_text)); // If it was already, then remove, then put again
             let long_word_search = false;
 

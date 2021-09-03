@@ -596,7 +596,7 @@ function get_namaz(string) {
         for (let i = 0; i < string_split.length; i++) {
             let c_b = string.length;
             $.ajax({
-                url: load_more__,
+                url: load__,
                 type: "POST",
                 data: {
                     csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
@@ -615,6 +615,7 @@ function get_namaz(string) {
                     mobile: mob(),
                     news_need: nd_new,
                     weather_need: 0,
+                    quote_mode: 0,
                 },
                 success: function (o) {
                     result = o;
@@ -670,7 +671,7 @@ function load_ajax_end_page(o, type_loading) {
     console.log("Start loading data...");
 
     $.ajax({
-        url: load_more__,
+        url: load__,
         type: "POST",
         data: {
             csrfmiddlewaretoken: t,
@@ -688,6 +689,7 @@ function load_ajax_end_page(o, type_loading) {
             mobile: mob(),
             news_need: nd_new,
             weather_need: weather_anal(search_data_text),
+            quote_mode: 0,
         },
         beforeSend: function () {
             if ($.cookie('hide_block_index') == 'no') {
@@ -890,7 +892,7 @@ function load_continue_ajax_end_page(o, type_loading) {
     const nd_new = LoadNewsNeed_(o);;
 
     $.ajax({
-        url: load_more__,
+        url: load__,
         type: "POST",
         data: {
             csrfmiddlewaretoken: t,
@@ -909,6 +911,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             search_index_: search_index,
             news_need: nd_new,
             weather_need: 0,
+            quote_mode: 0,
         },
         beforeSend: function () {
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block");

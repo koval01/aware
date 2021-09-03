@@ -11,7 +11,7 @@ sitemaps_awse_pages = {
 
 urlpatterns = [
     path('', views.index, name='index_page'),
-    path('load_more/', views.load_more, name='load_more'),
+    path('load/', views.load, name='load'),
     path('robots.txt', views.robots_txt, name='robots_txt'),
     path('footer_load', views.footer_html, name='footer_load'),
     path('opensearch.xml', views.search_config, name='search_config'),

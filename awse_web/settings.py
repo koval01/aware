@@ -96,7 +96,7 @@ else:
 
 IMAGE_PROXY_KEY = os.environ['IMAGE_PROXY_KEY']
 IMAGE_PROXY_LINK_KEY = os.environ['IMAGE_LINK_KEY']
-LOAD_MORE_ENCRYPT_KEY = os.environ['LOAD_MORE_KEY']
+LOAD_ENCRYPT_KEY = os.environ['LOAD_MORE_KEY']
 SIGN_ENCRYPT_KEY = os.environ['SIGN_ENCRYPT_KEY']
 
 SEARCH_CX = os.environ['SEARCH_CX']

@@ -9,6 +9,10 @@
         {% include "awse/load_blocks/covid.html" %}
     {% endif %}
 
+    {% if vars.quote %}
+        {% include "awse/load_blocks/quotes.html" %}
+    {% endif %}
+
     {% if vars.typeload == "newsession" %}
 
         {% if vars.c_result %}

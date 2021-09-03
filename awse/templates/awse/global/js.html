@@ -3,7 +3,7 @@
 {% spaceless %}
 {% csrf_token %}
 <script type="text/javascript">
-    const load_more__ = '{% url "load_more" %}', sync_time__by_server__ = '{% url "sync_time_server" %}',
+    const load__ = '{% url "load" %}', sync_time__by_server__ = '{% url "sync_time_server" %}',
         enc_key_glb__ = '{{ enc_generated }}', background_static__ = '{% static "awse/images/background.png" %}',
         token_valid__ = "{{ token_valid }}", imageproxy__ = '{% url "imageproxy" %}',
         user_address__ = "{{ user_address|sign_address_encrypt }}", get_video_yt__ = '{% url "get_video_yt" %}',

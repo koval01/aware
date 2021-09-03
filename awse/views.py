@@ -39,7 +39,7 @@ from awse.other.text_encoder import encode as encoder_eng
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
-load_more_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
+load_encrypt_key = settings.LOAD_MORE_ENCRYPT_KEY
 ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
 sign_key = settings.SIGN_ENCRYPT_KEY
@@ -413,18 +413,12 @@ def index(request):
     :return: render template page
     """
     # unix time mark encryption
-    salt = Fernet(load_more_encrypt_key)
+    salt = Fernet(load_encrypt_key)
     data = str.encode(str(round(time())))
     token_valid = salt.encrypt(data).decode("utf-8")
     token_re = settings.RETOKEN_PUBLIC
 
     search_example_get = "What do you need to find?"
-
-    # add_ = newsfeed(True, True)
-    quote = choice(get_quote_list())
-
-    # select_news_or_quote = randint(0, 1)  # if true - quote
-    select_news_or_quote = 1  # Only quote
 
     user_address = my_ip_key(None, request)
 
@@ -441,8 +435,7 @@ def index(request):
         'token_valid': token_valid, 'token_re': token_re,
         'search_template': search_example_get,
         'search_q': search_q, 'user_address': user_address,
-        'max_search_len': max_search_len, 'quote': quote,
-        'select_news_or_quote': select_news_or_quote
+        'max_search_len': max_search_len
     })
 
 
@@ -450,9 +443,9 @@ def index(request):
 @cache_page(60 * 180)
 @ratelimit(key=my_ip_key, rate='1/3s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def load_more(request):
+def load(request):
     """
-    Technical (load_more) page view
+    Technical (load) page view
     :param request: request body
     :return: render template page
     """
@@ -465,7 +458,7 @@ def load_more(request):
 
     except Exception as e:
         token = typeload = 0
-        logging.error("%s: %s" % (load_more.__name__, e))
+        logging.error("%s: %s" % (load.__name__, e))
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
@@ -480,11 +473,17 @@ def load_more(request):
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
+        quote_mode = request.POST.get('quote_mode', '')
 
         news_need_load = request.POST.get('news_need', '')
         weather_need_load = request.POST.get('weather_need', '')
 
-        logger.debug('%s: Parameters parsed.' % load_more.__name__)
+        if quote_mode:
+            quote = choice(get_quote_list())
+        else:
+            quote = None
+
+        logger.debug('%s: Parameters parsed.' % load.__name__)
 
         try:
             last_time_key = int(request.POST.get('l', ''))
@@ -493,7 +492,7 @@ def load_more(request):
             logger.debug(e)
 
         if len(search) <= max_search_len:
-            logger.debug('%s: Check search length and continue.' % load_more.__name__)
+            logger.debug('%s: Check search length and continue.' % load.__name__)
 
             user_address = original_address
 
@@ -506,7 +505,7 @@ def load_more(request):
                 namaz = get_namaz_data(search)
 
             if token and typeload and len(search) == int(len_c):
-                logger.debug('%s: Check token and continue.' % load_more.__name__)
+                logger.debug('%s: Check token and continue.' % load.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:
                     covid_stat_ua = covid_stat('UA')
@@ -517,14 +516,14 @@ def load_more(request):
 
                 # token decrypt
                 try:
-                    salt = Fernet(load_more_encrypt_key)
+                    salt = Fernet(load_encrypt_key)
                     token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
                 except Exception as e:
                     token_get = 0
                     logging.error(e)
 
                 if token_get and (token_get + 72000) > round(time()):
-                    logger.debug('%s: Check "token_get" and continue.' % load_more.__name__)
+                    logger.debug('%s: Check "token_get" and continue.' % load.__name__)
 
                     # data collect
                     # news = newsfeed(news_append)
@@ -554,7 +553,6 @@ def load_more(request):
                         images_search = None
 
                     # Weather
-                    print(554)
                     if weather_need_load:
                         weather = weather_get(search)
                     else:
@@ -574,14 +572,13 @@ def load_more(request):
                         tweets = twitter_news(country)
                         ai_news = newsapiai_get(country)
                         news_ = newsfeed(country)
-                    else:
-                        tweets = ai_news = news_ = []
 
-                    # data prepare
-                    news_data_list = sorted(
-                        [el for el in (ai_news + news_ + tweets) if el['time'] < last_time_key],
-                        key=lambda x: x['time'], reverse=True
-                    )[:50]
+                        news_data_list = sorted(
+                            [el for el in (ai_news + news_ + tweets) if el['time'] < last_time_key],
+                            key=lambda x: x['time'], reverse=True
+                        )[:50]
+                    else:
+                        news_data_list = []
 
                     # all variables
                     class Variables:
@@ -610,6 +607,7 @@ def load_more(request):
                             self.search_data = search_data
 
                             self.namaz_data = namaz
+                            self.quote = quote
 
                             self.translate_result = translate_result
                             self.weather = weather
@@ -621,9 +619,9 @@ def load_more(request):
 
                     vars_ = vars(Variables())
 
-                    logger.debug('%s: request - %s' % (load_more.__name__, request))
+                    logger.debug('%s: request - %s' % (load.__name__, request))
 
-                    return render(request, 'awse/load_more.html', {
+                    return render(request, 'awse/load.html', {
                         'data': data, 'vars': vars_,
                     })
 

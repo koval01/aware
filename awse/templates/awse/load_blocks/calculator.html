@@ -5,7 +5,7 @@
             <label class="city">
                 {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
                 <i id="{{ block_ }}"></i>
-                <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.c_input|encode_eng }}';let x{{ el_2 }}='{{ vars.c_result|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}&nbsp;=&nbsp;<b style="text-decoration: underline;">${x{{ el_2 }}}</b>`);$("#{{ script_id }}").remove()</script>
+                <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.c_input|encode_eng }}';let x{{ el_2 }}='{{ vars.c_result|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}&nbsp;=&nbsp;<b style="text-decoration: underline;">${UpBDecode(x{{ el_2 }})}</b>`);$("#{{ script_id }}").remove()</script>
                 {% endwith %}
             </label>
             <br/>

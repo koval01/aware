@@ -639,7 +639,7 @@ def robots_txt(request):
 def footer_html(request):
     lines = [
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
-        'Contact <a href="https://t.me/Jomahmadov2002" style="color: #636363;">Jomahmadov Najibullo</a>',
+        'Sponsored by <a href="https://t.me/Jomahmadov2002" style="color: #636363;">Jomahmadov Najibullo</a>',
         '</p><br/>',
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;">',
         'Developed by <a href="https://t.me/koval_yaroslav" style="color: #636363;">Koval Yaroslav</a>',

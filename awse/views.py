@@ -281,12 +281,13 @@ def get_ad(request):
 
             except Exception as e:
                 index_block_mode = False
-                logger.debug("%s: %s" % (get_ad.__name__, e))
+                logger.warning("%s: %s" % (get_ad.__name__, e))
 
             # if index_block_mode:
             #     return JsonResponse({'data': newsfeed(True, True)})
 
             else:
+                logger.info("Ad check...")
                 data = global_ad_function(lang)
 
                 if not data:

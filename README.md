@@ -17,7 +17,7 @@
 
 ###### **Get started**
 
-**Link** - **https://www.jetbrains.com/pycharm/** or **https://code.visualstudio.com/docs/?dv=win**
+**Link** - **https://www.jetbrains.com/pycharm/download/#section=mac** or **https://code.visualstudio.com/docs/?dv=osx**
 
 **Next you need to go to PyCharm, on the main page you will be prompted to create or download the project. You will need to select the download via git, you will need to log in via your GitHub account, then select this repository (_awse_site_), and wait until all the files are downloaded.**
 

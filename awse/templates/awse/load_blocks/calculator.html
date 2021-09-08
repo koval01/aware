@@ -3,9 +3,10 @@
     <div class="user box aos-init aos-animate" data-aos="fade-up">
         <div style="float: left;">
             <label class="city">
-                <i>
-                    {{ vars.c_input }}&nbsp;=&nbsp;<b style="text-decoration: underline;">{{ vars.c_result }}</b>
-                </i>
+                {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
+                <i id="{{ block_ }}"></i>
+                <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.c_input|encode_eng }}';let x{{ el_2 }}='{{ vars.c_result|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}&nbsp;=&nbsp;<b style="text-decoration: underline;">${x{{ el_2 }}}</b>`);$("#{{ script_id }}").remove()</script>
+                {% endwith %}
             </label>
             <br/>
             {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}

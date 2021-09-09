@@ -18,7 +18,7 @@
                     <script id="{{ script_id }}">
                         let x{{ el_ }}='{{ "_blank"|encode_eng }}';
                         let x{{ el_2 }}='{{ el.0.link|encode_eng }}';
-                        let x{{ el_3 }}='{{ el.0.snippet|encode_eng }}';
+                        let x{{ el_3 }}='{{ el.0.snippet|length|encode_eng }}';
                         let x{{ el_4 }}='{{ el.0.thumb|link_encrypt_img|encode_eng }}';
                         let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
                         let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
@@ -29,7 +29,7 @@
                             src="{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_4 }})}&v=1&token=${UpBDecode(x{{ el_5 }})}&sign=${UpBDecode(x{{ el_6 }})}"
                             onerror="imgError(this);"
                             style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
-                            alt="Preview image (${UpBDecode(x{{ el_3 }})})">
+                            alt="Preview image (len ${UpBDecode(x{{ el_3 }})})">
                         `);
                         $("#{{ script_id }}").remove()
                     </script>

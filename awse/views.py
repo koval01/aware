@@ -18,23 +18,23 @@ from django.views.decorators.http import require_GET, require_POST
 from ratelimit.decorators import ratelimit
 from requests import get
 
-from awse.other.common_functions import check_bot_request_search, check_request__
-from awse.other.common_functions import get_random_string as rand_str
-from awse.other.heroku_api import get_last_build_id as heroku_get_last_build_id
-from awse.other.quote_get import get_result as get_quote_list
-from awse.search_utils.calculate import calculator
-from awse.search_utils.namaz_api import get_namaz_data
-from awse.search_utils.search_api import select_type as search_execute
-from awse.search_utils.search_complete_api import get_result_data as search_complete
-from awse.search_utils.weather_api import weather_get, get_weather_icon
-from awse.other.whois_api import get_info_domain
-from awse.covid.api import covid_api as covid_stat
-from awse.covid.api import num_formatter
+from .other.common_functions import check_bot_request_search, check_request__
+from .other.common_functions import get_random_string as rand_str
+from .other.heroku_api import get_last_build_id as heroku_get_last_build_id
+from .other.quote_get import get_result as get_quote_list
+from .search_utils.calculate import calculator
+from .search_utils.namaz_api import get_namaz_data
+from .search_utils.search_api import select_type as search_execute
+from .search_utils.search_complete_api import get_result_data as search_complete
+from .search_utils.weather_api import weather_get, get_weather_icon
+from .other.whois_api import get_info_domain
+from .covid.api import covid_api as covid_stat
+from .covid.api import num_formatter
 from .models import Info, Banner
-from awse.news_rev.newsapi import __main__ as newsfeed
-from awse.news_rev.newsapi_ai import __main__ as newsapiai_get
-from awse.news_rev.twitterget import __main__ as twitter_news
-from awse.other.text_encoder import encode as encoder_eng
+from .news_rev.newsapi import __main__ as newsfeed
+from .news_rev.newsapi_ai import __main__ as newsapiai_get
+from .news_rev.twitterget import __main__ as twitter_news
+from .other.text_encoder import encode as encoder_eng
 
 logger = logging.getLogger(__name__)
 image_proxy_key = settings.IMAGE_PROXY_KEY

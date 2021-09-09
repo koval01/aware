@@ -13,13 +13,6 @@
             {% endwith %}
             <label class="city">
                 {% if el.0.thumb and not el.0.youtube_id %}
-                    <a target="_blank" href="{{ el.0.link }}">
-                        <img
-                                src="{% url 'imageproxy' %}?data={{ el.0.thumb|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}"
-                                onerror="imgError(this);"
-                                style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
-                                alt="Preview image">
-                    </a>
                     {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string el_4=24|get_random_string el_5=24|get_random_string el_6=24|get_random_string el_7=24|get_random_string %}
                     <a id="{{ block_ }}"></a>
                     <script id="{{ script_id }}">

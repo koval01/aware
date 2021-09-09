@@ -649,7 +649,6 @@ def footer_html(request):
         '</p><br/>',
         '<p class="build_info_footer" style="color:#525254;font-size:12px;margin-bottom:-5%;text-align:center">',
         'Build ID: awse-%s' % heroku_get_last_build_id(),
-        '</p>',
     ]
     return HttpResponse("".join(lines), content_type="text/html; charset=utf-8")
 

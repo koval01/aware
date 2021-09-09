@@ -28,13 +28,29 @@
                     </div>
                     <div class="col-xs-6 text-center">
                         <div class="h1 temperature">
-                            <span style="font-size:2em">{{ vars.weather.now_weather.main.temp|floatformat:"0" }}°</span>
+                            {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string %}
+                            <span style="font-size:2em" id="{{ block_ }}"></span>
+                            <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.weather.now_weather.main.temp|floatformat:"0"|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}°`);$("#{{ script_id }}").remove()</script>
+                            {% endwith %}
+
                             <br>
+
                             {% if vars.weather.now_weather.main.temp_min|floatformat:"0" != vars.weather.now_weather.main.temp_max|floatformat:"0" %}
-                                <small style="color:inherit;font-size:50%">
-                                    From {{ vars.weather.now_weather.main.temp_min|floatformat:"0" }}° to {{ vars.weather.now_weather.main.temp_max|floatformat:"0" }}°
-                                </small>
+                                {% with script_id=64|get_random_string block_=64|get_random_string \
+                                    el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string \
+                                    el_4=24|get_random_string %}
+                                <small style="color:inherit;font-size:50%" id="{{ block_ }}"></small>
+                                <script id="{{ script_id }}">
+                                    let x{{ el_ }}='{{ 'From&nbsp;'|encode_eng }}';
+                                    let x{{ el_2 }}='{{ vars.weather.now_weather.main.temp_min|floatformat:"0"|encode_eng }}';
+                                    let x{{ el_3 }}='{{ vars.weather.now_weather.main.temp_max|floatformat:"0"|encode_eng }}';
+                                    let x{{ el_4 }}='{{ "° to "|encode_eng }}';
+                                    $("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}${UpBDecode(x{{ el_2 }})}${UpBDecode(x{{ el_4 }})}${UpBDecode(x{{ el_3 }})}°`);
+                                    $("#{{ script_id }}").remove()
+                                </script>
+                                {% endwith %}
                             {% endif %}
+
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -42,24 +58,42 @@
                             <li id="{{ 24|get_random_string }}" style="border-top:1px solid #fff" class="col-xs-4 col-sm-2 text-center">
                                 {% with script_id=64|get_random_string elem_id=64|get_random_string el_=24|get_random_string %}
                                 <h3 class="h5" id="{{ elem_id }}"></h3>
-                                <script id="{{ script_id }}">let x{{ el_ }}='{% now "D, j E" %}';$("#{{ elem_id }}").html(x{{ el_ }});$("#{{ script_id }}").remove()</script>
+                                <script id="{{ script_id }}">
+                                    let x{{ el_ }}='{% now "D, j E" %}';
+                                    $("#{{ elem_id }}").html(x{{ el_ }});
+                                    $("#{{ script_id }}").remove()
+                                </script>
                                 {% endwith %}
 
                                 {% with script_id=64|get_random_string weather_up=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
                                 <p id="{{ weather_up }}"></p>
-                                <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe|encode_eng }}';let x{{ el_2 }}='{{ vars.weather.now_weather.main.temp|floatformat:"0"|encode_eng }}';$("#{{ weather_up }}").html(`${UpBDecode(x{{ el_ }})}<br/>${UpBDecode(x{{ el_2 }})}°`);$("#{{ script_id }}").remove()</script>
+                                <script id="{{ script_id }}">
+                                    let x{{ el_ }}='{{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe|encode_eng }}';
+                                    let x{{ el_2 }}='{{ vars.weather.now_weather.main.temp|floatformat:"0"|encode_eng }}';
+                                    $("#{{ weather_up }}").html(`${UpBDecode(x{{ el_ }})}<br/>${UpBDecode(x{{ el_2 }})}°`);
+                                    $("#{{ script_id }}").remove()
+                                </script>
                                 {% endwith %}
                             </li>
                             {% for weather_el in vars.weather.future_weather %}
                                 <li style="border-top: 1px solid #fff;" class="col-xs-4 col-sm-2 text-center">
                                     {% with script_id=64|get_random_string elem_id=64|get_random_string el_=24|get_random_string %}
                                     <h3 class="h5" id="{{ elem_id }}"></h3>
-                                    <script id="{{ script_id }}">let x{{ el_ }}='{{ forloop.counter|add_days_by_timestamp|date:"D, j E"|encode_eng }}';$("#{{ elem_id }}").html(UpBDecode(x{{ el_ }}));$("#{{ script_id }}").remove()</script>
+                                    <script id="{{ script_id }}">
+                                        let x{{ el_ }}='{{ forloop.counter|add_days_by_timestamp|date:"D, j E"|encode_eng }}';
+                                        $("#{{ elem_id }}").html(UpBDecode(x{{ el_ }}));
+                                        $("#{{ script_id }}").remove()
+                                    </script>
                                     {% endwith %}
 
                                     {% with script_id=64|get_random_string weather_bt=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
                                     <p id="{{ weather_bt }}"></p>
-                                    <script id="{{ script_id }}">let x{{ el_ }}='{{ weather_el.weather.0.icon|get_weather_ico|safe|encode_eng }}';let x{{ el_2 }}='{{ weather_el.main.temp|floatformat:"0"|encode_eng }}';$("#{{ weather_bt }}").html(`${UpBDecode(x{{ el_ }})}<br/>${UpBDecode(x{{ el_2 }})}°`);$("#{{ script_id }}").remove()</script>
+                                    <script id="{{ script_id }}">
+                                        let x{{ el_ }}='{{ weather_el.weather.0.icon|get_weather_ico|safe|encode_eng }}';
+                                        let x{{ el_2 }}='{{ weather_el.main.temp|floatformat:"0"|encode_eng }}';
+                                        $("#{{ weather_bt }}").html(`${UpBDecode(x{{ el_ }})}<br/>${UpBDecode(x{{ el_2 }})}°`);
+                                        $("#{{ script_id }}").remove()
+                                    </script>
                                     {% endwith %}
                                 </li>
                             {% endfor %}

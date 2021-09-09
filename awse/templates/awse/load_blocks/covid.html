@@ -67,11 +67,11 @@
                 {% with covid_block=48|get_random_string %}
                 <label id="{{ covid_block }}" class="city"></label>
                     <test style="display:none">{# {{ vars.covid_ru }} #}</test>
-                    {% with script_id=64|get_random_string patients=12|get_random_string patients_2=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
+                    {% with c_ru=vars.covid_ru script_id=64|get_random_string patients=12|get_random_string patients_2=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
                     <script id="{{ script_id }}">
-                        let x{{ patients }}="{{ vars.covid_ru.1|encode_eng }}";
-                        let x{{ patients_2 }}="{{ vars.covid_ru.2|encode_eng }}";
-                        let x{{ recovered }}="{{ vars.covid_ru.3|encode_eng }}";
+                        let x{{ patients }}="{{ c_ru.1|encode_eng }}";
+                        let x{{ patients_2 }}="{{ c_ru.2|encode_eng }}";
+                        let x{{ recovered }}="{{ c_ru.3|encode_eng }}";
                         let x{{ lethal }}="{{ vars.covid_ru.4|encode_eng }}";
                         let x{{ tested }}="{{ vars.covid_ru.0|encode_eng }}";
                         let x{{ data_date }}="{{ vars.covid_ru.5|encode_eng }}";

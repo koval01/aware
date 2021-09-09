@@ -16,11 +16,9 @@
                         <script id="{{ script_id }}">let x{{ el_ }}='{{ vars.weather.now_weather.weather.0.icon|get_weather_ico|safe|encode_eng }}';let x{{ el_2 }}='{{ vars.weather.now_weather.weather.0.description|capfirst|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}&nbsp;${UpBDecode(x{{ el_2 }})}`);$("#{{ script_id }}").remove()</script>
                         {% endwith %}
 
-                        {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}
-                        <p>
-                            <i class="fas fa-temperature-low"></i>
-                            Feels like {{ vars.weather.now_weather.main.feels_like|floatformat:"0" }}°
-                        </p>
+                        {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string %}
+                        <p id="{{ block_ }}"></p>
+                        <script id="{{ script_id }}">let x{{ el_ }}='{{ "<i class=\"fas fa-temperature-low\"></i>"|safe|encode_eng }}';let x{{ el_2 }}='{{ vars.weather.now_weather.main.feels_like|floatformat:"0"|encode_eng }}';let x{{ el_3 }}='{{ "Feels like"|encode_eng }}';$("#{{ block_ }}").html(`${UpBDecode(x{{ el_ }})}${UpBDecode(x{{ el_3 }})}&nbsp;${UpBDecode(x{{ el_2 }})}°`);$("#{{ script_id }}").remove()</script>
                         {% endwith %}
 
                         {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string %}

@@ -1,13 +1,9 @@
 {% spaceless %}
-<div class="map_search_box">
-    <a href="#topSite" class="scroll-to menu_home" id="h_butt">
-        <i class="fas fa-home"></i>
+<header class="site-header sticky-top py-1">
+  <nav class="container d-flex flex-column flex-md-row justify-content-between">
+    <a class="py-2" href="#" aria-label="AWSE.US">
+      {# Waiting logo #}
     </a>
-
-    <div class="header_content">
-        <a href="{% url 'index_page' %}">
-            <label class="header_title select_disable_text" style="font-family:'Pacifico',cursive;user-select:none">AWSE</label>
-        </a>
-    </div>
-</div>
+  </nav>
+</header>
 {% endspaceless %}

@@ -13,6 +13,7 @@
                 {% endwith %}
                 {% with covid_block=48|get_random_string %}
                 <label id="{{ covid_block }}" class="city"><br/></label>
+                    <test style="display:none">{{ covid_ua }}</test>
                     {% with script_id=64|get_random_string patients=12|get_random_string patients_2=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
                     <script id="{{ script_id }}">
                         let x{{ patients }}="{{ covid_ua.0|encode_eng }}";

@@ -1039,9 +1039,15 @@ function get_from_history_suggestions(search_text) {
         if (string.indexOf(search_text.toLowerCase()) !== -1) {
             result_array.push(`
                 <li class="search-el-a">
-                <span class="ico_s_el" style="margin-right: 0.25em;">
-                <i style="color: #9a9a9a;" class="far fa-clock"></i>
-                </span><span class="text_s_el">${string}</span></li>
+                    <span class="ico_s_el" style="margin-right: 0.25em;">
+                        <i style="color:#f5f5f5" class="far fa-clock"></i>
+                    </span>
+                    <span 
+                        class="text_s_el" 
+                        style="color:rgba(255, 255, 255, 0.92)">
+                            ${string}
+                    </span>
+                </li>
             `);
             naked_data.push(string);
         }
@@ -1610,10 +1616,10 @@ $(window).scroll(function () {
         AOS.refresh();
     }),
 
-    $(window).scroll(function () {
-        (home_button = document.getElementById("h_butt")), 1e3 < $(window).scrollTop() ? (home_button.style.visibility = "visible") :
-            (home_button.style.visibility = "hidden");
-    }),
+    // $(window).scroll(function () {
+    //     (home_button = document.getElementById("h_butt")), 1e3 < $(window).scrollTop() ? (home_button.style.visibility = "visible") :
+    //         (home_button.style.visibility = "hidden");
+    // }),
 
     $(document).on("click", function (o) {
         $(o.target).hasClass("float_bg") && ($(".menu_box").hide(), $(".float_bg").hide());

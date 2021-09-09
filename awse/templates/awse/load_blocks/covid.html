@@ -13,14 +13,15 @@
                 {% endwith %}
                 {% with covid_block=48|get_random_string %}
                 <label id="{{ covid_block }}" class="city"><br/></label>
-                    {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
+                    {% with script_id=64|get_random_string patients=12|get_random_string patients_2=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
                     <script id="{{ script_id }}">
-                        let x{{ patients }}="{{ covid_ua.0|encode_eng }} (+{{ covid_ua.1|encode_eng }})";
+                        let x{{ patients }}="{{ covid_ua.0|encode_eng }}";
+                        let x{{ patients_2 }}="{{ covid_ua.1|encode_eng }}";
                         let x{{ recovered }}="{{ covid_ua.2|encode_eng }}";
                         let x{{ lethal }}="{{ covid_ua.3|encode_eng }}";
                         let x{{ tested }}="{{ covid_ua.4|encode_eng }}";
                         let x{{ data_date }}="{{ covid_ua.5|encode_eng }}";
-                        $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+UpBDecode(x{{ patients }})+"</b></h6><h6>❤️Recovered: <b>"+UpBDecode(x{{ recovered }})+"</b></h6><h6>💔Lethal outcomes: <b>"+UpBDecode(x{{ lethal }})+"</b></h6><h6>📝Tested: <b>"+UpBDecode(x{{ tested }})+"</b></h6><br/><h6>📅<b>"+UpBDecode(x{{ data_date }})+"</b></h6>");
+                        $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+UpBDecode(x{{ patients }})+"(+"+UpBDecode(x{{ patients_2 }})+")</b></h6><h6>❤️Recovered: <b>"+UpBDecode(x{{ recovered }})+"</b></h6><h6>💔Lethal outcomes: <b>"+UpBDecode(x{{ lethal }})+"</b></h6><h6>📝Tested: <b>"+UpBDecode(x{{ tested }})+"</b></h6><br/><h6>📅<b>"+UpBDecode(x{{ data_date }})+"</b></h6>");
                         $("#{{ script_id }}").remove()
                     </script>
                     {% endwith %}
@@ -64,14 +65,15 @@
                 {% endwith %}
                 {% with covid_block=48|get_random_string %}
                 <label id="{{ covid_block }}" class="city"></label>
-                    {% with script_id=64|get_random_string patients=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
+                    {% with script_id=64|get_random_string patients=12|get_random_string patients_2=12|get_random_string recovered=12|get_random_string lethal=12|get_random_string tested=12|get_random_string data_date=12|get_random_string %}
                     <script id="{{ script_id }}">
-                        let x{{ patients }}="{{ covid_ru.1|encode_eng }} (+{{ covid_ru.2|encode_eng }})";
+                        let x{{ patients }}="{{ covid_ru.1|encode_eng }}";
+                        let x{{ patients_2 }}="{{ covid_ru.2|encode_eng }}";
                         let x{{ recovered }}="{{ covid_ru.3|encode_eng }}";
                         let x{{ lethal }}="{{ covid_ru.4|encode_eng }}";
                         let x{{ tested }}="{{ covid_ru.0|encode_eng }}";
                         let x{{ data_date }}="{{ covid_ru.5|encode_eng }}";
-                        $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+UpBDecode(x{{ patients }})+"</b></h6><h6>❤️Recovered: <b>"+UpBDecode(x{{ recovered }})+"</b></h6><h6>💔Lethal outcomes: <b>"+UpBDecode(x{{ lethal }})+"</b></h6><h6>📝Tested: <b>"+UpBDecode(x{{ tested }})+"</b></h6><br/><h6>📅<b>"+UpBDecode(x{{ data_date }})+"</b></h6>");
+                        $("#{{ covid_block }}").html("<br/><h6>😷Patients with Covid-19: <b>"+UpBDecode(x{{ patients }})+" (+"+UpBDecode(x{{ patients_2 }})+")</b></h6><h6>❤️Recovered: <b>"+UpBDecode(x{{ recovered }})+"</b></h6><h6>💔Lethal outcomes: <b>"+UpBDecode(x{{ lethal }})+"</b></h6><h6>📝Tested: <b>"+UpBDecode(x{{ tested }})+"</b></h6><br/><h6>📅<b>"+UpBDecode(x{{ data_date }})+"</b></h6>");
                         $("#{{ script_id }}").remove()
                     </script>
                     {% endwith %}

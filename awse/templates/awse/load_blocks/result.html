@@ -18,7 +18,7 @@
                     <script id="{{ script_id }}">
                         let x{{ el_ }}='{{ "_blank"|encode_eng }}';
                         let x{{ el_2 }}='{{ el.0.link|encode_eng }}';
-                        let x{{ el_3 }}='{{ el.0.snippet|safe|encode_eng }}';
+                        let x{{ el_3 }}='{{ el.0.snippet|encode_eng }}';
                         let x{{ el_4 }}='{{ el.0.thumb|link_encrypt_img|encode_eng }}';
                         let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
                         let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';

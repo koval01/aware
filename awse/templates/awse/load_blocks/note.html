@@ -10,7 +10,12 @@
                     <br/>
                     {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
                     <div id="{{ badge_block }}" class="badge_block_info select_disable_text"></div>
-                    <script id="{{ script_id }}">let x{{ title_badge }}="Telegram&nbsp;";let x{{ icon_badge }}="fab fa-telegram-plane";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
+                    <script id="{{ script_id }}">
+                        let x{{ title_badge }}="Telegram&nbsp;";
+                        let x{{ icon_badge }}="fab fa-telegram-plane";
+                        $("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");
+                        $("#{{ script_id }}").remove()
+                    </script>
                     {% endwith %}
                 </div>
             </div>

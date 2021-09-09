@@ -36,9 +36,7 @@
                             <br>
 
                             {% if vars.weather.now_weather.main.temp_min|floatformat:"0" != vars.weather.now_weather.main.temp_max|floatformat:"0" %}
-                                {% with script_id=64|get_random_string block_=64|get_random_string \
-                                    el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string \
-                                    el_4=24|get_random_string %}
+                                {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string el_4=24|get_random_string %}
                                 <small style="color:inherit;font-size:50%" id="{{ block_ }}"></small>
                                 <script id="{{ script_id }}">
                                     let x{{ el_ }}='{{ 'From&nbsp;'|encode_eng }}';

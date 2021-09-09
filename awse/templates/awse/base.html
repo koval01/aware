@@ -18,9 +18,16 @@
         {% include 'awse/global/base_style.html' %}
     </head>
 
+    <header class="site-header sticky-top py-1">
+      <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#" aria-label="Product">
+          <p style="color:#fff">AWSE</p>
+        </a>
+      </nav>
+    </header>
     <body id="topSite" data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0" style="background:#0e0e10;transition: width 1s, height 1s">
         <div class="container">
-            {% include 'awse/global/header.html' %}
+            {# {% include 'awse/global/header.html' %} #}
 
             <div class="float_bg" style="display: none"></div>
 

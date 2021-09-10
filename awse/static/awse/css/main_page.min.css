@@ -793,6 +793,26 @@ u {
     color: #0079ff
 }
 
+.wrapper_gradient {
+    background-image: linear-gradient(to right, #861a54,#054f7d,#00a7cf,#efe348,#861a54) !important;
+    background-size: 600%;
+    background-position: 0 0;
+    box-shadow: inset 0 0 5em rgba(0,0,0,.5);
+    justify-content: center;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-name: gradients_header;
+}
+
+@keyframes gradients_header {
+    0%   {background-position: 0 0;}
+    25% {background-position: 50% 0;}
+    50% {background-position: 90% 0;}
+    60% {background-position: 60%;}
+    75% {background-position: 40%;}
+    100%  {background-position: 0 0;}
+}
+
 @media screen and (max-device-width: 400px) {
     .map_place_info_box {
         width: 94%;

@@ -351,8 +351,7 @@ body, html {
 }
 
 .padding-block-center-box {
-    padding-left: 5%;
-    padding-right: 5%
+    padding: 0 !important;
 }
 
 .grecaptcha-badge {

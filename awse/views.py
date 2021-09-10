@@ -645,7 +645,7 @@ def footer_html(request):
         'Developed by <a href="https://t.me/koval_yaroslav" style="color: #636363;">Koval Yaroslav</a>',
         '</p><br/>',
         '<p style="color: #a5a5a5;font-size:13px;margin-bottom:-5%;text-align:center">',
-        'Design by <a href="https://t.me/SashkoTsomyk" style="color: #636363;">Ts\'omyk Sasha</a>',
+        'Logo by <a href="https://t.me/SashkoTsomyk" style="color: #636363;">Ts\'omyk Sasha</a>',
         '</p><br/>',
         '<p class="build_info_footer" style="color:#525254;font-size:12px;margin-bottom:-5%;text-align:center">',
         'Build ID: awse-%s' % heroku_get_last_build_id(),

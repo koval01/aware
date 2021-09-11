@@ -1309,16 +1309,16 @@ u {
 
 .btn {
     padding: .5rem 1rem;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #cacaca;
     border-width: 0;
     font-weight: 700;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, .5);
-    background-color: #70a0d1
+    background-color: rgb(47, 47, 47) !important;
 }
 
 .btn:hover {
-    background-color: #769bc9;
+    background-color: rgb(74, 74, 74) !important;
     cursor: pointer
 }
 

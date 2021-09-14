@@ -1296,6 +1296,39 @@ function get_ad(mode) {
     }
 }
 
+function get_quote() {
+    const unix_n = Math.floor(Date.now() / 1000);
+    $.ajax({
+        url: load__,
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
+            validtoken: token_valid__,
+            typeload: "newsession",
+            additions: 0,
+            c_t___kk_: get__(true),
+            news: 0,
+            sign: user_address__,
+            c: 0,
+            u: unix_n,
+            gr_token: null,
+            covid_stat: 0,
+            search: "",
+            mobile: mob(),
+            news_need: 0,
+            weather_need: 0,
+            quote_mode: 1,
+        },
+        success: function (o) {
+            if (o.length) {
+                $(".row-posts-end").append(o);
+            }
+        },
+        async: true,
+        timeout: 8123,
+    });
+}
+
 function get_footer_html() {
     $.ajax({
         url: footer_load__,
@@ -1571,8 +1604,9 @@ $(window).scroll(function () {
         var question = getParameterByName('q');
         $(".row-posts-end").css('visibility', 'visible');
         if (!question && $.cookie('hide_block_index') == 'no') {
-            get_ad('new');
-            // console.log('Ad load...');
+            // Blocks load in index page
+            get_ad('new'); // Load advertise
+            get_quote(); // Load random quote
         }
 
         if (!question) {

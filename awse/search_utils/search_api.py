@@ -238,7 +238,7 @@ def search_custom_index(string, index) -> dict:
     return dict(data=d['s_info'], array=d['array'])
 
 
-def select_type(string, index, search_type='searchTypeUndefined') -> dict:
+def select_type(string, index, search_type='searchTypeUndefined') -> dict or None:
     """
     Function for easy mode selection
     :param string: Search term
@@ -248,17 +248,19 @@ def select_type(string, index, search_type='searchTypeUndefined') -> dict:
     """
     x = check_words_in_search_string(string)
 
-    if search_type == 'searchTypeUndefined':
-        if x and not index:
-            return dict(data=[], array=null_search_dict, error=True)
+    if string:
+        logger.info("Search active")
+        if search_type == 'searchTypeUndefined':
+            if x and not index:
+                return dict(data=[], array=null_search_dict, error=True)
 
-        elif x and index:
-            return dict(data=[], array=null_search_dict, error=True)
+            elif x and index:
+                return dict(data=[], array=null_search_dict, error=True)
 
-        if index:
-            return search_custom_index(string, index)
+            if index:
+                return search_custom_index(string, index)
 
-        return search(string)
+            return search(string)
 
-    else:
-        return get_result(string, 0, search_type)
+        else:
+            return get_result(string, 0, search_type)

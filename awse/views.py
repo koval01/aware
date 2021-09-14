@@ -437,6 +437,7 @@ def index(request):
     })
 
 
+# @csrf_exempt
 @require_POST
 @cache_page(60 * 180)
 @ratelimit(key=my_ip_key, rate='1/3s', block=True)
@@ -447,6 +448,8 @@ def load(request):
     :param request: request body
     :return: render template page
     """
+    start_time = time()
+
     c_token = request.POST.get('c_t___kk_', '')
     sign_data = request.POST.get('sign', '')
 
@@ -471,10 +474,10 @@ def load(request):
         search_index = request.POST.get('search_index_', '')
         namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
-        quote_mode = request.POST.get('quote_mode', '')
+        quote_mode = int(request.POST.get('quote_mode', ''))
 
-        news_need_load = request.POST.get('news_need', '')
-        weather_need_load = request.POST.get('weather_need', '')
+        news_need_load = int(request.POST.get('news_need', ''))
+        weather_need_load = int(request.POST.get('weather_need', ''))
 
         if int(quote_mode):
             quote = choice(get_quote_list())
@@ -541,8 +544,11 @@ def load(request):
 
                     # default search
                     search_api = search_execute(search_send, search_index)
-                    search_data = search_api['data']
-                    search_array = search_api['array']
+
+                    if search_api:
+                        search_data = search_api['data']
+                        search_array = search_api['array']
+                    else: search_data, search_array = [], []
 
                     # image search
                     if settings.IMAGES_SEARCH_ENABLED:
@@ -618,6 +624,7 @@ def load(request):
                     vars_ = vars(Variables())
 
                     logger.debug('%s: request - %s' % (load.__name__, request))
+                    logger.info("Time loading \"load\" - %f" % (time() - start_time))
 
                     return render(request, 'awse/load.html', {
                         'data': data, 'vars': vars_,

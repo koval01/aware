@@ -644,8 +644,11 @@ def robots_txt(request):
 
 @require_GET
 def footer_html(request):
+    if settings.IS_HEROKU:
+        build = heroku_get_last_build_id()
+    else:build = None
     return render(request, 'awse/global/footer.html', {
-        'build': heroku_get_last_build_id(),
+        'build': build,
     })
 
 

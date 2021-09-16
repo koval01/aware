@@ -646,7 +646,7 @@ def robots_txt(request):
 def footer_html(request):
     if settings.IS_HEROKU:
         build = heroku_get_last_build_id()
-    else:build = None
+    else:build = settings.BUILD_ID
     return render(request, 'awse/global/footer.html', {
         'build': build,
     })

@@ -35,6 +35,7 @@ LOCAL_DATABASE = False
 CACHE_IN_MEMORY_SERVER = True
 
 CLOUDFLARE = True
+IS_HEROKU = False
 
 # USE_SRI = True
 

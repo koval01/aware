@@ -69,7 +69,7 @@ else:
     DB_USER = os.environ['DB_USER']
     DB_NAME = os.environ['DB_NAME']
     DB_PASS = os.environ['DB_PASS']
-    ssl_mode = 'require'
+    ssl_mode = None # 'require'
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
@@ -137,7 +137,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
@@ -308,6 +308,6 @@ STATIC_URL = '/static/'
 #    '/home/code/awse_web/awse/static',
 # )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# 21.05.2021
+# 16.09.2021

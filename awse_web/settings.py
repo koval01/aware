@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os.path
 
+build_ = "1603160921"
+
 # settings.configure(
 #     image_proxy_key = os.environ['IMAGE_PROXY_KEY'],
 #     image_link_key = os.environ['IMAGE_LINK_KEY'],
@@ -114,6 +116,8 @@ WEATHER_API_KEYS = os.environ['WEATHER_API_KEYS']
 if IS_HEROKU:
     HEROKU_API_KEY = os.environ['HEROKU_API_KEY']
     HEROKU_APP_NAME = os.environ['HEROKU_APP_NAME']
+else:
+    BUILD_ID = build_
 
 TWITTER_BEARER = os.environ['TWITTER_BEARER']
 NEWSAPI_AI = os.environ['NEWSAPI_AI']

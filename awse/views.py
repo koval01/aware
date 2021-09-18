@@ -439,7 +439,7 @@ def index(request):
 
 # @csrf_exempt
 @require_POST
-@cache_page(60 * 180)
+@cache_page(60 * 900)
 @ratelimit(key=my_ip_key, rate='1/3s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load(request):
@@ -461,25 +461,26 @@ def load(request):
         token = typeload = 0
         logging.error("%s: %s" % (load.__name__, e))
 
+    namaz = request.POST.get('namaz', '')
+
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
     original_address = my_ip_key(None, request)
 
-    if check_request__(c_token) and original_address == received_address:
+    if check_request__(c_token) and (original_address == received_address or namaz):
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
         covid_stat_append = int(request.POST.get('covid_stat', ''))
         search = request.POST.get('search', '')
         len_c = request.POST.get('c', '')
         search_index = request.POST.get('search_index_', '')
-        namaz = request.POST.get('namaz', '')
         mobile = request.POST.get('mobile', '')
         quote_mode = int(request.POST.get('quote_mode', ''))
 
         news_need_load = int(request.POST.get('news_need', ''))
         weather_need_load = int(request.POST.get('weather_need', ''))
 
-        if int(quote_mode):
+        if quote_mode:
             quote = choice(get_quote_list())
         else:
             quote = None
@@ -503,9 +504,10 @@ def load(request):
                 search_index = int(search_index)
 
             if namaz:
+                logger.info("Namaz load")
                 namaz = get_namaz_data(search)
 
-            if token and typeload and len(search) == int(len_c):
+            if token and typeload and (len(search) == int(len_c) or namaz):
                 logger.debug('%s: Check token and continue.' % load.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:

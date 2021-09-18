@@ -572,6 +572,7 @@ function namaz_anal(string) {
     */
     const words = [
         'намаз', 'намаза', 'намазом', 'намазов',
+        'namaz', 'prayer', 'prayertime'
     ];
 
     for (let i = 0; i < words.length; i++) {
@@ -622,7 +623,9 @@ function get_namaz(string) {
     */
     if (namaz_anal(string)) {
         // We make sure once again that this feature needs to be activated
-        const string_split = string.split();
+        const string_split = string.split(" ");
+        console.log(`Namaz split: ${string_split}`);
+
         const unix_n = Math.floor(Date.now() / 1000);
         const nd_new = 0;
         var result = null;

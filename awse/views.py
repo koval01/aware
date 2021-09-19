@@ -165,7 +165,7 @@ def image_proxy_view(request):
 
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 25
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 180
             control_time = round(time())
 
             if token_get > control_time:
@@ -461,7 +461,11 @@ def load(request):
         token = typeload = 0
         logging.error("%s: %s" % (load.__name__, e))
 
-    namaz = request.POST.get('namaz', '')
+    try:
+        namaz = int(request.POST.get('namaz', ''))
+    except Exception as e:
+        namaz = 0
+        logger.debug(e)
 
     salt = Fernet(sign_key)
     received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
@@ -471,19 +475,20 @@ def load(request):
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
         covid_stat_append = int(request.POST.get('covid_stat', ''))
+
         search = request.POST.get('search', '')
         len_c = request.POST.get('c', '')
         search_index = request.POST.get('search_index_', '')
+
         mobile = request.POST.get('mobile', '')
+
         quote_mode = int(request.POST.get('quote_mode', ''))
 
         news_need_load = int(request.POST.get('news_need', ''))
         weather_need_load = int(request.POST.get('weather_need', ''))
 
-        if quote_mode:
-            quote = choice(get_quote_list())
-        else:
-            quote = None
+        if quote_mode: quote = choice(get_quote_list())
+        else: quote = None
 
         logger.debug('%s: Parameters parsed.' % load.__name__)
 
@@ -498,16 +503,15 @@ def load(request):
 
             user_address = original_address
 
-            if not search_index:
-                search_index = 0
-            else:
-                search_index = int(search_index)
+            if not search_index: search_index = 0
+            else: search_index = int(search_index)
 
             if namaz:
                 logger.info("Namaz load")
-                namaz = get_namaz_data(search)
+                namaz_result = get_namaz_data(search)
+            else: namaz_result = None
 
-            if token and typeload and (len(search) == int(len_c) or namaz):
+            if token and typeload and (len(search) == int(len_c) or namaz_result):
                 logger.debug('%s: Check token and continue.' % load.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:
@@ -541,8 +545,7 @@ def load(request):
 
                     # Search API
                     search_send = search
-                    if namaz:
-                        search_send = ''
+                    if namaz_result: search_send = ''
 
                     # default search
                     search_api = search_execute(search_send, search_index)
@@ -553,16 +556,13 @@ def load(request):
                     else: search_data, search_array = [], []
 
                     # image search
-                    if settings.IMAGES_SEARCH_ENABLED:
+                    if settings.IMAGES_SEARCH_ENABLED and not namaz and not quote_mode:
                         images_search = search_execute(search_send, 0, 'image')['items']
-                    else:
-                        images_search = None
+                    else: images_search = None
 
                     # Weather
-                    if weather_need_load:
-                        weather = weather_get(search)
-                    else:
-                        weather = {}
+                    if weather_need_load: weather = weather_get(search)
+                    else: weather = {}
 
                     # DeepL API
                     # translate_result = translate_simple(search)
@@ -583,8 +583,7 @@ def load(request):
                             [el for el in (ai_news + news_ + tweets) if el['time'] < last_time_key],
                             key=lambda x: x['time'], reverse=True
                         )[:50]
-                    else:
-                        news_data_list = []
+                    else: news_data_list = []
 
                     # all variables
                     class Variables:
@@ -612,7 +611,8 @@ def load(request):
                             self.search = search
                             self.search_data = search_data
 
-                            self.namaz_data = namaz
+                            self.namaz_data = namaz_result
+                            self.namaz = namaz
                             self.quote = quote
 
                             self.translate_result = translate_result

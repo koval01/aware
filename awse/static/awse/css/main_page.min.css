@@ -436,6 +436,29 @@ body {
     background: #2b2b2b;
 }
 
+.img_images_block_slider {
+    border-radius: 0.5em;
+    /* margin-bottom: 5px;
+    width: 50% !important;
+    margin-right: 5px !important; */
+    -webkit-appearance: none;
+    /* max-height: 200px !important;
+    max-width: 140px !important; */
+    padding: 0 !important;
+    box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%);
+}
+
+.text_container_images_block_slider {
+    background: #313131;
+    padding: 3px;
+    border-radius: 0.5em;
+}
+
+.text_images_block_slider {
+    color: #efeff1;
+    margin: 0px;
+}
+
 .search-input .icon {
     position: absolute;
     right: 0;

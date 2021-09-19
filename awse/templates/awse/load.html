@@ -5,66 +5,67 @@
 
 {% spaceless %}
 
-    {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
-        {% include "awse/load_blocks/covid.html" %}
-    {% endif %}
-
-    {% if vars.quote %}
-        {% include "awse/load_blocks/quotes.html" %}
-    {% endif %}
-
-    {% if vars.typeload == "newsession" %}
-
-        {% if vars.c_result %}
-            {% include "awse/load_blocks/calculator.html" %}
-        {% endif %}
-
-        {% if vars.translate_result %}
-            {% include "awse/load_blocks/translate.html" %}
-        {% endif %}
-
-        {% if vars.news_search_in_str %}
-            {# News block place skip #}
-        {% endif %}
-
-        {% if vars.weather %}
-            {% include "awse/load_blocks/weather.html" %}
-        {% endif %}
-
-    {% endif %}
-
-    {% if vars.namaz_data %}
+    {% if vars.namaz %}
+        <!-- {{ vars.namaz_data|safe }} -->
         {% for el in vars.namaz_data %}
             {% include "awse/load_blocks/namaz.html" %}
         {% endfor %}
-    {% endif %}
-
-    {% if vars.videos %}
-        {# Videos block place skip #}
-
     {% else %}
-        {% if not vars.search_index %}
-            {% if vars.check_bot_request_search %}
-                {% include "awse/load_blocks/note.html" %}
-            {% endif %}
+        {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
+            {% include "awse/load_blocks/covid.html" %}
         {% endif %}
 
-        {% for el in data %}
+        {% if vars.quote %}
+            {% include "awse/load_blocks/quotes.html" %}
+        {% endif %}
 
-            {% if forloop.counter == 1 and not vars.search_index and vars.images_search %}
-                {% include "awse/load_blocks/images.html" %}
+        {% if vars.typeload == "newsession" %}
+
+            {% if vars.c_result %}
+                {% include "awse/load_blocks/calculator.html" %}
             {% endif %}
 
-            {% if not vars.search_api_full_dict.error %}
-                {% if el.0.title %}
-                    {% include "awse/load_blocks/result.html" %}
+            {% if vars.translate_result %}
+                {% include "awse/load_blocks/translate.html" %}
+            {% endif %}
+
+            {% if vars.news_search_in_str %}
+                {# News block place skip #}
+            {% endif %}
+
+            {% if vars.weather %}
+                {% include "awse/load_blocks/weather.html" %}
+            {% endif %}
+
+        {% endif %}
+
+        {% if vars.videos %}
+            {# Videos block place skip #}
+
+        {% else %}
+            {% if not vars.search_index %}
+                {% if vars.check_bot_request_search %}
+                    {% include "awse/load_blocks/note.html" %}
+                {% endif %}
+            {% endif %}
+
+            {% for el in data %}
+
+                {% if forloop.counter == 1 and not vars.search_index and vars.images_search %}
+                    {% include "awse/load_blocks/images.html" %}
                 {% endif %}
 
-            {% elif vars.search_api_full_dict.error and forloop.counter == 1 and not vars.namaz_data %}
-                {% include "awse/load_blocks/black.html" %}
-            {% endif %}
+                {% if not vars.search_api_full_dict.error %}
+                    {% if el.0.title %}
+                        {% include "awse/load_blocks/result.html" %}
+                    {% endif %}
 
-        {% endfor %}
+                {% elif vars.search_api_full_dict.error and forloop.counter == 1 and not vars.namaz_data %}
+                    {% include "awse/load_blocks/black.html" %}
+                {% endif %}
+
+            {% endfor %}
+        {% endif %}
     {% endif %}
 
 {% endspaceless %}

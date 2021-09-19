@@ -1,19 +1,31 @@
 {% spaceless %}
-<div class="col-12 col-lg-12 padding-block-center-box" style="width:100%">
+<div class="col-12 col-lg-12 padding-block-center-box select_disable_text" style="width:100%">
     <div class="user box aos-init aos-animate images_search_layer_awse" data-aos="fade-up">
-        <div style="float: left;">
+        <div style="float:left">
             <label class="city images_search_layer_awse_edit">
                 <div class="photos-slider-awse select_disable_text">
                     {% for el_images in vars.images_search %}
                         <div>
                             <div>
-                                <a href="{{ el_images.image.contextLink }}" target="_blank">
-                                    <img onerror="imgError(this);" style="border-radius: 0.5em;margin-bottom: 5px;width: 50%;margin-right: 5px;-webkit-appearance: none;max-height:200px;max-width: 140px;padding: 0;box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%)"
-                                    src="{% url 'imageproxy' %}?data={{ el_images.image.thumbnailLink|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}" alt="Preview image">
+                                {# block #}
+                                {% with script_id=64|get_random_string block_id_link=64|get_random_string block_id_img=64|get_random_string el_=16|get_random_string el_2=16|get_random_string el_3=16|get_random_string el_4=16|get_random_string %}
+                                <a id="{{ block_id_link }}" target="_blank">
+                                    <img id="{{ block_id_img }}" onerror="imgError(this);" class="img_images_block_slider" alt="Preview image">
                                 </a>
+                                <script id="{{ script_id }}">
+                                    let x{{ el_ }}="{{ el_images.link|link_encrypt_img|encode_eng }}";
+                                    let x{{ el_2 }}="{{ vars.token_image_proxy|encode_eng }}";
+                                    let x{{ el_3 }}="{{ el_images.image.contextLink|encode_eng }}";
+                                    let x{{ el_4 }}="{{ vars.user_address_original|sign_address_encrypt|encode_eng }}";
+                                    $("#{{ block_id_link }}").attr("href", UpBDecode(x{{ el_3 }}));
+                                    $("#{{ block_id_img }}").attr("src", `{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_ }})}&v=1&token=${UpBDecode(x{{ el_2 }})}&sign=${UpBDecode(x{{ el_4 }})}`);
+                                    $("#{{ script_id }}").remove()
+                                </script>
+                                {% endwith %}
                             </div>
-                            <div style="background: #313131;padding: 3px;border-radius: 0.5em">
-                                <b style="color: #efeff1;margin: 0px;">
+                            {% if settings.NEED_IMAGES_DESC %}
+                            <div class="text_container_images_block_slider">
+                                <b class="text_images_block_slider">
                                     <a href="{{ el_images.image.contextLink }}" target="_blank">
                                         {% if el_images.title|length > 3 %}
                                             {{ el_images.htmlTitle|safe }}
@@ -23,12 +35,13 @@
                                     </a>
                                 </b>
                             </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
             </label>
-            <div style="margin-top: 1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom: -2em;" class="hint_text_images_scroll_awse">
-                <b style="color: #808080;font-size: 0.7em;">
+            <div style="margin-top:1em;transition: margin-top 1s, margin-bottom 1s;margin-bottom:-2em" class="hint_text_images_scroll_awse">
+                <b style="color:#808080;font-size:0.7em">
                     To scroll through images, drag them from right to left
                 </b>
             </div>
@@ -40,5 +53,5 @@
         </div>
     </div>
 </div>
-<script>var slider=tns({container:".photos-slider-awse",items:2,speed:500,loop:!1,autoHeight:!0,mouseDrag:!0,autoWidth:!1,swipeAngle:20,preventScrollOnTouch:!1,lazyload:!1,controls:!1,nav:!1,edgePadding:0,responsive:{320:{gutter:5,items:1},640:{gutter:8,items:2},700:{gutter:12},900:{items:3}}});$(document).ready(function(){function e(){$(".images_search_layer_awse_edit").css("max-width",document.getElementsByClassName("images_search_layer_awse")[0].clientWidth-40)}$(window).resize(function(){e()}),setInterval(e,10),setTimeout(function(){$(".hint_text_images_scroll_awse").css({visibility:"hidden","margin-bottom":"-3em"})},5e3)})</script>
+{% include "./images/js_bottom.html" %}
 {% endspaceless %}

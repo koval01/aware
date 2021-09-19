@@ -46,15 +46,18 @@ def get_namaz_data(city) -> list or None:
         data = get_result(city)["datetime"]
         d = int(datetime.now().strftime("%d"))
 
+        rp = lambda x: x.replace("-", ".")
         return [
             dict(
-                timings=["%s: %s" % (key, value) for key, value in i['times'].items() if key != 'Imsak'],
-                time=i['date']['gregorian'].replace("-", "."),
-                hijri=i['date']['hijri'].replace("-", "."),
+                timings=[
+                    "%s: %s" % (key, value) for key, value in i['times'].items() if key not in ['Imsak', 'Sunset']
+                ],
+                time=rp(i['date']['gregorian']),
+                hijri=rp(i['date']['hijri']),
                 timezone="UTC",
                 update_time=datetime.today().replace(microsecond=0),
-            ) for i in data if d == unix_time_to_day(i['date']['timestamp']) or
-                               d + 1 == unix_time_to_day(i['date']['timestamp'])
+            ) for i in data if (d + 1) == unix_time_to_day(i['date']['timestamp']) or
+                               (d + 2) == unix_time_to_day(i['date']['timestamp'])
         ]
     except Exception as e:
         logger.warning(e)

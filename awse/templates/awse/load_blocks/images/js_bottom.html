@@ -1,0 +1,63 @@
+{% spaceless %}
+<script>
+  var slider = tns({
+      container: ".photos-slider-awse",
+      items: 1,
+      speed: 700,
+      loop: !1,
+      autoHeight: !0,
+      autoplay: !0,
+      autoplayButtonOutput: !1,
+      center: !1,
+      mouseDrag: !0,
+      autoWidth: !1,
+      swipeAngle: 30,
+      preventScrollOnTouch: !1,
+      lazyload: !1,
+      controls: !1,
+      nav: !1,
+      edgePadding: 0,
+      responsive: {
+          640: {
+            edgePadding: 5,
+            gutter: 5,
+            items: 2
+          },
+          700: {
+            gutter: 5
+          },
+          900: {
+            items: 3
+          }
+      },
+  });
+  $(document).ready(function () {
+      function e() {
+          $(".images_search_layer_awse_edit").css(
+                  "max-width",
+                  document.getElementsByClassName(
+                          "images_search_layer_awse"
+                  )[0].clientWidth - 40,
+          );
+      }
+      $(window).resize(function () {
+          e();
+      }),
+          setInterval(e, 10),
+          setTimeout(function () {
+              $(".hint_text_images_scroll_awse").css(
+                      { visibility: "hidden", "margin-bottom": "-3em" }
+              );
+          }, 5e3);
+  });
+</script>
+<script>
+    var customizedFunction = function (info, eventName) {
+      // direct access to info object
+      console.log(info.event.type, info.container.id);
+    }
+
+    // bind function to event
+    slider.events.on('indexChanged', customizedFunction);
+</script>
+{% endspaceless %}

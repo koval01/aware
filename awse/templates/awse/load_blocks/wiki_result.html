@@ -1,0 +1,36 @@
+{% spaceless %}
+<div class="col-12 col-lg-12 padding-block-center-box">
+    <div class="user box aos-init aos-animate" data-aos="fade-up">
+        <div style="float: left;">
+            <label class="city">
+                {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string %}
+                <aware-wiki id="{{ block_ }}"></aware-wiki>
+                <script id="{{ script_id }}">
+                    let x{{ el_ }}='{{ vars.wiki_result.text|encode_eng }}';
+                    $("#{{ block_ }}").html(`<i>${UpBDecode(x{{ el_ }})}</i>`);
+                    $("#{{ script_id }}").remove()
+                </script>
+                {% endwith %}
+            </label>
+            <br/>
+            {% with script_id=64|get_random_string badge_block=64|get_random_string badge_block_2=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string icon_badge_2=12|get_random_string el_=24|get_random_string %}
+            <div id="{{ badge_block }}" class="badge_block_info select_disable_text"></div>
+            <div id="{{ badge_block_2 }}" class="badge_block_info select_disable_text" style="margin-left:5px"></div>
+            <script id="{{ script_id }}">
+                let x{{ title_badge }}="Wiki&nbsp;";
+                let x{{ icon_badge }}="fab fa-wikipedia-w";
+                let x{{ el_ }}='{{ vars.wiki_result.link|encode_eng }}';
+                let x{{ icon_badge_2 }}="fas fa-external-link-alt";
+                $("#{{ badge_block }}").html(`
+                    <span style="margin:0.5em">${x{{ title_badge }}}<i class="${x{{ icon_badge }}}"></i></span>
+                `);
+                $("#{{ badge_block_2 }}").html(`
+                    <span style="margin:0.5em;padding:1"><a href="${UpBDecode(x{{ el_ }})}" target="_blank" style="color:#000"><i class="${x{{ icon_badge_2 }}}"></i></a></span>
+                `);
+                $("#{{ script_id }}").remove()
+            </script>
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endspaceless %}

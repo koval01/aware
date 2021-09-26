@@ -3,6 +3,7 @@ import os
 import random
 from datetime import timedelta, datetime
 from random import randint, choice
+from json import loads
 from time import time
 
 import pafy
@@ -22,6 +23,8 @@ from .other.common_functions import check_bot_request_search, check_request__
 from .other.common_functions import get_random_string as rand_str
 from .other.heroku_api import get_last_build_id as heroku_get_last_build_id
 from .other.quote_get import get_result as get_quote_list
+from .other.wikipedia_random import WikiRandomGet
+from .other.wikipedia_search import WikipediaSearchModule
 from .search_utils.calculate import calculator
 from .search_utils.namaz_api import get_namaz_data
 from .search_utils.search_api import select_type as search_execute
@@ -487,16 +490,18 @@ def load(request):
         news_need_load = int(request.POST.get('news_need', ''))
         weather_need_load = int(request.POST.get('weather_need', ''))
 
-        if quote_mode: quote = choice(get_quote_list())
-        else: quote = None
+        if quote_mode:
+            x = randint(0, 1); q_mode = x
+            if x > 0: quote = choice(get_quote_list()); q_data = quote
+            else: wiki_ = WikiRandomGet().get_(); q_data = loads(wiki_)
+        else: q_data = None; q_mode = 2
 
         logger.debug('%s: Parameters parsed.' % load.__name__)
 
         try:
             last_time_key = int(request.POST.get('l', ''))
         except Exception as e:
-            last_time_key = 9999999 * 9999999
-            logger.debug(e)
+            last_time_key = 9999999 * 9999999; logger.debug(e)
 
         if len(search) <= max_search_len:
             logger.debug('%s: Check search length and continue.' % load.__name__)
@@ -515,19 +520,15 @@ def load(request):
                 logger.debug('%s: Check token and continue.' % load.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:
-                    covid_stat_ua = covid_stat('UA')
-                    covid_stat_ru = covid_stat('RU')
-                else:
-                    covid_stat_ua = 0
-                    covid_stat_ru = 0
+                    covid_stat_ua = covid_stat('UA'); covid_stat_ru = covid_stat('RU')
+                else: covid_stat_ua = 0; covid_stat_ru = 0
 
                 # token decrypt
                 try:
                     salt = Fernet(load_encrypt_key)
                     token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8'))
                 except Exception as e:
-                    token_get = 0
-                    logging.error(e)
+                    token_get = 0; logging.error(e)
 
                 if token_get and (token_get + 72000) > round(time()):
                     logger.debug('%s: Check "token_get" and continue.' % load.__name__)
@@ -554,6 +555,9 @@ def load(request):
                         search_data = search_api['data']
                         search_array = search_api['array']
                     else: search_data, search_array = [], []
+
+                    wikipedia_search_result = WikipediaSearchModule(
+                        ).get_(search_send)
 
                     # image search
                     if settings.IMAGES_SEARCH_ENABLED and not namaz and not quote_mode:
@@ -613,11 +617,18 @@ def load(request):
 
                             self.namaz_data = namaz_result
                             self.namaz = namaz
-                            self.quote = quote
+
+                            # self.quote = quote
+                            # Direct get quote disabled 23.09.2021
+                            self.q_mode = q_mode
+                            self.q_data = q_data
 
                             self.translate_result = translate_result
                             self.weather = weather
                             self.search_api_full_dict = search_api
+
+                            # Wikipedia search result
+                            self.wiki_result = wikipedia_search_result
 
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
@@ -646,9 +657,8 @@ def robots_txt(request):
 
 @require_GET
 def footer_html(request):
-    if settings.IS_HEROKU:
-        build = heroku_get_last_build_id()
-    else:build = settings.BUILD_ID
+    if settings.IS_HEROKU: build = heroku_get_last_build_id()
+    else: build = settings.BUILD_ID
     return render(request, 'awse/global/footer.html', {
         'build': build,
     })

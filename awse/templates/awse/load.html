@@ -4,19 +4,22 @@
 {# Imagine that this code was not written by me. I don't really like him. #}
 
 {% spaceless %}
-
     {% if vars.namaz %}
-        <!-- {{ vars.namaz_data|safe }} -->
         {% for el in vars.namaz_data %}
             {% include "awse/load_blocks/namaz.html" %}
         {% endfor %}
+
     {% else %}
         {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
             {% include "awse/load_blocks/covid.html" %}
         {% endif %}
 
-        {% if vars.quote %}
-            {% include "awse/load_blocks/quotes.html" %}
+        {% if vars.q_mode != 2 %}
+            {% if vars.q_mode > 0 %}
+                {% include "awse/load_blocks/quotes.html" %}
+            {% else %}
+                {% include "awse/load_blocks/wiki.html" %}
+            {% endif %}
         {% endif %}
 
         {% if vars.typeload == "newsession" %}
@@ -47,6 +50,10 @@
                 {% if vars.check_bot_request_search %}
                     {% include "awse/load_blocks/note.html" %}
                 {% endif %}
+            {% endif %}
+
+            {% if vars.wiki_result %}
+                {% include "awse/load_blocks/wiki_result.html" %}
             {% endif %}
 
             {% for el in data %}

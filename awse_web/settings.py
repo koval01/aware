@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os.path
 
-build_ = "203119092021"
+build_ = hex(175326092021)[2:]
 
 # settings.configure(
 #     image_proxy_key = os.environ['IMAGE_PROXY_KEY'],
@@ -71,7 +71,7 @@ else:
     DB_USER = os.environ['DB_USER']
     DB_NAME = os.environ['DB_NAME']
     DB_PASS = os.environ['DB_PASS']
-    ssl_mode = None # 'require'
+    ssl_mode = None  # 'require'
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()

@@ -556,8 +556,9 @@ def load(request):
                         search_array = search_api['array']
                     else: search_data, search_array = [], []
 
-                    wikipedia_search_result = WikipediaSearchModule(
-                        ).get_(search_send)
+                    if typeload == 'newsession':
+                        wikipedia_search_result = WikipediaSearchModule(
+                            ).get_(search_send)
 
                     # image search
                     if settings.IMAGES_SEARCH_ENABLED and not namaz and not quote_mode:

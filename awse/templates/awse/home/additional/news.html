@@ -1,19 +1,19 @@
 {% spaceless %}
-<label class="username awse_news_index_page_title">{{ add_.0 }}</label><br>
-<label class="city">
-    <u style="color: #a0a0a0;font-weight: 600;" class="news_search_button_awse_index_block">
-        Search this news
-    </u>
-    <br/><br/>
-    <i>{{ add_.1 }}</i>
-    <br/><br/>
-    <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
+    <label class="username awse_news_index_page_title">{{ add_.0 }}</label><br>
+    <label class="city">
+        <u style="color: #a0a0a0;font-weight: 600;" class="news_search_button_awse_index_block">
+            Search this news
+        </u>
+        <br/><br/>
+        <i>{{ add_.1 }}</i>
+        <br/><br/>
+        <b>A source - <a href="{{ add_.4 }}" target="_blank">{{ add_.2 }}</a></b>
+        <br/>
+        <i><u>Published at {{ add_.3 }} (UTC)</u></i>
+    </label>
     <br/>
-    <i><u>Published at {{ add_.3 }} (UTC)</u></i>
-</label>
-<br/>
-{% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
-<div id="{{ badge_block }}" class="badge_block_info select_disable_text"></div>
-<script id="{{ script_id }}">let x{{ title_badge }}="News&nbsp;";let x{{ icon_badge }}="far fa-newspaper";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
-{% endwith %}
+    {% with script_id=64|get_random_string badge_block=64|get_random_string title_badge=12|get_random_string icon_badge=12|get_random_string %}
+    <div id="{{ badge_block }}" class="badge_block_info select_disable_text"></div>
+    <script id="{{ script_id }}">let x{{ title_badge }}="News&nbsp;";let x{{ icon_badge }}="far fa-newspaper";$("#{{ badge_block }}").html("<span style=\"margin:0.5em\">"+x{{ title_badge }}+"<i class=\""+x{{ icon_badge }}+"\"></i></span>");$("#{{ script_id }}").remove()</script>
+    {% endwith %}
 {% endspaceless %}

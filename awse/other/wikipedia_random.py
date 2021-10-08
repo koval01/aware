@@ -13,6 +13,7 @@ class WikiRandomGet:
     def __init__(self) -> None:
         """
         Init request params
+        :param search_text: Search text
         :return: None
         """
         self.request_params = {
@@ -128,6 +129,7 @@ class WikiRandomGet:
             text = self.remove_tags_params(text)
             text = self.adapt_transfer_text(text)
         text = self.beautiful_soup_filter(text)
+
         return text
 
     def get_(self) -> dict:
@@ -136,12 +138,16 @@ class WikiRandomGet:
         :return: HTML text
         """
         start_order = time()
+
         for _ in range(10):
             data, code = self.request()
             if code >= 200 < 300:
                 start_ = time()
-                page = self.select_page(data)["extract"]
-                extract = self.remove_comment(page)
+                page = self.select_page(data)
+                page_id = page["pageid"]
+                extract = self.remove_comment(page["extract"])
+
+                # Post edit
                 first_el = self.select_first(extract)
                 filter_ = self.filters(first_el)
 
@@ -149,4 +155,5 @@ class WikiRandomGet:
                     return dumps({
                         "text": filter_, "process_time": (time() - start_),
                         "full_order_time": (time() - start_order),
+                        "link": "https://en.wikipedia.org/wiki?curid=%d" % page_id,
                     })

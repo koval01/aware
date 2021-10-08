@@ -24,6 +24,12 @@
 
         {% if vars.typeload == "newsession" %}
 
+            <div class="anime_blocks_container" style="display:none">
+                {% if vars.anime %}
+                    {% include "awse/load_blocks/anime.html" %}
+                {% endif %}
+            </div>
+
             {% if vars.c_result %}
                 {% include "awse/load_blocks/calculator.html" %}
             {% endif %}
@@ -74,5 +80,5 @@
             {% endfor %}
         {% endif %}
     {% endif %}
-
+    <!-- response generated in: {{ vars.finish_time }}s -->
 {% endspaceless %}

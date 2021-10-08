@@ -51,13 +51,4 @@
           }, 5e3);
   });
 </script>
-<script>
-    var customizedFunction = function (info, eventName) {
-      // direct access to info object
-      console.log(info.event.type, info.container.id);
-    }
-
-    // bind function to event
-    slider.events.on('indexChanged', customizedFunction);
-</script>
 {% endspaceless %}

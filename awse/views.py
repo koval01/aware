@@ -25,14 +25,13 @@ from .other.heroku_api import get_last_build_id as heroku_get_last_build_id
 from .other.quote_get import get_result as get_quote_list
 from .other.wikipedia_random import WikiRandomGet
 from .other.wikipedia_search import WikipediaSearchModule
+from .other.anime import AnimeSearch
 from .search_utils.calculate import calculator
 from .search_utils.namaz_api import get_namaz_data
 from .search_utils.search_api import select_type as search_execute
 from .search_utils.search_complete_api import get_result_data as search_complete
 from .search_utils.weather_api import weather_get, get_weather_icon
 from .other.whois_api import get_info_domain
-from .covid.api import covid_api as covid_stat
-from .covid.api import num_formatter
 from .models import Info, Banner
 from .news_rev.newsapi import __main__ as newsfeed
 from .news_rev.newsapi_ai import __main__ as newsapiai_get
@@ -58,6 +57,13 @@ def get_weather_ico(value) -> str:
 @register.filter
 def encode_eng(value) -> str:
     return encoder_eng(value)
+
+
+@register.filter
+def short_desc(value) -> str:
+    value = str(value)
+    if len(value) > 400: return value[:397]+"..."
+    else: value
 
 
 @register.filter
@@ -201,8 +207,14 @@ def search_suggestions_get(request):
     :return: list suggestions
     """
     try:
+        sign_data = request.GET['sign']
+
+        salt = Fernet(sign_key)
+        received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
+        original_address = my_ip_key(None, request)
+
         q = request.GET['q']
-        if q and len(q) <= 100:
+        if q and len(q) <= 100 and (received_address == original_address):
             return JsonResponse({"data": search_complete(q)})
 
     except Exception as e:
@@ -264,8 +276,8 @@ def global_ad_function(lang: str) -> dict:
                             return i
 
 
+# @csrf_exempt
 @require_POST
-@csrf_exempt
 @ratelimit(key=my_ip_key, rate='3/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def get_ad(request):
@@ -274,9 +286,16 @@ def get_ad(request):
     :param request: request body
     :return: advertise data
     """
+    st_time = time()
     try:
         key = request.POST.get('c_t___kk_', '')
-        if key == ad_key or check_request__(key):
+        sign_data = request.POST.get('sign', '')
+
+        salt = Fernet(sign_key)
+        received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
+        original_address = my_ip_key(None, request)
+
+        if key == ad_key or check_request__(key) and (received_address == original_address):
             lang = request.POST.get('lang', '')
 
             try:
@@ -291,9 +310,9 @@ def get_ad(request):
                 data = global_ad_function(lang)
 
                 if not data:
-                    return JsonResponse({"error": "no ads available"})
+                    return JsonResponse({"error": "no ads available", "time": time() - st_time})
 
-                return JsonResponse({"text": data.i_text})
+                return JsonResponse({"text": data.i_text, "time": time() - st_time})
 
     except Exception as e:
         logger.error("%s: %s" % (get_ad.__name__, e))
@@ -340,8 +359,8 @@ def get_banner(request):
     :param request: request body
     :return: video direct link
     """
+    st_time = time()
     try:
-        s = time()
         key = request.POST.get('c_t___kk_', '')
 
         if check_request__(key):
@@ -366,7 +385,7 @@ def get_banner(request):
                 "ad_site": link,
                 "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),
-                "time": str(time() - s)[:5]
+                "time": time() - st_time,
             })
 
     except Exception as e:
@@ -375,6 +394,7 @@ def get_banner(request):
     return error_400(request)
 
 
+# @csrf_exempt
 @require_POST
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
@@ -384,18 +404,23 @@ def get_video_yt(request):
     :param request: request body
     :return: video direct link
     """
+    st_time = time()
     try:
-        s = time()
         key = request.POST.get('c_t___kk_', '')
         video_id = request.POST.get('video_id', '')
+        sign_data = request.POST.get('sign', '')
 
-        if check_request__(key):
+        salt = Fernet(sign_key)
+        received_address = salt.decrypt(str.encode(sign_data)).decode('utf-8')
+        original_address = my_ip_key(None, request)
+
+        if check_request__(key) and (original_address == received_address):
             v = pafy.new(video_id)
             link = v.streams[0].url_https
 
             return JsonResponse({
                 "link": link,
-                "time": str(time() - s)[:5]
+                "time": time() - st_time,
             })
 
     except Exception as e:
@@ -477,7 +502,9 @@ def load(request):
     if check_request__(c_token) and (original_address == received_address or namaz):
         additions = int(request.POST.get('additions', ''))
         news_append = int(request.POST.get('news', ''))
-        covid_stat_append = int(request.POST.get('covid_stat', ''))
+
+        # covid_stat_append = int(request.POST.get('covid_stat', ''))
+        covid_stat_append = False
 
         search = request.POST.get('search', '')
         len_c = request.POST.get('c', '')
@@ -548,6 +575,12 @@ def load(request):
                     search_send = search
                     if namaz_result: search_send = ''
 
+                    # Anime check and get
+                    anime = request.POST.get('anime', '')
+                    if anime and settings.ANIME_SEARCH_ENABLED:
+                        anime_data = AnimeSearch(search_send).request()
+                    else: anime_data = None
+
                     # default search
                     search_api = search_execute(search_send, search_index)
 
@@ -556,13 +589,16 @@ def load(request):
                         search_array = search_api['array']
                     else: search_data, search_array = [], []
 
-                    if typeload == 'newsession':
+                    if typeload == 'newsession' and settings.STANDART_WIKI:
                         wikipedia_search_result = WikipediaSearchModule(
-                            ).get_(search_send)
+                            search_send
+                        ).get_()
+                    else: wikipedia_search_result = None
 
                     # image search
                     if settings.IMAGES_SEARCH_ENABLED and not namaz and not quote_mode:
-                        images_search = search_execute(search_send, 0, 'image')['items']
+                        try: images_search = search_execute(search_send, 0, 'image')['items']
+                        except Exception as e: images_search = None
                     else: images_search = None
 
                     # Weather
@@ -619,21 +655,22 @@ def load(request):
                             self.namaz_data = namaz_result
                             self.namaz = namaz
 
-                            # self.quote = quote
-                            # Direct get quote disabled 23.09.2021
                             self.q_mode = q_mode
                             self.q_data = q_data
+
+                            self.anime = anime
+                            self.anime_data = anime_data
 
                             self.translate_result = translate_result
                             self.weather = weather
                             self.search_api_full_dict = search_api
 
-                            # Wikipedia search result
                             self.wiki_result = wikipedia_search_result
 
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
                             self.settings = settings
+                            self.finish_time = (time() - start_time)
 
                     vars_ = vars(Variables())
 

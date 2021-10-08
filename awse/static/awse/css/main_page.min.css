@@ -432,8 +432,39 @@ body {
     display: block
 }
 
+.text_set_position_in_block {
+    margin-bottom: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 16px !important;
+}
+
+.search_string_in_header {
+    position: absolute;
+    margin-left: 4rem;
+    color: #fff;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    white-space: nowrap;
+}
+
 .autocom-box li:hover {
     background: #2b2b2b;
+}
+
+.blur_end_header_text, .mask_blur_end_header_text {
+    position:absolute;
+    top: 0;
+    right: 0;
+    width: 55px !important;
+    height: 48px !important;
+}
+
+.mask_blur_end_header_text {
+    -webkit-mask-image: -webkit-gradient(linear, 0 50, 50 50, from(rgba(14,14,16,0)), to(rgba(14,14,16,1)));
+    mask-image: linear-gradient(to bottom, rgba(14,14,16,1), rgba(0,0,0,0));
+    /* blur set */
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .img_images_block_slider {
@@ -445,13 +476,31 @@ body {
     /* max-height: 200px !important;
     max-width: 140px !important; */
     padding: 0 !important;
-    box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%);
+    /* box-shadow: 0px 3px 8px 0px rgb(0 0 0 / 40%); */
+    width: 100% !important;
+    /*height: 100% !important;*/
+}
+
+.photo_set_params {
+    margin-bottom: 15px !important;
+    width: 100% !important;
+    max-height: 50% !important;
+    margin-top: 3% !important;
+    border-radius: 0%!important;
+}
+
+.image_move_up_ {
+    margin-top: 0 !important;
+    padding: 0 !important;
+    border-radius: 10px 10px 0 0 !important
 }
 
 .text_container_images_block_slider {
     background: #313131;
     padding: 3px;
     border-radius: 0.5em;
+    /*max-width: 100% !important;*/
+    /*width: 100% !important;*/
 }
 
 .text_images_block_slider {
@@ -817,7 +866,7 @@ u {
 }
 
 .wrapper_gradient {
-    background-image: linear-gradient(to right, #ffffff, #303030) !important;
+    background-image: linear-gradient(to right, #a1a1a1, #0c0c0c) !important;
     background-size: 600%;
     background-position: 0 0;
     box-shadow: inset 0 0 5em rgba(0,0,0,.5);
@@ -1503,7 +1552,7 @@ u {
     padding: 0;
     text-align: left;
     padding-bottom: 1px;
-    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, .4)
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.4);
 }
 
 .photohub_item .content {

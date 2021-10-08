@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os.path
 
-build_ = hex(175326092021)[2:]
+build_ = hex(16337233366948)[2:]
 
 # settings.configure(
 #     image_proxy_key = os.environ['IMAGE_PROXY_KEY'],
@@ -122,8 +122,13 @@ else:
 TWITTER_BEARER = os.environ['TWITTER_BEARER']
 NEWSAPI_AI = os.environ['NEWSAPI_AI']
 
-IMAGES_SEARCH_ENABLED = True
+IMAGES_SEARCH_ENABLED = False
 NEED_IMAGES_DESC = False
+
+ANIME_SEARCH_ENABLED = False
+
+STANDART_WIKI = False
+DUCKDUCK_WIKI = False
 
 # Application definition
 

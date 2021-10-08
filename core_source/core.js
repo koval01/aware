@@ -4,8 +4,20 @@
 |---------------------------------------|
 */
 
+const latin_letters = "qwertyuiopasdfghjklzxcvbnm";
+const cyrylic_letters = "йцукенгшщзхїґфивапролджєячсмітьбюыэё";
+const numbers = "1234567890";
+const special_symbols = "<>/?,.[]{}\\|-_=+()*&^%$#@!`~";
+
+const upper_latin = latin_letters.toUpperCase();
+const upper_cyrylic = cyrylic_letters.toUpperCase();
+
 function imgError(o) {
     return (o.onerror = ""), (o.src = background_static__), !0;
+}
+
+function AnimeImgError(o) {
+    return o.remove(), !0;
 }
 
 function VideoError(o) {
@@ -76,7 +88,12 @@ function makeid(length = 64, password_mode = false) {
 
 function search_title_set(title_text) {
     document.title = 'AWSE - ' + title_text;
-    console.log("Update page title");
+    console.log("Update page title!");
+}
+
+function search_text_header(title_text) {
+    $("#search_text_header_display").text(title_text);
+    console.log("Update header title!");
 }
 
 function BEncode(str) {
@@ -666,253 +683,263 @@ function get_namaz(string) {
 }
 
 function load_ajax_end_page(o, type_loading) {
-    const text_no = $(".no-more-results-text");
+    if (o.trim().length > 0) {
+        const text_no = $(".no-more-results-text");
 
-    const e = $(".load-more-end-butt"),
-        n = e.find("span");
+        const e = $(".load-more-end-butt"),
+            n = e.find("span");
 
-    const load_continue_footer = $(".load-more-end-butt-search-array"),
-        n_con = load_continue_footer.find("span");
+        const load_continue_footer = $(".load-more-end-butt-search-array"),
+            n_con = load_continue_footer.find("span");
 
-    const unix_n = Math.floor(Date.now() / 1000);
+        const unix_n = Math.floor(Date.now() / 1000);
 
-    load_continue_footer.css("display", "none");
+        load_continue_footer.css("display", "none");
 
-    const t = jQuery("[name=csrfmiddlewaretoken]").val();
-    const search_data_text = o;
-    const get = get__(true);
-    const geted_c = o.length;
-    const password_gen = generator_password_anal(o);
-    var standart_pass = "", most_sec_pass = "";
-    var his = new search_history_data();
-    var namaz_data = '';
-    const nd_new = LoadNewsNeed_(search_data_text);
+        const t = jQuery("[name=csrfmiddlewaretoken]").val();
+        const search_data_text = o;
+        const get = get__(true);
+        const geted_c = o.length;
+        const password_gen = generator_password_anal(o);
+        var standart_pass = "", most_sec_pass = "";
+        var his = new search_history_data();
+        var namaz_data = '';
+        const nd_new = LoadNewsNeed_(search_data_text);
 
-    if (password_gen) {
-        standart_pass = makeid(16)
-        most_sec_pass = makeid(24, password_mode=true)
-    }
-
-    function move_error_block() {
-        if (is_search_now) {
-            $(".row-posts-end").css('margin-top', '-3em');
-        } else {
-            $(".row-posts-end").css('margin-top', '-12em');
+        if (password_gen) {
+            standart_pass = makeid(16)
+            most_sec_pass = makeid(24, password_mode = true)
         }
-    }
 
-    if (namaz_anal(search_data_text)) {
-        namaz_data = get_namaz(search_data_text);
-    }
-
-    console.log("Start loading data...");
-
-    $.ajax({
-        url: load__,
-        type: "POST",
-        data: {
-            csrfmiddlewaretoken: t,
-            validtoken: token_valid__,
-            typeload: type_loading,
-            additions: 0,
-            c_t___kk_: get,
-            news: 0,
-            sign: user_address__,
-            c: geted_c,
-            u: unix_n,
-            gr_token: null,
-            covid_stat: covid_anal(o),
-            search: o,
-            mobile: mob(),
-            news_need: nd_new,
-            weather_need: weather_anal(search_data_text),
-            quote_mode: 0,
-        },
-        beforeSend: function () {
-            if ($.cookie('hide_block_index') == 'no') {
-                $('.row-posts-end').css('margin-top', '-3em');
+        function move_error_block() {
+            if (is_search_now) {
+                $(".row-posts-end").css('margin-top', '-3em');
+            } else {
+                $(".row-posts-end").css('margin-top', '-12em');
             }
+        }
 
-            $(".banner_ad_awse").css('width', '50%');
-            $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
-            $(".clear_awse_search_string").css("margin-right", "2.5em");
-            $(".search-input-awse").css("padding", "0 75px 0 20px");
+        if (namaz_anal(search_data_text)) {
+            namaz_data = get_namaz(search_data_text);
+        }
 
-            text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.refresh();
-            text_no.css('display', 'none');
+        console.log("Start loading data...");
 
-            // get_ad('con');
-
-            error_search_no_text('ok');
-
-            comment = document.createComment($(".icon_search_load_awse_one").get(0).outerHTML);
-            $(".icon_search_load_awse_one").replaceWith(comment);
-
-            e.css("top", "-5px");
-            e.css("right", "10px");
-
-            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
-            $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
-
-            $(".row-posts-end").css("display", "");
-        },
-        success: function (o) {
-            console.log(`History len ${his.items().length}`);
-            his.remove(capitalize(search_data_text)); // If it was already, then remove, then put again
-            let long_word_search = false;
-
-            splited_search_string = search_data_text.split(' ')
-
-            for (let i = 0; i < splited_search_string.length; i++) {
-                if (splited_search_string[i].length > 32) {
-                    long_word_search = true;
-                    break;
+        $.ajax({
+            url: load__,
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: t,
+                validtoken: token_valid__,
+                typeload: type_loading,
+                additions: 0,
+                c_t___kk_: get,
+                news: 0,
+                sign: user_address__,
+                c: geted_c,
+                u: unix_n,
+                gr_token: null,
+                covid_stat: covid_anal(o),
+                search: o,
+                mobile: mob(),
+                news_need: nd_new,
+                weather_need: weather_anal(search_data_text),
+                quote_mode: 0,
+                anime: 1,
+            },
+            beforeSend: function () {
+                if ($.cookie('hide_block_index') == 'no') {
+                    $('.row-posts-end').css('margin-top', '-3em');
                 }
-            }
 
-            if (!long_word_search) {
-                his.add(capitalize(search_data_text));
-            }
+                $(".banner_ad_awse").css('width', '50%');
+                $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
+                $(".clear_awse_search_string").css("margin-right", "2.5em");
+                $(".search-input-awse").css("padding", "0 75px 0 20px");
 
-            $(".clear_awse_search_string").css("margin-right", "2em");
-            $(".search-awse-block-global").css("margin-bottom", "1em");
-            $(".search-input-awse").css("padding", "0 65px 0 20px");
+                text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.refresh();
+                text_no.css('display', 'none');
 
-            updated_search_text = search_data_text;
-            $(comment).replaceWith(comment.nodeValue);
+                // get_ad('con');
 
-            search_title_set(search_data_text);
-            edit_query_string_q(search_data_text);
+                error_search_no_text('ok');
 
-            e.removeAttr("style");
-            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
-            load_continue_footer.css('visibility', 'visible');
-            load_continue_footer.css('display', 'block');
+                comment = document.createComment($(".icon_search_load_awse_one").get(0).outerHTML);
+                $(".icon_search_load_awse_one").replaceWith(comment);
 
-            if (o.replace(/[^+\w]/g, '').length < 10) {
-                load_continue_footer.css('visibility', 'hidden');
-            }
+                e.css("top", "-5px");
+                e.css("right", "10px");
 
-            n_con.css('visibility', 'hidden');
-            n_con.css('display', 'none');
-            n_con.removeClass("d-inline-block");
+                $('.spinner_search_load_awse').replaceWith(comment_spin_global);
+                $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
 
-            document.querySelector(".search-input").classList.remove("active");
-            $(".float_bg").css("display", "none");
-            AOS.refresh();
+                $(".row-posts-end").css("display", "");
+            },
+            success: function (o) {
+                console.log(`History len ${his.items().length}`);
+                let dynamic_search_data_text = search_data_text.trim();
+                his.remove(capitalize(dynamic_search_data_text)); // If it was already, then remove, then put again
+                let long_word_search = false;
 
-            if (type_loading == 'newsession') {
-                $(".row-posts-end").empty();
-                search_index = 21;
-            }
+                splited_search_string = search_data_text.split(' ')
 
-            e.attr("disabled", !1),
-                n.removeClass("d-inline-block"),
-                "Ошибка валидации!" == o ? $.notify("Error. Reload the page.", {
-                    position: "bottom right",
-                    autoHideDelay: 3000
-                }) : $(".row-posts-end").append(o),
-                AOS.refresh(),
-                $(document).ready(function () {
-                    $('[data-toggle="tooltip"]').tooltip();
-                });
+                for (let i = 0; i < splited_search_string.length; i++) {
+                    if (splited_search_string[i].length > 32) {
+                        long_word_search = true;
+                        break;
+                    }
+                }
 
-            if ((o).length < 10) {
+                if (!long_word_search) {
+                    his.add(capitalize(dynamic_search_data_text));
+                }
+
+                $(".clear_awse_search_string").css("margin-right", "2em");
+                $(".search-awse-block-global").css("margin-bottom", "1em");
+                $(".search-input-awse").css("padding", "0 65px 0 20px");
+
+                updated_search_text = search_data_text;
+                $(comment).replaceWith(comment.nodeValue);
+
+                search_title_set(search_data_text);
+                search_text_header(search_data_text);
+                edit_query_string_q(search_data_text);
+
                 e.removeAttr("style");
+                $('.spinner_search_load_awse').replaceWith(comment_spin_global);
+                load_continue_footer.css('visibility', 'visible');
+                load_continue_footer.css('display', 'block');
+
+                if (o.replace(/[^+\w]/g, '').length < 10) {
+                    load_continue_footer.css('visibility', 'hidden');
+                }
+
+                n_con.css('visibility', 'hidden');
+                n_con.css('display', 'none');
+                n_con.removeClass("d-inline-block");
+
+                document.querySelector(".search-input").classList.remove("active");
+                $(".float_bg").css("display", "none");
+                AOS.refresh();
+
+                if (type_loading == 'newsession') {
+                    $(".row-posts-end").empty();
+                    search_index = 21;
+                }
+
+                e.attr("disabled", !1),
+                    n.removeClass("d-inline-block"),
+                    "Ошибка валидации!" == o ? $.notify("Error. Reload the page.", {
+                        position: "bottom right",
+                        autoHideDelay: 3000
+                    }) : $(".row-posts-end").append(o),
+                    AOS.refresh(),
+                    $(document).ready(function () {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    });
+
+                if ((o).length < 10) {
+                    e.removeAttr("style");
+                    $('.spinner_search_load_awse').replaceWith(comment_spin_global);
+                    $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
+                    // move_error_block();
+                    e.attr("disabled", !1), n.removeClass("d-inline-block");
+                }
+
+                // else {
+                //     $(".wrapper").css("margin", "15px auto");
+                // }
+                $(".wrapper").css("margin", "15px auto");
+
+                function update_AOS_blocks() {
+                    AOS.refresh();
+                }
+
+                setTimeout(update_AOS_blocks, 1200);
+                setTimeout(hide_hint_text_video, 10000);
+
+                if (namaz_data) {
+                    $(".row-posts-end").prepend(namaz_data);
+                    AOS.refresh();
+                }
+
+                if (user_agent_anal(search_data_text)) {
+                    let user_agent_data_block = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" ' +
+                        'data-aos="fade-up"><div style="float: left;"><label id="' +
+                        makeid(32) +
+                        '" class="username" style="margin-top: -0.5em;">' +
+                        'What\'s my user agent?</label><br><br><label id="' +
+                        makeid(32) +
+                        '" class="city user_agent_disp" style="font-weight: 900;">' +
+                        window.navigator.userAgent +
+                        '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;margin-top: 1em;display: inline-block;">' +
+                        '<span style="margin: 0.5em;">Special&nbsp;<i class="fas fa-hashtag"></i></span></div></div></div></div>';
+
+                    $(".row-posts-end").prepend(user_agent_data_block);
+                    AOS.refresh();
+                }
+
+                init_video_search_in_results();
+                is_search_now = true;
+
+                search_surprise(search_data_text);
+
+                get_ad('con');
+
+                if (password_gen) {
+                    $(".row-posts-end").prepend(password_gen_template(
+                        standart_pass, most_sec_pass
+                    ));
+                    init_passwords_copy_button();
+                }
+
+                if (whois_anal(search_data_text)) {
+                    find_domain__(search_data_text);
+                    // setTimeout(150, whois_display_button_js());
+                }
+            },
+            error: function () {
+                $(".clear_awse_search_string").css("margin-right", "2em");
+                $(".search-awse-block-global").css("margin-bottom", "1em");
+
+                $(".wrapper").css("margin", "15px auto");
+                $(".search-input-awse").css("padding", "0 65px 0 20px");
+                e.removeAttr("style");
+
                 $('.spinner_search_load_awse').replaceWith(comment_spin_global);
                 $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
                 // move_error_block();
                 e.attr("disabled", !1), n.removeClass("d-inline-block");
-            }
 
-            // else {
-            //     $(".wrapper").css("margin", "15px auto");
-            // }
-            $(".wrapper").css("margin", "15px auto");
-
-            function update_AOS_blocks() {
-                AOS.refresh();
-            }
-
-            setTimeout(update_AOS_blocks, 1200);
-            setTimeout(hide_hint_text_video, 10000);
-
-            if (namaz_data) {
-                $(".row-posts-end").prepend(namaz_data);
-                AOS.refresh();
-            }
-
-            if (user_agent_anal(search_data_text)) {
-                let user_agent_data_block = '<div class="col-12 col-lg-12 padding-block-center-box"><div class="user box aos-init aos-animate" ' +
-                    'data-aos="fade-up"><div style="float: left;"><label id="' +
-                    makeid(32) +
-                    '" class="username" style="margin-top: -0.5em;">' +
-                    'What\'s my user agent?</label><br><br><label id="' +
-                    makeid(32) +
-                    '" class="city user_agent_disp" style="font-weight: 900;">' +
-                    window.navigator.userAgent +
-                    '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;margin-top: 1em;display: inline-block;">' +
-                    '<span style="margin: 0.5em;">Special&nbsp;<i class="fas fa-hashtag"></i></span></div></div></div></div>';
-
-                $(".row-posts-end").prepend(user_agent_data_block);
-                AOS.refresh();
-            }
-
-            init_video_search_in_results();
-            is_search_now = true;
-
-            search_surprise(search_data_text);
-
-            get_ad('con');
-
-            if (password_gen) {
-                $(".row-posts-end").prepend(password_gen_template(
-                    standart_pass, most_sec_pass
-                ));
-                init_passwords_copy_button();
-            }
-
-            if (whois_anal(search_data_text)) {
-                find_domain__(search_data_text);
-                // setTimeout(150, whois_display_button_js());
-            }
-        },
-        error: function () {
-            $(".clear_awse_search_string").css("margin-right", "2em");
-            $(".search-awse-block-global").css("margin-bottom", "1em");
-
-            $(".wrapper").css("margin", "15px auto");
-            $(".search-input-awse").css("padding", "0 65px 0 20px");
-            e.removeAttr("style");
-
-            $('.spinner_search_load_awse').replaceWith(comment_spin_global);
-            $(".row-posts-end").empty(), $(comment).replaceWith(comment.nodeValue), $(".row-posts-end").append(error_block_space_design);
-            // move_error_block();
-            e.attr("disabled", !1), n.removeClass("d-inline-block");
-
-            get_ad('new');
-        },
-        statusCode: {
-            400: function () {
-                $.notify("Something went wrong...", {
-                    position: "bottom right",
-                    autoHideDelay: 3000
-                });
+                get_ad('new');
             },
-            403: function () {
-                $.notify("Too many requests.", {
-                    position: "bottom right",
-                    autoHideDelay: 3000
-                });
+            statusCode: {
+                400: function () {
+                    $.notify("Something went wrong...", {
+                        position: "bottom right",
+                        autoHideDelay: 3000
+                    });
+                },
+                403: function () {
+                    $.notify("Too many requests.", {
+                        position: "bottom right",
+                        autoHideDelay: 3000
+                    });
+                },
+                500: function () {
+                    $.notify("Server side error.", {
+                        position: "bottom right",
+                        autoHideDelay: 3000
+                    });
+                }
             },
-            500: function () {
-                $.notify("Server side error.", {
-                    position: "bottom right",
-                    autoHideDelay: 3000
-                });
-            }
-        },
-    });
+        });
+    } else {
+        $.notify("Error get search text.", {
+            position: "bottom right",
+            autoHideDelay: 3000
+        });
+    }
 }
 
 function load_continue_ajax_end_page(o, type_loading) {
@@ -949,6 +976,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             news_need: nd_new,
             weather_need: 0,
             quote_mode: 0,
+            anime: 1,
         },
         beforeSend: function () {
             text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block");
@@ -1037,9 +1065,9 @@ function get_from_history_suggestions(search_text) {
     var naked_data = [];
 
     for (let i = 0; i < reversed_array.length; i++) {
-        var string = reversed_array[i].toLowerCase();
+        var string = reversed_array[i].toLowerCase().trim();
 
-        if (string.indexOf(search_text.toLowerCase()) !== -1) {
+        if (string.indexOf(search_text.toLowerCase().trim()) !== -1) {
             result_array.push(`
                 <li class="search-el-a">
                     <span class="ico_s_el" style="margin-right: 0.25em;">
@@ -1047,9 +1075,7 @@ function get_from_history_suggestions(search_text) {
                     </span>
                     <span 
                         class="text_s_el" 
-                        style="color:rgba(255, 255, 255, 0.92)">
-                            ${string}
-                    </span>
+                        style="color:rgba(255, 255, 255, 0.92)">${string}</span>
                 </li>
             `);
             naked_data.push(string);
@@ -1081,23 +1107,35 @@ function modify_suggestions_from_server(history_sug, server_sug) {
     return el_server.html();
 }
 
+// function get_check_symbols_array(symbl) {
+//     if (symbl.length == 1) {
+//         return symbl.isInList(latin_letters.split("") +
+//             cyrylic_letters.split("") +
+//             upper_cyrylic.split("") +
+//             upper_latin.split(""));
+//     } else { return "Error input!" }
+// }
+
 function get_suggestions() {
     var text = $('.search-input-awse').val();
-    $.ajax({
-        url: search_suggestions_get__,
-        type: "GET",
-        data: {
-            "q": text
-        },
-        success: function (o) {
-            var his_data = get_from_history_suggestions(text);
-            $(".autocom-box").empty()
-            $(".autocom-box").append(his_data[0]);
-            $(".autocom-box").append(modify_suggestions_from_server(his_data[1], o['data']));
-        },
-        async: true,
-        timeout: 3000,
-    });
+    if (text.trim().length > 0) {
+        $.ajax({
+            url: search_suggestions_get__,
+            type: "GET",
+            data: {
+                "q": text,
+                "sign": user_address__,
+            },
+            success: function (o) {
+                var his_data = get_from_history_suggestions(text);
+                $(".autocom-box").empty()
+                $(".autocom-box").append(his_data[0]);
+                $(".autocom-box").append(modify_suggestions_from_server(his_data[1], o['data']));
+            },
+            async: true,
+            timeout: 3000,
+        });
+    }
 }
 
 $(".search-input-awse").on('keyup', function (e) {
@@ -1282,6 +1320,7 @@ function get_ad(mode) {
                 csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
                 c_t___kk_: get__(true),
                 lang: "en",
+                sign: user_address__,
             },
             success: function (o) {
                 $(".autocom-box").empty();
@@ -1497,6 +1536,7 @@ function init_video_search_in_results() {
                 data: {
                     csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
                     c_t___kk_: get__(true),
+                    sign: user_address__,
                     video_id: video_id
                 },
                 beforeSend: function () {
@@ -1623,7 +1663,8 @@ $(window).scroll(function () {
         elemnt_icon_awse = $(".icon_search_load_awse_one");
 
         my_element_jq.removeAttr("style");
-        elemnt_icon_awse.removeAttr("style");
+        // elemnt_icon_awse.removeAttr("style");
+        elemnt_icon_awse.css("visibility", "visible");
 
         comment_spin_global = document.createComment(my_element_jq.get(0).outerHTML);
         my_element_jq.replaceWith(comment_spin_global);
@@ -1639,11 +1680,12 @@ $(window).scroll(function () {
 
         $("#notify-bootstrap").empty();
 
-        function local_AOS_upd() {
+        function updater_local() {
             AOS.refresh();
+            // $(".text_container_images_block_slider").css("width", "100%");
         }
 
-        setInterval(local_AOS_upd, 1000); // update AOS per one second
+        setInterval(updater_local, 200); // update AOS per one second
 
         // core is ready
     }),

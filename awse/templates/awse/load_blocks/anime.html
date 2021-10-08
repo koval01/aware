@@ -1,0 +1,61 @@
+{% spaceless %}
+{% for el in vars.anime_data %}
+    {% if el.title %}
+    <div class="col-12 col-lg-12 padding-block-center-box">
+        <div class="user box aos-init aos-animate" data-aos="fade-up" style="padding:0">
+            <div style="float:left">
+                {% with title_id_two=64|get_random_string title_id=64|get_random_string token_image=24|get_random_string user_address=24|get_random_string badge_block=64|get_random_string badge_block_2=64|get_random_string photo_block_id=64|get_random_string script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string el_4=24|get_random_string el_5=24|get_random_string badge_container=32|get_random_string image=24|get_random_string badge_link=24|get_random_string icon_badge=12|get_random_string icon_badge_2=12|get_random_string title_badge=24|get_random_string %}
+                <label id="{{ title_id }}" style="margin-bottom:5px;padding:0" class="username text_set_position_in_block"></label>
+                <img id="{{ photo_block_id }}"
+                     class="photo_set_params photohub_item" onerror="AnimeImgError(this)"
+                     style="visibility:hidden;position:unset;left:0;max-height:100%;margin-bottom:0;width:9999px!important;margin-top:8px!important"
+                     alt="Anime thumbnail" loading="lazy">
+                <label id="{{ title_id_two }}" class="city text_set_position_in_block">
+                    <aware-anime-block id="{{ block_ }}"></aware-anime-block>
+                    <script id="{{ script_id }}">
+                        let x{{ el_ }}='{{ el.title.english|encode_eng }}';
+                        let x{{ el_2 }}='{{ el.coverImage.large|link_encrypt_img|encode_eng }}';
+                        let x{{ el_3 }}='{{ el.description|short_desc|encode_eng }}';
+                        let x{{ el_4 }}='{{ el.title.native|encode_eng }}';
+                        let x{{ el_5 }}='{{ el.type|title|encode_eng }}';
+                        let x{{ token_image }}='{{ vars.token_image_proxy|encode_eng }}';
+                        let x{{ user_address }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
+                        const x{{ image }}=$("#{{ photo_block_id }}");
+                        x{{ image }}.attr("src", "{% url 'imageproxy' %}"+`?data=${UpBDecode(x{{ el_2 }})}&v=1&token=${UpBDecode(x{{ token_image }})}&sign=${UpBDecode(x{{ user_address }})}`);
+                        x{{ image }}.css("visibility", "visible");
+                        if(UpBDecode(x{{ el_3 }})!="None"){$("#{{ block_ }}").html(`<i>${UpBDecode(x{{ el_3 }})}</i>`)
+                        }else{$("#{{ title_id_two }}").css("margin-top", "-50%")};
+                        if(UpBDecode(x{{ el_ }})!="None"){$("#{{ title_id }}").text(
+                            `${UpBDecode(x{{ el_ }})} | ${UpBDecode(x{{ el_4 }})}`)
+                        }else{
+                            $("#{{ title_id }}").remove(),x{{ image }}.attr("style",
+                                x{{ image }}.attr("style") + ";margin-top:0!important;"+
+                                "border-radius:5px 5px 0px 0px!important");
+                        };
+                        $("#{{ script_id }}").remove()
+                    </script>
+                </label>
+                <div id="{{ badge_container }}" style="padding-left:20px;padding-bottom:20px">
+                    <div id="{{ badge_block }}" class="badge_block_info select_disable_text"></div>
+                    <div id="{{ badge_block_2 }}" class="badge_block_info select_disable_text" style="margin-left:5px"></div>
+                </div>
+                <script id="{{ script_id }}">
+                    let x{{ title_badge }}=`${UpBDecode(x{{ el_5 }})}&nbsp;`;
+                    let x{{ icon_badge }}="fas fa-dragon";
+                    let x{{ badge_link }}='{{ el.siteUrl|encode_eng }}';
+                    let x{{ icon_badge_2 }}="fas fa-external-link-alt";
+                    $("#{{ badge_block }}").html(`
+                        <span style="margin:0.5em">${x{{ title_badge }}}<i class="${x{{ icon_badge }}}"></i></span>
+                    `);
+                    $("#{{ badge_block_2 }}").html(`
+                        <span style="margin:0.5em;padding:1"><a href="${UpBDecode(x{{ badge_link }})}" target="_blank" style="color:#000"><i class="${x{{ icon_badge_2 }}}"></i></a></span>
+                    `);
+                    $("#{{ script_id }}").remove()
+                </script>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+{% endspaceless %}

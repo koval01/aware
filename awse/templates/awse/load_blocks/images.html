@@ -6,12 +6,29 @@
                 <div class="photos-slider-awse select_disable_text">
                     {% for el_images in vars.images_search %}
                         <div>
-                            <div>
+                            <div style="max-width:100%">
                                 {# block #}
                                 {% with script_id=64|get_random_string block_id_link=64|get_random_string block_id_img=64|get_random_string el_=16|get_random_string el_2=16|get_random_string el_3=16|get_random_string el_4=16|get_random_string %}
-                                <a id="{{ block_id_link }}" target="_blank">
-                                    <img id="{{ block_id_img }}" onerror="imgError(this);" class="img_images_block_slider" alt="Preview image">
-                                </a>
+                                <div>
+                                    <a id="{{ block_id_link }}" target="_blank">
+                                        <img id="{{ block_id_img }}" onerror="imgError(this);" class="img_images_block_slider" alt="Preview image">
+                                    </a>
+                                </div>
+                                {% if vars.settings.NEED_IMAGES_DESC %}
+                                <div>
+                                    <div class="text_container_images_block_slider" style="width:100%">
+                                        <b class="text_images_block_slider">
+                                            <a href="{{ el_images.image.contextLink }}" target="_blank">
+                                                {% if el_images.title|length > 3 %}
+                                                    {{ el_images.htmlTitle|safe }}
+                                                {% else %}
+                                                    {{ vars.search }}
+                                                {% endif %}
+                                            </a>
+                                        </b>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <script id="{{ script_id }}">
                                     let x{{ el_ }}="{{ el_images.link|link_encrypt_img|encode_eng }}";
                                     let x{{ el_2 }}="{{ vars.token_image_proxy|encode_eng }}";
@@ -23,19 +40,6 @@
                                 </script>
                                 {% endwith %}
                             </div>
-                            {% if settings.NEED_IMAGES_DESC %}
-                            <div class="text_container_images_block_slider">
-                                <b class="text_images_block_slider">
-                                    <a href="{{ el_images.image.contextLink }}" target="_blank">
-                                        {% if el_images.title|length > 3 %}
-                                            {{ el_images.htmlTitle|safe }}
-                                        {% else %}
-                                            {{ vars.search }}
-                                        {% endif %}
-                                    </a>
-                                </b>
-                            </div>
-                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

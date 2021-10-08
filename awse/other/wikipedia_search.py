@@ -6,13 +6,19 @@ from bs4 import BeautifulSoup
 
 
 class WikipediaSearchModule:
-    def __init__(self) -> None:
+    def __init__(self, search_text) -> None:
+        """
+        Initialize Wikipedia search module
+        :param search_text: Searching text
+        :return: Init
+        """
         self.params = {
             "action": "query",
             "format": "json",
             "list": "search",
             "utf8": 1,
         }
+        self.search_text = search_text
 
     def request(self, search_text) -> dict:
         """
@@ -50,11 +56,11 @@ class WikipediaSearchModule:
         except Exception as e:
             logging.error("Wikipedia search API error, details: %s" % e)
 
-    def get_(self, text) -> dict:
+    def get_(self) -> dict:
         """
         Global get function
         :param text:
         :return: One item dictionary
         """
-        r = self.request(text)
+        r = self.request(self.search_text)
         return self.parser(r)

@@ -914,7 +914,7 @@ function load_ajax_end_page(o, type_loading) {
 
                 $(".banner_ad_awse").css('width', '50%');
                 $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
-                $(".clear_awse_search_string").css("padding-right", "2.5em");
+                $(".clear_awse_search_string").css("margin-right", "2.5em");
                 $(".search-input-awse").css("padding", "0 75px 0 20px");
 
                 text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.refresh();
@@ -955,7 +955,7 @@ function load_ajax_end_page(o, type_loading) {
                     his.add(capitalize(dynamic_search_data_text));
                 }
 
-                $(".clear_awse_search_string").css("padding-right", "2em");
+                $(".clear_awse_search_string").css("margin-right", "2em");
                 $(".search-awse-block-global").css("margin-bottom", "1em");
                 $(".search-input-awse").css("padding", "0 65px 0 20px");
 
@@ -1061,7 +1061,7 @@ function load_ajax_end_page(o, type_loading) {
                 }
             },
             error: function () {
-                $(".clear_awse_search_string").css("padding-right", "2em");
+                $(".clear_awse_search_string").css("margin-right", "2em");
                 $(".search-awse-block-global").css("margin-bottom", "1em");
 
                 $(".wrapper").css("margin", "15px auto");

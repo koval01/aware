@@ -314,9 +314,9 @@ def get_ad(request):
                 data = global_ad_function(lang)
 
                 if not data:
-                    return JsonResponse({"error": "no ads available", "time": time() - st_time})
+                    return JsonResponse({"error": "no ads available", "time": round(time() - st_time, 3)})
 
-                return JsonResponse({"text": data.i_text, "time": time() - st_time})
+                return JsonResponse({"text": data.i_text, "time": round(time() - st_time, 3)})
 
     except Exception as e:
         logger.error("%s: %s" % (get_ad.__name__, e))
@@ -389,7 +389,7 @@ def get_banner(request):
                 "ad_site": link,
                 "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),
-                "time": time() - st_time,
+                "time": round(time() - st_time, 3),
             })
 
     except Exception as e:
@@ -424,7 +424,7 @@ def get_video_yt(request):
 
             return JsonResponse({
                 "link": link,
-                "time": time() - st_time,
+                "time": round(time() - st_time, 3),
             })
 
     except Exception as e:
@@ -678,12 +678,12 @@ def load(request):
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
                             self.settings = settings
-                            self.finish_time = str(time() - start_time)[:5]
+                            self.finish_time = round(time() - st_time, 2)
 
                     vars_ = vars(Variables())
 
                     logger.debug('%s: request - %s' % (load.__name__, request))
-                    logger.info("Time loading \"load\" - %f" % (time() - start_time))
+                    logger.info("Time loading \"load\" - %f" % (round(time() - st_time, 3)))
 
                     return render(request, 'awse/load.html', {
                         'data': data, 'vars': vars_,

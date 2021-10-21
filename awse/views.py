@@ -721,6 +721,11 @@ def terms(request):
 
 
 @require_GET
+def privacy(request):
+    return render(request, 'awse/pages/privacy.html')
+
+
+@require_GET
 def search_config(request):
     """
     Search XML config

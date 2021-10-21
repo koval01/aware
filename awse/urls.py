@@ -16,6 +16,7 @@ urlpatterns = [
     path('footer_load', views.footer_html, name='footer_load'),
     path('credits', views.credits, name='credits'),
     path('terms', views.terms, name='terms'),
+    path('privacy', views.privacy, name='privacy'),
     path('opensearch.xml', views.search_config, name='search_config'),
     path('image', views.image_proxy_view, name='imageproxy'),
     path('suggestions', views.search_suggestions_get, name='search_suggestions_get'),

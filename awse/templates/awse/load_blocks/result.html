@@ -7,34 +7,35 @@
             <script id="{{ script_id }}">
                 let x{{ title_text }}="{{ el.0.title|encode_eng }}";
                 let x{{ title_link }}="{{ el.0.link|encode_eng }}";
-                $("#{{ title_el }}").html("<a target=\"_blank\" href=\""+UpBDecode(x{{ title_link }})+"\" style=\"word-break: break-word\">"+UpBDecode(x{{ title_text }})+"</a>");
+                $("#{{ title_el }}").html("<a href=\""+UpBDecode(x{{ title_link }})+"\" style=\"word-break: break-word\">"+UpBDecode(x{{ title_text }})+"</a>");
                 $("#{{ script_id }}").remove()
             </script>
             {% endwith %}
             <label class="city">
-                {% if el.0.thumb and not el.0.youtube_id %}
-                    {% with script_id=64|get_random_string block_=64|get_random_string el_=24|get_random_string el_2=24|get_random_string el_3=24|get_random_string el_4=24|get_random_string el_5=24|get_random_string el_6=24|get_random_string el_7=24|get_random_string %}
-                    <a id="{{ block_ }}"></a>
-                    <script id="{{ script_id }}">
-                        let x{{ el_ }}='{{ "_blank"|encode_eng }}';
-                        let x{{ el_2 }}='{{ el.0.link|encode_eng }}';
-                        let x{{ el_3 }}='{{ el.0.snippet|length|encode_eng }}';
-                        let x{{ el_4 }}='{{ el.0.thumb|link_encrypt_img|encode_eng }}';
-                        let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
-                        let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
-                        let x{{ el_7 }}=$("#{{ block_ }}");
-                        x{{ el_7 }}.attr({"target": UpBDecode(x{{ el_ }}), "href": UpBDecode(x{{ el_2 }})});
-                        x{{ el_7 }}.html(`
-                            <img
-                            src="{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_4 }})}&v=1&token=${UpBDecode(x{{ el_5 }})}&sign=${UpBDecode(x{{ el_6 }})}"
-                            onerror="imgError(this);"
-                            style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
-                            alt="Preview image (len ${UpBDecode(x{{ el_3 }})})">
-                        `);
-                        $("#{{ script_id }}").remove()
-                    </script>
-                    {% endwith %}
-                {% elif el.0.youtube_id %}
+                {% if el.0.thumb %}
+                    {% if not el.0.youtube_id or not vars.settings.YOUTUBE_PREVIEW %}
+                        {% with script_id=64|get_random_string block_=64|get_random_string el_2=24|get_random_string el_3=24|get_random_string el_4=24|get_random_string el_5=24|get_random_string el_6=24|get_random_string el_7=24|get_random_string %}
+                        <a id="{{ block_ }}"></a>
+                        <script id="{{ script_id }}">
+                            let x{{ el_2 }}='{{ el.0.link|encode_eng }}';
+                            let x{{ el_3 }}='{{ el.0.snippet|length|encode_eng }}';
+                            let x{{ el_4 }}='{{ el.0.thumb|link_encrypt_img|encode_eng }}';
+                            let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
+                            let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
+                            let x{{ el_7 }}=$("#{{ block_ }}");
+                            x{{ el_7 }}.attr({"href": UpBDecode(x{{ el_2 }})});
+                            x{{ el_7 }}.html(`
+                                <img
+                                src="{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_4 }})}&v=1&token=${UpBDecode(x{{ el_5 }})}&sign=${UpBDecode(x{{ el_6 }})}"
+                                onerror="imgError(this);"
+                                style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
+                                alt="Preview image (len ${UpBDecode(x{{ el_3 }})})">
+                            `);
+                            $("#{{ script_id }}").remove()
+                        </script>
+                        {% endwith %}
+                    {% endif %}
+                {% elif el.0.youtube_id and vars.settings.YOUTUBE_PREVIEW %}
                     <div class="view-container-youtube-video-awse">
                         <img
                                 src="{% url 'imageproxy' %}?data={{ el.0.thumb|link_encrypt_img }}&v=1&token={{ vars.token_image_proxy }}&sign={{ vars.user_address_original|sign_address_encrypt }}"
@@ -64,7 +65,7 @@
                 </script>
                 {% endwith %}
             </label>
-            {% if el.0.youtube_id %}
+            {% if el.0.youtube_id and vars.settings.YOUTUBE_PREVIEW %}
                 <div style="margin-top: 1em;transition: margin-top 1s;" class="hint_text_video_play_yt">
                     <b style="color: #808080;font-size: 0.7em;">
                         To view the video - click on the picture

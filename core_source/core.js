@@ -12,6 +12,8 @@ const special_symbols = "<>/?,.[]{}\\|-_=+()*&^%$#@!`~";
 const upper_latin = latin_letters.toUpperCase();
 const upper_cyrylic = cyrylic_letters.toUpperCase();
 
+var title_search = "";
+
 function imgError(o) {
     return (o.onerror = ""), (o.src = background_static__), !0;
 }
@@ -92,8 +94,9 @@ function search_title_set(title_text) {
 }
 
 function search_text_header(title_text) {
-    $("#search_text_header_display").text(title_text);
-    console.log("Update header title!");
+    const el = $("#search_text_header_display");
+    el.text(title_text);
+    console.log("Update header title! To: " + el.text());
 }
 
 function BEncode(str) {
@@ -255,6 +258,123 @@ function copy_text(selector_) {
         position: "bottom right",
         autoHideDelay: 3000
     });
+}
+
+function timeAgoConvert(date) {
+    let seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+    // let re = null;
+
+    if (interval > 1) {
+        time_ = Math.floor(interval);
+        one_l = parseInt(time_.toString().substr(-1));
+        two_l = parseInt(time_.toString().substr(-2));
+
+        if (one_l === 1 && two_l < 11) {
+            return 'year';
+        } else if (two_l > 20 && one_l === 1) {
+            return time_ + ' year';
+        } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+            return time_ + ' years';
+        } else if (5 > one_l && one_l > 1 && two_l < 11) {
+            return time_ + ' years';
+        } else {
+            return time_ + ' years';
+        }
+    }
+
+    interval = seconds / 2592000;
+    if (interval > 1) {
+        time_ = Math.floor(interval);
+        one_l = parseInt(time_.toString().substr(-1));
+        two_l = parseInt(time_.toString().substr(-2));
+
+        if (one_l === 1 && two_l < 11) {
+            return 'month';
+        } else if (two_l > 20 && one_l === 1) {
+            return time_ + ' month';
+        } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+            return time_ + ' months';
+        } else if (5 > one_l && one_l > 1 && two_l < 11) {
+            return time_ + ' months';
+        } else {
+            return time_ + ' months';
+        }
+    }
+
+    interval = seconds / 86400;
+    if (interval > 1) {
+        time_ = Math.floor(interval);
+        one_l = parseInt(time_.toString().substr(-1));
+        two_l = parseInt(time_.toString().substr(-2));
+
+        if (one_l === 1 && two_l < 11) {
+            return 'day';
+        } else if (two_l > 20 && one_l === 1) {
+            return time_ + ' day';
+        } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+            return time_ + ' days';
+        } else if (5 > one_l && one_l > 1 && two_l < 11) {
+            return time_ + ' days';
+        } else {
+            return time_ + ' days';
+        }
+    }
+
+    interval = seconds / 3600;
+    if (interval > 1) {
+        time_ = Math.floor(interval);
+        one_l = parseInt(time_.toString().substr(-1));
+        two_l = parseInt(time_.toString().substr(-2));
+
+        if (one_l === 1 && two_l < 11) {
+            return 'hour';
+        } else if (two_l > 20 && one_l === 1) {
+            return time_ + ' hour';
+        } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+            return time_ + ' hours';
+        } else if (5 > one_l && one_l > 1 && two_l < 11) {
+            return time_ + ' hours';
+        } else {
+            return time_ + ' hours';
+        }
+    }
+
+    interval = seconds / 60;
+    if (interval > 1) {
+        time_ = Math.floor(interval);
+        one_l = parseInt(time_.toString().substr(-1));
+        two_l = parseInt(time_.toString().substr(-2));
+
+        if (one_l === 1 && two_l < 11) {
+            return 'minute';
+        } else if (two_l > 20 && one_l === 1) {
+            return time_ + ' minute'; // хвилину
+        } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+            return time_ + ' minutes'; // хвилини
+        } else if (5 > one_l && one_l > 1 && two_l < 11) {
+            return time_ + ' minutes';
+        } else {
+            return time_ + ' minutes'; // хвилин
+        }
+        // Адаптація
+    }
+
+    time_ = Math.floor(seconds);
+    one_l = parseInt(time_.toString().substr(-1));
+    two_l = parseInt(time_.toString().substr(-2));
+
+    if (one_l === 1 && two_l < 11) {
+        return 'second';
+    } else if (two_l > 20 && one_l === 1) {
+        return time_ + ' second';
+    } else if (two_l > 20 && one_l > 1 && one_l < 5) {
+        return time_ + ' seconds';
+    } else if (5 > one_l && one_l > 1 && two_l < 11) {
+        return time_ + ' seconds';
+    } else {
+        return time_ + ' seconds';
+    }
 }
 
 function AOS_update_timer(time) {
@@ -682,6 +802,46 @@ function get_namaz(string) {
     }
 }
 
+function get_news_ai(country) {
+    /*
+    News get function
+    */
+
+    const unix_n = Math.floor(Date.now() / 1000);
+    var result = null;
+
+    $.ajax({
+        url: load__,
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: jQuery("[name=csrfmiddlewaretoken]").val(),
+            validtoken: token_valid__,
+            typeload: "newsession",
+            additions: 0,
+            c_t___kk_: get__(true),
+            news: 1,
+            sign: user_address__,
+            c: 0,
+            u: unix_n,
+            gr_token: null,
+            covid_stat: 0,
+            search: null,
+            namaz: null,
+            mobile: mob(),
+            news_need: 1,
+            weather_need: 0,
+            quote_mode: 0,
+        },
+        success: function (o) {
+            result = o;
+        },
+        async: false,
+        timeout: 12000,
+    });
+
+    return result;
+}
+
 function load_ajax_end_page(o, type_loading) {
     if (o.trim().length > 0) {
         const text_no = $(".no-more-results-text");
@@ -754,7 +914,7 @@ function load_ajax_end_page(o, type_loading) {
 
                 $(".banner_ad_awse").css('width', '50%');
                 $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
-                $(".clear_awse_search_string").css("margin-right", "2.5em");
+                $(".clear_awse_search_string").css("padding-right", "2.5em");
                 $(".search-input-awse").css("padding", "0 75px 0 20px");
 
                 text_no.css('visibility', 'hidden'), e.attr("disabled", !0), n.addClass("d-inline-block"), AOS.refresh();
@@ -774,6 +934,7 @@ function load_ajax_end_page(o, type_loading) {
                 $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
 
                 $(".row-posts-end").css("display", "");
+                $(".row-posts-end-additional").css("display", "none");
             },
             success: function (o) {
                 console.log(`History len ${his.items().length}`);
@@ -794,7 +955,7 @@ function load_ajax_end_page(o, type_loading) {
                     his.add(capitalize(dynamic_search_data_text));
                 }
 
-                $(".clear_awse_search_string").css("margin-right", "2em");
+                $(".clear_awse_search_string").css("padding-right", "2em");
                 $(".search-awse-block-global").css("margin-bottom", "1em");
                 $(".search-input-awse").css("padding", "0 65px 0 20px");
 
@@ -804,6 +965,7 @@ function load_ajax_end_page(o, type_loading) {
                 search_title_set(search_data_text);
                 search_text_header(search_data_text);
                 edit_query_string_q(search_data_text);
+                title_search = search_data_text;
 
                 e.removeAttr("style");
                 $('.spinner_search_load_awse').replaceWith(comment_spin_global);
@@ -899,7 +1061,7 @@ function load_ajax_end_page(o, type_loading) {
                 }
             },
             error: function () {
-                $(".clear_awse_search_string").css("margin-right", "2em");
+                $(".clear_awse_search_string").css("padding-right", "2em");
                 $(".search-awse-block-global").css("margin-bottom", "1em");
 
                 $(".wrapper").css("margin", "15px auto");
@@ -1186,6 +1348,7 @@ $('.search-input-awse').on('focus', function () {
         document.querySelector(".search-input").classList.add("active");
         $(".search-input").css("z-index", 106);
         $(".float_bg").removeAttr("style");
+        $(".wrapper_gradient").css("visibility", "hidden");
         AOS.refresh();
     }
 });
@@ -1194,6 +1357,7 @@ $('.search-input-awse').on('focusout', function () {
     function run_remove_active() {
         document.querySelector(".search-input").classList.remove("active");
         $(".float_bg").css("display", "none");
+        $(".wrapper_gradient").css("visibility", "visible");
         AOS.refresh();
     }
 
@@ -1230,6 +1394,7 @@ $(".clear_awse_search_string").on("click", function () {
             i = i + 1;
             // console.log(i);
             $('.search-input-awse').attr("placeholder", x_text.slice(0, i));
+            edit_query_string_q("");
         }
 
         let timerId = setInterval(() => update_text_search_place(), 150);
@@ -1391,6 +1556,19 @@ function get_footer_html() {
             }
 
             $(".build_info_footer").text(build_info);
+        },
+        async: true,
+        timeout: 5000,
+    });
+}
+
+function load_credits() {
+    $.ajax({
+        url: credits_url__,
+        type: "GET",
+        data: {},
+        success: function (o) {
+            $(".row-posts-end-additional").append(o);
         },
         async: true,
         timeout: 5000,
@@ -1632,9 +1810,36 @@ $(window).scroll(function () {
 }),
     AOS.init(),
     $(document).ready(function () {
+        const pages_num = $("body").html().match(/page_*\d?/g).length;
+        // let need_load_search_data = false;
+
+        function move_to_page(page_int, page_hash = null) {
+            if (page_int) {
+                page_int = parseInt(page_int);
+            } else if (page_hash) {
+                page_int = $(page_hash.replace("#", ".")).attr("id").replace(/[^+\d]/g, "");
+            }
+            const page_ = $("#page_"+page_int);
+
+            // if (page_int == 0 | page_int == "search") {
+            //     need_load_search_data = true;
+            // }
+
+            location.hash = page_.attr("class");
+
+            page_.css("display", "block");
+
+            for (let i = 0; i < pages_num; i++) {
+                if (i != page_int) {
+                    $("#page_"+i).css("display", "none");
+                }
+            }
+        }
+
         var hide_blocks_index = $.cookie('hide_block_index');
         get_footer_html();
         ready_news_search_button();
+
         if (!hide_blocks_index) {
             $.cookie('hide_block_index', 'no', {
                 expires: 180
@@ -1643,9 +1848,11 @@ $(window).scroll(function () {
         } else {
             hide_blocks_on_index_page_func(hide_blocks_index);
         }
+
         $('[data-toggle="tooltip"]').tooltip();
         var question = getParameterByName('q');
         $(".row-posts-end").css('visibility', 'visible');
+
         if (!question && $.cookie('hide_block_index') == 'no') {
             // Blocks load in index page
             get_ad('new'); // Load advertise
@@ -1669,7 +1876,14 @@ $(window).scroll(function () {
         comment_spin_global = document.createComment(my_element_jq.get(0).outerHTML);
         my_element_jq.replaceWith(comment_spin_global);
 
-        if (question) {
+        $("#notify-bootstrap").empty();
+
+        function updater_local() {
+            AOS.refresh();
+            // $(".text_container_images_block_slider").css("width", "100%");
+        }
+
+        function init_search_ready() {
             $('.row-posts-end').empty();
             $(".wrapper").css("margin", "15px auto");
             $(".search-awse-block-global").css("margin-bottom", "1em");
@@ -1678,14 +1892,106 @@ $(window).scroll(function () {
             load_ajax_end_page(question, 'newsession');
         }
 
-        $("#notify-bootstrap").empty();
+        setInterval(updater_local, 200); // update AOS per one second
 
-        function updater_local() {
-            AOS.refresh();
-            // $(".text_container_images_block_slider").css("width", "100%");
+        function check_page_update() {
+            $("body").click(function (event) {
+                let obj_id = event.target.id;
+                let id_int = obj_id.replace(/[^+\d]/g, "");
+
+                if (obj_id.indexOf("#page_") && id_int) {
+                    move_to_page(id_int);
+
+                    $(".link_header_").css("text-decoration", "unset");
+                    $(`#page_${id_int}_button`).css("text-decoration", "overline");
+
+                    var title_text = "";
+                    if (id_int == "1") {
+                        title_text = "Blog feed";
+                    } else if (id_int == "2") {
+                        title_text = "Last news";
+                    } else {
+                        title_text = title_search;
+                        if (!title_text) {
+                            title_text = "Search";
+                        }
+                        if (question) {
+                            init_search_ready();
+                        }
+                    }
+
+                    search_title_set(title_text);
+                    search_text_header(title_text);
+                    // console.log(this);
+                }
+            });
+
+            if (location.hash) {
+                try {
+                    move_to_page(false, location.hash);
+
+                    $(".link_header_").css("text-decoration", "unset");
+
+                    const el = $((location.hash).toString().replace("#", ".") + "_");
+                    el.css("text-decoration", "overline");
+                } catch (e) {
+                    console.log(e);
+                }
+
+                var title_text = "";
+                if (location.hash == "#blog_page") {
+                    title_text = "Blog feed";
+                } else if (location.hash == "#news_page") {
+                    title_text = "Last news";
+                } else {
+                    title_text = title_search;
+                    if (!title_text) {
+                        title_text = "Search";
+                    }
+                    if (question) {
+                        init_search_ready();
+                    }
+                }
+
+                // console.log(title_text);
+                search_title_set(title_text);
+                search_text_header(title_text);
+
+                // console.log(location.hash);
+            } else {
+                title_text = "Search";
+                search_title_set(title_text);
+                search_text_header(title_text);
+
+                $(".link_header_").css("text-decoration", "unset");
+                $(".search_page_").css("text-decoration", "overline");
+            }
+        }
+        // init
+        check_page_update();
+        // setInterval(check_page_update, 200);
+
+        $("#news_row").append(get_news_ai());
+
+        $(".news-update-button").on("click", function () {
+            const spinner = $("#button_news_reload_spinner");
+            const container = $("#news_row");
+
+            spinner.css("display", "block");
+            container.empty();
+            container.append(get_news_ai());
+            spinner.css("display", "none");
+
+            scrollToTop();
+        });
+
+        const search_container_status = $("#page_0").css("display");
+        if (question && search_container_status == "block") {
+            // console.log(`Search container is ${search_container_status}`);
+            init_search_ready();
         }
 
-        setInterval(updater_local, 200); // update AOS per one second
+        load_credits();
 
         // core is ready
     }),

@@ -1,0 +1,30 @@
+{% spaceless %}
+    {% for el in vars.news_data_list %}
+    {% with script_id=64|get_random_string news_time_in_block=64|get_random_string id_title=64|get_random_string id_desc=64|get_random_string news_block_id=64|get_random_string source_link=24|get_random_string source_name=24|get_random_string title=24|get_random_string desc=24|get_random_string %}
+        <div class="template_container_tabs" id="news_container">
+            <div class="col-12 col-lg-12 padding-block-center-box">
+                <div class="user box aos-init aos-animate" data-aos="fade-up">
+                    <div id="{{ news_block_id }}" style="float: left;">
+                        <label id="{{ id_title }}" class="username" style="margin-bottom:0.5em"></label><br>
+                        <label id="{{ id_desc }}" class="city"></label>
+                        <div class="time_block_news_">
+                            <i style="color:#969696;white-space:nowrap;font-size:0.8em" id="{{ news_time_in_block }}"></i>
+                            <comment style="display:none" class="time_publish_class">{{ el.time }}</comment>
+                            <script>setInterval(function(){$("#{{ news_time_in_block }}").text(timeAgoConvert(new Date(Date.now()-(Date.now()-{{ el.time }})))+" later")},1000)</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script id="{{ script_id }}">
+            let x{{ title }}="{{ el.title|encode_eng }}";
+            let x{{ desc }}="{{ el.description|safe|encode_eng }}";
+            let x{{ source_link }}="{{ el.url|encode_eng }}";
+            let x{{ source_name }}="{{ el.name|encode_eng }}";
+            $("#{{ id_title }}").html(UpBDecode(x{{ title }}));
+            $("#{{ id_desc }}").html(`${UpBDecode(x{{ desc }})}<br/><br/>Source - <a href="${UpBDecode(x{{ source_link }})}">${UpBDecode(x{{ source_name }})}</a>`);
+            $("#{{ script_id }}").remove()
+        </script>
+        {% endwith %}
+    {% endfor %}
+{% endspaceless %}

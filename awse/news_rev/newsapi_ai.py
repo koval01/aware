@@ -5,15 +5,13 @@ from random import choice
 
 from django.conf import settings
 
-from ..news_utils.newsfilter import parse_text
-
 token = settings.NEWSAPI_TOKEN
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession(backend="memory", namespace='news_api_ai_cache', expire_after=300)
 available_country = settings.AVAILABLE_COUNTRY
 
 
-def __main__(country_code: str) -> list:
+def __main__(country_code: str, max_pages: int) -> list:
     """
     Function for get news list by country user
     :param country_code: Country code for search news
@@ -24,16 +22,16 @@ def __main__(country_code: str) -> list:
         error_json = False
 
         query = [
-            'Зеленський', 'Суддя', 'Слідчий', 'Прокурор', 'Позив', 'Рішення'
+            'Зеленський', 'Суддя', 'Слідчий', 'Прокурор', 'Позив', 'Рішення',
         ]
 
-        url = 'http://eventregistry.org/api/v1/article/getArticles'
+        url = 'https://eventregistry.org/api/v1/article/getArticles'
         params = {
             "apiKey": settings.NEWSAPI_AI,
             "action": "getArticles",
             "keyword": choice(query),
             "articlesPage": 1,
-            "articlesCount": 100,
+            "articlesCount": max_pages,
             "articlesSortBy": "date",
             "articlesSortByAsc": False,
             "articlesArticleBodyLen": -1,
@@ -58,27 +56,22 @@ def __main__(country_code: str) -> list:
 
                 if not error_json:
                     for el in json_response['articles']['results']:
-                        desc_org = parse_text(el['body']).replace('\'', '\\\'')
-
                         el['dateTime'] = round(datetime.strptime(el['dateTime'], '%Y-%m-%dT%H:%M:%S%z').replace(
                             tzinfo=None).timestamp()) * 1000
-                        el['body'] = el['body'].replace("\n", "<br/>").replace('\'', '\\\'').replace("Источник",
-                                                                                                     "Джерело")
-                        el['source']['title'] = el['source']['title'].replace('\'', '\\\'')
 
                         if len(el['source']['title']) > 20:
                             el['source']['title'] = (el['source']['title'])[:17] + "..."
 
                         if el['lang'] == 'ukr' and len(el['body']) > 32:
                             data_array_pre = dict(
-                                title=el['title'].replace('\'', '\\\''),
+                                title=el['title'],
                                 description=el['body'],
                                 name=el['source']['title'],
                                 time=el['dateTime'],
                                 url=el['url'],
                                 image=el['image'],
                                 source_mark=el['source']['title'],
-                                desc_org=desc_org,
+                                # desc_org=desc_org,
                             )
                             data_array.append(data_array_pre)
 

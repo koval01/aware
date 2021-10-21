@@ -1,0 +1,8 @@
+{% spaceless %}
+    <div class="anime_blocks_container" style="display:none">
+        {% if vars.anime %}
+            {# load anime #}
+            {% include "awse/load_blocks/anime.html" %}
+        {% endif %}
+    </div>
+{% endspaceless %}

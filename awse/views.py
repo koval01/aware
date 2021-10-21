@@ -26,6 +26,7 @@ from .other.quote_get import get_result as get_quote_list
 from .other.wikipedia_random import WikiRandomGet
 from .other.wikipedia_search import WikipediaSearchModule
 from .other.anime import AnimeSearch
+from .other.ip_info import get_data as ip_get_info
 from .search_utils.calculate import calculator
 from .search_utils.namaz_api import get_namaz_data
 from .search_utils.search_api import select_type as search_execute
@@ -57,6 +58,11 @@ def get_weather_ico(value) -> str:
 @register.filter
 def encode_eng(value) -> str:
     return encoder_eng(value)
+
+
+@register.simple_tag
+def update_variable(value):
+    return value
 
 
 @register.filter
@@ -224,14 +230,12 @@ def search_suggestions_get(request):
 
 
 @require_GET
-@ratelimit(key=my_ip_key, rate='10/s', block=True)
-@blacklist_ratelimited(timedelta(minutes=1))
 def sync_time_server(request):
     return JsonResponse({"time_unix": round(time())})
 
 
 @require_POST
-@ratelimit(key=my_ip_key, rate='10/s', block=True)
+@ratelimit(key=my_ip_key, rate='8/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 @cache_page(60 * 240)
 def whois_data(request):
@@ -278,7 +282,7 @@ def global_ad_function(lang: str) -> dict:
 
 # @csrf_exempt
 @require_POST
-@ratelimit(key=my_ip_key, rate='3/s', block=True)
+@ratelimit(key=my_ip_key, rate='30/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def get_ad(request):
     """
@@ -351,7 +355,7 @@ def global_banner_function() -> dict:
 
 
 @require_POST
-@ratelimit(key=my_ip_key, rate='3/s', block=True)
+@ratelimit(key=my_ip_key, rate='5/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def get_banner(request):
     """
@@ -465,10 +469,10 @@ def index(request):
     })
 
 
-# @csrf_exempt
+@csrf_exempt
 @require_POST
 @cache_page(60 * 900)
-@ratelimit(key=my_ip_key, rate='1/3s', block=True)
+@ratelimit(key=my_ip_key, rate='80/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def load(request):
     """
@@ -547,7 +551,8 @@ def load(request):
                 logger.debug('%s: Check token and continue.' % load.__name__)
 
                 if typeload == 'newsession' and covid_stat_append:
-                    covid_stat_ua = covid_stat('UA'); covid_stat_ru = covid_stat('RU')
+                    # covid_stat_ua = covid_stat('UA'); covid_stat_ru = covid_stat('RU')
+                    pass
                 else: covid_stat_ua = 0; covid_stat_ru = 0
 
                 # token decrypt
@@ -598,7 +603,7 @@ def load(request):
                     # image search
                     if settings.IMAGES_SEARCH_ENABLED and not namaz and not quote_mode:
                         try: images_search = search_execute(search_send, 0, 'image')['items']
-                        except Exception as e: images_search = None
+                        except Exception as e: images_search = None; logger.info("Images load except: %s" % e)
                     else: images_search = None
 
                     # Weather
@@ -613,15 +618,18 @@ def load(request):
                     data = zip(search_array)  # only search data remains
 
                     # news data load
-                    country = settings.AVAILABLE_COUNTRY[0]
+                    # country = settings.AVAILABLE_COUNTRY[0]
 
                     if news_need_load:
-                        tweets = twitter_news(country)
-                        ai_news = newsapiai_get(country)
+                        if settings.DEBUG: original_address = "195.114.145.97"
+                        country = ip_get_info(original_address)["countryCode"].lower()
+
+                        # tweets = twitter_news(country)
+                        # ai_news = newsapiai_get(country, 100)
                         news_ = newsfeed(country)
 
                         news_data_list = sorted(
-                            [el for el in (ai_news + news_ + tweets) if el['time'] < last_time_key],
+                            [el for el in (news_) if el['time'] < last_time_key],
                             key=lambda x: x['time'], reverse=True
                         )[:50]
                     else: news_data_list = []
@@ -670,7 +678,7 @@ def load(request):
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
                             self.settings = settings
-                            self.finish_time = (time() - start_time)
+                            self.finish_time = str(time() - start_time)[:5]
 
                     vars_ = vars(Variables())
 
@@ -700,6 +708,16 @@ def footer_html(request):
     return render(request, 'awse/global/footer.html', {
         'build': build,
     })
+
+
+@require_GET
+def credits(request):
+    return render(request, 'awse/home/other/credits.html')
+
+
+@require_GET
+def terms(request):
+    return render(request, 'awse/pages/terms.html')
 
 
 @require_GET

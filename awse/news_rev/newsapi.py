@@ -5,9 +5,6 @@ from random import choice
 
 from django.conf import settings
 
-from ..news_utils.newsfilter import parse_text
-from ..news_utils.newsfilter import text_news_filter as filter_news
-
 token = settings.NEWSAPI_TOKEN
 logger = logging.getLogger(__name__)
 session = requests_cache.CachedSession(backend="memory", namespace='news_api_cache', expire_after=3600)
@@ -29,6 +26,7 @@ def __main__(country_code: str) -> list:
             'apiKey': choice(token),
             'country': country_code,
             'category': 'general',
+            'pageSize': 100,
         }
         data_array = []
 
@@ -53,14 +51,8 @@ def __main__(country_code: str) -> list:
 
                 if not error_json:
                     for el in json_response['articles']:
-                        desc_org = parse_text(el['description']).replace('\'', '\\\'')
-
                         time_field = datetime.fromisoformat(el['publishedAt'][:-1])
                         el['publishedAt'] = round(time_field.timestamp()) * 1000
-
-                        el['description'] = filter_news(el['description'])
-                        el['title'] = filter_news(el['title'])
-                        el['source']['name'] = el['source']['name'].replace('\'', '\\\'')
 
                         if len(el['source']['name']) > 20:
                             el['source']['name'] = (el['source']['name'])[:17] + "..."
@@ -76,7 +68,7 @@ def __main__(country_code: str) -> list:
                             url=el['url'],
                             image=el['urlToImage'],
                             source_mark=el['source']['name'],
-                            desc_org=desc_org,
+                            # desc_org=desc_org,
                         )
                         data_array.append(data_array_pre)
 

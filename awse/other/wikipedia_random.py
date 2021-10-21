@@ -152,6 +152,9 @@ class WikiRandomGet:
                 filter_ = self.filters(first_el)
 
                 if len(filter_) > 250:
+                    filter_ = filter_[:250]
+
+                if len(filter_) >= 200:
                     return dumps({
                         "text": filter_, "process_time": (time() - start_),
                         "full_order_time": (time() - start_order),

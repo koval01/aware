@@ -7,19 +7,48 @@ AWSE - Search
 
 {% block content %}
 {% load static %}
+    {% include 'awse/global/tabs_selectors.html' %}
     <div style="display:block;margin-left:auto;margin-right:auto;border-radius:20%">
-        {% include 'awse/home/advertise/banner_head.html' %}
+        <div id="page_0" class="search_page" style="display:block">
+            {% include 'awse/home/advertise/banner_head.html' %}
 
-        {% include 'awse/home/search_container.html' %}
+            {% include 'awse/home/search_container.html' %}
 
-        {% include 'awse/home/advertise/bottom_ad_block.html' %}
+            {% include 'awse/home/advertise/bottom_ad_block.html' %}
 
-        <div class="row-posts-end" style="visibility: hidden;transition: margin-top 1s;margin-top: 1em;">
-            {% include 'awse/home/static_blocks/covid.html' %}
-            {% include 'awse/home/additional/base.html' %}
+            <div class="row-posts-end row_containers_cl">
+                {% include 'awse/home/static_blocks/covid.html' %}
+                {% include 'awse/home/additional/base.html' %}
+            </div>
+
+            <div class="row-posts-end-additional row_containers_cl">
+                {# Space for credits #}
+            </div>
+
+            {% include 'awse/home/search_els.html' %}
         </div>
-
-        {% include 'awse/home/search_els.html' %}
+        <div id="page_1" class="blog_page" style="display:none">
+            <div class="row_containers_cl" id="blog_row">
+                <!-- Blog posts place -->
+                {% include 'awse/containers_templates/blog.html' %}
+            </div>
+        </div>
+        <div id="page_2" class="news_page" style="display:none">
+            <div class="row_containers_cl" id="news_row">
+                <!-- News blocks place -->
+            </div>
+            <button style="margin:0 auto;display:block;margin-bottom:5%"
+                class="btn btn-dark news-update-button">Update<span style="margin-left:5px;vertical-align:-3px;display:none"
+                    class="spinner-border spinner-border-sm"
+                    aria-hidden="true" id="button_news_reload_spinner"></span>
+            </button>
+            <div style="margin:auto">
+                <p id="news_text_no_more"
+                   style="color:#828282;transition: margin-bottom 1s;font-size:14px;text-align:center">
+                    Try updating the news list, there may be something new for you.
+                </p>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% endspaceless %}

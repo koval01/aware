@@ -1,84 +1,105 @@
 {% load static %}
 
-{# Template for generating a tape of records on the main page of the site. #}
-{# Imagine that this code was not written by me. I don't really like him. #}
-
 {% spaceless %}
-    {% if vars.namaz %}
-        {% for el in vars.namaz_data %}
-            {% include "awse/load_blocks/namaz.html" %}
-        {% endfor %}
+    {# Template for generating a tape of records on the main page of the site. #}
+    {# Imagine that this code was not written by me. I don't really like him. #}
 
+    {% include 'awse/load_blocks/other/timeload.html' %}
+
+    {% if vars.news_data_list %}
+        {# news #}
+        {% include 'awse/containers_templates/news.html' %}
     {% else %}
-        {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
-            {% include "awse/load_blocks/covid.html" %}
-        {% endif %}
-
-        {% if vars.q_mode != 2 %}
-            {% if vars.q_mode > 0 %}
-                {% include "awse/load_blocks/quotes.html" %}
-            {% else %}
-                {% include "awse/load_blocks/wiki.html" %}
-            {% endif %}
-        {% endif %}
-
-        {% if vars.typeload == "newsession" %}
-
-            <div class="anime_blocks_container" style="display:none">
-                {% if vars.anime %}
-                    {% include "awse/load_blocks/anime.html" %}
-                {% endif %}
-            </div>
-
-            {% if vars.c_result %}
-                {% include "awse/load_blocks/calculator.html" %}
-            {% endif %}
-
-            {% if vars.translate_result %}
-                {% include "awse/load_blocks/translate.html" %}
-            {% endif %}
-
-            {% if vars.news_search_in_str %}
-                {# News block place skip #}
-            {% endif %}
-
-            {% if vars.weather %}
-                {% include "awse/load_blocks/weather.html" %}
-            {% endif %}
-
-        {% endif %}
-
-        {% if vars.videos %}
-            {# Videos block place skip #}
+        {% if vars.namaz %}
+            {# namaz #}
+            {% for el in vars.namaz_data %}
+                {% include "awse/load_blocks/namaz.html" %}
+            {% endfor %}
 
         {% else %}
-            {% if not vars.search_index %}
-                {% if vars.check_bot_request_search %}
-                    {% include "awse/load_blocks/note.html" %}
+            {% if vars.typeload == 'newsession' and vars.covid_stat_append %}
+                {# covid load #}
+                {% include "awse/load_blocks/covid.html" %}
+            {% endif %}
+
+            {% if vars.q_mode != 2 %}
+                {% if vars.q_mode > 0 %}
+                    {# load quote #}
+                    {% include "awse/load_blocks/quotes.html" %}
+                {% else %}
+                    {# load wiki #}
+                    {% include "awse/load_blocks/wiki.html" %}
                 {% endif %}
             {% endif %}
 
-            {% if vars.wiki_result %}
-                {% include "awse/load_blocks/wiki_result.html" %}
-            {% endif %}
+            {% if vars.typeload == "newsession" %}
 
-            {% for el in data %}
+                {% include 'awse/load_blocks/other/animeload.html' %}
 
-                {% if forloop.counter == 1 and not vars.search_index and vars.images_search %}
-                    {% include "awse/load_blocks/images.html" %}
+                {% if vars.c_result %}
+                    {# load calculator result #}
+                    {% include "awse/load_blocks/calculator.html" %}
                 {% endif %}
 
-                {% if not vars.search_api_full_dict.error %}
-                    {% if el.0.title %}
-                        {% include "awse/load_blocks/result.html" %}
+                {% if vars.translate_result %}
+                    {# load translate result #}
+                    {% include "awse/load_blocks/translate.html" %}
+                {% endif %}
+
+                {% if vars.news_search_in_str %}
+                    {# News search block place skip #}
+                {% endif %}
+
+                {% if vars.weather %}
+                    {# load weather search result #}
+                    {% include "awse/load_blocks/weather.html" %}
+                {% endif %}
+
+            {% endif %}
+
+            {% if vars.videos %}
+                {# Outdated #}
+                {# Videos block place skip #}
+
+            {% else %}
+                {% if not vars.search_index %}
+                    {% if vars.check_bot_request_search %}
+                        {# Outdated #}
+                        {# Aware Search Telegram bot note #}
+                        {% include "awse/load_blocks/note.html" %}
+                    {% endif %}
+                {% endif %}
+
+                {% if vars.wiki_result %}
+                    {# Search wiki result #}
+                    {# Default wiki #}
+                    {% include "awse/load_blocks/wiki_result.html" %}
+                {% endif %}
+
+                {% for el in data %}
+
+                    {% if forloop.counter == 1 and not vars.search_index and vars.images_search %}
+                        {# Images search block load #}
+                        {% include "awse/load_blocks/images.html" %}
                     {% endif %}
 
-                {% elif vars.search_api_full_dict.error and forloop.counter == 1 and not vars.namaz_data %}
-                    {% include "awse/load_blocks/black.html" %}
-                {% endif %}
+                    {% if not vars.search_api_full_dict.error %}
+                        {% if el.0.title %}
+                            {# Default search load block #}
+                            {% include "awse/load_blocks/result.html" %}
+                        {% endif %}
 
-            {% endfor %}
+                    {% elif vars.search_api_full_dict.error and forloop.counter == 1 and not vars.namaz_data %}
+                        {# Error or block response load #}
+                        {% include "awse/load_blocks/black.html" %}
+                    {% endif %}
+
+                {% endfor %}
+            {% endif %}
         {% endif %}
     {% endif %}
+
+    {% if vars.settings.DEBUG %}
     <!-- response generated in: {{ vars.finish_time }}s -->
+    {% endif %}
 {% endspaceless %}

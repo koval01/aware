@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 LOCAL_DATABASE = False
 CACHE_IN_MEMORY_SERVER = True
@@ -121,6 +121,8 @@ else:
 
 TWITTER_BEARER = os.environ['TWITTER_BEARER']
 NEWSAPI_AI = os.environ['NEWSAPI_AI']
+
+YOUTUBE_PREVIEW = False
 
 IMAGES_SEARCH_ENABLED = False
 NEED_IMAGES_DESC = False

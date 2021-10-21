@@ -469,7 +469,7 @@ def index(request):
     })
 
 
-@csrf_exempt
+# @csrf_exempt
 @require_POST
 @cache_page(60 * 900)
 @ratelimit(key=my_ip_key, rate='80/m', block=True)

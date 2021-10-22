@@ -623,6 +623,7 @@ def load(request):
                     if news_need_load:
                         if settings.DEBUG: original_address = "195.114.145.97"
                         country = ip_get_info(original_address)["countryCode"].lower()
+                        logger.info("User country is - %s" % country)
 
                         # tweets = twitter_news(country)
                         # ai_news = newsapiai_get(country, 100)
@@ -678,12 +679,12 @@ def load(request):
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)
                             self.settings = settings
-                            self.finish_time = round(time() - st_time, 2)
+                            self.finish_time = round(time() - start_time, 2)
 
                     vars_ = vars(Variables())
 
                     logger.debug('%s: request - %s' % (load.__name__, request))
-                    logger.info("Time loading \"load\" - %f" % (round(time() - st_time, 3)))
+                    logger.info("Time loading \"load\" - %f" % (round(time() - start_time, 3)))
 
                     return render(request, 'awse/load.html', {
                         'data': data, 'vars': vars_,

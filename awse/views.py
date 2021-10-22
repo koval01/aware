@@ -622,7 +622,7 @@ def load(request):
 
                     if news_need_load:
                         if settings.DEBUG: original_address = "195.114.145.97"
-                        country = ip_get_info(original_address)["countryCode"].lower()
+                        country = ip_get_info(original_address)
                         logger.info("User country is - %s" % country)
 
                         # tweets = twitter_news(country)

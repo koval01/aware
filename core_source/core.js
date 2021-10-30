@@ -985,7 +985,7 @@ function load_ajax_end_page(o, type_loading) {
                 AOS.refresh();
 
                 if (type_loading == 'newsession') {
-                    $(".row-posts-end").empty();
+                    $(".row-posts-end").empty(), $(".row-posts-end-additional").empty();
                     search_index = 21;
                 }
 

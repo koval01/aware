@@ -2,7 +2,7 @@
     <div class="header-second noselect">
         <div class="inside_header_container">
             <ul class="header-menu">
-                {% with search_container=24|get_random_string blog_container=24|get_random_string news_container=24|get_random_string %}
+                {% with search_container=24|get_random_string blog_container=24|get_random_string news_container=24|get_random_string credits_container=24|get_random_string %}
                 <li id="{{ search_container }}" class="header-menu-item"><a class="link_header_ search_page_" id="page_0_button">
                     Search</a>
                 </li>
@@ -13,6 +13,10 @@
 
                 <li id="{{ news_container }}" class="header-menu-item"><a class="link_header_ news_page_" id="page_2_button">
                     News</a>
+                </li>
+
+                <li id="{{ credits_container }}" class="header-menu-item"><a class="link_header_ credits_page_" id="page_3_button">
+                    Credits</a>
                 </li>
                 {% endwith %}
             </ul>

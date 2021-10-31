@@ -934,7 +934,7 @@ function load_ajax_end_page(o, type_loading) {
                 $(comment_spin_global).replaceWith(comment_spin_global.nodeValue);
 
                 $(".row-posts-end").css("display", "");
-                $(".row-posts-end-additional").css("display", "none");
+                // $(".row-posts-end-additional").css("display", "none");
             },
             success: function (o) {
                 console.log(`History len ${his.items().length}`);
@@ -985,7 +985,7 @@ function load_ajax_end_page(o, type_loading) {
                 AOS.refresh();
 
                 if (type_loading == 'newsession') {
-                    $(".row-posts-end").empty(), $(".row-posts-end-additional").empty();
+                    $(".row-posts-end").empty();
                     search_index = 21;
                 }
 

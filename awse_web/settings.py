@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os.path
 
-build_ = hex(1635691273)[2:]
+build_ = hex(1635695178)[2:]
 
 # settings.configure(
 #     image_proxy_key = os.environ['IMAGE_PROXY_KEY'],

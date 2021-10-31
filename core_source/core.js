@@ -787,7 +787,7 @@ function get_namaz(string) {
                     search: string_split[i],
                     namaz: 1,
                     mobile: mob(),
-                    news_need: nd_new,
+                    news_need: 0,
                     weather_need: 0,
                     quote_mode: 0,
                 },
@@ -864,7 +864,7 @@ function load_ajax_end_page(o, type_loading) {
         var standart_pass = "", most_sec_pass = "";
         var his = new search_history_data();
         var namaz_data = '';
-        const nd_new = LoadNewsNeed_(search_data_text);
+        // const nd_new = LoadNewsNeed_(search_data_text);
 
         if (password_gen) {
             standart_pass = makeid(16)
@@ -902,7 +902,7 @@ function load_ajax_end_page(o, type_loading) {
                 covid_stat: covid_anal(o),
                 search: o,
                 mobile: mob(),
-                news_need: nd_new,
+                news_need: 0,
                 weather_need: weather_anal(search_data_text),
                 quote_mode: 0,
                 anime: 1,
@@ -1115,7 +1115,7 @@ function load_continue_ajax_end_page(o, type_loading) {
     const t = jQuery("[name=csrfmiddlewaretoken]").val();
     const geted_c = o.length;
     const text_ = o;
-    const nd_new = LoadNewsNeed_(o);;
+    // const nd_new = LoadNewsNeed_(o);
 
     $.ajax({
         url: load__,
@@ -1135,7 +1135,7 @@ function load_continue_ajax_end_page(o, type_loading) {
             search: text_,
             mobile: mob(),
             search_index_: search_index,
-            news_need: nd_new,
+            news_need: 0,
             weather_need: 0,
             quote_mode: 0,
             anime: 1,

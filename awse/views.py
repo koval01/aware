@@ -180,7 +180,7 @@ def image_proxy_view(request):
 
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
-            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 180
+            token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 30
             control_time = round(time())
 
             if token_get > control_time:

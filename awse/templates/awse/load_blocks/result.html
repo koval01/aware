@@ -23,7 +23,7 @@
                             let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
                             let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
                             let x{{ el_7 }}=$("#{{ block_ }}");
-                            x{{ el_7 }}.attr({"href": UpBDecode(x{{ el_2 }})});
+                            x{{ el_7 }}.attr({"target": "_blank", "href": UpBDecode(x{{ el_2 }})});
                             x{{ el_7 }}.html(`
                                 <img
                                 src="{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_4 }})}&v=1&token=${UpBDecode(x{{ el_5 }})}&sign=${UpBDecode(x{{ el_6 }})}"

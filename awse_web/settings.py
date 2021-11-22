@@ -36,8 +36,8 @@ DEBUG = False
 LOCAL_DATABASE = False
 CACHE_IN_MEMORY_SERVER = True
 
-CLOUDFLARE = True
-IS_HEROKU = False
+CLOUDFLARE = False
+IS_HEROKU = True
 
 # USE_SRI = True
 
@@ -71,7 +71,7 @@ else:
     DB_USER = os.environ['DB_USER']
     DB_NAME = os.environ['DB_NAME']
     DB_PASS = os.environ['DB_PASS']
-    ssl_mode = None  # 'require'
+    ssl_mode = 'require'
 
 
 NEWSAPI_TOKEN = os.environ['NEWS_API_TOKEN'].split()
@@ -88,7 +88,13 @@ TEST_RETOKEN_PRIVATE = '6Lep8tEaAAAAACckN_qxPgcyuBsbEPxRF_jRqThA'
 
 MAX_SEARCH_LENGTH = 700
 
-AVAILABLE_COUNTRY = ['ua']
+AVAILABLE_COUNTRY = [
+    'ae', 'ar', 'at', 'au', 'be', 'bg', 'br', 'ca', 'ch', 'cn', 'co',
+    'cu', 'cz', 'de', 'eg', 'fr', 'gb', 'gr', 'hk', 'hu', 'id', 'ie',
+    'il', 'in', 'it', 'jp', 'kr', 'lt', 'lv', 'ma', 'mx', 'my', 'ng',
+    'nl', 'no', 'nz', 'ph', 'pl', 'pt', 'ro', 'rs', 'ru', 'sa', 'se',
+    'sg', 'si', 'sk', 'th', 'tr', 'tw', 'ua', 'us', 've', 'za'
+]
 
 if DEBUG:
     RETOKEN_PUBLIC = TEST_RETOKEN_PUBLIC

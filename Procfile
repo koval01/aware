@@ -1,1 +1,1 @@
-web: gunicorn --workers=3 --threads 3 awse_web.wsgi
+web: gunicorn --workers=3 --threads=3 awse_web.wsgi

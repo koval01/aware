@@ -471,6 +471,12 @@ body {
     width: 100% !important;
 }
 
+.finish_line_blocks {
+    background: #fff !important;
+    width: 100% !important;
+    height: 0.03em !important;
+}
+
 .img_images_block_slider {
     border-radius: 0.5em;
     /* margin-bottom: 5px;

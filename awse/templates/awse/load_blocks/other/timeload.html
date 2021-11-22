@@ -1,5 +1,5 @@
 {% spaceless %}
-    {% if vars.q_mode == 2 and vars.typeload == "newsession" %}
+    {% if vars.q_mode == 2 and vars.typeload == "newsession" and not vars.namaz %}
         <div id="time_load_info">
             <p class="time_info__">The search took {{ vars.finish_time }}s.</p>
         </div>

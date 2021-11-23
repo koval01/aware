@@ -15,7 +15,6 @@
             {% for el in vars.namaz_data %}
                 {% include "awse/load_blocks/namaz.html" %}
             {% endfor %}
-            {% include 'awse/load_blocks/other/line.html' %}
 
         {% else %}
             {% if vars.typeload == 'newsession' and vars.covid_stat_append %}

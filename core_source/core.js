@@ -487,13 +487,13 @@ function password_gen_template(s_pass, m_pass) {
                 <label class="city">
                     <i>Classic: </i>
                         <b id="password_cls">${s_pass}</b>
-                        <div class="badge_block_info select_disable_text" style="display:none" title="Copy password" id="password_copy_cls">
+                        <div class="badge_block_info select_disable_text" style="display:none!important" title="Copy password" id="password_copy_cls">
                             <span style="margin:0.5em;padding:0.5em;color:#000"><i class="fas fa-clone"></i></span>
                         </div>
                         <br/>
                     <i>Better: </i>
                         <b id="password_btr">${m_pass}</b>
-                        <div class="badge_block_info select_disable_text" style="display:none" title="Copy password" id="password_copy_btr">
+                        <div class="badge_block_info select_disable_text" style="display:none!important" title="Copy password" id="password_copy_btr">
                             <span style="margin:0.5em;padding:0.5em;color:#000"><i class="fas fa-clone"></i></span>
                         </div>
                         <br/>
@@ -504,7 +504,7 @@ function password_gen_template(s_pass, m_pass) {
                 <div class="badge_block_info select_disable_text">
                     <span style="margin:0.5em">Password generator <i class="fas fa-random"></i></span> 
                 </div>
-                <div class="badge_block_info select_disable_text" style="display:none" title="Re-generate passowrds" id="password_generator_refresh">
+                <div class="badge_block_info select_disable_text" style="display:none!important" title="Re-generate passowrds" id="password_generator_refresh">
                     <span style="margin:0.5em;padding:0.5em"><i class="fas fa-sync-alt"></i></span>
                 </div>
             </div>

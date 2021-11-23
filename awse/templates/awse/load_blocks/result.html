@@ -7,7 +7,7 @@
             <script id="{{ script_id }}">
                 let x{{ title_text }}="{{ el.0.title|encode_eng }}";
                 let x{{ title_link }}="{{ el.0.link|encode_eng }}";
-                $("#{{ title_el }}").html("<a href=\""+UpBDecode(x{{ title_link }})+"\" style=\"word-break: break-word\">"+UpBDecode(x{{ title_text }})+"</a>");
+                $("#{{ title_el }}").html("<a target=\"_blank\" href=\""+UpBDecode(x{{ title_link }})+"\" style=\"word-break: break-word\">"+UpBDecode(x{{ title_text }})+"</a>");
                 $("#{{ script_id }}").remove()
             </script>
             {% endwith %}

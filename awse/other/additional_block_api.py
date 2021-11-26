@@ -18,5 +18,6 @@ class AdditionalBlock:
 
     def get(self) -> dict or None:
         data = self.get_json()
-        if data["RelatedTopics"] and data["Heading"] and data["AbstractText"]:
+        if data and data["RelatedTopics"] and \
+                data["Heading"] and data["AbstractText"]:
             return data

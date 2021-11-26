@@ -23,5 +23,6 @@ class AdditionalBlock:
 
             data["Image"] = "https://duckduckgo.com" + data["Image"]
             if not data["Entity"]: data["Entity"] = "Unknown"
+            else: data["Entity"] = str(data["Entity"]).capitalize()
 
             return data

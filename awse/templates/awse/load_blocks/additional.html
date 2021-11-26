@@ -2,11 +2,12 @@
 <div class="col-12 col-lg-12 padding-block-center-box">
     <div class="user box aos-init aos-animate" data-aos="fade-up">
         <div style="float: left;">
-            {% with script_id=64|get_random_string title_el=64|get_random_string title_text=12|get_random_string %}
+            {% with script_id=64|get_random_string title_el=64|get_random_string title_text=24|get_random_string entity_text=24|get_random_string %}
             <label id="{{ title_el }}" class="username" style="margin-top: -0.5em;"></label><br/>
             <script id="{{ script_id }}">
                 let x{{ title_text }}="{{ vars.additional_block.Heading|encode_eng }}";
-                $("#{{ title_el }}").text(UpBDecode(x{{ title_text }}));
+                let x{{ entity_text }}="{{ vars.additional_block.Entity|encode_eng }}";
+                $("#{{ title_el }}").text(`${UpBDecode(x{{ title_text }})} (${UpBDecode(x{{ entity_text }})}})`);
                 $("#{{ script_id }}").remove()
             </script>
             {% endwith %}

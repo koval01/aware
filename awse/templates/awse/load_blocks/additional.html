@@ -15,7 +15,7 @@
                     {% with script_id=64|get_random_string block_=64|get_random_string name_image=16|get_random_string el_4=24|get_random_string el_5=24|get_random_string el_6=24|get_random_string el_7=24|get_random_string %}
                     <div id="{{ block_ }}"></div>
                     <script id="{{ script_id }}">
-                        let x{{ name_image }}='{{ vars.additional_block.Heading }}';
+                        let x{{ name_image }}='{{ vars.additional_block.Heading|encode_eng }}';
                         let x{{ el_4 }}='{{ vars.additional_block.Image|link_encrypt_img|encode_eng }}';
                         let x{{ el_5 }}='{{ vars.token_image_proxy|encode_eng }}';
                         let x{{ el_6 }}='{{ vars.user_address_original|sign_address_encrypt|encode_eng }}';
@@ -25,7 +25,7 @@
                             src="{% url 'imageproxy' %}?data=${UpBDecode(x{{ el_4 }})}&v=1&token=${UpBDecode(x{{ el_5 }})}&sign=${UpBDecode(x{{ el_6 }})}"
                             onerror="imgError(this);"
                             style="margin-top:1%;max-width:32%;min-width:25%;margin-right:0.9em;height:auto;-webkit-appearance:none;border-radius:0.5em;padding:0;text-align:left;padding-bottom:1px;box-shadow: 0 4px 15px 0 rgb(0 0 0 / 40%)"
-                            alt="${x{{ name_image }}}">
+                            alt="${UpBDecode(x{{ name_image }})}">
                         `);
                         $("#{{ script_id }}").remove()
                     </script>

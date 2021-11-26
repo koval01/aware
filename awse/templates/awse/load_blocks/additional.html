@@ -6,8 +6,8 @@
             <label id="{{ title_el }}" class="username" style="margin-top: -0.5em;"></label><br/>
             <script id="{{ script_id }}">
                 let x{{ title_text }}="{{ vars.additional_block.Heading|encode_eng }}";
-                let x{{ entity_text }}="{{ vars.additional_block.Entity|encode_eng }}";
-                $("#{{ title_el }}").text(`${UpBDecode(x{{ title_text }})} (${UpBDecode(x{{ entity_text }})})`);
+                let x{{ entity_text }}="{{ vars.additional_block.Entity|encode_eng }}"; // hidden
+                $("#{{ title_el }}").text(`${UpBDecode(x{{ title_text }})}`);
                 $("#{{ script_id }}").remove()
             </script>
             {% endwith %}

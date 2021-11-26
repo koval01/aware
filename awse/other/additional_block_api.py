@@ -20,4 +20,5 @@ class AdditionalBlock:
         data = self.get_json()
         if data and data["RelatedTopics"] and \
                 data["Heading"] and data["AbstractText"]:
+            data["Image"] = "https://duckduckgo.com" + data["Image"]
             return data

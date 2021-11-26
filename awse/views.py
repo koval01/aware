@@ -26,6 +26,7 @@ from .other.quote_get import get_result as get_quote_list
 from .other.wikipedia_random import WikiRandomGet
 from .other.wikipedia_search import WikipediaSearchModule
 from .other.anime import AnimeSearch
+from .other.additional_block_api import AdditionalBlock
 from .other.ip_info import get_data as ip_get_info
 from .search_utils.calculate import calculator
 from .search_utils.namaz_api import get_namaz_data
@@ -675,6 +676,7 @@ def load(request):
                             self.search_api_full_dict = search_api
 
                             self.wiki_result = wikipedia_search_result
+                            self.additional_block = AdditionalBlock(search_send).get()
 
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)

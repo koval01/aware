@@ -34,6 +34,11 @@
 
             {% if vars.typeload == "newsession" %}
 
+                {% if vars.additional_block %}
+                    {# Load additional block. Fast answer #}
+                    {% include 'awse/load_blocks/additional.html' %}
+                {% endif %}
+
                 {% include 'awse/load_blocks/other/animeload.html' %}
 
                 {% if vars.c_result %}

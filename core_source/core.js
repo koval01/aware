@@ -987,6 +987,7 @@ function load_ajax_end_page(o, type_loading) {
                 AOS.refresh();
 
                 loaded_blocks = true;
+                $(".global_class_timeload_block").css("padding-top", "40px");
 
                 if (type_loading == 'newsession') {
                     $(".row-posts-end").empty();

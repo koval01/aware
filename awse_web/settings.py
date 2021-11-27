@@ -136,7 +136,9 @@ NEED_IMAGES_DESC = False
 ANIME_SEARCH_ENABLED = False
 
 STANDART_WIKI = False
-DUCKDUCK_WIKI = False
+DUCKDUCK_WIKI = True
+
+HIDE_TIMELOAD = False
 
 # Application definition
 

@@ -34,7 +34,7 @@
 
             {% if vars.typeload == "newsession" %}
 
-                {% if vars.additional_block %}
+                {% if vars.additional_block and vars.settings.DUCKDUCK_WIKI %}
                     {# Load additional block. Fast answer #}
                     {% include 'awse/load_blocks/additional.html' %}
                 {% endif %}

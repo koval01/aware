@@ -1,7 +1,16 @@
 {% spaceless %}
     {% if vars.q_mode == 2 and vars.typeload == "newsession" and not vars.namaz %}
+        {% with script_id=64|get_random_string text_id=32|get_random_string js_bool=32|get_random_string %}
         <div id="time_load_info">
-            <p class="time_info__">The search took {{ vars.finish_time }}s.</p>
+            <p id="{{ text_id }}" class="time_info__ select_disable_text">
+                The search took {{ vars.finish_time }}s.
+            </p>
+            <script id="{{ script_id }}">
+                let x{{ js_bool }}={{ vars.settings.HIDE_TIMELOAD|lower }};
+                if(x{{ js_bool }}){$("#{{ text_id }}").css("display", "none")};
+                $("#{{ script_id }}").remove()
+            </script>
         </div>
+        {% endwith %}
     {% endif %}
 {% endspaceless %}

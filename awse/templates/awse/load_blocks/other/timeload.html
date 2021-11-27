@@ -1,7 +1,7 @@
 {% spaceless %}
     {% if vars.q_mode == 2 and vars.typeload == "newsession" and not vars.namaz %}
         {% with script_id=64|get_random_string text_id=32|get_random_string js_bool=32|get_random_string %}
-        <awse-timeload id="time_load_info" class="global_class_timeload_block" style="transition: padding-top 1s">
+        <div id="time_load_info" class="global_class_timeload_block" style="transition: padding-top 1s">
             <p id="{{ text_id }}" class="time_info__ select_disable_text">
                 The search took {{ vars.finish_time }}s.
             </p>
@@ -10,7 +10,7 @@
                 if(x{{ js_bool }}){$("#{{ text_id }}").css("display", "none")};
                 $("#{{ script_id }}").remove()
             </script>
-        </awse-timeload>
+        </div>
         {% endwith %}
     {% endif %}
 {% endspaceless %}

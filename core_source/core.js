@@ -13,6 +13,7 @@ const upper_latin = latin_letters.toUpperCase();
 const upper_cyrylic = cyrylic_letters.toUpperCase();
 
 var title_search = "";
+var loaded_blocks = false;
 
 function imgError(o) {
     return (o.onerror = ""), (o.src = background_static__), !0;
@@ -32,7 +33,7 @@ function VideoError(o) {
 }
 
 function BannerError(o) {
-    if (o.getAttribute('done') == 'yes') {
+    if (o.getAttribute('done') === 'yes') {
         o.remove();
         console.log("Banner load error!");
         AOS.refresh();
@@ -913,7 +914,8 @@ function load_ajax_end_page(o, type_loading) {
                 }
 
                 $(".banner_ad_awse").css('width', '50%');
-                $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
+                // $('.awse_hide_blocks_on_index_page').css('visibility', 'hidden');
+                $('.awse_hide_blocks_on_index_page').css('display', 'none');
                 $(".clear_awse_search_string").css("margin-right", "2.5em");
                 $(".search-input-awse").css("padding", "0 75px 0 20px");
 
@@ -983,6 +985,8 @@ function load_ajax_end_page(o, type_loading) {
                 document.querySelector(".search-input").classList.remove("active");
                 $(".float_bg").css("display", "none");
                 AOS.refresh();
+
+                loaded_blocks = true;
 
                 if (type_loading == 'newsession') {
                     $(".row-posts-end").empty();
@@ -1635,10 +1639,12 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
 }
 
 $(".awse_hide_blocks_on_index_page").on("click", function () {
-    if ($.cookie('hide_block_index') == 'no') {
-        hide_blocks_on_index_page_func('yes', true);
-    } else {
-        hide_blocks_on_index_page_func('no', true);
+    if (!loaded_blocks) {
+        if ($.cookie('hide_block_index') == 'no') {
+            hide_blocks_on_index_page_func('yes', true);
+        } else {
+            hide_blocks_on_index_page_func('no', true);
+        }
     }
 });
 

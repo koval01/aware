@@ -87,7 +87,7 @@ class AWSE_Page(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/awse/%s/" % self.unique_id
+        return "/p/%s/" % self.unique_id
 
     class Meta:
         verbose_name = 'AWSE page'

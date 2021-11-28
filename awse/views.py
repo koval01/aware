@@ -634,7 +634,9 @@ def load(request):
                             [el for el in (news_) if el['time'] < last_time_key],
                             key=lambda x: x['time'], reverse=True
                         )[:50]
-                    else: news_data_list = []
+                    else:
+                        news_data_list = []
+                        additional_block_data = AdditionalBlock(search_send).get()
 
                     # all variables
                     class Variables:
@@ -676,7 +678,7 @@ def load(request):
                             self.search_api_full_dict = search_api
 
                             self.wiki_result = wikipedia_search_result
-                            self.additional_block = AdditionalBlock(search_send).get()
+                            self.additional_block = additional_block_data
 
                             # other
                             self.check_bot_request_search = check_bot_request_search(search)

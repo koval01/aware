@@ -3,12 +3,19 @@
 {% block title %}{{ aware.title }} - AWSE Page{% endblock %}
 
 {% block body %}
+    <!-- Title page -->
     <h1 style="font-size:1.6em;color:#fff">
         {{ aware.title }}
-    </h1><br/>
-    <p style="color:#bebebe">
+    </h1>
+    <!-- Time publish page -->
+    <p style="color:#b2b2b2">
+        {{ aware.time }}
+    </p><br/>
+    <!-- Page content -->
+    <p style="color:#dedede">
         {{ aware.page_html_code|safe }}
     </p>
+    <!-- Other -->
     <p class="select_disable_text" style="color:#8a8a8a">
         This is a user page and AWSE is not responsible for its content.
     </p>

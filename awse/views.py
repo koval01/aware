@@ -34,7 +34,7 @@ from .search_utils.search_api import select_type as search_execute
 from .search_utils.search_complete_api import get_result_data as search_complete
 from .search_utils.weather_api import weather_get, get_weather_icon
 from .other.whois_api import get_info_domain
-from .models import Info, Banner
+from .models import Info, Banner, AWSE_Page
 from .news_rev.newsapi import __main__ as newsfeed
 from .news_rev.newsapi_ai import __main__ as newsapiai_get
 from .news_rev.twitterget import __main__ as twitter_news
@@ -446,7 +446,7 @@ def awareview(request, awareid):
     """
     try:
         awareid: request.GET.get('awareid', '')
-        aware_data = AWARE_Page.objects.get(unique_id=awareid)
+        aware_data = AWSE_Page.objects.get(unique_id=awareid)
         return render(request, 'awse/page.html', {
             'aware': aware_data,
         })

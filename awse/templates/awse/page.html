@@ -1,0 +1,10 @@
+{% extends 'awse/default_template.html' %}
+
+{% block title %}{{ aware.title }} - AWSE Page{% endblock %}
+
+{% block body %}
+    <h1>{{ aware.title }}</h1><br/>
+    {{ aware.page_html_code|safe }}
+    <br/><br/>
+    <p style="color:#757575">This is a user page and AWSE is not responsible for its content.</p>
+{% endblock %}

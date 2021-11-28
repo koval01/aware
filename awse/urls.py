@@ -12,6 +12,7 @@ sitemaps_awse_pages = {
 urlpatterns = [
     path('', views.index, name='index_page'),
     path('load', views.load, name='load'),
+    path('aware/<str:awareid>/', views.awareview),
     path('robots.txt', views.robots_txt, name='robots_txt'),
     path('footer_load', views.footer_html, name='footer_load'),
     path('credits', views.credits, name='credits'),

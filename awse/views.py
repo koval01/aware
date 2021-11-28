@@ -437,6 +437,27 @@ def get_video_yt(request):
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
+def awareview(request, awareid):
+    """
+    Aware page view
+    :param awareid: searching fact id
+    :param request: request body
+    :return: render template page
+    """
+    try:
+        awareid: request.GET.get('awareid', '')
+        aware_data = AWARE_Page.objects.get(unique_id=awareid)
+        return render(request, 'awse/page.html', {
+            'aware': aware_data,
+        })
+    except Exception as e:
+        logger.warning("Aware page error: \"%s\"" % e)
+        return error_404(request)
+
+
+@require_GET
+@ratelimit(key=my_ip_key, rate='2/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
 def index(request):
     """
     Index page view

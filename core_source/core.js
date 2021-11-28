@@ -222,16 +222,16 @@ function get__(enc_key_by_function) {
                 }
 
                 data = `
-                    ${generator_local_get__(getRandomInt_local_get__(64) + 64, true)}_
+                    ${generator_local_get__(getRandomInt_local_get__(32) + 32, true)}_
                         ${f_string}_
 
-                    ${generator_local_get__(getRandomInt_local_get__(64) + 64, true)}_
+                    ${generator_local_get__(getRandomInt_local_get__(32) + 32, true)}_
                         ${b_string}_
 
-                    ${generator_local_get__(getRandomInt_local_get__(64) + 64, true)}_
-                        ${generator_local_get__(getRandomInt_local_get__(70) + 20, true)}_
+                    ${generator_local_get__(getRandomInt_local_get__(32) + 32, true)}_
+                        ${generator_local_get__(getRandomInt_local_get__(64) + 24, true)}_
 
-                    ${generator_local_get__(getRandomInt_local_get__(64) + 64, true)}
+                    ${generator_local_get__(getRandomInt_local_get__(32) + 32, true)}
                 `;
 
                 data = data.replace(/\n/g, "").replace(" ", "");

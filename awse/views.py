@@ -635,8 +635,9 @@ def load(request):
                             [el for el in (news_) if el['time'] < last_time_key],
                             key=lambda x: x['time'], reverse=True
                         )[:50]
-                    else:
-                        news_data_list = []
+                    else: news_data_list = []
+
+                    if not news_need_load and not quote_mode:
                         additional_block_data = AdditionalBlock(search_send).get()
 
                     # all variables

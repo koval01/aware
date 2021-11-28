@@ -621,6 +621,7 @@ def load(request):
                     # news data load
                     # country = settings.AVAILABLE_COUNTRY[0]
 
+                    additional_block_data = None  # Init var
                     if news_need_load:
                         if settings.DEBUG: original_address = "195.114.145.97"
                         country = ip_get_info(original_address)

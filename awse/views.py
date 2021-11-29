@@ -448,10 +448,13 @@ def awareview(request, awareid) -> JsonResponse or render:
     :return: render template page
     """
     try:
+        global AWSE_Page
+
         awareid: request.GET.get('awareid', '')
         aware_data = AWSE_Page.objects.get(unique_id=awareid)
+
         try: json_mode = int(request.GET['json_mode'])
-        except: json_mode = False
+        except: json_mode = 0
 
         if json_mode:
             return JsonResponse({

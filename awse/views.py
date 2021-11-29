@@ -453,7 +453,11 @@ def awareview(request, awareid) -> JsonResponse or render:
         except: json_mode = False
 
         if json_mode:
-            return JsonResponse(aware_data)
+            return JsonResponse({
+                "title": aware_data["title"],
+                "text": aware_data["page_html_code"],
+                "publish_time": aware_data["time"]
+            })
 
         else:
             return render(request, 'awse/page.html', {

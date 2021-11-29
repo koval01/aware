@@ -450,9 +450,7 @@ def awareview(request, awareid) -> JsonResponse or render:
     try:
         aware_id: request.GET.get('aware_id', '')
         aware_data = AWSE_Page.objects.get(unique_id=aware_id)
-
-        try: json_mode: request.GET.get('json_mode', '')
-        except: json_mode = False
+        json_mode = True  # debug
 
         if json_mode:
             return JsonResponse({

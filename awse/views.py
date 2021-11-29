@@ -2,8 +2,8 @@ import logging
 import os
 import random
 from datetime import timedelta, datetime
-from random import randint, choice
 from json import loads
+from random import randint, choice
 from time import time
 
 import pafy
@@ -12,42 +12,43 @@ from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse
 from django.template.defaulttags import register
+from django.urls import reverse
 from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_POST
 from ratelimit.decorators import ratelimit
 from requests import get
 
+from .ads_outside.banner import global_func as global_banner_function
+from .ads_outside.block import global_func as global_ad_function
+from .models import AWSE_Page
+from .news_rev.newsapi import __main__ as newsfeed
+from .other.additional_block_api import AdditionalBlock
+from .other.anime import AnimeSearch
 from .other.common_functions import check_bot_request_search, check_request__
 from .other.common_functions import get_random_string as rand_str
 from .other.heroku_api import get_last_build_id as heroku_get_last_build_id
+from .other.ip_info import get_data as ip_get_info
 from .other.quote_get import get_result as get_quote_list
+from .other.text_encoder import encode as encoder_eng
+from .other.views_utils import link_enc_img, sign_adr_enc
+from .other.whois_api import get_info_domain
 from .other.wikipedia_random import WikiRandomGet
 from .other.wikipedia_search import WikipediaSearchModule
-from .other.anime import AnimeSearch
-from .other.additional_block_api import AdditionalBlock
-from .other.ip_info import get_data as ip_get_info
 from .search_utils.calculate import calculator
 from .search_utils.namaz_api import get_namaz_data
 from .search_utils.search_api import select_type as search_execute
 from .search_utils.search_complete_api import get_result_data as search_complete
 from .search_utils.weather_api import weather_get, get_weather_icon
-from .other.whois_api import get_info_domain
-from .models import Info, Banner, AWSE_Page
-from .news_rev.newsapi import __main__ as newsfeed
-from .news_rev.newsapi_ai import __main__ as newsapiai_get
-from .news_rev.twitterget import __main__ as twitter_news
-from .other.text_encoder import encode as encoder_eng
 
 logger = logging.getLogger(__name__)
+
 image_proxy_key = settings.IMAGE_PROXY_KEY
 img_link_proxy_key = settings.IMAGE_PROXY_LINK_KEY
+sign_key = settings.SIGN_ENCRYPT_KEY
 load_encrypt_key = settings.LOAD_ENCRYPT_KEY
 ad_key = settings.ADVERTISE_BOT_KEY
 bot_check_tk = settings.BOT_CHECK_TOKEN
-sign_key = settings.SIGN_ENCRYPT_KEY
 qwriter_api_for_awse = os.environ['AWSE_KEY']
 max_search_len = settings.MAX_SEARCH_LENGTH
 
@@ -102,32 +103,12 @@ def get_random_string(length=16) -> str:
 
 @register.filter
 def link_encrypt_img(link) -> str:
-    try:
-        salt_link = Fernet(img_link_proxy_key)
-        data_link = str.encode(str(link))
-        result = salt_link.encrypt(data_link).decode("utf-8")
-
-        return result
-
-    except Exception as e:
-        logger.error("%s: %s" % (link_encrypt_img.__name__, e))
-
-
-@register.filter
-def num_rounder_custom(val) -> str:
-    return num_formatter(val)
+    return link_enc_img(link)
 
 
 @register.filter
 def sign_address_encrypt(address) -> str:
-    try:
-        salt_sign = Fernet(sign_key)
-        data_sign = str.encode(str(address))
-        result = salt_sign.encrypt(data_sign).decode("utf-8")
-        return result
-
-    except Exception as e:
-        logger.error("%s: %s" % (sign_address_encrypt.__name__, e))
+    return sign_adr_enc(address)
 
 
 def my_ip_key(group, request) -> str:
@@ -250,41 +231,6 @@ def whois_data(request) -> JsonResponse:
     return error_400(request)
 
 
-def global_ad_function(lang: str) -> dict:
-    """
-    Global feature for getting advertising inside viws.py
-    :param lang: Language (language code)
-    :return: Dictionary with data
-    """
-    valid_codes_lang = ['ua', 'ru', 'en']
-
-    if not lang or lang not in valid_codes_lang:
-        lang = "ru"
-
-    obj = Info.objects
-    all_data = obj.all().filter(i_language=lang, i_active='yes')
-
-    if all_data.count():
-        logger.debug("%s: data count - %d" % (global_ad_function.__name__, all_data.count()))
-
-        max_retry = round(200 / (obj.count() / 4))
-        done_get = False
-        n = 0
-
-        while max_retry >= n:
-            n += 1  # Add cycle to counter
-            if not done_get and obj.exists():
-                for i in all_data:
-                    if i.i_chance >= randint(1, 100):
-                        if randint(1, 6) > randint(1, 6) \
-                                and round(time()) < round(i.i_time_active.timestamp()):
-                            done_get = True
-                            obj.filter(id=i.id).update(i_views=i.i_views + 1)  # Add one view
-
-                            return i
-
-
-# @csrf_exempt
 @require_POST
 @ratelimit(key=my_ip_key, rate='30/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
@@ -328,36 +274,6 @@ def get_ad(request) -> JsonResponse:
     return error_400(request)
 
 
-def global_banner_function() -> dict:
-    """
-    Global function for getting banners inside viws.py
-    :return: Dictionary with data
-    """
-    obj = Banner.objects
-    all_data = obj.all().filter(active='yes')
-
-    if all_data.count():
-        logger.debug("%s: data count - %d" % (global_banner_function.__name__, all_data.count()))
-
-        max_retry = round(200 / (obj.count() / 4))
-        if max_retry < 1:
-            max_retry = 1
-        done_get = False
-        n = 0
-
-        while max_retry >= n:
-            n += 1  # Add cycle to counter
-            if not done_get and obj.exists():
-                for i in all_data:
-                    if i.chance >= randint(1, 100):
-                        if randint(1, 6) > randint(1, 6) \
-                                and round(time()) < round(i.time_active.timestamp()):
-                            done_get = True
-                            obj.filter(id=i.id).update(views=i.views + 1)  # Add one view
-
-                            return i
-
-
 @require_POST
 @ratelimit(key=my_ip_key, rate='5/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
@@ -378,20 +294,14 @@ def get_banner(request) -> JsonResponse:
                 return JsonResponse({"error": "no ads available"})
 
             link = "https://%s/?utm_source=%s&utm_medium=%s&utm_campaign=%s&utm_content=%s&utm_term=%s" % (
-                data.link_site,
-                data.utm_source,
-                data.utm_medium,
-                data.utm_campaign,
-                data.utm_content,
-                data.utm_term,
+                data.link_site, data.utm_source, data.utm_medium,
+                data.utm_campaign, data.utm_content, data.utm_term,
             )
 
             img_link = link_encrypt_img(data.link_image)
 
             return JsonResponse({
-                "link": img_link,
-                "ad_site": link,
-                "title": data.text,
+                "link": img_link, "ad_site": link, "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),
                 "time": round(time() - st_time, 3),
             })
@@ -402,7 +312,6 @@ def get_banner(request) -> JsonResponse:
     return error_400(request)
 
 
-# @csrf_exempt
 @require_POST
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
@@ -506,7 +415,6 @@ def index(request) -> render:
     })
 
 
-# @csrf_exempt
 @require_POST
 @cache_page(60 * 900)
 @ratelimit(key=my_ip_key, rate='80/m', block=True)

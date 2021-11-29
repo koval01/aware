@@ -456,12 +456,12 @@ body {
     position:absolute;
     top: 0;
     right: 0;
-    width: 55px !important;
+    width: 75px !important;
     height: 48px !important;
 }
 
 .mask_blur_end_header_text {
-    -webkit-mask-image: -webkit-gradient(linear, 0 50, 30 50, from(rgba(14,14,16,0)), to(rgba(14,14,16,1)));
+    -webkit-mask-image: -webkit-gradient(linear, 0 45, 30 50, from(rgba(14,14,16,0)), to(rgba(14,14,16,1)));
     background: linear-gradient(to left, rgba(14,14,16,1), rgba(0,0,0,0));
     /* blur set */
     -webkit-backdrop-filter: saturate(180%) blur(20px);

@@ -454,12 +454,12 @@ def awareview(request, aware_id) -> JsonResponse or render:
 
         if json_mode:
             return JsonResponse({
-                "title": aware_data["title"],
-                "text": aware_data["page_html_code"],
-                "publish_time": aware_data["time"],
+                "title": aware_data.title,
+                "text": aware_data.page_html_code,
+                "publish_time": aware_data.time,
                 "link": "%s%s" % (
                     reverse("awareview"),
-                    aware_data["unique_id"]
+                    aware_data.unique_id
                 )
             })
 

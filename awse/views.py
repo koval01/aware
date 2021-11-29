@@ -12,6 +12,7 @@ from cryptography.fernet import Fernet
 from django.conf import settings
 from django.http import JsonResponse, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.template.defaulttags import register
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
@@ -456,7 +457,11 @@ def awareview(request, awareid) -> JsonResponse or render:
             return JsonResponse({
                 "title": aware_data["title"],
                 "text": aware_data["page_html_code"],
-                "publish_time": aware_data["time"]
+                "publish_time": aware_data["time"],
+                "link": "%s%s" % (
+                    reverse("awareview"),
+                    aware_data["unique_id"]
+                )
             })
 
         else:

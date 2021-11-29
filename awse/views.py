@@ -440,10 +440,10 @@ def get_video_yt(request) -> JsonResponse:
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def awareview(request, awareid) -> JsonResponse or render:
+def awareview(request, aware_id) -> JsonResponse or render:
     """
     Aware page view
-    :param awareid: searching fact id
+    :param aware_id: searching post id
     :param request: request body
     :return: render template page
     """

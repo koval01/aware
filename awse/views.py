@@ -129,7 +129,7 @@ def sign_address_encrypt(address) -> str:
         logger.error("%s: %s" % (sign_address_encrypt.__name__, e))
 
 
-def my_ip_key(group, request):
+def my_ip_key(group, request) -> str:
     try:
         if settings.CLOUDFLARE:
             user_address = request.headers['CF-Connecting-IP']
@@ -159,7 +159,7 @@ def my_ip_key(group, request):
 @require_GET
 @ratelimit(key=my_ip_key, rate='30/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def image_proxy_view(request):
+def image_proxy_view(request) -> StreamingHttpResponse:
     """
     Image proxy function
     :param request: body request
@@ -207,7 +207,7 @@ def image_proxy_view(request):
 @cache_page(60 * 180)
 @ratelimit(key=my_ip_key, rate='10/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def search_suggestions_get(request):
+def search_suggestions_get(request) -> JsonResponse:
     """
     We receive search suggestions
     :param request: request body
@@ -231,7 +231,7 @@ def search_suggestions_get(request):
 
 
 @require_GET
-def sync_time_server(request):
+def sync_time_server(request) -> JsonResponse:
     return JsonResponse({"time_unix": round(time())})
 
 
@@ -239,11 +239,13 @@ def sync_time_server(request):
 @ratelimit(key=my_ip_key, rate='8/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 @cache_page(60 * 240)
-def whois_data(request):
+def whois_data(request) -> JsonResponse:
     domain = request.POST.get('name', '')
     token = request.POST.get('token', '')
+
     if check_request__(token):
         return JsonResponse(get_info_domain(domain))
+
     return error_400(request)
 
 
@@ -285,7 +287,7 @@ def global_ad_function(lang: str) -> dict:
 @require_POST
 @ratelimit(key=my_ip_key, rate='30/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def get_ad(request):
+def get_ad(request) -> JsonResponse:
     """
     Get advertise
     :param request: request body
@@ -358,7 +360,7 @@ def global_banner_function() -> dict:
 @require_POST
 @ratelimit(key=my_ip_key, rate='5/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def get_banner(request):
+def get_banner(request) -> JsonResponse:
     """
     Get banner ad
     :param request: request body
@@ -403,7 +405,7 @@ def get_banner(request):
 @require_POST
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def get_video_yt(request):
+def get_video_yt(request) -> JsonResponse:
     """
     Get video from YouTube
     :param request: request body
@@ -437,7 +439,7 @@ def get_video_yt(request):
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def awareview(request, awareid):
+def awareview(request, awareid) -> JsonResponse or render:
     """
     Aware page view
     :param awareid: searching fact id
@@ -465,7 +467,7 @@ def awareview(request, awareid):
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def index(request):
+def index(request) -> render:
     """
     Index page view
     :param request: request body
@@ -503,7 +505,7 @@ def index(request):
 @cache_page(60 * 900)
 @ratelimit(key=my_ip_key, rate='80/m', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
-def load(request):
+def load(request) -> render:
     """
     Technical (load) page view
     :param request: request body
@@ -728,7 +730,7 @@ def load(request):
 
 
 @require_GET
-def robots_txt(request):
+def robots_txt(request) -> HttpResponse:
     lines = [
         "User-Agent: *",
         "Disallow: /admin/",
@@ -737,7 +739,7 @@ def robots_txt(request):
 
 
 @require_GET
-def footer_html(request):
+def footer_html(request) -> render:
     if settings.IS_HEROKU: build = heroku_get_last_build_id()
     else: build = settings.BUILD_ID
     return render(request, 'awse/global/footer.html', {
@@ -746,22 +748,22 @@ def footer_html(request):
 
 
 @require_GET
-def credits(request):
+def credits(request) -> render:
     return render(request, 'awse/home/other/credits.html')
 
 
 @require_GET
-def terms(request):
+def terms(request) -> render:
     return render(request, 'awse/pages/terms.html')
 
 
 @require_GET
-def privacy(request):
+def privacy(request) -> render:
     return render(request, 'awse/pages/privacy.html')
 
 
 @require_GET
-def search_config(request):
+def search_config(request) -> render:
     """
     Search XML config
     :param request: request body
@@ -770,7 +772,7 @@ def search_config(request):
     return render(request, 'awse/search.xml', content_type='text/xml')
 
 
-def error_400(request, exception='Unknown'):
+def error_400(request, exception='Unknown') -> render:
     """
     400 error handler page view
     :param request: request body
@@ -783,7 +785,7 @@ def error_400(request, exception='Unknown'):
     }, status=400)
 
 
-def error_403(request, exception='Unknown'):
+def error_403(request, exception='Unknown') -> render:
     """
     403 error handler page view
     :param request: request body
@@ -796,7 +798,7 @@ def error_403(request, exception='Unknown'):
     }, status=403)
 
 
-def error_404(request, exception='Unknown'):
+def error_404(request, exception='Unknown') -> render:
     """
     404 error handler page view
     :param request: request body
@@ -809,7 +811,7 @@ def error_404(request, exception='Unknown'):
     }, status=404)
 
 
-def error_500(request, exception='Unknown'):
+def error_500(request, exception='Unknown') -> render:
     """
     500 error handler page view
     :param request: request body

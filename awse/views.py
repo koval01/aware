@@ -266,7 +266,9 @@ def get_ad(request) -> JsonResponse:
                 if not data:
                     return JsonResponse({"error": "no ads available", "time": round(time() - st_time, 3)})
 
-                return JsonResponse({"text": data.i_text, "time": round(time() - st_time, 3)})
+                return JsonResponse({
+                    "text": data.i_text, "time": round(time() - st_time, 3), "test": settings.ADS_TEST_MODE
+                })
 
     except Exception as e:
         logger.error("%s: %s" % (get_ad.__name__, e))

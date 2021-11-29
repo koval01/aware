@@ -1469,10 +1469,31 @@ function append_ad_block(data) {
 }
 
 function prepend_ad_block_to_search_results(data, ready = true) {
-    var append_advertise_html_code_search_ad = '<div class="col-12 col-lg-12 padding-block-center-box ad_index_el"><div class="user box aos-init aos-animate" \
-    data-aos="fade-up"><div style="float: left;"><label class="city" style="font-size: calc(14px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ));\
-    ">' + String(data['text']).replace('\n', '<br>') + '</label><br/><div style="background: #fff;border-radius: 0.5em;font-weight: 600;font-size: 0.9em;\
-    margin-top: 1em;display: inline-block;"><span style="margin: 0.5em;">Advertising&nbsp;<i class="fas fa-ad"></i></span></div></div></div></div>';
+    var test_badge = `
+        <div style="background:#fff;border-radius:0.5em;font-weight:600;
+                    font-size:0.9em;margin-top:1em;display:inline-block;margin-left:5px">
+            <span style="margin:0.5em">Test&nbsp;<i class="fas fa-vial"></i></span>
+        </div>
+    `;
+    if (data["test"]) { test_badge = null }
+
+    const append_advertise_html_code_search_ad = `
+    <div class="col-12 col-lg-12 padding-block-center-box ad_index_el">
+        <div class="user box aos-init aos-animate" data-aos="fade-up">
+            <div style="float:left">
+                <label class="city" style="font-size: calc(14px + (18 - 14) * ( (100vw - 480px) / ( 1024 - 480) ))">
+                    ${String(data['text']).replace('\n', '<br/>')}
+                </label>
+                <br/>
+                <div style="background:#fff;border-radius:0.5em;font-weight:600;
+                            font-size:0.9em;margin-top:1em;display:inline-block">
+                    <span style="margin: 0.5em">Advertising&nbsp;<i class="fas fa-ad"></i></span>
+                </div>
+                ${test_badge}
+            </div>
+        </div>
+    </div>
+    `;
 
     // $(".advertise-awse-block").empty();
     // $(".row-posts-end-ad").empty();

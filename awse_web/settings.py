@@ -139,6 +139,7 @@ STANDART_WIKI = False
 DUCKDUCK_WIKI = True
 
 HIDE_TIMELOAD = False
+ADS_TEST_MODE = True
 
 # Application definition
 

@@ -449,7 +449,8 @@ def awareview(request, awareid) -> JsonResponse or render:
     try:
         awareid: request.GET.get('awareid', '')
         aware_data = AWSE_Page.objects.get(unique_id=awareid)
-        exec("try: json_mode = request.GET['json_mode']\nexcept: json_mode = False")
+        try: json_mode = request.GET['json_mode']
+        except: json_mode = False
 
         if json_mode:
             return JsonResponse(aware_data)

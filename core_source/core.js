@@ -1475,7 +1475,7 @@ function prepend_ad_block_to_search_results(data, ready = true) {
             <span style="margin:0.5em">Test&nbsp;<i class="fas fa-vial"></i></span>
         </div>
     `;
-    if (data["test"]) { test_badge = null }
+    if (!data["test"]) { test_badge = "" }
 
     const append_advertise_html_code_search_ad = `
     <div class="col-12 col-lg-12 padding-block-center-box ad_index_el">

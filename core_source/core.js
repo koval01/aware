@@ -1497,10 +1497,14 @@ function prepend_ad_block_to_search_results(data, ready = true) {
 
     // $(".advertise-awse-block").empty();
     // $(".row-posts-end-ad").empty();
-    if ($.cookie('hide_block_index') == 'no') {
-        $(".row-posts-end").prepend(append_advertise_html_code_search_ad);
-    } else if ($.cookie('hide_block_index') == 'yes' && ready == false) {
-        $(".row-posts-end").prepend(append_advertise_html_code_search_ad);
+    if (loaded_blocks) {
+        $(".special_block_result").prepend(append_advertise_html_code_search_ad)
+    } else {
+        if ($.cookie('hide_block_index') == 'no') {
+            $(".row-posts-end").prepend(append_advertise_html_code_search_ad)
+        } else if ($.cookie('hide_block_index') == 'yes' && ready == false) {
+            $(".row-posts-end").prepend(append_advertise_html_code_search_ad)
+        }
     }
     AOS.refresh();
 }

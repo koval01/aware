@@ -1,6 +1,6 @@
 {% spaceless %}
     {% if vars.q_mode == 2 and vars.typeload == "newsession" and not vars.namaz %}
-        {% with script_id=64|get_random_string text_id=32|get_random_string js_bool=32|get_random_string %}
+        {% with script_id=64|get_random_string text_id=32|get_random_string js_bool=32|get_random_string special_block=48|get_random_string %}
         <div id="time_load_info" class="global_class_timeload_block" style="transition: padding-top 1s">
             <p id="{{ text_id }}" class="time_info__ select_disable_text">
                 The search took {{ vars.finish_time }}s.
@@ -11,6 +11,7 @@
                 $("#{{ script_id }}").remove()
             </script>
         </div>
+        <div class="special_block_result sbl_{{ special_block }}"></div>
         {% endwith %}
     {% endif %}
 {% endspaceless %}

@@ -447,9 +447,16 @@ def awareview(request, awareid):
     try:
         awareid: request.GET.get('awareid', '')
         aware_data = AWSE_Page.objects.get(unique_id=awareid)
-        return render(request, 'awse/page.html', {
-            'aware': aware_data,
-        })
+        json_mode = request.GET['json_mode']
+
+        if json_mode:
+            return JsonResponse(aware_data)
+
+        else:
+            return render(request, 'awse/page.html', {
+                'aware': aware_data,
+            })
+
     except Exception as e:
         logger.warning("Aware page error: \"%s\"" % e)
         return error_404(request)

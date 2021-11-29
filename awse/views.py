@@ -457,10 +457,7 @@ def awareview(request, aware_id) -> JsonResponse or render:
                 "title": aware_data.title,
                 "text": aware_data.page_html_code,
                 "publish_time": aware_data.time,
-                "link": "%s%s" % (
-                    reverse("custom_page"),
-                    aware_data.unique_id
-                )
+                "link": reverse("custom_page", args=[aware_data.unique_id])
             })
 
         else:

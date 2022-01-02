@@ -142,12 +142,12 @@ def my_ip_key(group, request) -> str:
 @ratelimit(key=my_ip_key, rate='30/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def image_proxy_view(request) -> StreamingHttpResponse:
-    """
-    Image proxy function
-    :param request: body request
-    :return: raw image
-    """
-    try:
+    # """
+    # Image proxy function
+    # :param request: body request
+    # :return: raw image
+    # """
+    # try:
         salt = Fernet(sign_key)
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         original_address = my_ip_key(None, request)
@@ -183,10 +183,10 @@ def image_proxy_view(request) -> StreamingHttpResponse:
         else: logger.error("Received address: %s; Original address: %s" % (
             received_address, original_address))
 
-    except Exception as e:
-        logger.error("%s: %s" % (image_proxy_view.__name__, e))
+    # except Exception as e:
+    #     logger.error("%s: %s" % (image_proxy_view.__name__, e))
 
-    return error_400(request)
+        return error_400(request)
 
 
 @require_GET

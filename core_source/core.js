@@ -1707,7 +1707,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false, token) 
         banner_el.css('display', 'inline-block');
         banner_el.css('width', '80%');
 
-        banner_div.css("margin-top", "-3em");
+        // banner_div.css("margin-top", "-3em");
 
         awse_search_input.css("margin-top", "10px");
 

@@ -1640,7 +1640,7 @@ function hide_blocks_on_index_page_func(action_type, action_by_user = false) {
         temp_html_index_page = $(".row-posts-end").html();
 
         $(".row-posts-end").empty();
-        $(".wrapper").css("margin-top", "");
+        $(".wrapper").css("margin-top", "10px");
         AOS.refresh();
         AOS_update_timer(500);
 

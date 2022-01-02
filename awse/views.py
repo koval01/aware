@@ -153,22 +153,18 @@ def image_proxy_view(request) -> StreamingHttpResponse:
         original_address = my_ip_key(None, request)
 
         logger.debug('%s: check address...' % image_proxy_view.__name__)
-        logger.info("Received address: %s; Original address: %s" % (received_address, original_address))
 
         if original_address == received_address:
             url = request.GET['data']
             salt_link = Fernet(img_link_proxy_key)
             link_get = salt_link.decrypt(str.encode(str(url))).decode('utf-8')
 
-            logger.info("Ordered link: %s" % link_get)
             logger.info('%s: check image link...' % image_proxy_view.__name__)
 
             token = request.GET['token']
             salt = Fernet(image_proxy_key)
             token_get = int(salt.decrypt(str.encode(str(token))).decode('utf-8')) + 30
             control_time = round(time())
-
-            logger.info("Ordered token: %s" % token_get)
 
             if token_get > control_time:
                 response = get(
@@ -182,6 +178,10 @@ def image_proxy_view(request) -> StreamingHttpResponse:
                     status=response.status_code,
                     reason=response.reason,
                 )
+
+            else: logger.error("Ordered link: %s; Ordered token: %s" % (link_get, token_get))
+        else: logger.error("Received address: %s; Original address: %s" % (
+            received_address, original_address))
 
     except Exception as e:
         logger.error("%s: %s" % (image_proxy_view.__name__, e))

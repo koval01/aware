@@ -142,12 +142,12 @@ def my_ip_key(group, request) -> str:
 @ratelimit(key=my_ip_key, rate='30/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def image_proxy_view(request) -> StreamingHttpResponse:
-    # """
-    # Image proxy function
-    # :param request: body request
-    # :return: raw image
-    # """
-    # try:
+    """
+    Image proxy function
+    :param request: body request
+    :return: raw image
+    """
+    try:
         salt = Fernet(sign_key)
         received_address = salt.decrypt(str.encode(str(request.GET['sign']))).decode('utf-8')
         original_address = my_ip_key(None, request)
@@ -183,10 +183,10 @@ def image_proxy_view(request) -> StreamingHttpResponse:
         else: logger.error("Received address: %s; Original address: %s" % (
             received_address, original_address))
 
-    # except Exception as e:
-    #     logger.error("%s: %s" % (image_proxy_view.__name__, e))
+    except Exception as e:
+        logger.error("%s: %s" % (image_proxy_view.__name__, e))
 
-        return error_400(request)
+    return error_400(request)
 
 
 @require_GET
@@ -306,10 +306,14 @@ def get_banner(request) -> JsonResponse:
 
             img_link = link_encrypt_img(data.link_image)
 
+            salt = Fernet(image_proxy_key)
+            data = str.encode(str(round(time())))
+            token_valid = salt.encrypt(data).decode("utf-8")
+
             return JsonResponse({
                 "link": img_link, "ad_site": link, "title": data.text,
                 "id": "%s__%s" % (data.id, rand_str(32)),
-                "time": round(time() - st_time, 3),
+                "time": round(time() - st_time, 3), "token": token_valid,
             })
 
     except Exception as e:

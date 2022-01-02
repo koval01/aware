@@ -1617,7 +1617,8 @@ function check_banner_index(ready = false) {
             c_t___kk_: get__(true),
         },
         success: function (o) {
-            init_banner(o['link'], o['ad_site'], o['title'], o['id'], results_ready = ready);
+            init_banner(o['link'], o['ad_site'], o['title'], o['id'],
+                results_ready = ready, o['token']);
         },
         async: true,
         timeout: 3000,
@@ -1681,7 +1682,7 @@ function scrollToTop() {
     window.scrollTo(0, 0);
 }
 
-function init_banner(link, ad_link, title, id_ad, results_ready = false) {
+function init_banner(link, ad_link, title, id_ad, results_ready = false, token) {
     if (link) {
         var banner_el = $(".banner_ad_awse");
         var banner_div = $(".advertise-awse-block");
@@ -1692,7 +1693,7 @@ function init_banner(link, ad_link, title, id_ad, results_ready = false) {
             title = 'Advertising banner';
         }
 
-        link = imageproxy__ + "?data=" + link + "&video_mode=1&token=" + token_valid__ + '&sign=' + user_address__;
+        link = imageproxy__ + "?data=" + link + "&v=1&token=" + token + '&sign=' + user_address__;
 
         link_el.attr('id', id_ad);
         link_el.attr('href', ad_link);

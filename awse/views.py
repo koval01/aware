@@ -307,8 +307,8 @@ def get_banner(request) -> JsonResponse:
             img_link = link_encrypt_img(data.link_image)
 
             salt = Fernet(image_proxy_key)
-            data = str.encode(str(round(time())))
-            token_valid = salt.encrypt(data).decode("utf-8")
+            data_salt = str.encode(str(round(time())))
+            token_valid = salt.encrypt(data_salt).decode("utf-8")
 
             return JsonResponse({
                 "link": img_link, "ad_site": link, "title": data.text,

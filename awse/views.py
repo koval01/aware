@@ -381,14 +381,14 @@ def awareview_func(request, aware_id, json_mode=False) -> JsonResponse or render
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def awareview(request, aware_id) -> JsonResponse or render:
-    awareview_func(request, aware_id)
+    return awareview_func(request, aware_id)
 
 
 @require_GET
 @ratelimit(key=my_ip_key, rate='2/s', block=True)
 @blacklist_ratelimited(timedelta(minutes=1))
 def awareview_json(request, aware_id) -> JsonResponse or render:
-    awareview_func(request, aware_id, json_mode=True)
+    return awareview_func(request, aware_id, json_mode=True)
 
 
 @require_GET

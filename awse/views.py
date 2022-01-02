@@ -348,10 +348,7 @@ def get_video_yt(request) -> JsonResponse:
     return error_400(request)
 
 
-@require_GET
-@ratelimit(key=my_ip_key, rate='2/s', block=True)
-@blacklist_ratelimited(timedelta(minutes=1))
-def awareview(request, aware_id) -> JsonResponse or render:
+def awareview_func(request, aware_id, json_mode=False) -> JsonResponse or render:
     """
     Aware page view
     :param aware_id: searching post id
@@ -361,7 +358,6 @@ def awareview(request, aware_id) -> JsonResponse or render:
     try:
         aware_id: request.GET.get('aware_id', '')
         aware_data = AWSE_Page.objects.get(unique_id=aware_id)
-        json_mode = True  # debug
 
         if json_mode:
             return JsonResponse({
@@ -379,6 +375,20 @@ def awareview(request, aware_id) -> JsonResponse or render:
     except Exception as e:
         logger.warning("Aware page error: \"%s\"" % e)
         return error_404(request)
+
+
+@require_GET
+@ratelimit(key=my_ip_key, rate='2/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
+def awareview(request, aware_id) -> JsonResponse or render:
+    awareview_func(request, aware_id)
+
+
+@require_GET
+@ratelimit(key=my_ip_key, rate='2/s', block=True)
+@blacklist_ratelimited(timedelta(minutes=1))
+def awareview_json(request, aware_id) -> JsonResponse or render:
+    awareview_func(request, aware_id, json_mode=True)
 
 
 @require_GET
